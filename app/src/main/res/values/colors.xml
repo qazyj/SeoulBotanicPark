@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!--서울 식물원 색상중 가장어두운 초록색-->
+    <color name="colorBase">#4C7F3A</color>
+    <!--하단 바 비활성화일 때 색상(짙은 회색)-->
+    <color name="no">#848587</color>
+    <!--하단 바 배경색-->
+    <color name="navigation_background_color">#FAFAFA</color>
+    <!--홈 화면 배경색-->
+    <color name="home_background_color">#F4D8D7</color>
+</resources>

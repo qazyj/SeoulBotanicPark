@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 하단 바 아이템 4개 -->
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/navigation_home_icon"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/navigation_map_icon"
+        android:title="지도" />
+
+    <item
+        android:id="@+id/plant_book"
+        android:icon="@drawable/navigation_botanical_illustrations_icon"
+        android:title="식물" />
+
+    <item
+        android:id="@+id/information"
+        android:icon="@drawable/navigation_information_icon"
+        android:title="정보" />
+
+</menu>
