@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<!-- 식물 검색 -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorBaseLightGreen"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="식물 검색"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_size_title"
+            android:layout_marginBottom="@dimen/margin_wide"
+            android:textColor="@color/colorWhite"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/colorWhite">
+
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="검색어를 입력하세요"
+                android:ems="10"
+                android:textSize="@dimen/text_size_normal"
+                android:background="@null"
+                android:padding="10dp"
+                android:inputType="text"/>
+
+            <ImageButton
+                android:id="@+id/camera_search_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:src="@drawable/ic_camera_search"
+                android:background="@color/colorTransparent"
+                android:layout_marginEnd="@dimen/margin_normal"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- 식물 도감 -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="식물 도감"
-        android:gravity="center"
-        android:textSize="30dp"/>
+        android:orientation="vertical"
+        android:padding="@dimen/padding_plant_book_item"
+        android:layout_marginBottom="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="식물 도감"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/text_size_title"
+            android:layout_marginBottom="@dimen/margin_wide"
+            android:textColor="@color/colorBase"/>
+
+        <com.example.botanic_park.PlantBookExpandableGridView
+            android:id="@+id/gridview_plant_book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="@dimen/margin_normal"
+            android:horizontalSpacing="@dimen/margin_normal"
+            android:stretchMode="columnWidth"
+            android:padding="10dp"
+            android:overScrollMode="never"/>
+
+    </LinearLayout>
 </LinearLayout>
+</ScrollView>
+
