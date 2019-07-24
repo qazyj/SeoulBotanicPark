@@ -6,7 +6,7 @@
     android:id="@+id/camera_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CameraSearchActivity">
+    tools:context=".PlantSearch.CameraSearchActivity">
 
     <ImageButton
         android:id="@+id/capture_btn"

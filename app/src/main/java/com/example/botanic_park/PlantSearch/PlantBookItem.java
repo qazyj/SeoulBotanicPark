@@ -1,4 +1,6 @@
-package com.example.botanic_park;
+package com.example.botanic_park.PlantSearch;
+
+/* 식물 정보를 긁어 와서 담는 모델  */
 
 public class PlantBookItem {
     private String img_url;

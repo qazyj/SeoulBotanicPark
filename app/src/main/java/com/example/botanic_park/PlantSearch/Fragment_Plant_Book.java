@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.PlantSearch;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +8,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.botanic_park.R;
+import com.example.botanic_park.SSLConnect;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,6 +45,23 @@ public class Fragment_Plant_Book extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        EditText editText = view.findViewById(R.id.search_edit_text);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                switch (i) {
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        // 검색 동작
+                        Intent intent = new Intent();
+                        break;
+                    default:
+                        // 기본 엔터키 동작
+                        return false;
+                }
+                return true;
             }
         });
 

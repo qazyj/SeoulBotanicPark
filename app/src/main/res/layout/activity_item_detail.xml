@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3" >
+
+        <!-- 이미지 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <!-- 닫기 버튼 -->
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:src="@drawable/ic_close"
+            android:elevation="5dp"
+            android:background="@null"/>
+    </FrameLayout>
+
+    <!-- 상세정보 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/title_name"
+            style="@style/SubTitleTheme"
+            android:text="이    름:" />
+
+        <TextView
+            android:id="@+id/content_name"
+            style="@style/DetailTextTheme"
+            android:layout_toEndOf="@+id/title_name"
+            android:text="이름을 넣어주세요" />
+
+        <TextView
+            android:id="@+id/title_scientific_name"
+            style="@style/SubTitleTheme"
+            android:layout_below="@id/title_name"
+            android:text="학    명:" />
+
+        <TextView
+            android:id="@+id/content_scientific_name"
+            style="@style/DetailTextTheme"
+            android:layout_below="@id/title_name"
+            android:layout_toEndOf="@+id/title_scientific_name"
+            android:text="학명을 넣어주세요" />
+
+        <TextView
+            android:id="@+id/title_name_en"
+            style="@style/SubTitleTheme"
+            android:layout_below="@+id/title_scientific_name"
+            android:text="영    명:" />
+
+        <TextView
+            android:id="@+id/content_name_en"
+            style="@style/DetailTextTheme"
+            android:layout_below="@+id/title_scientific_name"
+            android:layout_toEndOf="@+id/title_name_en"
+            android:text="영명을 넣어주세요" />
+
+        <TextView
+            android:id="@+id/title_type"
+            style="@style/SubTitleTheme"
+            android:layout_below="@+id/title_name_en"
+            android:text="구    분:" />
+
+        <TextView
+            android:id="@+id/content_type"
+            style="@style/DetailTextTheme"
+            android:layout_below="@+id/title_name_en"
+            android:layout_toEndOf="@+id/title_type"
+            android:text="구분을 넣어주세요" />
+
+        <TextView
+            android:id="@+id/title_blossom"
+            style="@style/SubTitleTheme"
+            android:layout_below="@+id/title_type"
+            android:text="개화기:" />
+
+        <TextView
+            android:id="@+id/content_blossom"
+            style="@style/DetailTextTheme"
+            android:layout_below="@+id/title_type"
+            android:layout_toEndOf="@+id/title_blossom"
+            android:text="개화기를 넣어주세요" />
+
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_blossom"
+            android:text="상세정보"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

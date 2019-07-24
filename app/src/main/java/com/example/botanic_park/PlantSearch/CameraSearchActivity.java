@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.PlantSearch;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.example.botanic_park.R;
 
 /* 이미지 식물 검색 액티비티 */
 public class CameraSearchActivity extends AppCompatActivity {
