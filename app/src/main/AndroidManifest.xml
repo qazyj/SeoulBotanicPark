@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_configuration">
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="3t2onfn6cn" />
+
         <activity android:name=".Activity_Webview"></activity>
         <activity android:name=".CameraSearchActivity" />
         <activity android:name=".MainActivity">

@@ -37,5 +37,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
+        // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.4.0'
 }

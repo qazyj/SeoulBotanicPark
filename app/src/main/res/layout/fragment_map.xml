@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="지도"
-        android:gravity="center"
-        android:textSize="30dp"/>
-</LinearLayout>
+    android:name="com.naver.maps.map.MapFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
