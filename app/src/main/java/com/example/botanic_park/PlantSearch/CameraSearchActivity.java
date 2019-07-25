@@ -173,22 +173,22 @@ public class CameraSearchActivity extends AppCompatActivity {
     }
 
     private void showSearchResult(Bitmap bitmap){
-       String name = new String();
+       ProbablePlant result = null;
         try {
             // request API
             PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap), progressBar);
-            name = task.execute().get();
+            result = task.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        finish();
-
         // 검색 결과 창 띄우기
         Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-        intent.putExtra("search word", name);
+        intent.putExtra("search word", result.toString());
         startActivity(intent);
+
+        //finish();
     }
 }

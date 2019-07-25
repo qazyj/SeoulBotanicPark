@@ -22,11 +22,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class PlantAPITask extends AsyncTask<String, Void, String> {
-    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
+    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://api.plant.id/identify";
     private String API_SUGGESION_URL = "https://api.plant.id/check_identifications";
@@ -36,9 +39,11 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
 
     private String image;   // 64bit로 인코딩된 이미지 String
     private JSONArray imageArray;
+    private ArrayList<ProbablePlant> probablePlants;
 
     private Context context;
     private ProgressBar progressBar;
+
 
     public PlantAPITask(Context context, String image, ProgressBar progressBar) {
         this.context = context;
@@ -49,6 +54,8 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
         imageArray = new JSONArray();
         imageArray.put(image);
         imageArray.put("data:image/jpg;base64," + image);
+
+        probablePlants = new ArrayList<ProbablePlant>();
     }
 
     @Override
@@ -58,21 +65,19 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected void onPostExecute(ProbablePlant o) {
+        super.onPostExecute(o);
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        String plantName = new String();
-
+    protected ProbablePlant doInBackground(Object... objects) {
         // 첫번째 request
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
         try {
             Object plantID = new JSONObject(firstResponse).get("id");
-            Log.d("식물 아이디 코드", plantID.toString());
+            //Log.d("식물 아이디 코드", plantID.toString());
 
             // API에서 요구하는 형식에 맞춰줌
             plantIDArray.put(plantID);
@@ -85,19 +90,45 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
 
         // 두번째 request
         String secondResponse = getSuggestions(plantIDArray);
-        try {
-            Object suggestion = new JSONObject(secondResponse).get("suggestions");
-            Log.d("suggestion", suggestion + "");
-            Object name = new JSONObject((String) suggestion).get("name");
-            Log.d("name", name + "");
 
-            plantName = (String) name;
+        try {
+            JSONArray responseArray = new JSONArray(secondResponse);
+            for (int i = 0; i < responseArray.length(); i++) {
+                JSONObject object = (JSONObject) responseArray.get(i);
+                Object suggentions = object.get("suggestions");
+
+                JSONArray suggestionArray = (JSONArray) suggentions;
+                for (int j = 0; j < suggestionArray.length(); j++) {
+                    JSONObject object1 = (JSONObject) suggestionArray.get(i);
+
+                    String name = (String) ((JSONObject) object1.get("plant")).get("name");
+                    double probability = (double) object1.get("probability");
+
+                    ProbablePlant plant = new ProbablePlant(name, probability);
+                    probablePlants.add(plant);  // 결과 후보들을 리스트에 저장
+                }
+
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return plantName;
+        return getMostProbablePlant();
+    }
+
+    private ProbablePlant getMostProbablePlant() {
+        // 가장 유력한 식물 후보를 선택해 반환
+        ProbablePlant mostProbablePlant = probablePlants.get(0);
+
+        for (ProbablePlant plant : probablePlants) {
+            if (mostProbablePlant.probability < plant.probability) {
+                mostProbablePlant = plant;
+            }
+        }
+
+        return mostProbablePlant;
     }
 
     private String sendForIdentification() {
@@ -137,7 +168,6 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
         // sendForIdendtification 에서 얻은 requestID를 통해
         // 식물 이름 검색 결과를 얻음
         String response = null;
-
         try {
             HttpsURLConnection conn = (HttpsURLConnection) getHttpUrlConnection(new URL(API_SUGGESION_URL));
             JSONObject jsonObject = new JSONObject();
@@ -149,12 +179,10 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
             outputStream.write(jsonObject.toString().getBytes());   // Request Body에 Data 세팅
             outputStream.flush();   // Data 입력
 
-            Thread.sleep(5000); // suggestion 값을 얻기 위한 delay (콜백으로 구현하는 방법 생각중)
-
+            Thread.sleep(5000);
             response = getResponse(conn);
-            conn.disconnect();
-            Log.d("두번째 응답", response);
 
+            conn.disconnect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -223,5 +251,21 @@ public class PlantAPITask extends AsyncTask<String, Void, String> {
         }
 
         return response;
+    }
+}
+
+// 가능성 있는 식물에 대한 정보 객체
+class ProbablePlant {
+    String name;
+    double probability;
+
+    public ProbablePlant(String name, double probability) {
+        this.name = name;
+        this.probability = probability;
+    }
+
+    @Override
+    public String toString() {
+        return "name: " + name + "\nprobability: " + probability;
     }
 }

@@ -23,4 +23,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGray">#CDCDCD</color>
 
+    <!-- 글자색 -->
+    <color name="colorNormalText">#303030</color>
+
 </resources>
