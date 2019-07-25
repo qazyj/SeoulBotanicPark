@@ -31,8 +31,6 @@
                 android:id="@+id/gridview_plant_book"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:numColumns="auto_fit"
                 android:verticalSpacing="@dimen/margin_normal"
                 android:horizontalSpacing="@dimen/margin_normal"
@@ -40,12 +38,14 @@
                 android:padding="10dp"
                 android:overScrollMode="never"/>
 
+            <!-- 검색 결과 없음 예외처리 -->
             <LinearLayout
+                android:id="@+id/no_result_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center"
-                android:visibility="invisible">
+                android:visibility="gone">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,6 +64,12 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="test"
+        android:textSize="20sp"/>
 
 </RelativeLayout>
