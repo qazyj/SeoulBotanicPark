@@ -3,7 +3,6 @@ package com.example.botanic_park;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
@@ -24,8 +23,6 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.util.ArrayList;
-
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
@@ -34,9 +31,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
     private InfoWindow infoWindow;
-    private boolean isClickedThemaGarden = false;
-
-    private ArrayList<InfoWindow> themaGardenList = new ArrayList<InfoWindow>();
+    private MainActivity mainActivity;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -52,7 +47,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.setCurveBottomBarVisibility();
         return view;
     }
 
@@ -114,6 +110,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     @UiThread
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
         this.naverMap = naverMap;
         naverMap.setLocationSource(locationSource);
         UiSettings uiSettings = naverMap.getUiSettings();
@@ -123,21 +120,23 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
-        getNormalMarker(naverMap,37.568248938032475,126.83315398465993,"주제 정원");
+        getNormalMarker(naverMap,37.568248938032475,126.83315398465993,"주제정원");
 
-        setThemaGardenInfoWindow();
+        setThemaGardenMarker();
 
         infoWindow = getInfoWindow("정보");
     }
 
+
+    /*----오버레이 생성 메소드----*/
     private Marker setInfowindowMarker(NaverMap naverMap, double latitude, double longitude, String caption)
     {
         final Marker marker = getNormalMarker(naverMap,latitude,longitude,caption);
         marker.setTag(R.array.tema_garden);
         marker.setOnClickListener(new MarkerClick());
+
         return marker;
     }
-
 
     private Marker getNormalMarker(NaverMap naverMap, double latitude, double longitude, String caption)
     {
@@ -150,16 +149,25 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         marker.setMap(naverMap);
         marker.setCaptionText(caption);
         marker.setZIndex(2);
+
         return marker;
     }
 
-    private InfoWindow getInfoWindow(final String describe)
+    private void setGardenMark(String gardenName, double latitude, double longitude)
+    {
+        Marker garden = getNormalMarker(naverMap,latitude,longitude,gardenName);
+        garden.setZIndex(0);
+        garden.setHideCollidedMarkers(true);
+        garden.setForceShowIcon(false);
+        garden.setIconTintColor(Color.BLUE);
+    }
+
+    private InfoWindow getInfoWindow(final String describe)  // infowindow
     {
         InfoWindow infoWindow = new InfoWindow();
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(getContext()) {
             @NonNull
             @Override
-
             public CharSequence getText(@NonNull InfoWindow infoWindow) {
                 return describe;
             }
@@ -171,7 +179,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         return infoWindow;
     }
 
-    private void setThemaGardenInfoWindow()
+
+
+    /*------------*/
+
+    private void setThemaGardenMarker()  // 주제정원 마크
     {
 
         setGardenMark("치유의 정원",37.56867930442805,126.83485658315652);
@@ -185,36 +197,18 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     }
 
-    private void setGardenMark(String gardenName, double latitude, double longitude)
-    {
-        Marker garden = getNormalMarker(naverMap,latitude,longitude,gardenName);
-        garden.setZIndex(0);
-        garden.setHideCollidedMarkers(true);
-        garden.setForceShowIcon(false);
-        garden.setIconTintColor(Color.BLUE);
-    }
+    /*---- 네이버 지도 커스텀 ----*/
 
-    private void showThemaGardenInfoWindow()
-    {
-        isClickedThemaGarden = true;
-        for(InfoWindow garden : themaGardenList) garden.open(naverMap);
-    }
-
-    private void hideThemaGardenInfoWindow()
-    {
-        isClickedThemaGarden = false;
-        for(InfoWindow garden : themaGardenList) garden.close();
-    }
-
-    class NaverMapClick implements NaverMap.OnMapClickListener{
+    class NaverMapClick implements NaverMap.OnMapClickListener{ // 맵 클릭을 위한 리스너
 
         @Override
         public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
-            infoWindow.close();
+            if(infoWindow.getMarker() != null) infoWindow.close();
+            else mainActivity.setCurveBottomBarVisibility();
         }
     }
 
-    class MarkerClick implements Overlay.OnClickListener{
+    class MarkerClick implements Overlay.OnClickListener{ // 마커 클릭을 위한 리스너
 
         @Override
         public boolean onClick(@NonNull Overlay overlay) {
@@ -231,7 +225,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         }
     }
 
-    class InfowindowClick implements Overlay.OnClickListener{
+    class InfowindowClick implements Overlay.OnClickListener{ // 정보창 클릭을 위한 리스너
 
         @Override
         public boolean onClick(@NonNull Overlay overlay) {
@@ -246,15 +240,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         }
     }
 
-    class TrackingModeListener extends FusedLocationSource {
-
-        @Override
-        public void deactivate() {
-            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582,126.83245227349256),15));
-        }
+    class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드 메소드
 
         public TrackingModeListener(@NonNull Fragment fragment, int permissionRequestCode) {
             super(fragment, permissionRequestCode);
+        }
+
+        @Override
+        public void deactivate() {  // 현재 위치 해제 시에 피벗 위치로 카메라 이동
+            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582,126.83245227349256),15));
         }
     }
 

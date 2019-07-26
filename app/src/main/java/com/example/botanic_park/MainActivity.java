@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CurveBottomBar curveBottomBar;
 
+    FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
 
         // 하단 메뉴 설정
-        FloatingActionButton floatingActionButton  = findViewById(R.id.floating_action_button);
+        floatingActionButton  = findViewById(R.id.floating_action_button);
         floatingActionButton .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,4 +121,18 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    public void setCurveBottomBarVisibility() {
+        if (curveBottomBar.isShown())
+        {
+            curveBottomBar.setVisibility(View.GONE);
+            floatingActionButton.hide();
+        }
+        else
+        {
+            curveBottomBar.setVisibility(View.VISIBLE);
+            floatingActionButton.show();
+        }
+    }
+    
 }

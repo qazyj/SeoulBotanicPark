@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment android:id="@+id/map"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="match_parent"
     android:name="com.naver.maps.map.MapFragment"
     app:navermap_latitude=" 37.56801290446582"
     app:navermap_longitude="126.83245227349256"
