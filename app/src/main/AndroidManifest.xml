@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +15,18 @@
         android:networkSecurityConfig="@xml/network_security_configuration"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="3t2onfn6cn" />
         <activity
             android:name=".PlantSearch.DetailPopUpActivity"
             android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,6 +37,7 @@
         <activity android:name=".PlantSearch.CameraSearchActivity" />
         <activity android:name=".PlantSearch.SearchResultActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Facilities_information"/>
     </application>
 
 </manifest>
