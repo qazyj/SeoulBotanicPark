@@ -175,6 +175,11 @@ public class CameraSearchActivity extends AppCompatActivity {
     private void showSearchResult(Bitmap bitmap){
        ProbablePlant result = null;
         try {
+            // 검색 결과 창 띄우기
+            Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
+            intent.putExtra("search word", result.toString());
+            startActivity(intent);
+
             // request API
             PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap), progressBar);
             result = task.execute().get();
@@ -184,10 +189,6 @@ public class CameraSearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // 검색 결과 창 띄우기
-        Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-        intent.putExtra("search word", result.toString());
-        startActivity(intent);
 
         //finish();
     }
