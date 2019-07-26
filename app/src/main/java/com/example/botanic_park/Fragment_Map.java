@@ -23,8 +23,6 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.util.ArrayList;
-
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
@@ -33,6 +31,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
     private InfoWindow infoWindow;
+    private MainActivity mainActivity;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -48,7 +47,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.setCurveBottomBarVisibility();
         return view;
     }
 
@@ -204,7 +204,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         @Override
         public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
-            infoWindow.close();
+            if(infoWindow.getMarker() != null) infoWindow.close();
+            else mainActivity.setCurveBottomBarVisibility();
         }
     }
 

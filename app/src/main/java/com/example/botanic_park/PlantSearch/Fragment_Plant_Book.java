@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Plant_Book extends Fragment {
+
     public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
     public static final int REQUEST_PERMISSION_CODE = 0;
