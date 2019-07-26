@@ -1,5 +1,7 @@
 package com.example.botanic_park;
 
+import android.content.Intent;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
+import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -109,14 +112,17 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         naverMap.setLocationSource(locationSource);
         UiSettings uiSettings = naverMap.getUiSettings();
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        naverMap.setOnMapClickListener(new NaverMapClick());
         getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
+        infoWindow = getInfoWindew("정보");
     }
 
     private void setInfowindowMarker(NaverMap naverMap, double latitude, double longitude, String caption)
     {
         final Marker marker = getNormalMarker(naverMap,latitude,longitude,caption);
         marker.setTag(R.array.tema_garden);
+        marker.setOnClickListener(new MarkerClick());
     }
 
 
@@ -140,16 +146,54 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(getContext()) {
             @NonNull
             @Override
+
             public CharSequence getText(@NonNull InfoWindow infoWindow) {
                 return describe;
             }
+
         });
+
+        infoWindow.setOnClickListener(new InfowindowClick());
 
         return infoWindow;
     }
 
-    private void setInfoWindow()
-    {
+    class NaverMapClick implements NaverMap.OnMapClickListener{
 
+        @Override
+        public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
+            infoWindow.close();
+        }
     }
+
+    class MarkerClick implements Overlay.OnClickListener{
+
+        @Override
+        public boolean onClick(@NonNull Overlay overlay) {
+            Marker marker = (Marker)overlay;
+
+            if(marker.getInfoWindow() == null){
+                infoWindow.open(marker);
+            } else {
+                infoWindow.close();
+            }
+
+            return true;
+        }
+    }
+
+    class InfowindowClick implements Overlay.OnClickListener{
+
+        @Override
+        public boolean onClick(@NonNull Overlay overlay) {
+            InfoWindow infoWindow = (InfoWindow) overlay;
+            Marker marker = infoWindow.getMarker();
+
+            Intent intent = new Intent(getActivity(), Facilities_information.class);
+            startActivity(intent);
+
+            return true;
+        }
+    }
+
 }

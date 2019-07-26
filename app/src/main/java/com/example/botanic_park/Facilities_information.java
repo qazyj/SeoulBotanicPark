@@ -19,7 +19,7 @@ public class Facilities_information extends AppCompatActivity implements View.On
         backButton.setOnClickListener(this);
 
         Intent intent = getIntent();
-        int tag = intent.getIntExtra("tag", 0);
+        int tag = intent.getIntExtra("tag", 1);
         setName(tag);
 
     }

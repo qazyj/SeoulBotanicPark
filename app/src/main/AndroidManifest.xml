@@ -23,6 +23,7 @@
 
         <activity android:name=".Activity_Webview"></activity>
         <activity android:name=".CameraSearchActivity" />
+        <activity android:name=".Facilities_information"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
