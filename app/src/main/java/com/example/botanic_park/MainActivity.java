@@ -1,5 +1,6 @@
 package com.example.botanic_park;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageInfo;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Toast;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -95,7 +98,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // Fragment_Plant_Book에서 작성된 메소드 사용
+        // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
+        fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     // 하단 메뉴 선택 리스너
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -134,5 +142,5 @@ public class MainActivity extends AppCompatActivity {
             floatingActionButton.show();
         }
     }
-
 }
+

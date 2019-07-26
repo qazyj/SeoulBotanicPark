@@ -1,6 +1,7 @@
 package com.example.botanic_park.PlantSearch;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.MainActivity;
 import com.example.botanic_park.R;
 import com.example.botanic_park.SSLConnect;
 
@@ -39,10 +41,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Plant_Book extends Fragment {
-
     public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
-    public static final int REQUEST_PERMISSION_CODE = 0;
 
     PlantBookExpandableGridView plantBookGridView;
     ArrayList<PlantBookItem> list;
@@ -78,24 +78,26 @@ public class Fragment_Plant_Book extends Fragment {
         cameraSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 카메라 권한 체크
-                isGetAllPermissons = true;
-                String[] permissions = {Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                String[] permissions = {
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+                ArrayList<String> ungranted_permissions = new ArrayList<>();
 
-                for(int i=0; i<permissions.length; i++) {
-                    int permission = ContextCompat.checkSelfPermission(getContext(), permissions[i]);
-                    if (permission != PackageManager.PERMISSION_GRANTED) {
-                        // 권한이 없는 경우 요청
-                        requestPermission(new String[]{permissions[i]});
-                        isGetAllPermissons = false;
-
-                    }
+                for(String permission : permissions){
+                    if(!CheckPermission.isGrantedPermission(getActivity(), permission))
+                        ungranted_permissions.add(permission);
                 }
 
-                if(isGetAllPermissons)
-                    showCameraActivity();   // 권한이 있는 경우
 
+                if(ungranted_permissions.size() > 0) {
+                    // 권한 요청
+                    CheckPermission.requestPermissions(getActivity(),
+                            ungranted_permissions.toArray(new String[ungranted_permissions.size()]));
+                } else{
+                    startCameraActivity();
+                }
             }
         });
 
@@ -133,38 +135,59 @@ public class Fragment_Plant_Book extends Fragment {
         return view;
     }
 
-    private void showCameraActivity(){
+    private void startCameraActivity(){
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
         startActivity(intent);   // 카메라 액티비티 띄움
     }
 
-    private void requestPermission(String[] permissions){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    permissions, REQUEST_PERMISSION_CODE); // 권한 요청
-
-            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_PERMISSION_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        Log.d("테스트", "onRequesPermissionsResult");
+        if (requestCode == CheckPermission.PERMISSION_REQUEST_CODE) {
+            if (CheckPermission.verifyPermission(grantResults)) {
                 // 동의 했을 경우
-                showCameraActivity();
+                startCameraActivity();
             } else {
                 // 거부 했을 경우
-                Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_SHORT).show();
 
             }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
 
-class PlantBookAdapter extends BaseAdapter{
+// 권한 체크, 요청을 담당
+class CheckPermission {
+    public static final int PERMISSION_REQUEST_CODE = 0;
+
+    public static boolean isGrantedPermission(Activity activity, String permission) {
+        int permissionResult = ActivityCompat.checkSelfPermission(activity, permission);
+        if (permissionResult == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        return false;
+    }
+
+    public static void requestPermissions(Activity activity, String[] permissions) {
+        ActivityCompat.requestPermissions(activity, permissions, PERMISSION_REQUEST_CODE);
+    }
+
+    public static boolean verifyPermission(int[] grantResults) {
+        // 모든 권한이 허가 받았는지 확인
+        if (grantResults.length < 1) {
+            return false;
+        }
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED)
+                return false;
+        }
+        return true;
+    }
+}
+
+class PlantBookAdapter extends BaseAdapter {
     Context context;
     int layout;
     ArrayList<PlantBookItem> list;  // item 목록
