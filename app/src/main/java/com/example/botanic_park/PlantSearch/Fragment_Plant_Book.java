@@ -46,6 +46,8 @@ public class Fragment_Plant_Book extends Fragment {
     PlantBookExpandableGridView plantBookGridView;
     ArrayList<PlantBookItem> list;
 
+    boolean isGetAllPermissons = true;
+
     public Fragment_Plant_Book() {
     }
 
@@ -76,23 +78,22 @@ public class Fragment_Plant_Book extends Fragment {
             @Override
             public void onClick(View view) {
                 // 카메라 권한 체크
-                int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+                isGetAllPermissons = true;
+                String[] permissions = {Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-                if(permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    // 권한이 없는 경우
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-                        Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
-                    } else {
-                        ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CODE); // 권한 요청
+                for(int i=0; i<permissions.length; i++) {
+                    int permission = ContextCompat.checkSelfPermission(getContext(), permissions[i]);
+                    if (permission != PackageManager.PERMISSION_GRANTED) {
+                        // 권한이 없는 경우 요청
+                        requestPermission(new String[]{permissions[i]});
+                        isGetAllPermissons = false;
 
-                        Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
                     }
-
-                }else{
-                    // 권한이 있는 경우
-                    showCameraActivity();
                 }
+
+                if(isGetAllPermissons)
+                    showCameraActivity();   // 권한이 있는 경우
 
             }
         });
@@ -134,6 +135,17 @@ public class Fragment_Plant_Book extends Fragment {
     private void showCameraActivity(){
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
         startActivity(intent);   // 카메라 액티비티 띄움
+    }
+
+    private void requestPermission(String[] permissions){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    permissions, REQUEST_PERMISSION_CODE); // 권한 요청
+
+            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -196,7 +208,7 @@ class PlantBookAdapter extends BaseAdapter{
         //Log.d("debug output", item.toString());
 
         ImageView imageView = view.findViewById(R.id.image_thumb);
-        Glide.with(view).load(item.getImg_url()).thumbnail(0.1f).into(imageView);
+        //Glide.with(view).load(item.getImg_url()).thumbnail(0.1f).into(imageView);
 
         TextView koNameView = view.findViewById(R.id.name_ko);
         koNameView.setText(item.getName_ko());
