@@ -47,7 +47,8 @@
                 android:textSize="@dimen/text_size_normal"
                 android:background="@null"
                 android:padding="10dp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:imeOptions="actionSearch"/>
 
             <ImageButton
                 android:id="@+id/camera_search_btn"
@@ -80,12 +81,11 @@
             android:layout_marginBottom="@dimen/margin_wide"
             android:textColor="@color/colorBase"/>
 
-        <com.example.botanic_park.PlantBookExpandableGridView
+        <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
             android:id="@+id/gridview_plant_book"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
             android:numColumns="auto_fit"
             android:verticalSpacing="@dimen/margin_normal"
             android:horizontalSpacing="@dimen/margin_normal"

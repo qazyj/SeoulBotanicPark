@@ -21,6 +21,10 @@
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLightGray">#CDCDCD</color>
+
+    <!-- 글자색 -->
+    <color name="colorNormalText">#303030</color>
 
     <color name="colorPrimaryRipple">#00FF0000</color>
 </resources>

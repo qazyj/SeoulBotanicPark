@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".MainActivity">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                tools:context=".MainActivity">
 
 
     <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingactionbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/floating_qrcode_icon"
-        app:backgroundTint="@color/colorBaseLightGreen"
-        android:layout_marginBottom="35dp"
-        android:layout_alignParentBottom="true"
-        android:elevation="10dp"/>
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/floating_qrcode_icon"
+            app:backgroundTint="@color/colorBaseLightGreen"
+            android:layout_marginBottom="35dp"
+            android:layout_alignParentBottom="true"
+            android:elevation="10dp"/>
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <com.example.botanic_park.CurveBottomBar
-            android:id="@+id/customBottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:itemIconTint="@color/bottom_bar_item_color"
-            app:itemTextColor="@color/bottom_bar_item_color"
-            android:layout_gravity="bottom"
-            app:bottomBarColor="@color/navigation_background_color"
-            app:curveRadius="25dp"
-            app:labelVisibilityMode="labeled"/>
+                android:id="@+id/customBottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:itemIconTint="@color/bottom_bar_item_color"
+                app:itemTextColor="@color/bottom_bar_item_color"
+                android:layout_gravity="bottom"
+                app:bottomBarColor="@color/navigation_background_color"
+                app:curveRadius="25dp"
+                app:labelVisibilityMode="labeled"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

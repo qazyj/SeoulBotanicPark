@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.PlantSearch;
 
 import android.content.Context;
 import android.hardware.Camera;
