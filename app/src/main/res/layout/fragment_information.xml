@@ -45,7 +45,7 @@
                 android:padding="16dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:src="@drawable/information_information_use_icon"
                     android:layout_width="100dp"
@@ -79,7 +79,7 @@
                 android:padding="16dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:src="@drawable/information_way_to_come_icon"
                     android:layout_width="100dp"
@@ -91,7 +91,6 @@
                     android:text="오시는 길"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
 
             </LinearLayout>
 
