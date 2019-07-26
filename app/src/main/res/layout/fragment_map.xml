@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment android:id="@+id/map"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="500dp"
     android:name="com.naver.maps.map.MapFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    app:navermap_latitude=" 37.56801290446582"
+    app:navermap_longitude="126.83245227349256"
+    app:navermap_zoom="15"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
