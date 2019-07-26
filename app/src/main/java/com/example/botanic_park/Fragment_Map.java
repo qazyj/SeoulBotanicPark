@@ -4,17 +4,15 @@ import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.LocationTrackingMode;
-import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.CameraPosition;
+import com.naver.maps.map.LocationSource;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -111,11 +109,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         this.naverMap = naverMap;
         naverMap.setLocationSource(locationSource);
         UiSettings uiSettings = naverMap.getUiSettings();
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        uiSettings.setLocationButtonEnabled(true);
         naverMap.setOnMapClickListener(new NaverMapClick());
+        naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
+
         getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
-        infoWindow = getInfoWindew("정보");
+
+        infoWindow = getInfoWindow("정보");
     }
 
     private void setInfowindowMarker(NaverMap naverMap, double latitude, double longitude, String caption)
@@ -140,7 +141,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         return marker;
     }
 
-    private InfoWindow getInfoWindew(final String describe)
+    private InfoWindow getInfoWindow(final String describe)
     {
         InfoWindow infoWindow = new InfoWindow();
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(getContext()) {
@@ -196,4 +197,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         }
     }
 
+    class TrackingModeListener extends FusedLocationSource {
+
+        @Override
+        public void deactivate() {
+            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582,126.83245227349256),15));
+        }
+
+        public TrackingModeListener(@NonNull Fragment fragment, int permissionRequestCode) {
+            super(fragment, permissionRequestCode);
+        }
+    }
 }
