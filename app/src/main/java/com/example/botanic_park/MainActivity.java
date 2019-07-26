@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,16 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FragmentTransaction transaction;
+
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment_Home fragment_Home = new Fragment_Home();
     private Fragment_Map fragment_Map = new Fragment_Map();
     private Fragment_Plant_Book fragment_Plant_Book = new Fragment_Plant_Book();
     private Fragment_Information fragment_Information = new Fragment_Information();
+    private Fragment_QrCode fragment_QrCode=new Fragment_QrCode();
+
+    private CurveBottomBar cbb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +34,26 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
 
+        initView();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new FABClickListener());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-    }
+
+        //Set values at runtime
+        //cbb.setBottomBarColor(getResources().getColor(R.color.yellow));
+        //cbb.setCurveRadius(52);
+
+        cbb.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+ }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction = fragmentManager.beginTransaction();
 
             switch(menuItem.getItemId())
             {
@@ -58,5 +72,21 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
+    }
+
+    class FABClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.frame_container, fragment_QrCode).commitAllowingStateLoss();
+        }
+    }
+
+    private void initView() {
+
+        cbb = findViewById(R.id.customBottomBar);
+        cbb.inflateMenu(R.menu.navigation);
+
     }
 }
