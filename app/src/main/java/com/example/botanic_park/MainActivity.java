@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Map fragment_Map;
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
-    private Fragment_QRCode fragment_QRCode;
 
     private ArrayList<PlantBookItem> list;
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // 로딩 액티비티에서 파싱해온 정보 받음
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(LoadingActivity.PLANT_LIST_KEY);
 
         //상태 바 색 바꿔줌
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         fragment_Map = new Fragment_Map();
         fragment_Plant_Book = Fragment_Plant_Book.newInstance(list);
         fragment_Information = new Fragment_Information();
-        fragment_QRCode = new Fragment_QRCode();
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -68,11 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 하단 메뉴 설정
         FloatingActionButton floatingActionButton  = findViewById(R.id.floating_action_button);
-        floatingActionButton .setOnClickListener(new View.OnClickListener() {
+        //floatingActionButton.setRippleColor(0);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frame_container, fragment_QRCode).commitAllowingStateLoss();
+                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
+                startActivity(intent1); // QR 액티비티 띄움
             }
         });
 

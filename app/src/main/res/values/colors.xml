@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#55A37C</color>
+    <color name="colorPrimaryRipple">#00FF0000</color>
 
     <!--서울 식물원 색상 중 가장 어두운 초록색-->
     <color name="colorBase">#4C7F3A</color>

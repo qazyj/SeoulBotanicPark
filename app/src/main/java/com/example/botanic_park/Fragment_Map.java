@@ -198,14 +198,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     {
         isClickedThemaGarden = true;
         for(InfoWindow garden : themaGardenList) garden.open(naverMap);
-        buffer.setMap(null);
+        //buffer.setMap(null);
     }
 
     private void hideThemaGardenInfoWindow()
     {
         isClickedThemaGarden = false;
         for(InfoWindow garden : themaGardenList) garden.close();
-        buffer.setMap(naverMap);
+        //buffer.setMap(naverMap);
     }
 
     class NaverMapClick implements NaverMap.OnMapClickListener{
