@@ -22,4 +22,5 @@
     <color name="colorTransparent">#00FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
 
+    <color name="colorPrimaryRipple">#00FF0000</color>
 </resources>

@@ -14,15 +14,16 @@
         android:id="@+id/seoul_botanical_garden_logo"
         android:src="@drawable/seoul_botanical_garden_logo"/>
 
+    <!--서울 미세먼지 api-->
     <kr.go.seoul.airquality.AirQualityTypeMini
-        android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
         android:id="@+id/button_mini"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
     <GridLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:columnCount="2"
         android:rowCount="3"
         android:alignmentMode="alignMargins"
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--카드뷰-->
         <android.support.v7.widget.CardView
             android:id="@+id/information_information_use"
             android:layout_width="wrap_content"
@@ -40,6 +42,7 @@
             app:cardCornerRadius="12dp"
             android:layout_margin="12dp">
 
+            <!--이미지와 텍스트가 있는 카드뷰 추가-->
             <LinearLayout
                 android:orientation="vertical"
                 android:padding="16dp"
@@ -64,6 +67,7 @@
 
         </android.support.v7.widget.CardView>
 
+        <!--밑에는 위와 동일-->
         <android.support.v7.widget.CardView
             android:id="@+id/information_way_to_come"
             android:layout_width="wrap_content"

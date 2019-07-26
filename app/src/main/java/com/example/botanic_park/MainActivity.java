@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Map fragment_Map = new Fragment_Map();
     private Fragment_Plant_Book fragment_Plant_Book = new Fragment_Plant_Book();
     private Fragment_Information fragment_Information = new Fragment_Information();
-    private Fragment_QrCode fragment_QrCode=new Fragment_QrCode();
+    private Fragment_QRCode fragment_QRCode=new Fragment_QRCode();
 
     private CurveBottomBar cbb;
 
@@ -34,18 +34,15 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
 
-        initView();
+        cbb = findViewById(R.id.customBottomBar);
+        cbb.inflateMenu(R.menu.navigation);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new FABClickListener());
-
-
-        //Set values at runtime
-        //cbb.setBottomBarColor(getResources().getColor(R.color.yellow));
-        //cbb.setCurveRadius(52);
+        //FloatingActionButton click event
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingactionbutton);
+        floatingActionButton.setOnClickListener(new FABClickListener());
 
         cbb.setOnNavigationItemSelectedListener(new ItemSelectedListener());
  }
@@ -79,14 +76,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.frame_container, fragment_QrCode).commitAllowingStateLoss();
+            transaction.replace(R.id.frame_container, fragment_QRCode).commitAllowingStateLoss();
         }
-    }
-
-    private void initView() {
-
-        cbb = findViewById(R.id.customBottomBar);
-        cbb.inflateMenu(R.menu.navigation);
-
     }
 }
