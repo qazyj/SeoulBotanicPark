@@ -18,11 +18,11 @@ import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.widget.LocationButtonView;
 
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
@@ -33,6 +33,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private NaverMap naverMap;
     private InfoWindow infoWindow;
     private MainActivity mainActivity;
+    private LocationButtonView locationButtonView;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -50,7 +51,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
-        mainActivity.setCurveBottomBarVisibility();
         return view;
     }
 
@@ -61,6 +61,10 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState);
         mapView = view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(naverMap -> {
+            locationButtonView = getActivity().findViewById(R.id.zoom);
+            locationButtonView.setMap(naverMap);
+        });
         mapView.getMapAsync(this);
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
@@ -115,8 +119,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         this.naverMap = naverMap;
         naverMap.setLocationSource(locationSource);
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setLocationButtonEnabled(true);
         naverMap.setOnMapClickListener(new NaverMapClick());
         naverMap.setLocationSource(new TrackingModeListener(this, LOCATION_PERMISSION_REQUEST_CODE));
 
@@ -201,11 +203,23 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     /*---- 네이버 지도 커스텀 ----*/
 
+    private void locationButtonEnabled()
+    {
+       if( locationButtonView.isShown()) locationButtonView.setVisibility(View.GONE);
+       else locationButtonView.setVisibility(View.VISIBLE);
+
+    }
+
+
     class NaverMapClick implements NaverMap.OnMapClickListener{ // 맵 클릭을 위한 리스너
         @Override
         public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
             if(infoWindow.getMarker() != null) infoWindow.close();
-            else mainActivity.setCurveBottomBarVisibility();
+            else
+            {
+                mainActivity.setCurveBottomBarVisibility();
+                locationButtonEnabled();
+            }
         }
     }
 

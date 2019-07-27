@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
 import android.graphics.Color;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
             transaction = fragmentManager.beginTransaction();
 
             switch(menuItem.getItemId())
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
             curveBottomBar.setVisibility(View.VISIBLE);
             floatingActionButton.show();
         }
+
     }
 }
 
