@@ -13,6 +13,13 @@
         android:id="@+id/seoul_botanical_garden_logo"
         android:src="@drawable/seoul_botanical_garden_logo"/>
 
+    <!--서울 미세먼지 api-->
+    <kr.go.seoul.airquality.AirQualityTypeMini
+            android:layout_marginTop="20dp"
+            android:id="@+id/button_mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
 
     <ImageView
         android:layout_width="wrap_content"

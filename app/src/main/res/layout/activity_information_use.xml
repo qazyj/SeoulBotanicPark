@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:id="@+id/seoul_botanical_garden_logo"
+            android:src="@drawable/seoul_botanical_garden_logo"/>
+
+    <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+          <LinearLayout
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+              <!-- 이미지 -->
+              <ImageView
+                      android:id="@+id/seoul_botanical_garden_section_place"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" />
+
+              <!--텍스트-->
+              <TextView
+                      android:id="@+id/no_theme_place"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <TextView
+                      android:id="@+id/theme_place"
+                      style="@style/SubTitleTheme"
+                      android:text="" ></TextView>
+
+
+          </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

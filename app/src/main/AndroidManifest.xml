@@ -32,11 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_Webview" />
         <activity android:name=".PlantSearch.CameraSearchActivity" />
         <activity android:name=".PlantSearch.SearchResultActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Facilities_information"/>
+        <activity android:name=".ActivityInformationUse"/>
     </application>
 
 </manifest>
