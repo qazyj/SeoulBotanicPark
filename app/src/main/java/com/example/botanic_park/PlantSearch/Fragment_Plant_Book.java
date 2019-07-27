@@ -1,20 +1,14 @@
 package com.example.botanic_park.PlantSearch;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,29 +22,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.botanic_park.MainActivity;
-import com.example.botanic_park.PermissionCheck;
-import com.example.botanic_park.R;
-import com.example.botanic_park.SSLConnect;
+import com.example.botanic_park.*;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Plant_Book extends Fragment {
-    public static final int PERMISSION_REQUEST_CODE = 0;
+    public static final int PERMISSION_REQUEST_CODE = 2000;
 
     public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
+    public static final String SEARCH_WORD_KEY = "search word";
 
     PlantBookExpandableGridView plantBookGridView;
     ArrayList<PlantBookItem> list;
-
-    boolean isGetAllPermissons = true;
 
     public Fragment_Plant_Book() {
     }
@@ -58,7 +42,7 @@ public class Fragment_Plant_Book extends Fragment {
     public static Fragment_Plant_Book newInstance(ArrayList<PlantBookItem> list) {
         Fragment_Plant_Book fragment = new Fragment_Plant_Book();
         Bundle args = new Bundle();
-        args.putSerializable(PLANT_LIST_KEY, list);
+        args.putSerializable(LoadingActivity.PLANT_LIST_KEY, list);
         fragment.setArguments(args);
 
         return fragment;
@@ -104,17 +88,19 @@ public class Fragment_Plant_Book extends Fragment {
             }
         });
 
-        EditText editText = view.findViewById(R.id.search_edit_text);
+        final EditText editText = view.findViewById(R.id.search_edit_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 switch (i) {
                     case EditorInfo.IME_ACTION_SEARCH:
-                        // 검색 동작
-                        Intent intent = new Intent();
+                        // 텍스트 검색 동작
+                        Intent intent = new Intent(getContext(), SearchResultActivity.class);
+                        intent.putExtra(PLANT_LIST_KEY, list);
+                        intent.putExtra(SEARCH_WORD_KEY, String.valueOf(editText.getText()));
+                        startActivity(intent);  // 검색 결과 리스트 창 띄움
                         break;
                     default:
-                        // 기본 엔터키 동작
                         return false;
                 }
                 return true;
@@ -123,7 +109,7 @@ public class Fragment_Plant_Book extends Fragment {
 
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
 
-        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(), R.layout.item_plant_preview, list);
+        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(), R.layout.item_plant, list);
         plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
         plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,36 +145,7 @@ public class Fragment_Plant_Book extends Fragment {
         }
     }
 }
-/*
-// 권한 체크, 요청을 담당
-class PermissionCheck {
-    public static final int PERMISSION_REQUEST_CODE = 0;
 
-    public static boolean isGrantedPermission(Activity activity, String permission) {
-        int permissionResult = ActivityCompat.checkSelfPermission(activity, permission);
-        if (permissionResult == PackageManager.PERMISSION_GRANTED)
-            return true;
-
-        return false;
-    }
-
-    public static void requestPermissions(Activity activity, String[] permissions) {
-        ActivityCompat.requestPermissions(activity, permissions, PERMISSION_REQUEST_CODE);
-    }
-
-    public static boolean verifyPermission(int[] grantResults) {
-        // 모든 권한이 허가 받았는지 확인
-        if (grantResults.length < 1) {
-            return false;
-        }
-        for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED)
-                return false;
-        }
-        return true;
-    }
-}
-*/
 class PlantBookAdapter extends BaseAdapter {
     Context context;
     int layout;

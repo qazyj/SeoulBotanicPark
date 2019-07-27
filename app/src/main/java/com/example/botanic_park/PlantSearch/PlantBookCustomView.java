@@ -1,7 +1,9 @@
 package com.example.botanic_park.PlantSearch;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -23,6 +25,7 @@ class PlantBookItemLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PlantBookItemLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -36,7 +39,6 @@ class PlantBookItemLayout extends LinearLayout {
 }
 
 /* 식물 도감을 보여주는 그리드뷰 */
-
 class PlantBookExpandableGridView extends GridView{
 
     public PlantBookExpandableGridView(Context context) {
@@ -51,6 +53,7 @@ class PlantBookExpandableGridView extends GridView{
         super(context, attrs, defStyleAttr);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PlantBookExpandableGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

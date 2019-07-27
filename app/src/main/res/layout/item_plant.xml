@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.botanic_park.PlantSearch.PlantBookItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/border_normal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout>
+        <TextView
+            android:id="@+id/name_ko"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="오디에디아 비푸카타"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/name_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Foxtail palm"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/name_sc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Wodyetia bifurcata"
+            android:textSize="15sp"
+            android:textStyle="italic"/>
+    </LinearLayout>
+</com.example.botanic_park.PlantSearch.PlantBookItemLayout>

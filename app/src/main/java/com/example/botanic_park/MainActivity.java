@@ -7,8 +7,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        // getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
 
         // 프래그먼트 객체 생성
@@ -103,12 +107,11 @@ public class MainActivity extends AppCompatActivity {
         // 프레그먼트에서 오버라이드된 메소드 사용
         // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
 
-        Log.d("test", requestCode + "");
         if(requestCode == Fragment_Plant_Book.PERMISSION_REQUEST_CODE) {
-            Log.d("test", "식물도감");
+            // 식물 이미지 검색 권한
             fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
         } else {
-            Log.d("test", "맵");
+            // 지도 위치 탐색 권한
             fragment_Map.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
