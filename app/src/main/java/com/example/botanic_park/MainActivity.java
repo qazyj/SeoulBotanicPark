@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
+import android.drm.DrmStore;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
             transaction = fragmentManager.beginTransaction();
 
             switch(menuItem.getItemId())
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             curveBottomBar.setVisibility(View.VISIBLE);
             floatingActionButton.show();
         }
+
     }
 
 }
