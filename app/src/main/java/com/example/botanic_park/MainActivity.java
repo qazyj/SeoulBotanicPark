@@ -100,9 +100,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        // Fragment_Plant_Book에서 작성된 메소드 사용
+        // 프레그먼트에서 오버라이드된 메소드 사용
         // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
-        fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Log.d("test", requestCode + "");
+        if(requestCode == Fragment_Plant_Book.PERMISSION_REQUEST_CODE) {
+            Log.d("test", "식물도감");
+            fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        } else {
+            Log.d("test", "맵");
+            fragment_Map.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     // 하단 메뉴 선택 리스너

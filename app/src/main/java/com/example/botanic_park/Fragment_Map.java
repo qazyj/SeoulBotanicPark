@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private MapView mapView;
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
@@ -35,12 +36,13 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (locationSource.onRequestPermissionsResult(
-                requestCode, permissions, grantResults)) {
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
             return;
-        }
-        super.onRequestPermissionsResult(
-                requestCode, permissions, grantResults);
+
+        if (!PermissionCheck.verifyPermission(grantResults)) // 거부 했을 경우
+            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_SHORT).show();
+        else
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -116,7 +118,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
         naverMap.setOnMapClickListener(new NaverMapClick());
-        naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
+        naverMap.setLocationSource(new TrackingModeListener(this, LOCATION_PERMISSION_REQUEST_CODE));
 
         getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");

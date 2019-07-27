@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.PermissionCheck;
 import com.example.botanic_park.R;
 import com.example.botanic_park.SSLConnect;
 
@@ -41,6 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Plant_Book extends Fragment {
+    public static final int PERMISSION_REQUEST_CODE = 0;
+
     public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
 
@@ -86,15 +89,15 @@ public class Fragment_Plant_Book extends Fragment {
                 ArrayList<String> ungranted_permissions = new ArrayList<>();
 
                 for(String permission : permissions){
-                    if(!CheckPermission.isGrantedPermission(getActivity(), permission))
+                    if(!PermissionCheck.isGrantedPermission(getActivity(), permission))
                         ungranted_permissions.add(permission);
                 }
 
 
                 if(ungranted_permissions.size() > 0) {
                     // 권한 요청
-                    CheckPermission.requestPermissions(getActivity(),
-                            ungranted_permissions.toArray(new String[ungranted_permissions.size()]));
+                    PermissionCheck.requestPermissions(getActivity(),
+                            ungranted_permissions.toArray(new String[ungranted_permissions.size()]), PERMISSION_REQUEST_CODE);
                 } else{
                     startCameraActivity();
                 }
@@ -142,9 +145,8 @@ public class Fragment_Plant_Book extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d("테스트", "onRequesPermissionsResult");
-        if (requestCode == CheckPermission.PERMISSION_REQUEST_CODE) {
-            if (CheckPermission.verifyPermission(grantResults)) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (PermissionCheck.verifyPermission(grantResults)) {
                 // 동의 했을 경우
                 startCameraActivity();
             } else {
@@ -157,9 +159,9 @@ public class Fragment_Plant_Book extends Fragment {
         }
     }
 }
-
+/*
 // 권한 체크, 요청을 담당
-class CheckPermission {
+class PermissionCheck {
     public static final int PERMISSION_REQUEST_CODE = 0;
 
     public static boolean isGrantedPermission(Activity activity, String permission) {
@@ -186,7 +188,7 @@ class CheckPermission {
         return true;
     }
 }
-
+*/
 class PlantBookAdapter extends BaseAdapter {
     Context context;
     int layout;
