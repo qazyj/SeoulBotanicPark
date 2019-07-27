@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/home_background_color"
-        android:orientation="vertical">
+>
 
-        <fragment android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.naver.maps.map.MapFragment"
-            app:navermap_latitude=" 37.56801290446582"
-            app:navermap_longitude="126.83245227349256"
-            app:navermap_zoom="15"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/floating_qrcode_icon"
+            app:backgroundTint="@color/colorBaseLightGreen"
+            android:elevation="10dp"/>
+
+    <fragment android:id="@+id/map"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:name="com.naver.maps.map.MapFragment"
+              app:navermap_latitude=" 37.56801290446582"
+              app:navermap_longitude="126.83245227349256"
+              app:navermap_zoom="15"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" />
 
 
     <com.naver.maps.map.widget.LocationButtonView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="bottom" />
+
+    <com.naver.maps.map.widget.ZoomControlView
             android:id="@+id/zoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp" />
 
 </FrameLayout>
