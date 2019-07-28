@@ -54,6 +54,7 @@ public class ActivityInformationUse extends Activity {
         // AsyncTask 작동시킴(파싱)
         new ParseInformationTask().execute();
 
+        //이용안내 창 들어간다음 사진이 늦게나오는걸 방지하기 위해 쓰레드 슬립줌
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
