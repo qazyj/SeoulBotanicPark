@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
                     break;
                 case R.id.map:
-                    transaction.replace(R.id.frame_container, fragment_Map).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
                     transaction.replace(R.id.frame_container, fragment_Plant_Book).commitAllowingStateLoss();
