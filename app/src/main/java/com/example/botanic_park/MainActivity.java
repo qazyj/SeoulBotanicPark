@@ -3,6 +3,7 @@ package com.example.botanic_park;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -28,7 +30,11 @@ import android.widget.Toast;
 import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import java.security.MessageDigest;
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
-    private ArrayList<PlantBookItem> list;
+    private ArrayList<PlantBookItem> list = null;
 
     private CurveBottomBar curveBottomBar;
 
@@ -55,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로딩 액티비티에서 파싱해온 정보 받음
-        final Intent intent = getIntent();
+        // 로딩 액티비티에서 식물 리스트 정보 받아옴
+        Intent intent = getIntent();
         list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(LoadingActivity.PLANT_LIST_KEY);
 
         //상태 바 색 바꿔줌
@@ -128,16 +134,16 @@ public class MainActivity extends AppCompatActivity {
             switch(menuItem.getItemId())
             {
                 case R.id.home:
-                    transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
                 case R.id.map:
                     transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commit();
                     break;
                 case R.id.information:
-                    transaction.replace(R.id.frame_container, fragment_Information).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Information).commit();
                     break;
             }
             return true;

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.botanic_park.*;
 
 import java.util.ArrayList;
@@ -203,7 +204,6 @@ class PlantBookAdapter extends BaseAdapter {
         TextView koNameView = view.findViewById(R.id.name_ko);
         koNameView.setText(item.getName_ko());
 
-        Log.d("test", showType + "");
         // 모든 이름을 보여주는 경우
         if(showType == SHOW_ALL_NAME){
             TextView enNameView = view.findViewById(R.id.name_en);
@@ -213,8 +213,6 @@ class PlantBookAdapter extends BaseAdapter {
             TextView scNameView = view.findViewById(R.id.name_sc);
             scNameView.setVisibility(View.VISIBLE);
             scNameView.setText(item.getName_sc());
-
-            Log.d("test", "여기까지 옴");
         }
 
         return view;
