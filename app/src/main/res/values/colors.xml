@@ -27,6 +27,4 @@
     <!-- 글자색 -->
     <color name="colorNormalText">#303030</color>
 
-    <color name="colorPrimaryRipple">#00FF0000</color>
-
 </resources>

@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 /* 식물 도감 아이템에 적용되는 레이아웃 */
-
 class PlantBookItemLayout extends LinearLayout {
 
     public PlantBookItemLayout(Context context) {
@@ -24,12 +24,6 @@ class PlantBookItemLayout extends LinearLayout {
     public PlantBookItemLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public PlantBookItemLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 너비에 맞춰 정사각형으로 만듦
@@ -53,9 +47,30 @@ class PlantBookExpandableGridView extends GridView{
         super(context, attrs, defStyleAttr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public PlantBookExpandableGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // 높이 재조정
+        int expandSpec = MeasureSpec.makeMeasureSpec(MEASURED_SIZE_MASK, MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, expandSpec);
+        ViewGroup.LayoutParams params = getLayoutParams();
+        params.height = getMeasuredHeight();
+
+    }
+}
+
+/* 식물 검색 결과를 보여주는 리스트뷰 */
+class PlantExpandableListView extends ListView {
+
+    public PlantExpandableListView(Context context) {
+        super(context);
+    }
+
+    public PlantExpandableListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public PlantExpandableListView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override

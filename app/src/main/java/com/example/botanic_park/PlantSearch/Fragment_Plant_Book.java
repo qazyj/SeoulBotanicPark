@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,7 +110,8 @@ public class Fragment_Plant_Book extends Fragment {
 
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
 
-        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(), R.layout.item_plant, list);
+        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(),
+                R.layout.item_plant, list, PlantBookAdapter.SHOW_ONLY_KOREAN_NAME);
         plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
         plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -147,20 +149,25 @@ public class Fragment_Plant_Book extends Fragment {
 }
 
 class PlantBookAdapter extends BaseAdapter {
+    public static final int SHOW_ONLY_KOREAN_NAME = 1;
+    public static final int SHOW_ALL_NAME = 2;
+
     Context context;
     int layout;
     ArrayList<PlantBookItem> list;  // item 목록
     LayoutInflater layoutInflater;
+    int showType;   // 아이템을 보여주는 방식
 
     View itemView;          // item이 뿌려질 뷰
     PlantBookItem item;     // item 정보 객체
     Bitmap bitmap;          // item 안에 들어가는 이미지
     Drawable drawable;
 
-    public PlantBookAdapter(Context context, int layout, ArrayList<PlantBookItem> list) {
+    public PlantBookAdapter(Context context, int layout, ArrayList<PlantBookItem> list, int showType) {
         this.context = context;
         this.layout = layout;
         this.list = list;
+        this.showType = showType;
 
         layoutInflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
@@ -196,10 +203,25 @@ class PlantBookAdapter extends BaseAdapter {
         TextView koNameView = view.findViewById(R.id.name_ko);
         koNameView.setText(item.getName_ko());
 
+        Log.d("test", showType + "");
+        // 모든 이름을 보여주는 경우
+        if(showType == SHOW_ALL_NAME){
+            TextView enNameView = view.findViewById(R.id.name_en);
+            enNameView.setVisibility(View.VISIBLE);
+            enNameView.setText(item.getName_en());
+
+            TextView scNameView = view.findViewById(R.id.name_sc);
+            scNameView.setVisibility(View.VISIBLE);
+            scNameView.setText(item.getName_sc());
+
+            Log.d("test", "여기까지 옴");
+        }
 
         return view;
-
     }
 
+    private void setText(TextView textView){
+
+    }
 }
 

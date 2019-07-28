@@ -23,6 +23,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.widget.LocationButtonView;
+import com.naver.maps.map.widget.ZoomControlView;
 
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
@@ -34,6 +35,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private InfoWindow infoWindow;
     private MainActivity mainActivity;
     private LocationButtonView locationButtonView;
+    private ZoomControlView zoomControlView;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,8 +64,10 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         mapView = view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(naverMap -> {
-            locationButtonView = getActivity().findViewById(R.id.zoom);
+            locationButtonView = getActivity().findViewById(R.id.location);
             locationButtonView.setMap(naverMap);
+            zoomControlView = getView().findViewById(R.id.zoom);
+            zoomControlView.setMap(naverMap);
         });
         mapView.getMapAsync(this);
         locationSource =
@@ -122,6 +126,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         naverMap.setOnMapClickListener(new NaverMapClick());
         naverMap.setLocationSource(new TrackingModeListener(this, LOCATION_PERMISSION_REQUEST_CODE));
 
+        naverMap.getUiSettings().setZoomControlEnabled(false);
         getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
         getNormalMarker(naverMap,37.568248938032475,126.83315398465993,"주제정원");
@@ -153,6 +158,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         marker.setMap(naverMap);
         marker.setCaptionText(caption);
         marker.setZIndex(2);
+        marker.setOnClickListener(overlay -> {
+            Marker mark = (Marker) overlay;
+            naverMap.setCameraPosition(new CameraPosition(mark.getPosition(),16));
+            return true;
+        });
 
         return marker;
     }
@@ -183,8 +193,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         return infoWindow;
     }
 
-
-
     /*------------*/
 
     private void setThemaGardenMarker()  // 주제정원 마크
@@ -205,8 +213,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     private void locationButtonEnabled()
     {
-       if( locationButtonView.isShown()) locationButtonView.setVisibility(View.GONE);
-       else locationButtonView.setVisibility(View.VISIBLE);
+       if( locationButtonView.isShown())
+       {
+           locationButtonView.setVisibility(View.GONE);
+           zoomControlView.setVisibility(View.GONE);
+
+       }  else { locationButtonView.setVisibility(View.VISIBLE);
+       zoomControlView.setVisibility(View.VISIBLE);
+       }
 
     }
 
@@ -231,6 +245,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
             if(marker.getInfoWindow() == null){
                 infoWindow.open(marker);
+                naverMap.setCameraPosition(new CameraPosition(marker.getPosition(),16));
 
             } else {
                 infoWindow.close();
