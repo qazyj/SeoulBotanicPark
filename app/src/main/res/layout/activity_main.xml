@@ -23,7 +23,8 @@
             app:backgroundTint="@color/colorBaseLightGreen"
             android:layout_marginBottom="35dp"
             android:layout_alignParentBottom="true"
-            android:elevation="10dp"/>
+            app:backgroundTintMode="@null"
+            android:elevation="20dp"/>
 
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"

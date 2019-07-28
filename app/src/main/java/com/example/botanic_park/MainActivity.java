@@ -1,15 +1,21 @@
 package com.example.botanic_park;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
+import android.graphics.Color;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +24,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.botanic_park.Map.Fragment_Map;
+import android.widget.Toast;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -36,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Map fragment_Map;
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
-    private Fragment_QRCode fragment_QRCode;
 
     private ArrayList<PlantBookItem> list;
 
@@ -44,18 +49,19 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 로딩 액티비티에서 파싱해온 정보 받음
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(LoadingActivity.PLANT_LIST_KEY);
 
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        // getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
 
         // 프래그먼트 객체 생성
@@ -63,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         fragment_Map = new Fragment_Map();
         fragment_Plant_Book = Fragment_Plant_Book.newInstance(list);
         fragment_Information = new Fragment_Information();
-        fragment_QRCode = new Fragment_QRCode();
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
@@ -74,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frame_container, fragment_QRCode).commitAllowingStateLoss();
+                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
+                startActivity(intent1); // QR 액티비티 띄움
             }
         });
 
@@ -83,9 +88,34 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
+        // 지도
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature: info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // 프레그먼트에서 오버라이드된 메소드 사용
+        // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
 
+        if(requestCode == Fragment_Plant_Book.PERMISSION_REQUEST_CODE) {
+            // 식물 이미지 검색 권한
+            fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        } else {
+            // 지도 위치 탐색 권한
+            fragment_Map.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
     // 하단 메뉴 선택 리스너
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -97,19 +127,16 @@ public class MainActivity extends AppCompatActivity {
             switch(menuItem.getItemId())
             {
                 case R.id.home:
-                    transaction.replace(R.id.frame_container, fragment_Home).commit();
+                    transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
                     break;
-
                 case R.id.map:
                     transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
-
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commit();
+                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commitAllowingStateLoss();
                     break;
-
                 case R.id.information:
-                    transaction.replace(R.id.frame_container, fragment_Information).commit();
+                    transaction.replace(R.id.frame_container, fragment_Information).commitAllowingStateLoss();
                     break;
             }
             return true;
@@ -129,5 +156,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 }
+

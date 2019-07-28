@@ -26,7 +26,20 @@ public class DetailPopUpActivity extends Activity {
         Intent intent = getIntent();
         selectedItem = (PlantBookItem) intent.getSerializableExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY);
 
-        // 화면에 데이터 세팅
+        setData();  // 화면에 데이터 세팅
+
+        ImageButton closeBtn = findViewById(R.id.close_btn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();   // 액티비티 닫음
+            }
+        });
+
+    }
+
+    private void setData() {
+
         TextView name_ko = findViewById(R.id.content_name);
         name_ko.setText(selectedItem.getName_ko());
 
@@ -44,15 +57,6 @@ public class DetailPopUpActivity extends Activity {
 
         TextView details = findViewById(R.id.details);
         details.setText(selectedItem.getDetails());
-
-        ImageButton closeBtn = findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();   // 액티비티 닫음
-            }
-        });
-
     }
 
     @Override

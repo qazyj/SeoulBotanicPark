@@ -11,26 +11,21 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.util.AttributeSet;
 
-/**
- * Created by Akshay Katariya on 15/11/18.
- */
-
 public class CurveBottomBar extends BottomNavigationView {
 
     private Path mPath;
     private Paint mPaint;
 
-    /**
-     * the CURVE_CIRCLE_RADIUS represent the radius of the fab button
-     */
+    //FloatingActionButton 반경
     private int CURVE_CIRCLE_RADIUS;
 
+    //첫번째 곡선좌표
     private Point mFirstCurveStartPoint = new Point();
     private Point mFirstCurveEndPoint = new Point();
     private Point mFirstCurveControlPoint1 = new Point();
     private Point mFirstCurveControlPoint2 = new Point();
 
-    //the coordinates of the second curve
+    //두번째 곡선좌표
     @SuppressWarnings("FieldCanBeLocal")
     private Point mSecondCurveStartPoint = new Point();
     private Point mSecondCurveEndPoint = new Point();
@@ -82,21 +77,20 @@ public class CurveBottomBar extends BottomNavigationView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        // get width and height of navigation bar
-        // Navigation bar bounds (width & height)
+        // navigation bar의 width와 hegiht가져옴
         mNavigationBarWidth = getWidth();
         mNavigationBarHeight = getHeight();
-        // the coordinates (x,y) of the start point before curve
+        // 곡선의 시작점의 좌표 (x, y)
         mFirstCurveStartPoint.set((mNavigationBarWidth / 2) - (CURVE_CIRCLE_RADIUS * 2) - (CURVE_CIRCLE_RADIUS / 3), 0);
-        // the coordinates (x,y) of the end point after curve
+        // 곡선 후의 종점의 좌표 (x, y)
         mFirstCurveEndPoint.set(mNavigationBarWidth / 2, CURVE_CIRCLE_RADIUS + (CURVE_CIRCLE_RADIUS / 4));
-        // same thing for the second curve
+        //두 번째 곡선도 똑같음
         mSecondCurveStartPoint = mFirstCurveEndPoint;
         mSecondCurveEndPoint.set((mNavigationBarWidth / 2) + (CURVE_CIRCLE_RADIUS * 2) + (CURVE_CIRCLE_RADIUS / 3), 0);
 
-        // the coordinates (x,y)  of the 1st control point on a cubic curve
+        //3 차 곡선상의 첫번째의 제어점의 좌표 (x, y)
         mFirstCurveControlPoint1.set(mFirstCurveStartPoint.x + CURVE_CIRCLE_RADIUS + (CURVE_CIRCLE_RADIUS / 4), mFirstCurveStartPoint.y);
-        // the coordinates (x,y)  of the 2nd control point on a cubic curve
+        //2 차 제어점의 3 차 곡선상의 좌표 (x, y)
         mFirstCurveControlPoint2.set(mFirstCurveEndPoint.x - (CURVE_CIRCLE_RADIUS * 2) + CURVE_CIRCLE_RADIUS, mFirstCurveEndPoint.y);
 
         mSecondCurveControlPoint1.set(mSecondCurveStartPoint.x + (CURVE_CIRCLE_RADIUS * 2) - CURVE_CIRCLE_RADIUS, mSecondCurveStartPoint.y);
@@ -124,15 +118,5 @@ public class CurveBottomBar extends BottomNavigationView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawPath(mPath, mPaint);
-    }
-
-    public void setBottomBarColor(int bottomBarColor) {
-        mPaint.setColor(bottomBarColor);
-        postInvalidate();
-    }
-
-    public void setCurveRadius(int r) {
-        CURVE_CIRCLE_RADIUS = r;
-        postInvalidate();
     }
 }

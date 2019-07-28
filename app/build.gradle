@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.botanic_park"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
 
     compile 'com.github.clans:fab:1.6.2'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'  //사진 줌인, 줌아웃
 }
