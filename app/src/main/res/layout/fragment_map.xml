@@ -17,7 +17,8 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/floating_qrcode_icon"
             app:backgroundTint="@color/colorBaseLightGreen"
-            android:elevation="10dp"/>
+            app:background="@android:color/black"
+            app:elevation="50dp"/>
 
     <fragment android:id="@+id/map"
               android:layout_width="match_parent"

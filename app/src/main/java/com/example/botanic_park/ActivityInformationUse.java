@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActivityInformationUse extends Activity {
-    public static final String PLANT_LIST_KEY = "plant list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,38 +31,29 @@ public class ActivityInformationUse extends Activity {
         ImageView loding = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loding);
 
-        new ParsePlantTask().execute(); // AsyncTask 작동시킴(파싱)
+        new ParseInformationTask().execute(); // AsyncTask 작동시킴(파싱)
     }
 
 
     /* 웹에서 정보 긁어오는 클래스 */
-    public class ParsePlantTask extends AsyncTask<Void, Void, Void> {
-        String PLANT_LIST_URL = "https://botanicpark.seoul.go.kr/front/plants/plantsIntro.do";
-        String IMAGE_START_URL= "http://botanicpark.seoul.go.kr";
-        String PLANT_DETAIL_URL = "https://botanicpark.seoul.go.kr/front/plants/plantsIntroView.do";
-        String ID = "?plt_sn=";     // 식물 식별 id
-        String PAGE = "&page=";     // 페이지
+    public class ParseInformationTask extends AsyncTask<Void, Void, Void> {
+        String INFORMATION_USE_URL = "https://botanicpark.seoul.go.kr/front/introduce/useInfo.do";
 
-        ArrayList<PlantBookItem> list = new ArrayList<>();
 
         @Override
         protected Void doInBackground(Void... params) {
             try{
-                int id = 1;
-                for(int page=1; page <= 5; page++){
-                    for(int itemCount = 0; itemCount < 8; itemCount++){
-                        String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id + PAGE + page;
 
                         // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
                         SSLConnect sslConnect = new SSLConnect();
-                        sslConnect.postHttps(DETAIL_PAGE_URL,1000,1000);
+                        sslConnect.postHttps(INFORMATION_USE_URL,1000,1000);
 
                         // 웹에서 정보 읽어옴
-                        Document document = Jsoup.connect(DETAIL_PAGE_URL).get();
-                        Elements textElements = document.select("div[class=text_area]").select("span");
+                        Document document = Jsoup.connect(INFORMATION_USE_URL).get();
+                        Elements textElements = document.select("div[class=contents]").select("div[class=useInfo]");
                         //Log.d("debug textElements", textElements + "");
 
-                        String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
+                        String imgUrl = document.select("div[class=info]").select("img").attr("src");
 
                         String name_ko = textElements.get(0).text();
                         name_ko = name_ko.replace("이 름:", "");
@@ -82,13 +72,6 @@ public class ActivityInformationUse extends Activity {
 
                         String details = document.select("div[class=text_editor]").text();
 
-                        // 리스트에 추가
-                        list.add(new PlantBookItem(IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
-
-                        id++;
-                    }
-                }
-
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -101,7 +84,7 @@ public class ActivityInformationUse extends Activity {
             finish();
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(PLANT_LIST_KEY, list);
+            //intent.putExtra(PLANT_LIST_KEY, list);
             startActivity(intent);
 
         }

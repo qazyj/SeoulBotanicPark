@@ -44,8 +44,61 @@
               <TextView
                       android:id="@+id/theme_place"
                       style="@style/SubTitleTheme"
-                      android:text="" ></TextView>
+                      android:text="" />
 
+              <View
+                      android:layout_width="300dp"
+                      android:layout_height="2dp"
+                      android:background="@color/colorBase"
+                      android:layout_gravity="center_horizontal"/>
+
+              <TextView
+                      android:id="@+id/month_change"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <View
+                      android:layout_width="300dp"
+                      android:layout_height="2dp"
+                      android:background="@color/no"
+                      android:layout_gravity="center_horizontal"/>
+
+              <TextView
+                      android:id="@+id/open_time"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <View
+                      android:layout_width="300dp"
+                      android:layout_height="2dp"
+                      android:background="@color/no"
+                      android:layout_gravity="center_horizontal"/>
+
+              <TextView
+                      android:id="@+id/day_off"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <TextView
+                      android:id="@+id/day_off2"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <TextView
+                      android:id="@+id/price_information"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <TextView
+                      android:id="@+id/price_information2"
+                      style="@style/SubTitleTheme"
+                      android:text="" />
+
+              <View
+                      android:layout_width="300dp"
+                      android:layout_height="2dp"
+                      android:background="@color/no"
+                      android:layout_gravity="center_horizontal"/>
 
           </LinearLayout>
         </RelativeLayout>
