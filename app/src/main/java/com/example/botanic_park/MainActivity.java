@@ -6,8 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
-import android.drm.DrmStore;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -20,6 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -84,19 +83,6 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-        // 지도
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature: info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -111,16 +97,19 @@ public class MainActivity extends AppCompatActivity {
             switch(menuItem.getItemId())
             {
                 case R.id.home:
-                    transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
+
                 case R.id.map:
-                    transaction.replace(R.id.frame_container, fragment_Map).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
+
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commit();
                     break;
+
                 case R.id.information:
-                    transaction.replace(R.id.frame_container, fragment_Information).commitAllowingStateLoss();
+                    transaction.replace(R.id.frame_container, fragment_Information).commit();
                     break;
             }
             return true;

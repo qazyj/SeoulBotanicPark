@@ -37,7 +37,7 @@
         <activity android:name=".PlantSearch.CameraSearchActivity" />
         <activity android:name=".PlantSearch.SearchResultActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Facilities_information"/>
+        <activity android:name=".Map.Facilities_information"/>
     </application>
 
 </manifest>

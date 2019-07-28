@@ -38,8 +38,7 @@
                 android:layout_gravity="bottom"
                 app:bottomBarColor="@color/navigation_background_color"
                 app:curveRadius="25dp"
-                app:labelVisibilityMode="labeled"
-        />
+                app:labelVisibilityMode="labeled" />
 
     </android.support.design.widget.CoordinatorLayout>
 

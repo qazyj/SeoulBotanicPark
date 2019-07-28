@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Map;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,12 +6,17 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
-
+import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.R;
+import com.github.clans.fab.FloatingActionMenu;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapView;
@@ -35,6 +40,10 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private MainActivity mainActivity;
     private LocationButtonView locationButtonView;
     private ZoomControlView zoomControlView;
+    private FrameLayout frame;
+
+    FloatingActionMenu materialDesignFAM;
+    com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -51,6 +60,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
+        Toast.makeText(getContext(), "생성", Toast.LENGTH_LONG).show();
+
         return view;
     }
 
@@ -61,15 +72,53 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState);
         mapView = view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
+
+        frame = view.findViewById(R.id.background);
+
         mapView.getMapAsync(naverMap -> {
+
             locationButtonView = getActivity().findViewById(R.id.location);
             locationButtonView.setMap(naverMap);
             zoomControlView = getView().findViewById(R.id.zoom);
             zoomControlView.setMap(naverMap);
+
         });
+
         mapView.getMapAsync(this);
-        locationSource =
-                new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+        locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+        materialDesignFAM = (FloatingActionMenu) view.findViewById(R.id.menu);
+
+        materialDesignFAM.setIconAnimated(false);
+
+        materialDesignFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if(materialDesignFAM.isOpened()) closeFloatingMenu();
+                else openFloatingMenu();
+            }
+
+        });
+
+        frame.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+               if (materialDesignFAM.isOpened())
+               {
+                   closeFloatingMenu();
+                   return true;
+               }
+
+               return false;
+            }
+        });
+
+        floatingActionButton1 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item1);
+        floatingActionButton2 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item2);
+        floatingActionButton3 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item3);
+
     }
 
     @Override
@@ -121,7 +170,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         this.naverMap = naverMap;
         naverMap.setLocationSource(locationSource);
-        naverMap.setOnMapClickListener(new NaverMapClick());
+        naverMap.setOnMapClickListener(new naverMapClick());
         naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
@@ -207,35 +256,41 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     }
 
+    /*플로팅 버튼 */
+
+    private void closeFloatingMenu()
+    {
+        materialDesignFAM.close(true);
+        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
+        frame.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+
+    }
+    private void openFloatingMenu()
+    {
+        materialDesignFAM.open(true);
+        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.ic_close);
+        frame.setBackgroundColor(Color.parseColor( "#99000000"));
+
+    }
 
     /*---- 네이버 지도 커스텀 ----*/
 
-    private void locationButtonEnabled()
+
+    private void setObjectVisibility()
     {
        if( locationButtonView.isShown())
        {
            locationButtonView.setVisibility(View.GONE);
            zoomControlView.setVisibility(View.GONE);
+           materialDesignFAM.setVisibility(View.GONE);
 
        }  else { locationButtonView.setVisibility(View.VISIBLE);
-       zoomControlView.setVisibility(View.VISIBLE);
+          zoomControlView.setVisibility(View.VISIBLE);
+          materialDesignFAM.setVisibility(View.VISIBLE);
        }
 
     }
 
-
-    class NaverMapClick implements NaverMap.OnMapClickListener{ // 맵 클릭을 위한 리스너
-
-        @Override
-        public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
-            if(infoWindow.getMarker() != null) infoWindow.close();
-            else
-            {
-                mainActivity.setCurveBottomBarVisibility();
-                locationButtonEnabled();
-            }
-        }
-    }
 
     class MarkerClick implements Overlay.OnClickListener{ // 마커 클릭을 위한 리스너
 
@@ -278,7 +333,21 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         @Override
         public void deactivate() {  // 현재 위치 해제 시에 피벗 위치로 카메라 이동
-            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582,126.83245227349256),15));
+          naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582,126.83245227349256),15));
+        }
+    }
+
+    class naverMapClick implements NaverMap.OnMapClickListener{ // 맵 클릭을 위한 리스너
+
+        @Override
+        public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
+            if(infoWindow.getMarker() != null) infoWindow.close();
+
+            else
+            {
+                mainActivity.setCurveBottomBarVisibility();
+                setObjectVisibility();
+            }
         }
     }
 
