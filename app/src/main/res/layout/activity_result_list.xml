@@ -3,10 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="50dp"
-    android:paddingBottom="50dp"
-    android:paddingStart="30dp"
-    android:paddingEnd="30dp">
+    android:padding="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,60 +13,48 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:padding="20dp"
             android:text="검색 결과"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_size_title"
-            android:textColor="@color/colorBase"/>
+            android:textColor="@color/colorBase"
+            android:textSize="@dimen/text_size_title" />
 
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/border_normal">
-
-            <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
-                android:id="@+id/gridview_plant_book"
+            android:layout_height="match_parent">
+            <com.example.botanic_park.PlantSearch.PlantExpandableListView
+                android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="@dimen/margin_normal"
-                android:horizontalSpacing="@dimen/margin_normal"
-                android:stretchMode="columnWidth"
-                android:padding="10dp"
-                android:overScrollMode="never"/>
-
-            <!-- 검색 결과 없음 예외처리 -->
-            <LinearLayout
-                android:id="@+id/no_result_message"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:visibility="gone">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_no_search_result" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="검색 결과가 없습니다"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-
-        </FrameLayout>
-
+                android:layout_margin="@dimen/margin_narrow"
+                android:padding="10dp"
+                android:dividerHeight="5dp"
+                android:divider="@null"/>
+        </ScrollView>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/test"
+    <!-- 검색 결과 없음 예외처리 -->
+    <LinearLayout
+        android:id="@+id/no_result_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="test"
-        android:textSize="20sp"/>
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_no_search_result" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="검색 결과가 없습니다"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </RelativeLayout>

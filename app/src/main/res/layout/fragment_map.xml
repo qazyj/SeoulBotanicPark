@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/home_background_color"
->
-
+        android:background="@color/home_background_color">
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/floating_action_button"
@@ -26,9 +22,7 @@
               android:name="com.naver.maps.map.MapFragment"
               app:navermap_latitude=" 37.56801290446582"
               app:navermap_longitude="126.83245227349256"
-              app:navermap_zoom="15"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" />
+              app:navermap_zoom="15"/>
 
 
     <com.naver.maps.map.widget.LocationButtonView

@@ -3,16 +3,12 @@ package com.example.botanic_park.PlantSearch;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,27 +23,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.botanic_park.R;
-import com.example.botanic_park.SSLConnect;
+import com.example.botanic_park.*;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Plant_Book extends Fragment {
+    public static final int PERMISSION_REQUEST_CODE = 2000;
 
     public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
-    public static final int REQUEST_PERMISSION_CODE = 0;
+    public static final String SEARCH_WORD_KEY = "search word";
 
     PlantBookExpandableGridView plantBookGridView;
     ArrayList<PlantBookItem> list;
-
-    boolean isGetAllPermissons = true;
 
     public Fragment_Plant_Book() {
     }
@@ -55,7 +43,7 @@ public class Fragment_Plant_Book extends Fragment {
     public static Fragment_Plant_Book newInstance(ArrayList<PlantBookItem> list) {
         Fragment_Plant_Book fragment = new Fragment_Plant_Book();
         Bundle args = new Bundle();
-        args.putSerializable(PLANT_LIST_KEY, list);
+        args.putSerializable(LoadingActivity.PLANT_LIST_KEY, list);
         fragment.setArguments(args);
 
         return fragment;
@@ -78,38 +66,42 @@ public class Fragment_Plant_Book extends Fragment {
         cameraSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 카메라 권한 체크
-                isGetAllPermissons = true;
-                String[] permissions = {Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                String[] permissions = {
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+                ArrayList<String> ungranted_permissions = new ArrayList<>();
 
-                for(int i=0; i<permissions.length; i++) {
-                    int permission = ContextCompat.checkSelfPermission(getContext(), permissions[i]);
-                    if (permission != PackageManager.PERMISSION_GRANTED) {
-                        // 권한이 없는 경우 요청
-                        requestPermission(new String[]{permissions[i]});
-                        isGetAllPermissons = false;
-
-                    }
+                for(String permission : permissions){
+                    if(!PermissionCheck.isGrantedPermission(getActivity(), permission))
+                        ungranted_permissions.add(permission);
                 }
 
-                if(isGetAllPermissons)
-                    showCameraActivity();   // 권한이 있는 경우
 
+                if(ungranted_permissions.size() > 0) {
+                    // 권한 요청
+                    PermissionCheck.requestPermissions(getActivity(),
+                            ungranted_permissions.toArray(new String[ungranted_permissions.size()]), PERMISSION_REQUEST_CODE);
+                } else{
+                    startCameraActivity();
+                }
             }
         });
 
-        EditText editText = view.findViewById(R.id.search_edit_text);
+        final EditText editText = view.findViewById(R.id.search_edit_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 switch (i) {
                     case EditorInfo.IME_ACTION_SEARCH:
-                        // 검색 동작
-                        Intent intent = new Intent();
+                        // 텍스트 검색 동작
+                        Intent intent = new Intent(getContext(), SearchResultActivity.class);
+                        intent.putExtra(PLANT_LIST_KEY, list);
+                        intent.putExtra(SEARCH_WORD_KEY, String.valueOf(editText.getText()));
+                        startActivity(intent);  // 검색 결과 리스트 창 띄움
                         break;
                     default:
-                        // 기본 엔터키 동작
                         return false;
                 }
                 return true;
@@ -118,7 +110,8 @@ public class Fragment_Plant_Book extends Fragment {
 
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
 
-        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(), R.layout.item_plant_preview, list);
+        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(),
+                R.layout.item_plant, list, PlantBookAdapter.SHOW_ONLY_KOREAN_NAME);
         plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
         plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -133,52 +126,48 @@ public class Fragment_Plant_Book extends Fragment {
         return view;
     }
 
-    private void showCameraActivity(){
+    private void startCameraActivity(){
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
         startActivity(intent);   // 카메라 액티비티 띄움
     }
 
-    private void requestPermission(String[] permissions){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    permissions, REQUEST_PERMISSION_CODE); // 권한 요청
-
-            Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_PERMISSION_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (PermissionCheck.verifyPermission(grantResults)) {
                 // 동의 했을 경우
-                showCameraActivity();
+                startCameraActivity();
             } else {
                 // 거부 했을 경우
-                Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "권한 동의가 필요합니다.", Toast.LENGTH_SHORT).show();
 
             }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
 
-class PlantBookAdapter extends BaseAdapter{
+class PlantBookAdapter extends BaseAdapter {
+    public static final int SHOW_ONLY_KOREAN_NAME = 1;
+    public static final int SHOW_ALL_NAME = 2;
+
     Context context;
     int layout;
     ArrayList<PlantBookItem> list;  // item 목록
     LayoutInflater layoutInflater;
+    int showType;   // 아이템을 보여주는 방식
 
     View itemView;          // item이 뿌려질 뷰
     PlantBookItem item;     // item 정보 객체
     Bitmap bitmap;          // item 안에 들어가는 이미지
     Drawable drawable;
 
-    public PlantBookAdapter(Context context, int layout, ArrayList<PlantBookItem> list) {
+    public PlantBookAdapter(Context context, int layout, ArrayList<PlantBookItem> list, int showType) {
         this.context = context;
         this.layout = layout;
         this.list = list;
+        this.showType = showType;
 
         layoutInflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
@@ -214,10 +203,25 @@ class PlantBookAdapter extends BaseAdapter{
         TextView koNameView = view.findViewById(R.id.name_ko);
         koNameView.setText(item.getName_ko());
 
+        Log.d("test", showType + "");
+        // 모든 이름을 보여주는 경우
+        if(showType == SHOW_ALL_NAME){
+            TextView enNameView = view.findViewById(R.id.name_en);
+            enNameView.setVisibility(View.VISIBLE);
+            enNameView.setText(item.getName_en());
+
+            TextView scNameView = view.findViewById(R.id.name_sc);
+            scNameView.setVisibility(View.VISIBLE);
+            scNameView.setText(item.getName_sc());
+
+            Log.d("test", "여기까지 옴");
+        }
 
         return view;
-
     }
 
+    private void setText(TextView textView){
+
+    }
 }
 

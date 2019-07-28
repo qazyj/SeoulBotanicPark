@@ -23,6 +23,9 @@
             android:name=".PlantSearch.DetailPopUpActivity"
             android:theme="@android:style/Theme.Dialog"/>
         <activity
+            android:name=".QRPopUpActivity"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 
