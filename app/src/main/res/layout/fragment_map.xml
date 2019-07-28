@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/tools"
         android:background="@color/home_background_color">
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/floating_qrcode_icon"
-            app:backgroundTint="@color/colorBaseLightGreen"
-            app:background="@android:color/black"
-            app:elevation="50dp"/>
 
-    <fragment android:id="@+id/map"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/map"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:name="com.naver.maps.map.MapFragment"
@@ -40,4 +35,106 @@
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp" />
 
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:fab="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/background">
+
+        <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="11dp"
+
+                fab:menu_fab_show_animation="@anim/fab_scale_up"
+                fab:menu_buttonToggleAnimation="@anim/fab_scale_up"
+                fab:menu_fab_hide_animation="@anim/fab_scale_up"
+                fab:menu_animationDelayPerItem="10"
+                fab:menu_buttonSpacing="20dp"
+                fab:menu_colorNormal="#4C7F3A"
+                fab:menu_colorPressed="#C1D42D"
+                fab:menu_colorRipple="#000000"
+                fab:menu_fab_size="normal"
+                fab:menu_icon="@drawable/icon_pin_white"
+                fab:menu_backgroundColor="@android:color/transparent"
+
+                fab:menu_labels_colorNormal="@android:color/transparent"
+                fab:menu_labels_colorPressed="#444"
+                fab:menu_labels_colorRipple="#66efecec"
+                fab:menu_labels_cornerRadius="3dp"
+                fab:menu_labels_ellipsize="none"
+                fab:menu_labels_hideAnimation="@anim/not_move_activity"
+                fab:menu_labels_margin="10dp"
+                fab:menu_labels_maxLines="-1"
+                fab:menu_labels_padding="8dp"
+                fab:menu_labels_position="right"
+                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                fab:menu_labels_showShadow="false"
+                fab:menu_labels_singleLine="false"
+                fab:menu_labels_textColor="#FFFFFF"
+                fab:menu_labels_textSize="15sp"
+
+                fab:menu_openDirection="down"
+                fab:menu_shadowColor="#8a8888"
+                fab:menu_shadowRadius="1dp"
+                fab:menu_shadowXOffset="0dp"
+                fab:menu_shadowYOffset="0.5dp"
+                fab:menu_showShadow="true">
+
+            <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/blank"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    fab:fab_size="mini"
+                    fab:fab_shadowColor="@android:color/transparent"
+                    fab:fab_colorNormal="@android:color/transparent"
+                    fab:fab_colorPressed="@android:color/transparent"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/material_design_floating_action_menu_item1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_label="주차장"
+                    fab:fab_size="mini"
+                    fab:fab_colorNormal="#C1D42D"
+                    fab:fab_colorPressed="#C1D42D"
+            />
+
+            <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/material_design_floating_action_menu_item2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_label="자전거 거치대"
+                    fab:fab_size="mini"
+                    fab:fab_colorNormal="#C1D42D"
+                    fab:fab_colorPressed="#C1D42D"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/material_design_floating_action_menu_item3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_label="화장실"
+                    fab:fab_size="mini"
+                    fab:fab_colorNormal="#C1D42D"
+                    fab:fab_colorPressed="#C1D42D"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/material_design_floating_action_menu_item4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_label="매표소"
+                fab:fab_size="mini"
+                fab:fab_colorNormal="#C1D42D"
+                fab:fab_colorPressed="#C1D42D"/>
+
+
+        </com.github.clans.fab.FloatingActionMenu>
+    </FrameLayout>
+
 </FrameLayout>
+

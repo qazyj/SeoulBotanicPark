@@ -7,6 +7,7 @@
 
     <!--서울 식물원 색상 중 가장 어두운 초록색-->
     <color name="colorBase">#4C7F3A</color>
+
     <!-- 서울 식물원 색상 중 가장 밝은 색 -->
     <color name="colorBaseLight">#C1D42D</color>
     <color name="colorBaseLightGreen">#90BC43</color>
@@ -16,8 +17,12 @@
     <color name="no">#848587</color>
     <!--하단 바 배경색-->
     <color name="navigation_background_color">#FAFAFA</color>
+    <!--하단 바 배경색-->
+    <color name="lightGray">#DEDEDE</color>
     <!--홈 화면 배경색-->
     <color name="home_background_color">#F4D8D7</color>
+    <!--주황 색-->
+    <color name="orange_color">#E46C21</color>
 
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>
