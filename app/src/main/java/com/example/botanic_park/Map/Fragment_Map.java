@@ -174,7 +174,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
-        getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
+        getNormalMarker(naverMap,37.5719325, 126.8318979,"화장실");
         setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
         getNormalMarker(naverMap,37.568248938032475,126.83315398465993,"주제정원");
 
@@ -221,6 +221,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         garden.setHideCollidedMarkers(true);
         garden.setForceShowIcon(false);
         garden.setIconTintColor(Color.BLUE);
+        garden.setHeight(1);
+        garden.setWidth(1);
     }
 
     private InfoWindow getInfoWindow(final String describe)  // infowindow
