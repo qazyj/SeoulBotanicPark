@@ -58,7 +58,7 @@
                 fab:menu_buttonSpacing="20dp"
                 fab:menu_colorNormal="#4C7F3A"
                 fab:menu_colorPressed="#C1D42D"
-                fab:menu_colorRipple="#000000"
+                fab:menu_colorRipple="#90BC43"
                 fab:menu_fab_size="normal"
                 fab:menu_icon="@drawable/icon_pin_white"
                 fab:menu_backgroundColor="@android:color/transparent"
@@ -90,6 +90,7 @@
                     android:id="@+id/blank"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:clickable="false"
                     fab:fab_size="mini"
                     fab:fab_shadowColor="@android:color/transparent"
                     fab:fab_colorNormal="@android:color/transparent"
@@ -102,8 +103,7 @@
                     fab:fab_label="주차장"
                     fab:fab_size="mini"
                     fab:fab_colorNormal="#C1D42D"
-                    fab:fab_colorPressed="#C1D42D"
-            />
+                    fab:fab_colorPressed="#90BC43" />
 
             <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/material_design_floating_action_menu_item2"
@@ -112,7 +112,7 @@
                     fab:fab_label="자전거 거치대"
                     fab:fab_size="mini"
                     fab:fab_colorNormal="#C1D42D"
-                    fab:fab_colorPressed="#C1D42D"/>
+                    fab:fab_colorPressed="#90BC43"/>
 
             <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/material_design_floating_action_menu_item3"
@@ -121,17 +121,25 @@
                     fab:fab_label="화장실"
                     fab:fab_size="mini"
                     fab:fab_colorNormal="#C1D42D"
-                    fab:fab_colorPressed="#C1D42D"/>
+                    fab:fab_colorPressed="#90BC43"/>
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/material_design_floating_action_menu_item4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fab:fab_label="놀이터"
+                fab:fab_size="mini"
+                fab:fab_colorNormal="#C1D42D"
+                fab:fab_colorPressed="#90BC43" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/material_design_floating_action_menu_item5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 fab:fab_label="매표소"
                 fab:fab_size="mini"
                 fab:fab_colorNormal="#C1D42D"
-                fab:fab_colorPressed="#C1D42D"/>
-
+                fab:fab_colorPressed="#90BC43"/>
 
         </com.github.clans.fab.FloatingActionMenu>
     </FrameLayout>
