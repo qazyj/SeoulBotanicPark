@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_container, fragment_Home).commitAllowingStateLoss();
+        transaction.replace(R.id.frame_container, fragment_Home).commit();
 
         // 하단 메뉴 설정
         floatingActionButton  = findViewById(R.id.floating_action_button);
