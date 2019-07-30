@@ -27,7 +27,9 @@ import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.widget.LocationButtonView;
 import com.naver.maps.map.widget.ZoomControlView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
@@ -42,8 +44,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private ZoomControlView zoomControlView;
     private FrameLayout frame;
 
-    FloatingActionMenu materialDesignFAM;
-    com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
+    private int markerState = 1;
+    private List<Marker> ticketBox_Markers = new ArrayList<>();
+    private List<Marker> playground_Markers = new ArrayList<>();
+    private List<Marker> bicycle_Markers = new ArrayList<>();
+    private List<Marker> parking_Markers = new ArrayList<>();
+
+    FloatingActionMenu floatingMenu;
+    com.github.clans.fab.FloatingActionButton all, tickebox, playground, bicycle, parking;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -60,7 +68,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
-        Toast.makeText(getContext(), "생성", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "지도를 탭하면 전체화면으로 볼 수 있습니다.", Toast.LENGTH_LONG).show();
 
         return view;
     }
@@ -87,16 +95,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         mapView.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        materialDesignFAM = (FloatingActionMenu) view.findViewById(R.id.menu);
+        floatingMenu = (FloatingActionMenu) view.findViewById(R.id.menu);
 
-        materialDesignFAM.setIconAnimated(false);
+        floatingMenu.setIconAnimated(false);
 
-        materialDesignFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
-
+        floatingMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(materialDesignFAM.isOpened()) closeFloatingMenu();
+                if(floatingMenu.isOpened()) closeFloatingMenu();
                 else openFloatingMenu();
             }
 
@@ -105,7 +112,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         frame.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-               if (materialDesignFAM.isOpened())
+               if (floatingMenu.isOpened())
                {
                    closeFloatingMenu();
                    return true;
@@ -115,9 +122,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             }
         });
 
-        floatingActionButton1 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item1);
-        floatingActionButton2 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item2);
-        floatingActionButton3 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item3);
+        all = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.all_pins);
+        tickebox = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.ticket_box);
+        playground = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.playground);
+        bicycle = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.bicycle);
+        parking = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.parking);
 ;
 
     }
@@ -176,15 +185,22 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
 
-        getWashingRoomMarker(37.5719325, 126.8318979);
+        getImageMarker(37.5694308, 126.8350116,"온실",80,80,R.drawable.greenhouse);
+        getImageMarker(37.5682113, 126.8337287,"주제정원",80,80,R.drawable.garden);
+        getImageMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information).setSubCaptionText("카페·화장실");
 
-        getParkingMarker(37.5719325, 126.8318979);
+        all.setOnClickListener(new floatingMenuClick());
+        tickebox.setOnClickListener(new floatingMenuClick());
+        playground.setOnClickListener(new floatingMenuClick());
+        bicycle.setOnClickListener(new floatingMenuClick());
+        parking.setOnClickListener(new floatingMenuClick());
 
-        setInfowindowMarker(37.5694308, 126.8350116,"온실");
-        getNormalMarker(37.5682113, 126.8337287,"주제정원");
-        getNormalMarker(37.5662934, 126.8296977,"방문자센터").setSubCaptionText("카페·화장실");
-        setGardenMark("VR카페",37.5684276, 126.8345194).setSubCaptionText("VR·카페·화장실");
         setThemaGardenMarker();
+        setWashingRoomMarkers();
+        setParkingMarkers();
+        setBicycleRackMarkers();
+        setPlaygroundkMarkers();
+        setTicketBoxMarkers();
 
         infoWindow = getInfoWindow("정보");
         setPolygone();
@@ -195,7 +211,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     private Marker setInfowindowMarker(double latitude, double longitude, String caption)
     {
-        Marker marker = getNormalMarker(latitude,longitude,caption);
+        Marker marker = getNormalMarker(latitude,longitude,caption,Marker.SIZE_AUTO, Marker.SIZE_AUTO);
         marker.setTag(R.array.tema_garden);
         marker.setOnClickListener(new MarkerClick());
 
@@ -203,30 +219,34 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     }
 
     private Marker getWashingRoomMarker(double latitude, double longitude) {
-        Marker marker = getNormalMarker(latitude, longitude,"");
-        marker.setHeight(70);
-        marker.setWidth(70);
+        Marker marker = getNormalMarker(latitude,longitude,"",70,70);
         marker.setIcon(OverlayImage.fromResource(R.drawable.wc));
-        marker.setZIndex(0);
+        marker.setZIndex(-2);
         marker.setMinZoom(14);
         return marker;
     }
 
-    private Marker getParkingMarker(double latitude, double longitude) {
-        Marker marker = getNormalMarker(latitude, longitude,"주차장");
-        marker.setHeight(120);
-        marker.setWidth(80);
-        marker.setIcon(OverlayImage.fromResource(R.drawable.parking));
-        marker.setZIndex(3);
+    private Marker getMarkerClassified(double latitude, double longitude, String caption, int resource, int z_index, String subCaption)
+    {
+        Marker marker = getImageMarker(latitude,longitude,caption,70,110, resource);
+        marker.setZIndex(z_index);
         marker.setMinZoom(14);
+        marker.setSubCaptionText(subCaption);
         return marker;
     }
 
-    private Marker getNormalMarker(double latitude, double longitude, String caption)
+    private Marker getImageMarker(double latitude, double longitude, String caption, int width, int height, int resource)
+    {
+        Marker marker = getNormalMarker(latitude,longitude,caption,width,height);
+        marker.setIcon(OverlayImage.fromResource(resource));
+        return marker;
+    }
+
+    private Marker getNormalMarker(double latitude, double longitude, String caption, int width, int height)
     {
         Marker marker = new Marker();
-        marker.setWidth(Marker.SIZE_AUTO);
-        marker.setHeight(Marker.SIZE_AUTO);
+        marker.setWidth(width);
+        marker.setHeight(height);
         marker.setHideCollidedSymbols(true);
         marker.setHideCollidedMarkers(true);
         marker.setPosition(new LatLng(latitude, longitude));
@@ -246,13 +266,13 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         return marker;
     }
 
+
     private Marker setGardenMark(String gardenName, double latitude, double longitude)
     {
-        Marker garden = getNormalMarker(latitude,longitude,gardenName);
+        Marker garden = getNormalMarker(latitude,longitude,gardenName,Marker.SIZE_AUTO,Marker.SIZE_AUTO);
         garden.setZIndex(0);
         garden.setHideCollidedMarkers(true);
         garden.setForceShowIcon(false);
-        garden.setIconTintColor(Color.BLUE);
         garden.setWidth(1);
         garden.setHeight(1);
 
@@ -334,33 +354,94 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         setGardenMark("정원사 정원",37.56871846741127 ,126.83387171487031);
         setGardenMark("사색 정원",37.56946197667976 ,126.83400589684094);
         setGardenMark("초대의 정원",37.569061575852345 ,126.83439164445056);
+        setGardenMark("VR카페",37.5684276, 126.8345194).setSubCaptionText("VR·카페·화장실");
 
         /* 일반 정원 */
         setGardenMark("초지원",37.5659305, 126.8312749);
         setGardenMark("숲문화원",37.5646662, 126.8324412);
         setGardenMark("둘레숲",37.5649573, 126.8336954);
-        setGardenMark("숲문화학교",37.5652731, 126.8329566).setSubCaptionText("편의점·화장실");;
+        setGardenMark("숲문화학교",37.5653003, 126.8329903).setSubCaptionText("편의점·화장실");;
         setGardenMark("재배온실2",37.5658154, 126.8332292);
         setGardenMark("아이리스원",37.5683496, 126.8322809);
         setGardenMark("물가 가로수길",37.5691639, 126.8328341);
-
         setGardenMark("어린이정원학교",37.5704747, 126.834327).setSubCaptionText("카페·화장실");
         setGardenMark("어린이정원",37.5706668, 126.8344231);
     }
+
+    private void setParkingMarkers()
+    {
+        parking_Markers.add(getMarkerClassified(37.5693741,126.836136, "주차장", R.drawable.parking,3,null));
+        parking_Markers.add(getMarkerClassified(37.5661036, 126.8268346,"주차장", R.drawable.parking,3,null));
+        parking_Markers.add(getMarkerClassified(37.5719838, 126.8357986,"주차장", R.drawable.parking,3,null));
+
+    }
+
+    private void setBicycleRackMarkers()
+    {
+        bicycle_Markers.add(getMarkerClassified(37.565238, 126.8339364, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.564231, 126.8327791, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.5641653, 126.8307302, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.5643772, 126.8283618, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.576978, 126.8363459, "자전거\n보관대", R.drawable.bicycle,3,null));
+    }
+
+    private void setPlaygroundkMarkers()
+    {
+        playground_Markers.add(getMarkerClassified(37.5650949, 126.8325307, "놀이터", R.drawable.playground,3,null));
+        playground_Markers.add(getMarkerClassified(37.5676737, 126.8315028, "놀이터", R.drawable.playground,3,null));
+        playground_Markers.add(getMarkerClassified(37.5705915, 126.8318617, "물놀이터", R.drawable.playground_water,3,null));
+
+    }
+
+    private void setTicketBoxMarkers()
+    {
+        ticketBox_Markers.add(getMarkerClassified(37.5672022, 126.8330045, "주제원 입구", R.drawable.ticketbox, 4,"화장실"));
+        ticketBox_Markers.add(getMarkerClassified(37.5694526, 126.8356767, "온실 입구", R.drawable.ticketbox,4,"방문자 안내·화장실"));
+    }
+
+    private void setWashingRoomMarkers()
+    {
+        getWashingRoomMarker(37.5719325, 126.8318979);
+        getWashingRoomMarker(37.5771753, 126.8345548);
+        getWashingRoomMarker(37.5714124, 126.8371654);
+    }
+
+    /* Markers */
+    void selectMarkers(boolean visibility)
+    {
+        if(getResources().getInteger(R.integer.ticket_box) % markerState == 0 )
+        setMarkerVisibility(ticketBox_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.playground) % markerState == 0 )
+            setMarkerVisibility(playground_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.parking) % markerState == 0 )
+            setMarkerVisibility(parking_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.bicycle) % markerState == 0 )
+            setMarkerVisibility(bicycle_Markers, visibility);
+    }
+
+    void setMarkerVisibility(List<Marker> markers, boolean visibility)
+    {
+        for(Marker marker : markers)
+            marker.setVisible(visibility);
+    }
+
 
     /*플로팅 버튼 */
 
     private void closeFloatingMenu()
     {
-        materialDesignFAM.close(true);
-        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
+        floatingMenu.close(true);
+        floatingMenu.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
         frame.setBackgroundColor(Color.parseColor("#00FFFFFF"));
 
     }
     private void openFloatingMenu()
     {
-        materialDesignFAM.open(true);
-        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.ic_close);
+        floatingMenu.open(true);
+        floatingMenu.getMenuIconView().setImageResource(R.drawable.ic_close);
         frame.setBackgroundColor(Color.parseColor( "#99000000"));
     }
 
@@ -372,11 +453,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
        {
            locationButtonView.setVisibility(View.GONE);
            zoomControlView.setVisibility(View.GONE);
-           materialDesignFAM.setVisibility(View.GONE);
+           floatingMenu.setVisibility(View.GONE);
 
        }  else { locationButtonView.setVisibility(View.VISIBLE);
           zoomControlView.setVisibility(View.VISIBLE);
-          materialDesignFAM.setVisibility(View.VISIBLE);
+          floatingMenu.setVisibility(View.VISIBLE);
        }
     }
 
@@ -436,6 +517,18 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                 mainActivity.setCurveBottomBarVisibility();
                 changeObjectVisibility();
             }
+        }
+    }
+
+    class floatingMenuClick  implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            int newState =  Integer.parseInt(v.getTag().toString());
+            if(markerState == newState) return;
+            selectMarkers(false);
+            markerState =  newState;
+            selectMarkers(true);
         }
     }
 }
