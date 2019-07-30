@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_bicycle"
                 android:tag="@integer/bicycle"
-                fab:fab_label="자전거 거치대"
+                fab:fab_label="자전거 보관대"
                 fab:fab_size="mini"
                 fab:fab_colorNormal="#FCFCFC"
                 fab:fab_colorPressed="#D2F798"/>
