@@ -22,10 +22,7 @@ import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.InfoWindow;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
-import com.naver.maps.map.overlay.PolylineOverlay;
+import com.naver.maps.map.overlay.*;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.widget.LocationButtonView;
 import com.naver.maps.map.widget.ZoomControlView;
@@ -178,7 +175,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
-        getNormalMarker(37.5719325, 126.8318979,"화장실");
+
+        getWashingRoomMarker(37.5719325, 126.8318979);
+
+        getParkingMarker(37.5719325, 126.8318979);
+
         setInfowindowMarker(37.5694308, 126.8350116,"온실");
         getNormalMarker(37.5682113, 126.8337287,"주제정원");
         getNormalMarker(37.5662934, 126.8296977,"방문자센터").setSubCaptionText("카페·화장실");
@@ -194,10 +195,30 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     private Marker setInfowindowMarker(double latitude, double longitude, String caption)
     {
-        final Marker marker = getNormalMarker(latitude,longitude,caption);
+        Marker marker = getNormalMarker(latitude,longitude,caption);
         marker.setTag(R.array.tema_garden);
         marker.setOnClickListener(new MarkerClick());
 
+        return marker;
+    }
+
+    private Marker getWashingRoomMarker(double latitude, double longitude) {
+        Marker marker = getNormalMarker(latitude, longitude,"");
+        marker.setHeight(70);
+        marker.setWidth(70);
+        marker.setIcon(OverlayImage.fromResource(R.drawable.wc));
+        marker.setZIndex(0);
+        marker.setMinZoom(14);
+        return marker;
+    }
+
+    private Marker getParkingMarker(double latitude, double longitude) {
+        Marker marker = getNormalMarker(latitude, longitude,"주차장");
+        marker.setHeight(120);
+        marker.setWidth(80);
+        marker.setIcon(OverlayImage.fromResource(R.drawable.parking));
+        marker.setZIndex(3);
+        marker.setMinZoom(14);
         return marker;
     }
 
@@ -212,6 +233,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         marker.setMap(naverMap);
         marker.setCaptionText(caption);
         marker.setZIndex(2);
+
         marker.setOnClickListener(overlay -> {
             Marker mark = (Marker) overlay;
             naverMap.setCameraPosition(new CameraPosition(mark.getPosition(),16));
@@ -340,13 +362,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         materialDesignFAM.open(true);
         materialDesignFAM.getMenuIconView().setImageResource(R.drawable.ic_close);
         frame.setBackgroundColor(Color.parseColor( "#99000000"));
-
     }
 
     /*---- 네이버 지도 커스텀 ----*/
 
-
-    private void setObjectVisibility()
+    private void changeObjectVisibility()
     {
        if( locationButtonView.isShown())
        {
@@ -393,7 +413,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         }
     }
 
-    class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드 메소드
+    class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드
 
         public TrackingModeListener(@NonNull Fragment fragment, int permissionRequestCode) {
             super(fragment, permissionRequestCode);
@@ -414,9 +434,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             else
             {
                 mainActivity.setCurveBottomBarVisibility();
-                setObjectVisibility();
+                changeObjectVisibility();
             }
         }
     }
-
 }
