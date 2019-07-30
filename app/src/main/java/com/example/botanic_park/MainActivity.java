@@ -1,5 +1,6 @@
 package com.example.botanic_park;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -150,16 +151,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     public void setCurveBottomBarVisibility() {
+
         if (curveBottomBar.isShown())
         {
             curveBottomBar.setVisibility(View.GONE);
-            floatingActionButton.hide();
+            floatingActionButton.setVisibility(View.GONE);
         }
         else
         {
             curveBottomBar.setVisibility(View.VISIBLE);
-            floatingActionButton.show();
+            floatingActionButton.setVisibility(View.VISIBLE);
         }
 
     }
