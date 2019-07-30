@@ -39,17 +39,17 @@ public class NewsActivity extends Activity {
     /* 웹에서 정보 긁어오는 클래스 */
 
     public class ParseInformationTask extends AsyncTask<Void, Void, Void> {
-        String INFORMATION_USE_URL = "https://botanicpark.seoul.go.kr/front/introduce/useInfo.do";
+        String NEWS_URL = "https://botanicpark.seoul.go.kr/front/board/newsList.do";
 
         @Override
         protected Void doInBackground(Void... params) {
             try{
                 // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
                 SSLConnect sslConnect = new SSLConnect();
-                sslConnect.postHttps(INFORMATION_USE_URL,1000,1000);
+                sslConnect.postHttps(NEWS_URL,1000,1000);
 
                 // 웹에서 정보 읽어옴
-                Document document = Jsoup.connect(INFORMATION_USE_URL).get();
+                Document document = Jsoup.connect(NEWS_URL).get();
 
                 //해당 이미지 url 저장
                 Elements textElements = document.select("div[class=table_list]").select("tbody");
