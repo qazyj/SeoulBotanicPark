@@ -16,7 +16,7 @@ public class WayToComeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_way_to_come);
+        setContentView(R.layout.activity_way_to_come);
 
         TextView textView = findViewById(R.id.traffic_information2);
         TextView textView1 = findViewById(R.id.way_to_come_car);

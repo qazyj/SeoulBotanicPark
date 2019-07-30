@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/seoul_botanical_garden_logo"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:src="@drawable/seoul_botanical_garden_logo" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/seoul_botanical_garden_logo"
+                android:background="@color/orange_color"
+                android:layout_marginTop="50dp" />
+
+            <LinearLayout
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="no"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange_color"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:text="제목"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange_color"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="등록일"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange_color"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="조회수"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange_color"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line2"
+                android:background="@color/orange_color"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line3"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line4"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line5"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line6"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line7"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line8"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line9"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line10"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line13"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line12"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line13"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line15"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line14"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line15"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line17"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line16"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line17"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line19"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line18"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line19"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line21"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line20"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line21"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line23"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line22"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/line24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line23"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="공지"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:src="@drawable/subway_icon_airport_line"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:text="제로페이로 결제하면 입장료 30%할인"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text="2019.04.30"
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:text=""
+                    android:textSize="10dp"
+                    android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line25"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/line24"
+                android:background="@color/lightGray"
+                android:layout_marginTop="5dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

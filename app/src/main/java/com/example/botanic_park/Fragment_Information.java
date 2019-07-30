@@ -38,19 +38,19 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         Intent intent;
         switch(view.getId()){
             case R.id.information_information_use :
-                intent = new Intent(getActivity(), ActivityInformationUse.class);;
+                intent = new Intent(getActivity(), ActivityInformationUse.class);
                 startActivity(intent);
                 break;
             case R.id.information_way_to_come :
-                intent = new Intent(getActivity(), WayToComeActivity.class);;
+                intent = new Intent(getActivity(), WayToComeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.information_news :
-                intent = new Intent(getActivity(), ActivityInformationUse.class);;
+                intent = new Intent(getActivity(), NewsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.information_community :
-                intent = new Intent(getActivity(), ActivityInformationUse.class);;
+                intent = new Intent(getActivity(), ActivityInformationUse.class);
                 startActivity(intent);
                 break;
             default:
