@@ -16,9 +16,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:name="com.naver.maps.map.MapFragment"
-              app:navermap_latitude=" 37.56801290446582"
-              app:navermap_longitude="126.83245227349256"
-              app:navermap_zoom="15"/>
+              app:navermap_latitude="37.5702109"
+              app:navermap_longitude="126.8318991"
+              app:navermap_zoom="14.3"/>
 
 
     <com.naver.maps.map.widget.LocationButtonView
