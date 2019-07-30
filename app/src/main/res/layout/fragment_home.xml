@@ -14,11 +14,10 @@
 
     <!--서울 미세먼지 api-->
     <kr.go.seoul.airquality.AirQualityTypeMini
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/button_mini"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+            android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +29,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
         <com.example.botanic_park.PlantSearch.PlantBookItemLayout
             android:id="@+id/item1"
             android:layout_width="match_parent"
@@ -132,7 +132,5 @@
         </com.example.botanic_park.PlantSearch.PlantBookItemLayout>
 
     </LinearLayout>
-
-
 
 </LinearLayout>

@@ -25,6 +25,7 @@ import com.example.botanic_park.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /* 이미지 식물 검색 액티비티 */
@@ -39,9 +40,13 @@ public class CameraSearchActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
     private static final int PICK_FROM_CAMERA = 2;
 
+    private ArrayList<PlantBookItem> list;          // 전체 식물 리스트
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 전체 식물 리스트 받아옴
+        list = (ArrayList<PlantBookItem>) getIntent().getSerializableExtra(Fragment_Plant_Book.PLANT_LIST_KEY);
 
         activity = this;
         cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
@@ -186,7 +191,14 @@ public class CameraSearchActivity extends AppCompatActivity {
 
         // 검색 결과 창 띄우기
         Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
-        intent.putExtra("search word", result.toString());
+        intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
+        intent.putExtra(Fragment_Plant_Book.PLANT_LIST_KEY, list);
+        if(result != null){
+            intent.putExtra("search word", result.name);
+        }else{
+            intent.putExtra("search word", new String());   // 검색 결과가 없으면 빈 스트링 보냄
+        }
+
         startActivity(intent);
 
         //finish();

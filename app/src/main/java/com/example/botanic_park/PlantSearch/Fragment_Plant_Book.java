@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -98,6 +99,7 @@ public class Fragment_Plant_Book extends Fragment {
                     case EditorInfo.IME_ACTION_SEARCH:
                         // 텍스트 검색 동작
                         Intent intent = new Intent(getContext(), SearchResultActivity.class);
+                        intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.TEXT_SEARCH);
                         intent.putExtra(PLANT_LIST_KEY, list);
                         intent.putExtra(SEARCH_WORD_KEY, String.valueOf(editText.getText()));
                         startActivity(intent);  // 검색 결과 리스트 창 띄움
@@ -129,6 +131,7 @@ public class Fragment_Plant_Book extends Fragment {
 
     private void startCameraActivity(){
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
+        intent.putExtra(PLANT_LIST_KEY, list);
         startActivity(intent);   // 카메라 액티비티 띄움
     }
 

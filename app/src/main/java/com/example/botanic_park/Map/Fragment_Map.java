@@ -1,5 +1,7 @@
 package com.example.botanic_park.Map;
 
+import android.arch.lifecycle.Lifecycle;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -64,7 +66,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         return view;
     }
-
 
     @Override
     public void onViewCreated(View view,
