@@ -10,24 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/seoul_botanical_garden_logo"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:src="@drawable/seoul_botanical_garden_logo" />
 
             <!-- 이미지 -->
             <ImageView
-                android:layout_marginTop="20dp"
                 android:id="@+id/seoul_botanical_garden_section_place"
+                android:src="@drawable/seoul_botanic_garden_theme_place"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:layout_below="@id/seoul_botanical_garden_logo" />
 
 
@@ -36,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/seoul_botanical_garden_section_place"
-                android:layout_marginTop="10dp"
                 android:text="* 열린숲, 호수원, 습지원 : 연중무휴"
                 android:textSize="15dp"
                 android:textColor="@android:color/black"

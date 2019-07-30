@@ -24,12 +24,14 @@ import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.InfoWindow;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.*;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.widget.LocationButtonView;
 import com.naver.maps.map.widget.ZoomControlView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
@@ -44,8 +46,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private ZoomControlView zoomControlView;
     private FrameLayout frame;
 
-    FloatingActionMenu materialDesignFAM;
-    com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
+    private int markerState = 1;
+    private List<Marker> ticketBox_Markers = new ArrayList<>();
+    private List<Marker> playground_Markers = new ArrayList<>();
+    private List<Marker> bicycle_Markers = new ArrayList<>();
+    private List<Marker> parking_Markers = new ArrayList<>();
+
+    FloatingActionMenu floatingMenu;
+    com.github.clans.fab.FloatingActionButton all, tickebox, playground, bicycle, parking;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,7 +70,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
-        Toast.makeText(getContext(), "생성", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "지도를 탭하면 전체화면으로 볼 수 있습니다.", Toast.LENGTH_LONG).show();
 
         return view;
     }
@@ -88,16 +96,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         mapView.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        materialDesignFAM = (FloatingActionMenu) view.findViewById(R.id.menu);
+        floatingMenu = (FloatingActionMenu) view.findViewById(R.id.menu);
 
-        materialDesignFAM.setIconAnimated(false);
+        floatingMenu.setIconAnimated(false);
 
-        materialDesignFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
-
+        floatingMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(materialDesignFAM.isOpened()) closeFloatingMenu();
+                if(floatingMenu.isOpened()) closeFloatingMenu();
                 else openFloatingMenu();
             }
 
@@ -106,7 +113,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         frame.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-               if (materialDesignFAM.isOpened())
+               if (floatingMenu.isOpened())
                {
                    closeFloatingMenu();
                    return true;
@@ -116,9 +123,12 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             }
         });
 
-        floatingActionButton1 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item1);
-        floatingActionButton2 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item2);
-        floatingActionButton3 = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.material_design_floating_action_menu_item3);
+        all = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.all_pins);
+        tickebox = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.ticket_box);
+        playground = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.playground);
+        bicycle = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.bicycle);
+        parking = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.parking);
+;
 
     }
 
@@ -175,53 +185,104 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         naverMap.setLocationSource(new TrackingModeListener(this,LOCATION_PERMISSION_REQUEST_CODE));
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
-        getNormalMarker(naverMap,37.571868996488575,126.83178753229976,"화장실");
-        setInfowindowMarker(naverMap,37.56940934518748,126.83502476287038,"식물문화센터");
-        getNormalMarker(naverMap,37.568248938032475,126.83315398465993,"주제정원");
+
+        getImageMarker(37.5694308, 126.8350116,"온실",80,80,R.drawable.greenhouse);
+        getImageMarker(37.5682113, 126.8337287,"주제정원",80,80,R.drawable.garden);
+        getImageMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information).setSubCaptionText("카페·화장실");
+
+        all.setOnClickListener(new floatingMenuClick());
+        tickebox.setOnClickListener(new floatingMenuClick());
+        playground.setOnClickListener(new floatingMenuClick());
+        bicycle.setOnClickListener(new floatingMenuClick());
+        parking.setOnClickListener(new floatingMenuClick());
 
         setThemaGardenMarker();
+        setWashingRoomMarkers();
+        setParkingMarkers();
+        setBicycleRackMarkers();
+        setPlaygroundkMarkers();
+        setTicketBoxMarkers();
 
         infoWindow = getInfoWindow("정보");
+        setPolygone();
     }
 
 
     /*----오버레이 생성 메소드----*/
-    private Marker setInfowindowMarker(NaverMap naverMap, double latitude, double longitude, String caption)
+
+    private Marker setInfowindowMarker(double latitude, double longitude, String caption)
     {
-        final Marker marker = getNormalMarker(naverMap,latitude,longitude,caption);
+        Marker marker = getNormalMarker(latitude,longitude,caption,Marker.SIZE_AUTO, Marker.SIZE_AUTO);
         marker.setTag(R.array.tema_garden);
         marker.setOnClickListener(new MarkerClick());
 
         return marker;
     }
 
-    private Marker getNormalMarker(NaverMap naverMap, double latitude, double longitude, String caption)
+    private Marker getWashingRoomMarker(double latitude, double longitude) {
+        Marker marker = getNormalMarker(latitude,longitude,"",70,70);
+        marker.setIcon(OverlayImage.fromResource(R.drawable.wc));
+        marker.setZIndex(-2);
+        marker.setMinZoom(14);
+        return marker;
+    }
+
+    private Marker getMarkerClassified(double latitude, double longitude, String caption, int resource, int z_index, String subCaption)
+    {
+        Marker marker = getImageMarker(latitude,longitude,caption,70,110, resource);
+        marker.setZIndex(z_index);
+        marker.setMinZoom(14);
+        marker.setSubCaptionText(subCaption);
+        return marker;
+    }
+
+    private Marker getImageMarker(double latitude, double longitude, String caption, int width, int height, int resource)
+    {
+        Marker marker = getNormalMarker(latitude,longitude,caption,width,height);
+        marker.setIcon(OverlayImage.fromResource(resource));
+        return marker;
+    }
+
+    private Marker getNormalMarker(double latitude, double longitude, String caption, int width, int height)
     {
         Marker marker = new Marker();
-        marker.setWidth(Marker.SIZE_AUTO);
-        marker.setHeight(Marker.SIZE_AUTO);
+        marker.setWidth(width);
+        marker.setHeight(height);
         marker.setHideCollidedSymbols(true);
         marker.setHideCollidedMarkers(true);
         marker.setPosition(new LatLng(latitude, longitude));
         marker.setMap(naverMap);
         marker.setCaptionText(caption);
         marker.setZIndex(2);
+
         marker.setOnClickListener(overlay -> {
             Marker mark = (Marker) overlay;
             naverMap.setCameraPosition(new CameraPosition(mark.getPosition(),16));
             return true;
         });
 
+        marker.setSubCaptionColor(Color.BLUE);
+        marker.setSubCaptionTextSize(10);
+
         return marker;
     }
 
-    private void setGardenMark(String gardenName, double latitude, double longitude)
+
+    private Marker setGardenMark(String gardenName, double latitude, double longitude)
     {
-        Marker garden = getNormalMarker(naverMap,latitude,longitude,gardenName);
+        Marker garden = getNormalMarker(latitude,longitude,gardenName,Marker.SIZE_AUTO,Marker.SIZE_AUTO);
         garden.setZIndex(0);
         garden.setHideCollidedMarkers(true);
         garden.setForceShowIcon(false);
-        garden.setIconTintColor(Color.BLUE);
+        garden.setWidth(1);
+        garden.setHeight(1);
+
+        garden.setSubCaptionTextSize(9);
+        garden.setCaptionColor(Color.GRAY);
+
+        garden.setMinZoom(15);
+
+        return garden;
     }
 
     private InfoWindow getInfoWindow(final String describe)  // infowindow
@@ -241,11 +302,51 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         return infoWindow;
     }
 
+    private void setPolygone()
+    {
+        PolylineOverlay polyline = new PolylineOverlay();
+        polyline.setCoords(Arrays.asList(
+                new LatLng(37.567925, 126.832514),
+                new LatLng(37.5674657, 126.832184),
+                new LatLng(37.567184, 126.8325716),
+                new LatLng(37.5672061, 126.8328912),
+                new LatLng(37.5671507, 126.8330588),
+                new LatLng(37.5668952, 126.8329167),
+                new LatLng(37.5666871, 126.8331705),
+                new LatLng(37.5668223, 126.8335741),
+                new LatLng(37.5671661, 126.834191),
+                new LatLng(37.5673363, 126.8344046),
+                new LatLng(37.5677949, 126.8346072),
+                new LatLng(37.5680845, 126.8348282),
+                new LatLng(37.5684359, 126.835196),
+                new LatLng(37.5687838, 126.8353599),
+                new LatLng(37.568786, 126.8353514),
+                new LatLng(37.5692877, 126.8355989),
+                new LatLng(37.5696706, 126.8355672),
+                new LatLng(37.5699208, 126.8351941),
+                new LatLng(37.5699228, 126.8347411),
+                new LatLng(37.5699347, 126.8340503),
+                new LatLng(37.5699324, 126.8340446),
+                new LatLng(37.5695101, 126.8334878),
+                new LatLng(37.5690383, 126.8333335),
+                new LatLng(37.5689097, 126.8333064),
+                new LatLng(37.567925, 126.832514)));
+
+        polyline.setWidth(6);
+        polyline.setJoinType(PolylineOverlay.LineJoin.Round);
+        polyline.setMap(naverMap);
+        polyline.setColor(Color.RED);
+        polyline.setPattern(10, 8);
+        polyline.setZIndex(-1);
+        polyline.setMinZoom(15);
+    }
+
     /*------------*/
 
     private void setThemaGardenMarker()  // 주제정원 마크
     {
 
+        /* 주제 정원 */
         setGardenMark("치유의 정원",37.56867930442805,126.83485658315652);
         setGardenMark("숲정원",37.567565404738865,126.83402142477078);
         setGardenMark("바람의 정원",37.5676674540794,126.83291191946778);
@@ -254,44 +355,112 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         setGardenMark("정원사 정원",37.56871846741127 ,126.83387171487031);
         setGardenMark("사색 정원",37.56946197667976 ,126.83400589684094);
         setGardenMark("초대의 정원",37.569061575852345 ,126.83439164445056);
+        setGardenMark("VR카페",37.5684276, 126.8345194).setSubCaptionText("VR·카페·화장실");
+
+        /* 일반 정원 */
+        setGardenMark("초지원",37.5659305, 126.8312749);
+        setGardenMark("숲문화원",37.5646662, 126.8324412);
+        setGardenMark("둘레숲",37.5649573, 126.8336954);
+        setGardenMark("숲문화학교",37.5653003, 126.8329903).setSubCaptionText("편의점·화장실");;
+        setGardenMark("재배온실2",37.5658154, 126.8332292);
+        setGardenMark("아이리스원",37.5683496, 126.8322809);
+        setGardenMark("물가 가로수길",37.5691639, 126.8328341);
+        setGardenMark("어린이정원학교",37.5704747, 126.834327).setSubCaptionText("카페·화장실");
+        setGardenMark("어린이정원",37.5706668, 126.8344231);
+    }
+
+    private void setParkingMarkers()
+    {
+        parking_Markers.add(getMarkerClassified(37.5693741,126.836136, "주차장", R.drawable.parking,3,null));
+        parking_Markers.add(getMarkerClassified(37.5661036, 126.8268346,"주차장", R.drawable.parking,3,null));
+        parking_Markers.add(getMarkerClassified(37.5719838, 126.8357986,"주차장", R.drawable.parking,3,null));
 
     }
+
+    private void setBicycleRackMarkers()
+    {
+        bicycle_Markers.add(getMarkerClassified(37.565238, 126.8339364, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.564231, 126.8327791, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.5641653, 126.8307302, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.5643772, 126.8283618, "자전거\n보관대", R.drawable.bicycle,3,null));
+        bicycle_Markers.add(getMarkerClassified(37.576978, 126.8363459, "자전거\n보관대", R.drawable.bicycle,3,null));
+    }
+
+    private void setPlaygroundkMarkers()
+    {
+        playground_Markers.add(getMarkerClassified(37.5650949, 126.8325307, "놀이터", R.drawable.playground,3,null));
+        playground_Markers.add(getMarkerClassified(37.5676737, 126.8315028, "놀이터", R.drawable.playground,3,null));
+        playground_Markers.add(getMarkerClassified(37.5705915, 126.8318617, "물놀이터", R.drawable.playground_water,3,null));
+
+    }
+
+    private void setTicketBoxMarkers()
+    {
+        ticketBox_Markers.add(getMarkerClassified(37.5672022, 126.8330045, "주제원 입구", R.drawable.ticketbox, 4,"화장실"));
+        ticketBox_Markers.add(getMarkerClassified(37.5694526, 126.8356767, "온실 입구", R.drawable.ticketbox,4,"방문자 안내·화장실"));
+    }
+
+    private void setWashingRoomMarkers()
+    {
+        getWashingRoomMarker(37.5719325, 126.8318979);
+        getWashingRoomMarker(37.5771753, 126.8345548);
+        getWashingRoomMarker(37.5714124, 126.8371654);
+    }
+
+    /* Markers */
+    void selectMarkers(boolean visibility)
+    {
+        if(getResources().getInteger(R.integer.ticket_box) % markerState == 0 )
+        setMarkerVisibility(ticketBox_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.playground) % markerState == 0 )
+            setMarkerVisibility(playground_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.parking) % markerState == 0 )
+            setMarkerVisibility(parking_Markers, visibility);
+
+        if(getResources().getInteger(R.integer.bicycle) % markerState == 0 )
+            setMarkerVisibility(bicycle_Markers, visibility);
+    }
+
+    void setMarkerVisibility(List<Marker> markers, boolean visibility)
+    {
+        for(Marker marker : markers)
+            marker.setVisible(visibility);
+    }
+
 
     /*플로팅 버튼 */
 
     private void closeFloatingMenu()
     {
-        materialDesignFAM.close(true);
-        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
+        floatingMenu.close(true);
+        floatingMenu.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
         frame.setBackgroundColor(Color.parseColor("#00FFFFFF"));
 
     }
     private void openFloatingMenu()
     {
-        materialDesignFAM.open(true);
-        materialDesignFAM.getMenuIconView().setImageResource(R.drawable.ic_close);
+        floatingMenu.open(true);
+        floatingMenu.getMenuIconView().setImageResource(R.drawable.ic_close);
         frame.setBackgroundColor(Color.parseColor( "#99000000"));
-
     }
 
     /*---- 네이버 지도 커스텀 ----*/
 
-
-    private void setObjectVisibility()
+    private void changeObjectVisibility()
     {
        if( locationButtonView.isShown())
        {
            locationButtonView.setVisibility(View.GONE);
            zoomControlView.setVisibility(View.GONE);
-           materialDesignFAM.setVisibility(View.GONE);
+           floatingMenu.setVisibility(View.GONE);
 
        }  else { locationButtonView.setVisibility(View.VISIBLE);
           zoomControlView.setVisibility(View.VISIBLE);
-          materialDesignFAM.setVisibility(View.VISIBLE);
+          floatingMenu.setVisibility(View.VISIBLE);
        }
-
     }
-
 
     class MarkerClick implements Overlay.OnClickListener{ // 마커 클릭을 위한 리스너
 
@@ -326,7 +495,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         }
     }
 
-    class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드 메소드
+    class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드
 
         public TrackingModeListener(@NonNull Fragment fragment, int permissionRequestCode) {
             super(fragment, permissionRequestCode);
@@ -347,9 +516,20 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             else
             {
                 mainActivity.setCurveBottomBarVisibility();
-                setObjectVisibility();
+                changeObjectVisibility();
             }
         }
     }
 
+    class floatingMenuClick  implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            int newState =  Integer.parseInt(v.getTag().toString());
+            if(markerState == newState) return;
+            selectMarkers(false);
+            markerState =  newState;
+            selectMarkers(true);
+        }
+    }
 }
