@@ -25,6 +25,7 @@ class PlantBookItemLayout extends LinearLayout {
     public PlantBookItemLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 너비에 맞춰 정사각형으로 만듦

@@ -99,13 +99,14 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
 
                 JSONArray suggestionArray = (JSONArray) suggentions;
                 for (int j = 0; j < suggestionArray.length(); j++) {
-                    JSONObject object1 = (JSONObject) suggestionArray.get(i);
+                    JSONObject object1 = (JSONObject) suggestionArray.get(j);
 
                     String name = (String) ((JSONObject) object1.get("plant")).get("name");
                     double probability = (double) object1.get("probability");
 
                     ProbablePlant plant = new ProbablePlant(name, probability);
                     probablePlants.add(plant);  // 결과 후보들을 리스트에 저장
+                    Log.d("후보 리스트", probablePlants.toString());
                 }
 
             }
@@ -115,7 +116,10 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
             e.printStackTrace();
         }
 
-        return getMostProbablePlant();
+        if(probablePlants.size() != 0)
+            return probablePlants.get(0);   // 첫번째 결과를 전달
+        return null;
+        //return getMostProbablePlant();
     }
 
     private ProbablePlant getMostProbablePlant() {
@@ -181,6 +185,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
 
             Thread.sleep(5000);
             response = getResponse(conn);
+            Log.d("두번째 응답", response);
 
             conn.disconnect();
         } catch (MalformedURLException e) {

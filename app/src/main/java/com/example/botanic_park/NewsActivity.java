@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
@@ -51,7 +52,7 @@ public class NewsActivity extends Activity {
                 Document document = Jsoup.connect(INFORMATION_USE_URL).get();
 
                 //해당 이미지 url 저장
-                imageURL = document.select("div[class=info]").select("img").attr("src");
+                Elements textElements = document.select("div[class=table_list]").select("tbody");
 
             } catch (IOException e){
                 e.printStackTrace();

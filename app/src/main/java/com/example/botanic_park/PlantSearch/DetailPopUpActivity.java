@@ -61,11 +61,18 @@ public class DetailPopUpActivity extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+/*
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
         // 바깥레이어 클릭시 안닫히게
         if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
             return false;
         }
         return true;
     }
+    */
 
 }
