@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           package="com.example.botanic_park">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="3t2onfn6cn" />
@@ -37,7 +37,7 @@
         <activity android:name=".PlantSearch.CameraSearchActivity" />
         <activity android:name=".PlantSearch.SearchResultActivity" />
         <activity android:name=".MainActivity"/>
-        <activity android:name=".Facilities_information"/>
+        <activity android:name= ".Map.Facilities_information"/>
         <activity android:name=".ActivityInformationUse"/>
         <activity android:name=".WayToComeActivity"/>
         <activity android:name=".NewsActivity"/>

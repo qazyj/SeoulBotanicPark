@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 /* 식물 도감 아이템에 적용되는 레이아웃 */
+
 class PlantBookItemLayout extends LinearLayout {
 
     public PlantBookItemLayout(Context context) {
