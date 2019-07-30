@@ -57,7 +57,7 @@
                 android:layout_weight="0"
                 android:src="@drawable/ic_camera_search"
                 android:background="@color/colorTransparent"
-                android:layout_marginEnd="@dimen/margin_normal"/>
+                android:layout_marginEnd="@dimen/margin_normal" />
 
         </LinearLayout>
 
