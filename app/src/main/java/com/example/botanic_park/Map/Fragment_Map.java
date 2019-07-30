@@ -233,6 +233,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         marker.setZIndex(z_index);
         marker.setMinZoom(14);
         marker.setSubCaptionText(subCaption);
+        marker.setCaptionTextSize(9);
+        marker.setSubCaptionTextSize(8);
         return marker;
     }
 
@@ -347,6 +349,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     {
 
         /* 주제 정원 */
+        setGardenMark("주제원",37.5672022, 126.8330045);
         setGardenMark("치유의 정원",37.56867930442805,126.83485658315652);
         setGardenMark("숲정원",37.567565404738865,126.83402142477078);
         setGardenMark("바람의 정원",37.5676674540794,126.83291191946778);
@@ -443,7 +446,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     {
         floatingMenu.open(true);
         floatingMenu.getMenuIconView().setImageResource(R.drawable.ic_close);
-        frame.setBackgroundColor(Color.parseColor( "#99000000"));
+        frame.setBackgroundColor(Color.parseColor( "#BB000000"));
     }
 
     /*---- 네이버 지도 커스텀 ----*/
@@ -530,6 +533,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             selectMarkers(false);
             markerState =  newState;
             selectMarkers(true);
+            closeFloatingMenu();
         }
     }
 }
