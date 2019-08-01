@@ -1,42 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.botanic_park">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.botanic_park">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_configuration"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PaymentAndQR.KakaoPay"></activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+        <activity android:name=".PaymentAndQR.scan_QR" />
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="3t2onfn6cn" />
+
+        <activity
+            android:name=".PaymentAndQR.PaymentPopUpActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".PlantSearch.DetailPopUpActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".QRPopUpActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:name=".PaymentAndQR.QRPopUpActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlantSearch.CameraSearchActivity"/>
-        <activity android:name=".PlantSearch.SearchResultActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".Map.Facilities_information"/>
-        <activity android:name=".ActivityInformationUse"/>
-        <activity android:name=".WayToComeActivity"/>
-        <activity android:name=".NewsActivity"/>
+        <activity android:name=".PlantSearch.CameraSearchActivity" />
+        <activity android:name=".PlantSearch.SearchResultActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Map.Facilities_information" />
+        <activity android:name=".ActivityInformationUse" />
+        <activity android:name=".WayToComeActivity" />
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".PaymentAndQR.CaptureForm" />
     </application>
+
 </manifest>

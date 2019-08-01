@@ -1,48 +1,32 @@
 package com.example.botanic_park;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 
 import android.graphics.Color;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.Toast;
 import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
@@ -54,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<PlantBookItem> list = null;
 
     private CurveBottomBar curveBottomBar;
+
 
     FloatingActionButton floatingActionButton;
 
@@ -87,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
                 startActivity(intent1); // QR 액티비티 띄움
             }
         });
@@ -96,19 +81,6 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-        // 지도
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature: info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
