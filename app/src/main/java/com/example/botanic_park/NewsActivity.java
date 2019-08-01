@@ -1,9 +1,11 @@
 package com.example.botanic_park;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -16,9 +18,9 @@ import java.io.IOException;
 public class NewsActivity extends Activity {
 
     private ImageView imageView;
-    private String imageURL;
     private String obtainedString;
     private TextView inputTextView;
+    private String connectURLString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class NewsActivity extends Activity {
 
                 //해당 이미지 url 저장
                 Elements textElements = document.select("div[class=table_list]").select("td");
+                Elements URLElements = document.select("div[class=left]").select("a");
 
                 //no1
                 obtainedString = textElements.get(0).text();
@@ -72,8 +75,20 @@ public class NewsActivity extends Activity {
 
                 //title1
                 obtainedString = textElements.get(2).text();
-                inputTextView = findViewById(R.id.title1);
+                inputTextView = (TextView) findViewById(R.id.title1);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(2).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
+
 
                 //registration_date1
                 obtainedString = textElements.get(3).text();
@@ -95,6 +110,17 @@ public class NewsActivity extends Activity {
                 //title2
                 obtainedString = textElements.get(7).text();
                 inputTextView = findViewById(R.id.title2);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(7).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date2
@@ -117,6 +143,17 @@ public class NewsActivity extends Activity {
                 //title3
                 obtainedString = textElements.get(12).text();
                 inputTextView = findViewById(R.id.title3);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(12).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date3
@@ -139,6 +176,17 @@ public class NewsActivity extends Activity {
                 //title4
                 obtainedString = textElements.get(17).text();
                 inputTextView = findViewById(R.id.title4);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(17).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date4
@@ -161,6 +209,17 @@ public class NewsActivity extends Activity {
                 //title5
                 obtainedString = textElements.get(22).text();
                 inputTextView = findViewById(R.id.title5);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(22).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date5
@@ -183,6 +242,17 @@ public class NewsActivity extends Activity {
                 //title6
                 obtainedString = textElements.get(27).text();
                 inputTextView = findViewById(R.id.title6);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(27).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date6
@@ -205,6 +275,17 @@ public class NewsActivity extends Activity {
                 //title7
                 obtainedString = textElements.get(32).text();
                 inputTextView = findViewById(R.id.title7);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(32).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date7
@@ -227,6 +308,17 @@ public class NewsActivity extends Activity {
                 //title8
                 obtainedString = textElements.get(37).text();
                 inputTextView = findViewById(R.id.title8);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(37).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date8
@@ -239,8 +331,6 @@ public class NewsActivity extends Activity {
                 inputTextView = findViewById(R.id.views8);
                 inputTextView.setText(obtainedString);
 
-
-
                 //no9
                 obtainedString = textElements.get(40).text();
                 inputTextView = findViewById(R.id.no9);
@@ -249,6 +339,17 @@ public class NewsActivity extends Activity {
                 //title9
                 obtainedString = textElements.get(42).text();
                 inputTextView = findViewById(R.id.title9);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(42).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date9
@@ -271,6 +372,17 @@ public class NewsActivity extends Activity {
                 //title10
                 obtainedString = textElements.get(47).text();
                 inputTextView = findViewById(R.id.title10);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(47).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date10
@@ -293,6 +405,17 @@ public class NewsActivity extends Activity {
                 //title11
                 obtainedString = textElements.get(52).text();
                 inputTextView = findViewById(R.id.title11);
+                inputTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        connectURLString = textElements.get(52).select("a").attr("href");
+                        if(connectURLString != null) {
+                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
+                            startActivity(intent);
+                        }
+                    }
+                });
                 inputTextView.setText(obtainedString);
 
                 //registration_date11
@@ -363,7 +486,6 @@ public class NewsActivity extends Activity {
 
             imageView = findViewById(R.id.icon11);
             Glide.with(getApplication()).load("https://botanicpark.seoul.go.kr"+imageURL11).into(imageView);
-
         }
     }
 

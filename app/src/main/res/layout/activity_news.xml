@@ -112,24 +112,26 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_weight="4"/>
+
 
                 <TextView
                     android:id="@+id/title1"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -140,7 +142,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -180,16 +181,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title2"
@@ -198,7 +199,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -209,7 +209,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -249,16 +248,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title3"
@@ -267,7 +266,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -278,7 +276,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -318,16 +315,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title4"
@@ -336,7 +333,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -347,7 +343,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -387,16 +382,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon5"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title5"
@@ -405,7 +400,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -416,7 +410,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -427,7 +420,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text=""
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -456,16 +448,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon6"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title6"
@@ -474,7 +466,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -485,7 +476,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -525,16 +515,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon7"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title7"
@@ -543,7 +533,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -554,7 +543,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -594,16 +582,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon8"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title8"
@@ -612,7 +600,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -623,7 +610,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -663,16 +649,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon9"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title9"
@@ -681,7 +667,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -692,7 +677,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -732,16 +716,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon10"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title10"
@@ -750,7 +734,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -761,7 +744,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -801,16 +783,16 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="공지"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
                     android:id="@+id/icon11"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:src="@drawable/subway_icon_airport_line"/>
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/title11"
@@ -819,7 +801,6 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:text="제로페이로 결제하면 입장료 30%할인"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
@@ -830,7 +811,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:text="2019.04.30"
                     android:textSize="10dp"
                     android:textColor="@android:color/black"/>
 
