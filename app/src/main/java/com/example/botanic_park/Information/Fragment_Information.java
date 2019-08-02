@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Information;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.botanic_park.Information.InformationUseActivity;
+import com.example.botanic_park.Information.NewsActivity;
+import com.example.botanic_park.Information.WayToComeActivity;
+import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener{
 
@@ -38,7 +42,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         Intent intent;
         switch(view.getId()){
             case R.id.information_information_use :
-                intent = new Intent(getActivity(), ActivityInformationUse.class);
+                intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
                 break;
             case R.id.information_way_to_come :
@@ -50,7 +54,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.information_community :
-                intent = new Intent(getActivity(), ActivityInformationUse.class);
+                intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
                 break;
             default:

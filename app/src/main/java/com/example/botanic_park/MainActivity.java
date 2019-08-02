@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;

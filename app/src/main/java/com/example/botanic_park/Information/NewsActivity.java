@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.R;
+import com.example.botanic_park.SSLConnect;
+import com.example.botanic_park.WebViewActivity;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

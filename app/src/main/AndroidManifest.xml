@@ -56,9 +56,9 @@
         <activity android:name=".PlantSearch.SearchResultActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Map.Facilities_information" />
-        <activity android:name=".ActivityInformationUse" />
-        <activity android:name=".WayToComeActivity" />
-        <activity android:name=".NewsActivity" />
+        <activity android:name=".Information.InformationUseActivity" />
+        <activity android:name=".Information.WayToComeActivity" />
+        <activity android:name=".Information.NewsActivity" />
         <activity android:name=".PaymentAndQR.CaptureForm" />
         <activity android:name=".WebViewActivity"/>
     </application>
