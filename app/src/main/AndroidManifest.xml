@@ -42,6 +42,6 @@
         <activity android:name=".ActivityInformationUse"/>
         <activity android:name=".WayToComeActivity"/>
         <activity android:name=".NewsActivity"/>
-        <activity android:name=".NewsDetailsInformationActivity"/>
+        <activity android:name=".WebViewActivity"/>
     </application>
 </manifest>

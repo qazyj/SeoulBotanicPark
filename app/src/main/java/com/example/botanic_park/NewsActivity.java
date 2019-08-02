@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,7 +80,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(2).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -115,7 +114,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(7).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -148,7 +147,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(12).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -181,7 +180,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(17).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -214,7 +213,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(22).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -247,7 +246,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(27).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -280,7 +279,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(32).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -313,7 +312,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(37).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -344,7 +343,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(42).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -377,7 +376,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(47).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }
@@ -410,7 +409,7 @@ public class NewsActivity extends Activity {
                     public void onClick(View v) {
                         connectURLString = textElements.get(52).select("a").attr("href");
                         if(connectURLString != null) {
-                            Intent intent = new Intent(getApplicationContext(), NewsDetailsInformationActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
                             intent.putExtra("detailsInformationURL", "http://botanicpark.seoul.go.kr" + connectURLString);
                             startActivity(intent);
                         }

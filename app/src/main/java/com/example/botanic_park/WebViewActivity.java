@@ -3,29 +3,22 @@ package com.example.botanic_park;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class NewsDetailsInformationActivity extends Activity {
+public class WebViewActivity extends Activity {
 
-    private WebView webview;//Mobile Web View
+    private WebView webview;
     private WebSettings webSettings;   //웹뷰 세팅
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_details_information);
+        setContentView(R.layout.activity_webview);
 
         Intent intent = getIntent();
         String URL = intent.getExtras().getString("detailsInformationURL");
-
-        //SSLConnect sslConnect = new SSLConnect();
-        //sslConnect.postHttps(URL,1000,1000);
-
-        Log.d("asdfasdff", ""+URL);
-
 
         webview = (WebView) findViewById(R.id.webView);
 
