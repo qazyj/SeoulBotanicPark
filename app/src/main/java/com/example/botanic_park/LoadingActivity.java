@@ -51,21 +51,21 @@ public class LoadingActivity extends Activity {
         }.getType();
         String json = gson.toJson(list, listType);  // arraylist -> json string
 
-        SharedPreferences sp = getSharedPreferences("list", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("contacts", json); // JSON으로 변환한 객체를 저장한다.
+        editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
         editor.commit(); // 완료한다.
     }
 
     // 식물 list 가져옴
     private ArrayList<PlantBookItem> onSearchData() {
-        SharedPreferences sp = getSharedPreferences("list", MODE_PRIVATE);
-        String strContact = sp.getString("contacts", "");
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        String strList = sp.getString("list", "");
 
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<ArrayList<PlantBookItem>>() {}.getType();
 
-        ArrayList<PlantBookItem> list = gson.fromJson(strContact, listType);
+        ArrayList<PlantBookItem> list = gson.fromJson(strList, listType);
 
         return list;
     }
@@ -148,6 +148,7 @@ public class LoadingActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             finish();   // 파싱 끝나면 로딩 액티비티 종료
 
+            AppManager.getInstance().setList(list);   // 앱메니저에 저장
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra(PLANT_LIST_KEY, list);
             startActivity(intent);

@@ -63,7 +63,6 @@
                     android:textColor="@color/colorBaseCyan"
                     android:gravity="center"
                     android:layout_marginTop="5dp"/>
-
             </LinearLayout>
         </com.example.botanic_park.PlantSearch.PlantBookItemLayout>
 

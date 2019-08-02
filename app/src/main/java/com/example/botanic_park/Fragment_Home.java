@@ -1,5 +1,7 @@
 package com.example.botanic_park;
 
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,7 +46,9 @@ public class Fragment_Home extends Fragment {
         return view;
     }
 
-    private void setTodaysPlant(int index, TextView textView){
+    private void setTodayPlant(int index, TextView textView){
+        ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
+
 
     }
 
@@ -60,3 +64,4 @@ public class Fragment_Home extends Fragment {
         typeMini.setVisibility(View.GONE);
     }
 }
+
