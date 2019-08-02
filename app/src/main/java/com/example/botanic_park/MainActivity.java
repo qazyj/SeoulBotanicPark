@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.botanic_park.Map.Fragment_Map;
+import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
                 startActivity(intent1); // QR 액티비티 띄움
             }
         });
