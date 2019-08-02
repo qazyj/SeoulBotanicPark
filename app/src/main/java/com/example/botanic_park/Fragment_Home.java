@@ -45,7 +45,6 @@ public class Fragment_Home extends Fragment {
     }
 
     private void setTodaysPlant(int index, TextView textView){
-
     }
 
     @Override
