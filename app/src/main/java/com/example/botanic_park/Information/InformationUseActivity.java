@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
+import com.example.botanic_park.R;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -37,7 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ActivityInformationUse extends Activity {
+public class InformationUseActivity extends Activity {
 
     private ImageView imageView;
     private String imageURL;

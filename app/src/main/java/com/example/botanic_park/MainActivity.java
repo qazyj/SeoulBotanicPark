@@ -17,11 +17,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
+
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
+
 
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     FloatingActionButton floatingActionButton;
+    public static boolean isFristCalled = true;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -69,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment_Home).commit();
 
         // 하단 메뉴 설정
-        floatingActionButton  = findViewById(R.id.floating_action_button);
-        floatingActionButton .setOnClickListener(new View.OnClickListener() {
+        floatingActionButton = findViewById(R.id.floating_action_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
@@ -81,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar = findViewById(R.id.customBottomBar);
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
     }
 
     @Override
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         // 프레그먼트에서 오버라이드된 메소드 사용
         // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
 
-        if(requestCode == Fragment_Plant_Book.PERMISSION_REQUEST_CODE) {
+        if (requestCode == Fragment_Plant_Book.PERMISSION_REQUEST_CODE) {
             // 식물 이미지 검색 권한
             fragment_Plant_Book.onRequestPermissionsResult(requestCode, permissions, grantResults);
         } else {
@@ -99,14 +102,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 하단 메뉴 선택 리스너
-    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
             transaction = fragmentManager.beginTransaction();
 
-            switch(menuItem.getItemId())
-            {
+            switch (menuItem.getItemId()) {
                 case R.id.home:
                     transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
@@ -127,13 +129,10 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("RestrictedApi")
     public void setCurveBottomBarVisibility() {
 
-        if (curveBottomBar.isShown())
-        {
+        if (curveBottomBar.isShown()) {
             curveBottomBar.setVisibility(View.GONE);
             floatingActionButton.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             curveBottomBar.setVisibility(View.VISIBLE);
             floatingActionButton.setVisibility(View.VISIBLE);
         }

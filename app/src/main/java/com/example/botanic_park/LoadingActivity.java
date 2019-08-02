@@ -35,10 +35,14 @@ public class LoadingActivity extends Activity {
         Glide.with(this).load(R.drawable.loading).into(loading);
 
         list = onSearchData();  // 기존 저장 정보 가져옴
-        new ParsePlantTask(list).execute(); // AsyncTask 작동시킴(파싱) t
-
+        new ParsePlantTask(list).execute(); // AsyncTask 작동시킴(파싱)
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        // 로딩중 백버튼 종료 박음
+    }
 
     // 식물 list 저장
     private void onSaveData(ArrayList<PlantBookItem> list) {
@@ -65,6 +69,7 @@ public class LoadingActivity extends Activity {
 
         return list;
     }
+
 
     /* 웹에서 식물 정보 긁어오는 클래스 */
     public class ParsePlantTask extends AsyncTask<Void, Void, Void> {
