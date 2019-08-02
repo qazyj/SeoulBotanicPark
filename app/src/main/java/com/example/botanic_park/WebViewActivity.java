@@ -19,7 +19,7 @@ public class WebViewActivity extends Activity {
         setContentView(R.layout.activity_webview);
 
         Intent intent = getIntent();
-        String URL = intent.getExtras().getString("detailsInformationURL");
+        String URL = intent.getExtras().getString("URLString");
 
         webview = (WebView) findViewById(R.id.webView);
 
