@@ -45,9 +45,9 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
     private ProgressBar progressBar;
 
 
-    public PlantAPITask(Context context, String image, ProgressBar progressBar) {
+    public PlantAPITask(Context context, String image) {
         this.context = context;
-        this.progressBar = progressBar;
+        //this.progressBar = progressBar;
         this.image = image;
 
         // API에서 요구하는 이미지 형식에 맞춤
@@ -61,13 +61,13 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressBar.setVisibility(View.VISIBLE);    // progressbar 보여짐
+        //progressBar.setVisibility(View.VISIBLE);    // progressbar 보여짐
     }
 
     @Override
     protected void onPostExecute(ProbablePlant o) {
         super.onPostExecute(o);
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -122,6 +122,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
         //return getMostProbablePlant();
     }
 
+    /*
     private ProbablePlant getMostProbablePlant() {
         // 가장 유력한 식물 후보를 선택해 반환
         ProbablePlant mostProbablePlant = probablePlants.get(0);
@@ -134,6 +135,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
 
         return mostProbablePlant;
     }
+    */
 
     private String sendForIdentification() {
         // 첫번째 request 실행

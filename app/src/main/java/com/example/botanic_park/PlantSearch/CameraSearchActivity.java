@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 import java.io.ByteArrayOutputStream;
@@ -46,7 +47,7 @@ public class CameraSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 전체 식물 리스트 받아옴
-        list = (ArrayList<PlantBookItem>) getIntent().getSerializableExtra(Fragment_Plant_Book.PLANT_LIST_KEY);
+        list = AppManager.getInstance().getList();
 
         activity = this;
         cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
@@ -96,7 +97,7 @@ public class CameraSearchActivity extends AppCompatActivity {
             }
         });
 
-        progressBar = findViewById(R.id.progressbar_camera);
+        //progressBar = findViewById(R.id.progressbar_camera);
 
         galleryBtn = findViewById(R.id.gallery_btn);
         galleryBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +113,10 @@ public class CameraSearchActivity extends AppCompatActivity {
             @Override
             public void onPictureTaken(byte[] bytes, Camera camera) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);  // 캡처한 사진 가져옴
-                showSearchResult(bitmap);
+                //showSearchResult(bitmap);
+                Intent intent = new Intent(getApplicationContext(), ImagePreviewActivity.class);
+                intent.putExtra("image", bitmap);
+                startActivityForResult(intent, PICK_FROM_CAMERA);  //  카메라 미리보기 화면 보여주기
             }
         });
     }
@@ -162,7 +166,6 @@ public class CameraSearchActivity extends AppCompatActivity {
                 if(cursor != null)
                     cursor.close();
             }
-
         }
     }
 
@@ -181,7 +184,7 @@ public class CameraSearchActivity extends AppCompatActivity {
        ProbablePlant result = null;
         try {
             // request API
-            PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap), progressBar);
+            PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap));
             result = task.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -192,7 +195,6 @@ public class CameraSearchActivity extends AppCompatActivity {
         // 검색 결과 창 띄우기
         Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
-        intent.putExtra(Fragment_Plant_Book.PLANT_LIST_KEY, list);
         if(result != null){
             intent.putExtra("search word", result.name);
         }else{

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 import java.io.InputStream;
@@ -45,8 +46,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         resultType = intent.getIntExtra(RESULT_TYPE, 0);
-        list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(Fragment_Plant_Book.PLANT_LIST_KEY);
         searchword = intent.getStringExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
+
+        list = AppManager.getInstance().getList();
 
         resultListView = findViewById(R.id.listview);
         noResult = findViewById(R.id.no_result_message);

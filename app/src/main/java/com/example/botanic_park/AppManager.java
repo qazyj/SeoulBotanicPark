@@ -17,7 +17,7 @@ public class AppManager {
     }
 
 
-    private ArrayList<PlantBookItem> list;
+    private ArrayList<PlantBookItem> list = null;
 
     public ArrayList<PlantBookItem> getList() {
         return list;

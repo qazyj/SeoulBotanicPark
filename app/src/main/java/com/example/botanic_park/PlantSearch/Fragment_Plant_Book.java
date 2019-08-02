@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class Fragment_Plant_Book extends Fragment {
     public static final int PERMISSION_REQUEST_CODE = 2000;
 
-    public static final String PLANT_LIST_KEY = "plant list";
     public static final String SELECTED_ITEM_KEY = "selected item";
     public static final String SEARCH_WORD_KEY = "search word";
 
@@ -42,10 +41,9 @@ public class Fragment_Plant_Book extends Fragment {
     public Fragment_Plant_Book() {
     }
 
-    public static Fragment_Plant_Book newInstance(ArrayList<PlantBookItem> list) {
+    public static Fragment_Plant_Book newInstance() {
         Fragment_Plant_Book fragment = new Fragment_Plant_Book();
         Bundle args = new Bundle();
-        args.putSerializable(LoadingActivity.PLANT_LIST_KEY, list);
         fragment.setArguments(args);
 
         return fragment;
@@ -54,9 +52,7 @@ public class Fragment_Plant_Book extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.list = (ArrayList<PlantBookItem>) getArguments().getSerializable(PLANT_LIST_KEY);
-        }
+        list = AppManager.getInstance().getList();
     }
 
     @Override
@@ -100,7 +96,6 @@ public class Fragment_Plant_Book extends Fragment {
                         // 텍스트 검색 동작
                         Intent intent = new Intent(getContext(), SearchResultActivity.class);
                         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.TEXT_SEARCH);
-                        intent.putExtra(PLANT_LIST_KEY, list);
                         intent.putExtra(SEARCH_WORD_KEY, String.valueOf(editText.getText()));
                         startActivity(intent);  // 검색 결과 리스트 창 띄움
                         break;
@@ -131,7 +126,6 @@ public class Fragment_Plant_Book extends Fragment {
 
     private void startCameraActivity(){
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
-        intent.putExtra(PLANT_LIST_KEY, list);
         startActivity(intent);   // 카메라 액티비티 띄움
     }
 

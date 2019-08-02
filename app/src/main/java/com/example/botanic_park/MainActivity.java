@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
-    private ArrayList<PlantBookItem> list = null;
 
     private CurveBottomBar curveBottomBar;
 
@@ -50,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로딩 액티비티에서 식물 리스트 정보 받아옴
-        Intent intent = getIntent();
-        list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(LoadingActivity.PLANT_LIST_KEY);
-
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -63,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // 프래그먼트 객체 생성
         fragment_Home = new Fragment_Home();
         fragment_Map = new Fragment_Map();
-        fragment_Plant_Book = Fragment_Plant_Book.newInstance(list);
+        fragment_Plant_Book = Fragment_Plant_Book.newInstance();
         fragment_Information = new Fragment_Information();
 
         fragmentManager = getSupportFragmentManager();
