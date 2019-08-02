@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 import kr.go.seoul.airquality.AirQualityTypeMini;
+import kr.go.seoul.airquality.Common.AirInfo;
 
 import java.util.ArrayList;
 
