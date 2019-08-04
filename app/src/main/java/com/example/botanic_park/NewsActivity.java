@@ -3,6 +3,7 @@ package com.example.botanic_park;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import org.jsoup.Jsoup;

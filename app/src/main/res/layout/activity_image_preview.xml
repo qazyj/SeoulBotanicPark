@@ -30,6 +30,7 @@
             android:layout_toLeftOf="@+id/send_btn"
             android:layout_marginRight="50dp"
             android:text="뒤로 가기"
+            android:textSize="10sp"
             android:textColor="@color/colorWhite"/>
 
         <Button
@@ -38,9 +39,9 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_arrow_upward"
             android:background="@drawable/round_background_cyan"
-            android:padding="10dp"
             android:layout_centerInParent="true"
             android:text="보내기"
+            android:textSize="10sp"
             android:textColor="@color/colorWhite"/>
 
         <Button
@@ -53,6 +54,7 @@
             android:layout_toRightOf="@+id/send_btn"
             android:layout_marginLeft="50dp"
             android:text="저장"
+            android:textSize="10sp"
             android:textColor="@color/colorWhite"/>
     </RelativeLayout>
 

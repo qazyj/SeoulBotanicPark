@@ -63,7 +63,8 @@ public class LoadingActivity extends Activity {
         String strList = sp.getString("list", "");
 
         Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
 
         ArrayList<PlantBookItem> list = gson.fromJson(strList, listType);
 
@@ -74,7 +75,7 @@ public class LoadingActivity extends Activity {
     /* 웹에서 식물 정보 긁어오는 클래스 */
     public class ParsePlantTask extends AsyncTask<Void, Void, Void> {
         String PLANT_LIST_URL = "https://botanicpark.seoul.go.kr/front/plants/plantsIntro.do";
-        String IMAGE_START_URL = "http://botanicpark.seoul.go.kr";
+        String IMAGE_START_URL = "https://botanicpark.seoul.go.kr";
         String PLANT_DETAIL_URL = "https://botanicpark.seoul.go.kr/front/plants/plantsIntroView.do";
         String ID = "?plt_sn=";     // 식물 식별 id
         String PAGE = "&page=";     // 페이지
@@ -91,6 +92,43 @@ public class LoadingActivity extends Activity {
                 if (list == null) {
                     // 저장된 정보가 없는 경우 파싱
                     list = new ArrayList<>();
+                    for (int id = 1; id <= 121; id++) {
+                        String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id;
+
+                        // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
+                        SSLConnect sslConnect = new SSLConnect();
+                        sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
+
+                        // 웹에서 정보 읽어옴
+                        Document document = Jsoup.connect(DETAIL_PAGE_URL).get();
+                        Elements textElements = document.select("div[class=text_area]").select("span");
+                        //Log.d("debug textElements", textElements + "");
+
+                        String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
+
+                        String name_ko = textElements.get(0).text();
+                        name_ko = name_ko.replace("이 름:", "");
+
+                        String name_sc = textElements.get(1).text();
+                        name_sc = name_sc.replace("학 명:", "");
+
+                        String name_en = textElements.get(2).text();
+                        name_en = name_en.replace("영 명:", "");
+
+                        String type = textElements.get(3).text();
+                        type = type.replace("구 분:", "");
+
+                        String blossom = textElements.get(4).text();
+                        blossom = blossom.replace("개화기:", "");
+
+                        String details = document.select("div[class=text_editor]").text();
+
+                        // 리스트에 추가
+                        list.add(new PlantBookItem(IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
+
+                    }
+
+                    /*
                     int id = 121;
                     for (int page = 1; page <= 5; page++) {
                         for (int itemCount = 0; itemCount < 8; itemCount++) {
@@ -129,9 +167,10 @@ public class LoadingActivity extends Activity {
 
                             id--;
                         }
-                        onSaveData(list);   // 피싱한 데이터 저장
-                    }
-                } else{
+                        */
+
+                    onSaveData(list);   // 피싱한 데이터 저장
+                } else {
                     // 저장된 정보가 있는 경우
                     Thread.sleep(2000);
                 }

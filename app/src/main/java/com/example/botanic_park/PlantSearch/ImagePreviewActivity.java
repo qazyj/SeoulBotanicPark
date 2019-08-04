@@ -2,6 +2,7 @@ package com.example.botanic_park.PlantSearch;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.bumptech.glide.Glide;
 import com.example.botanic_park.R;
 
 import java.io.*;
@@ -26,9 +28,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_preview);
 
-        bitmap = (Bitmap) getIntent().getParcelableExtra("image");
+        bitmap = CameraSearchActivity.bitmap;
         ImageView imageView = findViewById(R.id.image_preview);
-        imageView.setImageBitmap(bitmap);
+        Glide.with(this).load(bitmap).into(imageView);
 
         Button backBtn = findViewById(R.id.back_btn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +64,11 @@ public class ImagePreviewActivity extends AppCompatActivity {
             outputStream = new FileOutputStream(image);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
 
+            // 갤러리에 반영
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScanIntent.setData(Uri.fromFile(image));
+            getApplicationContext().sendBroadcast(mediaScanIntent);
+
             Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +85,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
         // 카메라에서 직은 사진을 저장할 폴더 및 파일 만듦
 
         // 이미지 파일 이름
-        String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("YYMMDD").format(new Date());
         String imageFileName = "BotanicPark" + timeStamp + "_";
 
         // 이미지가 저장될 폴더 이름
@@ -88,7 +95,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
 
         // 빈 파일 생성
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        Log.d("테스트", "createImageFile : " + image.getAbsolutePath());
+        //Log.d("테스트", "createImageFile : " + image.getAbsolutePath());
 
         return image;
     }

@@ -2,16 +2,27 @@ package com.example.botanic_park.PlantSearch;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.botanic_park.R;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.concurrent.ExecutionException;
 
 public class DetailPopUpActivity extends Activity {
     private PlantBookItem selectedItem;
@@ -57,7 +68,11 @@ public class DetailPopUpActivity extends Activity {
 
         TextView details = findViewById(R.id.details);
         details.setText(selectedItem.getDetails());
+
+        ImageView imageView = findViewById(R.id.image_detail);
+        //Glide.with(getApplication()).load(selectedItem.getImg_url()).into(imageView);
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
