@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class LoadingActivity extends Activity {
     public static final String PLANT_LIST_KEY = "plant list";
     public static final int REQUEST_CODE = 4000;
-    ArrayList<PlantBookItem> list;
+    ArrayList<PlantBookItem> list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class LoadingActivity extends Activity {
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
 
+        //onClearData();
         list = onSearchData();  // 기존 저장 정보 가져옴
         new ParsePlantTask(list).execute(); // AsyncTask 작동시킴(파싱)
     }
@@ -41,7 +43,14 @@ public class LoadingActivity extends Activity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        // 로딩중 백버튼 종료 박음
+        // 로딩중 백버튼 종료 막음
+    }
+
+    private void onClearData(){
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
     }
 
     // 식물 list 저장
@@ -87,99 +96,62 @@ public class LoadingActivity extends Activity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                if (list == null) {
-                    // 저장된 정보가 없는 경우 파싱
-                    list = new ArrayList<>();
-                    for (int id = 1; id <= 121; id++) {
-                        String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id;
+        protected Void doInBackground(Void... params) {  if (list == null) {
+            // 저장된 정보가 없는 경우 파싱
+            list = new ArrayList<>();
+            for (int id = 121; id >= 1; id--) {
+                String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id;
 
-                        // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
-                        SSLConnect sslConnect = new SSLConnect();
-                        sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
+                // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
+                SSLConnect sslConnect = new SSLConnect();
+                sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
 
-                        // 웹에서 정보 읽어옴
-                        Document document = Jsoup.connect(DETAIL_PAGE_URL).get();
-                        Elements textElements = document.select("div[class=text_area]").select("span");
-                        //Log.d("debug textElements", textElements + "");
+                // 웹에서 정보 읽어옴
+                Document document = null;
+                try {
+                    document = Jsoup.connect(DETAIL_PAGE_URL).get();
+                    Elements textElements = document.select("div[class=text_area]").select("span");
+                    //Log.d("debug textElements", textElements + "");
 
-                        String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
+                    String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
 
-                        String name_ko = textElements.get(0).text();
-                        name_ko = name_ko.replace("이 름:", "");
+                    String name_ko = textElements.get(0).text();
+                    name_ko = name_ko.replace("이 름:", "");
 
-                        String name_sc = textElements.get(1).text();
-                        name_sc = name_sc.replace("학 명:", "");
+                    String name_sc = textElements.get(1).text();
+                    name_sc = name_sc.replace("학 명:", "");
 
-                        String name_en = textElements.get(2).text();
-                        name_en = name_en.replace("영 명:", "");
+                    String name_en = textElements.get(2).text();
+                    name_en = name_en.replace("영 명:", "");
 
-                        String type = textElements.get(3).text();
-                        type = type.replace("구 분:", "");
+                    String type = textElements.get(3).text();
+                    type = type.replace("구 분:", "");
 
-                        String blossom = textElements.get(4).text();
-                        blossom = blossom.replace("개화기:", "");
+                    String blossom = textElements.get(4).text();
+                    blossom = blossom.replace("개화기:", "");
 
-                        String details = document.select("div[class=text_editor]").text();
+                    String details = document.select("div[class=text_editor]").text();
 
-                        // 리스트에 추가
-                        list.add(new PlantBookItem(IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
-
-                    }
-
-                    /*
-                    int id = 121;
-                    for (int page = 1; page <= 5; page++) {
-                        for (int itemCount = 0; itemCount < 8; itemCount++) {
-                            String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id + PAGE + page;
-
-                            // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
-                            SSLConnect sslConnect = new SSLConnect();
-                            sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
-
-                            // 웹에서 정보 읽어옴
-                            Document document = Jsoup.connect(DETAIL_PAGE_URL).get();
-                            Elements textElements = document.select("div[class=text_area]").select("span");
-                            //Log.d("debug textElements", textElements + "");
-
-                            String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
-
-                            String name_ko = textElements.get(0).text();
-                            name_ko = name_ko.replace("이 름:", "");
-
-                            String name_sc = textElements.get(1).text();
-                            name_sc = name_sc.replace("학 명:", "");
-
-                            String name_en = textElements.get(2).text();
-                            name_en = name_en.replace("영 명:", "");
-
-                            String type = textElements.get(3).text();
-                            type = type.replace("구 분:", "");
-
-                            String blossom = textElements.get(4).text();
-                            blossom = blossom.replace("개화기:", "");
-
-                            String details = document.select("div[class=text_editor]").text();
-
-                            // 리스트에 추가
-                            list.add(new PlantBookItem(IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
-
-                            id--;
-                        }
-                        */
-
-                    onSaveData(list);   // 피싱한 데이터 저장
-                } else {
-                    // 저장된 정보가 있는 경우
-                    Thread.sleep(2000);
+                    // 리스트에 추가
+                    list.add(new PlantBookItem(id,IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
+                    Log.d("테스트", "id: " + id);
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    continue;   // 7번만 invalid Mark로 안옴
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            }
+
+            onSaveData(list);   // 피싱한 데이터 저장
+        } else {
+            // 저장된 정보가 있는 경우
+            try {
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
             return null;
         }
 

@@ -42,32 +42,38 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     private ArrayList<ProbablePlant> probablePlants;
 
     private Context context;
-    private ProgressBar progressBar;
+    ProgressDialog dialog;
 
 
     public PlantAPITask(Context context, String image) {
         this.context = context;
-        //this.progressBar = progressBar;
         this.image = image;
+
+        dialog = new ProgressDialog(context);
 
         // API에서 요구하는 이미지 형식에 맞춤
         imageArray = new JSONArray();
         imageArray.put(image);
         imageArray.put("data:image/jpg;base64," + image);
 
-        probablePlants = new ArrayList<ProbablePlant>();
+        probablePlants = new ArrayList<>();
     }
 
     @Override
     protected void onPreExecute() {
+        /*
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("로딩중입니다...");
+
+        dialog.show();
+        */
         super.onPreExecute();
-        //progressBar.setVisibility(View.VISIBLE);    // progressbar 보여짐
     }
 
     @Override
     protected void onPostExecute(ArrayList<ProbablePlant> o) {
+        //dialog.dismiss();
         super.onPostExecute(o);
-        //progressBar.setVisibility(View.GONE);
     }
 
     @Override

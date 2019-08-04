@@ -2,11 +2,9 @@ package com.example.botanic_park.PlantSearch;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,12 +15,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.concurrent.ExecutionException;
+
+import java.lang.reflect.Field;
+
 
 public class DetailPopUpActivity extends Activity {
     private PlantBookItem selectedItem;
@@ -70,6 +65,15 @@ public class DetailPopUpActivity extends Activity {
         details.setText(selectedItem.getDetails());
 
         ImageView imageView = findViewById(R.id.image_detail);
+        try {
+            Field field = R.drawable.class.getField("species_" + selectedItem.getId());
+            int drawableID = field.getInt(null);
+            Glide.with(imageView).load(drawableID).thumbnail(0.1f).into(imageView);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         //Glide.with(getApplication()).load(selectedItem.getImg_url()).into(imageView);
     }
 

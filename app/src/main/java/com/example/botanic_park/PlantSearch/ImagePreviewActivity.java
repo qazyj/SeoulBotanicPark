@@ -31,7 +31,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
 
         bitmap = CameraSearchActivity.bitmap;
         ImageView imageView = findViewById(R.id.image_preview);
-        Glide.with(this).load(bitmap).into(imageView);
+        Glide.with(this).load(bitmap).override(500,500).into(imageView);
 
         Button backBtn = findViewById(R.id.back_btn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +116,13 @@ public class ImagePreviewActivity extends AppCompatActivity {
         ArrayList<String> result = new ArrayList<>();
         try {
             // request API
-            PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap));
+            PlantAPITask task = new PlantAPITask(this, getBase64EncodedImage(bitmap));
             ArrayList<ProbablePlant> plants = task.execute().get();
+            Log.d("테스트", "API처리 끝남");
             for(ProbablePlant plant : plants){
                 result.add(plant.name);
             }
+            Log.d("테스트", "이름만 뽑기 끝남");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -128,9 +130,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
         }
 
         // 검색 결과 창 띄우기
-        Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
+        Intent intent = new Intent(this, SearchResultActivity.class);
         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
         intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
-
+        startActivity(intent);
     }
 }

@@ -31,6 +31,7 @@ import com.example.botanic_park.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -82,7 +83,8 @@ public class CameraSearchActivity extends AppCompatActivity {
                     public void onPictureTaken(byte[] bytes, Camera camera) {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                        Bitmap originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        options.inSampleSize = 4;
+                        Bitmap originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
                         Log.d("테스트", originalBitmap.getWidth() + " " + originalBitmap.getHeight());
 
                         Matrix matrix = new Matrix();
@@ -96,7 +98,7 @@ public class CameraSearchActivity extends AppCompatActivity {
                                 originalBitmap.getHeight(), originalBitmap.getHeight(), matrix, true); // 정방형
                         */
 
-                        Intent intent = new Intent(getApplicationContext(), ImagePreviewActivity.class);
+                        Intent intent = new Intent(CameraSearchActivity.this, ImagePreviewActivity.class);
                         startActivity(intent);  //  카메라 미리보기 화면 보여주기
                     }
                 });
@@ -141,7 +143,6 @@ public class CameraSearchActivity extends AppCompatActivity {
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -198,7 +199,7 @@ public class CameraSearchActivity extends AppCompatActivity {
        ArrayList<String> result = new ArrayList<>();
         try {
             // request API
-            PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap));
+            PlantAPITask task = new PlantAPITask(this, getBase64EncodedImage(bitmap));
             ArrayList<ProbablePlant> plants = task.execute().get();
             for(ProbablePlant plant : plants){
                 result.add(plant.name);
@@ -210,19 +211,12 @@ public class CameraSearchActivity extends AppCompatActivity {
         }
 
         // 검색 결과 창 띄우기
-        Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
+        Intent intent = new Intent(this, SearchResultActivity.class);
         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
         intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
-        /*
-        if (result != null) {
-            intent.putExtra("search word", result.name);
-        } else {
-            intent.putExtra("search word", new String());   // 검색 결과가 없으면 빈 스트링 보냄
-        }
-        */
 
         startActivity(intent);
-
-        //finish();
     }
 }
+
+

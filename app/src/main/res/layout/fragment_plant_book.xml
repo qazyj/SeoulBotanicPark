@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="검색어를 입력하세요"
+                android:hint="키워드 입력"
                 android:ems="10"
                 android:textSize="@dimen/text_size_normal"
                 android:background="@null"
