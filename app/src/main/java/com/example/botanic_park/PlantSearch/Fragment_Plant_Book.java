@@ -71,17 +71,17 @@ public class Fragment_Plant_Book extends Fragment {
                 };
                 ArrayList<String> ungranted_permissions = new ArrayList<>();
 
-                for(String permission : permissions){
-                    if(!PermissionCheck.isGrantedPermission(getActivity(), permission))
+                for (String permission : permissions) {
+                    if (!PermissionCheck.isGrantedPermission(getActivity(), permission))
                         ungranted_permissions.add(permission);
                 }
 
 
-                if(ungranted_permissions.size() > 0) {
+                if (ungranted_permissions.size() > 0) {
                     // 권한 요청
                     PermissionCheck.requestPermissions(getActivity(),
                             ungranted_permissions.toArray(new String[ungranted_permissions.size()]), PERMISSION_REQUEST_CODE);
-                } else{
+                } else {
                     startCameraActivity();
                 }
             }
@@ -94,9 +94,12 @@ public class Fragment_Plant_Book extends Fragment {
                 switch (i) {
                     case EditorInfo.IME_ACTION_SEARCH:
                         // 텍스트 검색 동작
+                        ArrayList<String> searchWordList = new ArrayList<>();
+                        searchWordList.add(String.valueOf(editText.getText()));
+
                         Intent intent = new Intent(getContext(), SearchResultActivity.class);
                         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.TEXT_SEARCH);
-                        intent.putExtra(SEARCH_WORD_KEY, String.valueOf(editText.getText()));
+                        intent.putExtra(SEARCH_WORD_KEY, searchWordList);
                         startActivity(intent);  // 검색 결과 리스트 창 띄움
                         break;
                     default:
@@ -124,7 +127,7 @@ public class Fragment_Plant_Book extends Fragment {
         return view;
     }
 
-    private void startCameraActivity(){
+    private void startCameraActivity() {
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
         startActivity(intent);   // 카메라 액티비티 띄움
     }
@@ -202,7 +205,7 @@ class PlantBookAdapter extends BaseAdapter {
         koNameView.setText(item.getName_ko());
 
         // 모든 이름을 보여주는 경우
-        if(showType == SHOW_ALL_NAME){
+        if (showType == SHOW_ALL_NAME) {
             TextView enNameView = view.findViewById(R.id.name_en);
             enNameView.setVisibility(View.VISIBLE);
             enNameView.setText(item.getName_en());
@@ -215,7 +218,7 @@ class PlantBookAdapter extends BaseAdapter {
         return view;
     }
 
-    private void setText(TextView textView){
+    private void setText(TextView textView) {
 
     }
 }

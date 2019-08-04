@@ -17,6 +17,7 @@ import com.example.botanic_park.R;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
@@ -112,11 +113,14 @@ public class ImagePreviewActivity extends AppCompatActivity {
     }
 
     private void showSearchResult(Bitmap bitmap){
-        ProbablePlant result = null;
+        ArrayList<String> result = new ArrayList<>();
         try {
             // request API
             PlantAPITask task = new PlantAPITask(getApplicationContext(), getBase64EncodedImage(bitmap));
-            result = task.execute().get();
+            ArrayList<ProbablePlant> plants = task.execute().get();
+            for(ProbablePlant plant : plants){
+                result.add(plant.name);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -126,13 +130,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
         // 검색 결과 창 띄우기
         Intent intent = new Intent(getApplicationContext(), SearchResultActivity.class);
         intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
-        if(result != null){
-            intent.putExtra("search word", result.name);
-        }else{
-            intent.putExtra("search word", new String());   // 검색 결과가 없으면 빈 스트링 보냄
-        }
-
-        startActivity(intent);
+        intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
 
     }
 }

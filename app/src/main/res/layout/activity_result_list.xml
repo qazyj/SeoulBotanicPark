@@ -13,8 +13,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:elevation="2dp"
-            android:background="@color/colorWhite">
+            android:background="@drawable/border_active"
+            android:padding="10dp">
+
+            <!-- 검색 결과 없음 예외처리 -->
+            <LinearLayout
+                android:id="@+id/no_result_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_no_search_result" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="검색 결과가 없습니다"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <!-- 텍스트 검색 시 -->
             <ScrollView
@@ -28,7 +51,7 @@
                     android:layout_margin="@dimen/margin_narrow"
                     android:divider="@null"
                     android:dividerHeight="5dp"
-                    android:padding="10dp" />
+                    android:padding="5dp" />
             </ScrollView>
 
             <!-- 카메라 검색 시 -->
@@ -36,8 +59,8 @@
                 android:id="@+id/content_search_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:background="@color/colorWhite"
+                android:orientation="vertical"
                 android:visibility="visible">
                 <!-- 이미지 -->
                 <ImageView
@@ -167,37 +190,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
             android:layout_weight="0"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="원하는 결과가 없나요?"/>
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_narrow"
+                    android:src="@drawable/ic_help_outline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="원하는 결과가 없나요?" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/searchword_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrow"
+                android:scrollbars="horizontal" />
         </LinearLayout>
     </LinearLayout>
 
-
-    <!-- 검색 결과 없음 예외처리 -->
-    <LinearLayout
-        android:id="@+id/no_result_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_no_search_result" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:text="검색 결과가 없습니다"
-            android:textSize="20sp" />
-    </LinearLayout>
 
 </RelativeLayout>

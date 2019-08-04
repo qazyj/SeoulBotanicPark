@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
+public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
     private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
     //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
@@ -65,13 +65,13 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
     }
 
     @Override
-    protected void onPostExecute(ProbablePlant o) {
+    protected void onPostExecute(ArrayList<ProbablePlant> o) {
         super.onPostExecute(o);
         //progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    protected ProbablePlant doInBackground(Object... objects) {
+    protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
         // 첫번째 request
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
@@ -116,26 +116,13 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
             e.printStackTrace();
         }
 
+        return probablePlants;
+        /*
         if(probablePlants.size() != 0)
             return probablePlants.get(0);   // 첫번째 결과를 전달
         return null;
-        //return getMostProbablePlant();
+        */
     }
-
-    /*
-    private ProbablePlant getMostProbablePlant() {
-        // 가장 유력한 식물 후보를 선택해 반환
-        ProbablePlant mostProbablePlant = probablePlants.get(0);
-
-        for (ProbablePlant plant : probablePlants) {
-            if (mostProbablePlant.probability < plant.probability) {
-                mostProbablePlant = plant;
-            }
-        }
-
-        return mostProbablePlant;
-    }
-    */
 
     private String sendForIdentification() {
         // 첫번째 request 실행

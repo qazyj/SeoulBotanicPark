@@ -1,14 +1,19 @@
 package com.example.botanic_park.PlantSearch;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +34,10 @@ public class SearchResultActivity extends AppCompatActivity {
     public static final int TEXT_SEARCH = 0;
     public static final int IMAGE_SEARCH = 1;
 
+    SearchWordAdapter adapter;
+    RecyclerView recyclerView;
+    ArrayList<String> searchWordList;
+
     ArrayList<PlantBookItem> list;          // 전체 식물 리스트
     ArrayList<PlantBookItem> searchList;    // 검색결과 저장 리스트
     String searchword;
@@ -46,7 +55,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         resultType = intent.getIntExtra(RESULT_TYPE, 0);
-        searchword = intent.getStringExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
+        searchWordList = (ArrayList<String>) intent.getSerializableExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
+        searchword = searchWordList.get(0);
 
         list = AppManager.getInstance().getList();
 
@@ -56,12 +66,40 @@ public class SearchResultActivity extends AppCompatActivity {
 
         getSearchResult();
         showSearchResult();
+
+        recyclerView = findViewById(R.id.searchword_recyclerView);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        adapter = new SearchWordAdapter(searchWordList,this, itemClickListener);
+        recyclerView.setAdapter(adapter);
+
+        ItemDecoration decoration = new ItemDecoration();
+        recyclerView.addItemDecoration(decoration);
     }
+
+    private View.OnClickListener itemClickListener = new View.OnClickListener() {
+        // 검색어 해시태그 클릭 리스너
+        @Override
+        public void onClick(View view) {
+            String name = (String) view.getTag();
+
+            // 웹에 검색창 띄움
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, name);
+
+            if(intent.resolveActivity(getPackageManager()) != null){
+                startActivity(intent);
+            } else{
+                // 설치된 웹브라우저가 없는 경우
+            }
+        }
+    };
 
     private void getSearchResult() {
         // 텍스트 검색 결과 리스트
         searchList = new ArrayList<PlantBookItem>();
-
         if(searchword.isEmpty())
             return;
 
@@ -80,10 +118,13 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private void showSearchResult() {
         if (searchList.size() <= 0) {
+            Toast.makeText(getApplicationContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show();
+            /*
             // 검색 결과 없음 메시지 보여줌
             noResult.setVisibility(View.VISIBLE);
             resultListView.setVisibility(View.GONE);
             resultItem.setVisibility(View.GONE);
+            */
             return;
         }
 
@@ -147,8 +188,59 @@ public class SearchResultActivity extends AppCompatActivity {
         });
     }
 
-
-
+    class ItemDecoration extends RecyclerView.ItemDecoration{
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            if(parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1)
+                outRect.right = 10; // 맨 마지막 아이템만 제외하고 margin 줌
+        }
+    }
 }
+
+class SearchWordAdapter extends RecyclerView.Adapter<SearchWordAdapter.ViewHolder>{
+    private ArrayList<String> itemList;
+    private Context context;
+    private View.OnClickListener onClickListener;
+
+    public SearchWordAdapter(ArrayList<String> itemList, Context context, View.OnClickListener onClickListener) {
+        this.itemList = itemList;
+        this.context = context;
+        this.onClickListener = onClickListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.item_search_word, viewGroup, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        String item = itemList.get(i);
+
+        viewHolder.textView.setText("# " + item);
+        viewHolder.textView.setTag(item);
+        viewHolder.textView.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView textView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textView = itemView.findViewById(R.id.searchword_textView);
+        }
+    }
+}
+
+
 
 
