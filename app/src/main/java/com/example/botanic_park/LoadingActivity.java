@@ -53,19 +53,6 @@ public class LoadingActivity extends Activity {
         editor.commit();
     }
 
-    // 식물 list 저장
-    private void onSaveData(ArrayList<PlantBookItem> list) {
-        Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
-        }.getType();
-        String json = gson.toJson(list, listType);  // arraylist -> json string
-
-        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
-        editor.commit(); // 완료한다.
-    }
-
     // 식물 list 가져옴
     private ArrayList<PlantBookItem> onSearchData() {
         SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
@@ -139,11 +126,7 @@ public class LoadingActivity extends Activity {
                     //e.printStackTrace();
                     continue;   // 7번만 invalid Mark로 안옴
                 }
-
-
             }
-
-            onSaveData(list);   // 피싱한 데이터 저장
         } else {
             // 저장된 정보가 있는 경우
             try {

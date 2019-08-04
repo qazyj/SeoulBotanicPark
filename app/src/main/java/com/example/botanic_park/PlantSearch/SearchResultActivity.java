@@ -50,7 +50,10 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         resultType = intent.getIntExtra(RESULT_TYPE, 0);
         searchWordList = (ArrayList<String>) intent.getSerializableExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
-        searchword = searchWordList.get(0);
+        if(searchWordList.size() > 0)
+            searchword = searchWordList.get(0);
+        else
+            searchword = new String();  // 빈 문자열
 
         list = AppManager.getInstance().getList();
 

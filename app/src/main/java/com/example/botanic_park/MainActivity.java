@@ -3,6 +3,7 @@ package com.example.botanic_park;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import android.os.Build;
@@ -22,13 +23,16 @@ import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
+    //public static final String homeTag = "home";
+    //public static final String mapTag = "map";
+    public static final String plantBookTag = "plant book";
+    //public static final String informationTag = "information";
 
     private CurveBottomBar curveBottomBar;
 
@@ -81,6 +89,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        onSaveData(AppManager.getInstance().getList()); // 도감 저장
+        super.onDestroy();
+    }
+
+    // 식물 list 저장
+    private void onSaveData(ArrayList<PlantBookItem> list) {
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+        String json = gson.toJson(list, listType);  // arraylist -> json string
+
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
+        editor.commit(); // 완료한다.
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         // 프레그먼트에서 오버라이드된 메소드 사용
         // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
@@ -109,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commit();
+                    transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
                 case R.id.information:
                     transaction.replace(R.id.frame_container, fragment_Information).commit();

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +32,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Fragment_Plant_Book extends Fragment {
     public static final int PERMISSION_REQUEST_CODE = 2000;
+    public static final int START_ACTIVITY_CODE = 3000;
 
     public static final String SELECTED_ITEM_KEY = "selected item";
     public static final String SEARCH_WORD_KEY = "search word";
@@ -105,7 +110,7 @@ public class Fragment_Plant_Book extends Fragment {
                             Intent intent = new Intent(getContext(), SearchResultActivity.class);
                             intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.TEXT_SEARCH);
                             intent.putExtra(SEARCH_WORD_KEY, searchWordList);
-                            startActivity(intent);  // 검색 결과 리스트 창 띄움
+                            startActivityForResult(intent, START_ACTIVITY_CODE);  // 검색 결과 리스트 창 띄움
                         }
                         break;
                     default:
@@ -135,7 +140,19 @@ public class Fragment_Plant_Book extends Fragment {
 
     private void startCameraActivity() {
         Intent intent = new Intent(getActivity(), CameraSearchActivity.class);
-        startActivity(intent);   // 카메라 액티비티 띄움
+        startActivityForResult(intent, START_ACTIVITY_CODE);   // 카메라 액티비티 띄움
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("테스트", "onActivityResult");
+
+        // 프래그먼트 화면 갱신
+        Fragment frgment = null;
+        frgment = getFragmentManager().findFragmentByTag(MainActivity.plantBookTag);
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(frgment).attach(frgment);
+        ft.commit();
     }
 
     @Override
