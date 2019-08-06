@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class Fragment_Plant_Book extends Fragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plant_book, container, false);
 
@@ -184,8 +185,6 @@ class PlantBookAdapter extends BaseAdapter {
 
     View itemView;          // item이 뿌려질 뷰
     PlantBookItem item;     // item 정보 객체
-    Bitmap bitmap;          // item 안에 들어가는 이미지
-    Drawable drawable;
 
     public PlantBookAdapter(Context context, int layout, List<PlantBookItem> list, int showType) {
         this.context = context;
@@ -249,7 +248,7 @@ class PlantBookAdapter extends BaseAdapter {
             scNameView.setText(item.getName_sc());
         }
 
-        return view;
+        return itemView;
     }
 
 }

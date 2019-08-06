@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 프래그먼트 객체 생성
-        fragment_Home = new Fragment_Home();
+        fragment_Home = Fragment_Home.newInstance();
         fragment_Map = new Fragment_Map();
         fragment_Plant_Book = Fragment_Plant_Book.newInstance();
         fragment_Information = new Fragment_Information();
