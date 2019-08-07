@@ -11,6 +11,7 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,23 +30,23 @@ import com.bumptech.glide.Glide;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 /* 이미지 식물 검색 액티비티 */
 public class CameraSearchActivity extends AppCompatActivity {
+    private static final int PICK_FROM_ALBUM = 1;
+    private static final int PICK_FROM_CAMERA = 2;
+
     private CameraSurfaceView surfaceView;
     private ImageView galleryBtn;
     private ProgressBar progressBar;
+
     public static Bitmap bitmap;
-
     private int cameraFacing;  // 카메라 전면,후면 구분
-
-    private static final int PICK_FROM_ALBUM = 1;
-    private static final int PICK_FROM_CAMERA = 2;
 
     private ArrayList<PlantBookItem> list;          // 전체 식물 리스트
 
@@ -55,6 +56,7 @@ public class CameraSearchActivity extends AppCompatActivity {
         // 전체 식물 리스트 받아옴
         list = AppManager.getInstance().getList();
 
+        bitmap = null;
         cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;
 
         init();
@@ -85,12 +87,12 @@ public class CameraSearchActivity extends AppCompatActivity {
                         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                         options.inSampleSize = 4;
                         Bitmap originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
-                        Log.d("테스트", originalBitmap.getWidth() + " " + originalBitmap.getHeight());
+                        //Log.d("테스트", originalBitmap.getWidth() + " " + originalBitmap.getHeight());
 
                         Matrix matrix = new Matrix();
                         matrix.postRotate(90);  // 회전
 
-                        bitmap = Bitmap.createBitmap(originalBitmap, 0,0,
+                        bitmap = Bitmap.createBitmap(originalBitmap, 0, 0,
                                 originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
                         /*
                         int remainWidth = originalBitmap.getWidth() - originalBitmap.getHeight();
@@ -99,7 +101,7 @@ public class CameraSearchActivity extends AppCompatActivity {
                         */
 
                         Intent intent = new Intent(CameraSearchActivity.this, ImagePreviewActivity.class);
-                        startActivity(intent);  //  카메라 미리보기 화면 보여주기
+                        startActivityForResult(intent, PICK_FROM_CAMERA);  //  카메라 미리보기 화면 보여주기
                     }
                 });
             }
@@ -125,8 +127,6 @@ public class CameraSearchActivity extends AppCompatActivity {
             }
         });
 
-        //progressBar = findViewById(R.id.progressbar_camera);
-
         galleryBtn = findViewById(R.id.gallery_btn);
         galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,12 +136,23 @@ public class CameraSearchActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(bitmap != null){     // request API
+            PlantAPITask task =
+                    new PlantAPITask(CameraSearchActivity.this, getBase64EncodedImage(bitmap));
+            task.execute();
+            bitmap = null;
+        }
+    }
 
     private void goToAlbum() {
         // 갤러리로 이동
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_ALBUM);
     }
 
     @Override
@@ -156,31 +167,16 @@ public class CameraSearchActivity extends AppCompatActivity {
 
         if (requestCode == PICK_FROM_ALBUM) {
             Uri photoUri = data.getData();
-            Cursor cursor = null;
 
             try {
-                // Uri 스키마를 content:/// 에서 file:/// 로 변경
-                String[] proj = {MediaStore.Images.Media.DATA}; // MediaStore 이용한 접근 -> content 스키마
+                InputStream inputStream = getContentResolver().openInputStream(photoUri);
+                bitmap = BitmapFactory.decodeStream(inputStream);   // 가져온 비트맵 저장
 
-                assert photoUri != null;    // [assert] 값이 참이면 그냥 지나가고, 거짓이면 예외 발생해 강제종료
-                cursor = getContentResolver().query(photoUri, proj, null, null, null);
-
-                assert cursor != null;
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);  // 이 컬럼 인덱스에 파일 경로가 저장
-
-                cursor.moveToFirst();
-
-                File imageFile = new File(cursor.getString(column_index));    // 파일 가져옴
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                String imageFilePath = imageFile.getAbsolutePath();
-                Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath, options);  // 비트맵 파일로 변환
-
-                showSearchResult(bitmap);
-
-            } finally {
-                if (cursor != null)
-                    cursor.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+        } else {    // PICK_FORM_CAMERA
+            bitmap = null;
         }
     }
 
@@ -195,28 +191,6 @@ public class CameraSearchActivity extends AppCompatActivity {
         return result;
     }
 
-    private void showSearchResult(Bitmap bitmap) {
-       ArrayList<String> result = new ArrayList<>();
-        try {
-            // request API
-            PlantAPITask task = new PlantAPITask(this, getBase64EncodedImage(bitmap));
-            ArrayList<ProbablePlant> plants = task.execute().get();
-            for(ProbablePlant plant : plants){
-                result.add(plant.name);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        // 검색 결과 창 띄우기
-        Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
-        intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
-
-        startActivity(intent);
-    }
 }
 
 

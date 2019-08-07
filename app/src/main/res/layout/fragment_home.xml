@@ -1,112 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
-
-    <ImageView
-        android:id="@+id/seoul_botanical_garden_logo"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/seoul_botanical_garden_logo"
-        android:layout_marginBottom="@dimen/margin_wide"/>
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="나의 등급"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_narrow"
-            android:src="@drawable/ic_help_outline" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_wide"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/border_normal"
-            android:padding="20dp"
-            android:src="@drawable/level_2" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:orientation="vertical">
+            android:layout_weight="0"
+            android:layout_gravity="top"
+            android:background="@color/colorBanner">
 
-            <TextView
+            <ImageView
+                android:id="@+id/seoul_botanical_garden_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="새싹 단계" />
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/margin_normal"
+                android:src="@drawable/seoul_botanical_garden_logo" />
+        </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/margin_wide"
-                android:text="(다음 단계까지 5개만 모으면 돼요.)" />
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderCircularHandlerEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#5A5A5A"
+            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderScrollTimeInSec="1"
+            app:sliderStartAutoCycle="true" />
 
-            <ProgressBar
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="121"
-                android:progress="55" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="55/121" />
-        </LinearLayout>
+        <GridView
+            android:id="@+id/gridview_plant_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="70dp"
+            android:horizontalSpacing="@dimen/margin_normal"
+            android:numColumns="3"
+            android:overScrollMode="never"
+            android:padding="10dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin_normal" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="오늘의 식물"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_narrow"
-            android:src="@drawable/ic_help_outline" />
-    </LinearLayout>
-
-    <GridView
-        android:id="@+id/gridview_plant_today"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="3"
-        android:verticalSpacing="@dimen/margin_normal"
-        android:horizontalSpacing="@dimen/margin_normal"
-        android:stretchMode="columnWidth"
-        android:padding="10dp"
-        android:overScrollMode="never"/>
-
-</LinearLayout>
+</FrameLayout>

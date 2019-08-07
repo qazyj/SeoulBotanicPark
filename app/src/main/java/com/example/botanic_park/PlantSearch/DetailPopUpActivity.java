@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -65,6 +66,7 @@ public class DetailPopUpActivity extends Activity {
         details.setText(selectedItem.getDetails());
 
         ImageView imageView = findViewById(R.id.image_detail);
+        Log.d("테스트", "setData");
         try {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);

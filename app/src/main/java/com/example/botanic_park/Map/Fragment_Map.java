@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.R;
 import com.github.clans.fab.FloatingActionMenu;
 import com.naver.maps.geometry.LatLng;
@@ -54,6 +55,18 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     FloatingActionMenu floatingMenu;
     com.github.clans.fab.FloatingActionButton all, tickebox, playground, bicycle, parking;
+
+    public Fragment_Map() {
+    }
+
+    public static Fragment_Map newInstance() {
+        Fragment_Map fragment = new Fragment_Map();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

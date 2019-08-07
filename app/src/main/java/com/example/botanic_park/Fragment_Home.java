@@ -16,13 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.*;
+import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
-import org.jetbrains.annotations.NotNull;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
@@ -39,9 +44,17 @@ public class Fragment_Home extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        SliderView sliderView = view.findViewById(R.id.imageSlider);
+        SliderAdapter sliderAdapter = new SliderAdapter(getContext());
+        sliderView.setSliderAdapter(sliderAdapter);
+        sliderView.startAutoCycle();
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+
         setPlantsToday();   // 오늘의 식물 선정
 
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
@@ -54,9 +67,6 @@ public class Fragment_Home extends Fragment {
                 Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
                 intent.putExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY, plantsToday.get(i));
                 startActivity(intent);
-
-                Log.d("테스트", "onClick");
-
             }
         });
         return view;
@@ -65,10 +75,11 @@ public class Fragment_Home extends Fragment {
     private void setPlantsToday(){
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
         plantsToday = new ArrayList<>();
-        plantsToday.add(list.get(0));
-        plantsToday.add(list.get(1));
-        plantsToday.add(list.get(2));
-        Log.d("테스트", "setPlantsToday");
+        plantsToday.add(getNewItem(list.get(0)));
+        plantsToday.add(getNewItem(list.get(1)));
+        plantsToday.add(getNewItem(list.get(2)));
+
+        AppManager.getInstance().setPlantsToday(plantsToday);
         /*
         for(int i=0; i<3; i++){
             int random = (int) (Math.random() * list.size());
@@ -79,6 +90,65 @@ public class Fragment_Home extends Fragment {
 
     }
 
+    private PlantBookItem getNewItem(PlantBookItem item){
+        return new PlantBookItem(item.getId(), item.getImg_url(),
+                item.getName_ko(), item.getName_sc(), item.getName_en(),
+                item.getType(), item.getBlossom(), item.getDetails());
+    }
+
+}
+
+class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder>{
+    private Context context;
+
+    public SliderAdapter(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_slider, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        switch (position) {
+            case 0:
+                Glide.with(viewHolder.itemView)
+                        .load(R.drawable.home_resize_1)
+                        .into(viewHolder.imageView);
+                break;
+            case 1:
+                Glide.with(viewHolder.itemView)
+                        .load(R.drawable.home_resize_2)
+                        .into(viewHolder.imageView);
+                break;
+            case 2:
+                Glide.with(viewHolder.itemView)
+                        .load(R.drawable.home_resize_3)
+                        .into(viewHolder.imageView);
+                break;
+
+        }
+
+    }
+
+    @Override
+    public int getCount() {
+        return 3;
+    }
+
+    class ViewHolder extends SliderViewAdapter.ViewHolder{
+        View itemView;
+        ImageView imageView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.image_home_background);
+            this.itemView = itemView;
+        }
+    }
 }
 
 class PlantTodayAdapter extends BaseAdapter {

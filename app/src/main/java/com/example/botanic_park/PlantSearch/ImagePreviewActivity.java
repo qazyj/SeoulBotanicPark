@@ -37,6 +37,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CameraSearchActivity.bitmap = null; // 이미지 초기화
                 finish();
             }
         });
@@ -45,7 +46,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSearchResult(bitmap);
+                PlantAPITask task =
+                        new PlantAPITask(ImagePreviewActivity.this, getBase64EncodedImage(bitmap));
+                task.execute();
             }
         });
 
@@ -56,6 +59,18 @@ public class ImagePreviewActivity extends AppCompatActivity {
                 saveImage();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        CameraSearchActivity.bitmap = null; // 이미지 초기화
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        CameraSearchActivity.bitmap = null; // 이미지 초기화
+        super.onDestroy();
     }
 
     private void saveImage(){
@@ -112,27 +127,4 @@ public class ImagePreviewActivity extends AppCompatActivity {
         return result;
     }
 
-    private void showSearchResult(Bitmap bitmap){
-        ArrayList<String> result = new ArrayList<>();
-        try {
-            // request API
-            PlantAPITask task = new PlantAPITask(this, getBase64EncodedImage(bitmap));
-            ArrayList<ProbablePlant> plants = task.execute().get();
-            Log.d("테스트", "API처리 끝남");
-            for(ProbablePlant plant : plants){
-                result.add(plant.name);
-            }
-            Log.d("테스트", "이름만 뽑기 끝남");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        // 검색 결과 창 띄우기
-        Intent intent = new Intent(this, SearchResultActivity.class);
-        intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
-        intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
-        startActivity(intent);
-    }
 }
