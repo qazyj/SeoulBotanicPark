@@ -11,6 +11,8 @@ import java.io.Serializable;
 
 /* 식물 정보를 긁어 와서 담는 모델  */
 public class PlantBookItem implements Serializable {
+    private int id;
+
     private String img_url;
     private String name_ko;     // 이름
     private String name_sc;     // 학명
@@ -19,7 +21,10 @@ public class PlantBookItem implements Serializable {
     private String blossom;     // 개화기
     private String details;     // 상세설명
 
-    public PlantBookItem(String img_url, String name_ko, String name_sc, String name_en, String type, String blossom, String details) {
+    private boolean isCollected = false;    // 도감 추가 여부
+
+    public PlantBookItem(int id, String img_url, String name_ko, String name_sc, String name_en, String type, String blossom, String details) {
+        this.id = id;
         this.img_url = img_url;
         this.name_ko = name_ko;
         this.name_sc = name_sc;
@@ -29,6 +34,21 @@ public class PlantBookItem implements Serializable {
         this.details = details;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(boolean collected) {
+        isCollected = collected;
+    }
 
     public String getImg_url() {
         return img_url;

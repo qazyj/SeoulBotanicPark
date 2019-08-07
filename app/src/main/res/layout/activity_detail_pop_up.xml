@@ -15,7 +15,8 @@
         <ImageView
             android:id="@+id/image_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="center"/>
         <!-- 닫기 버튼 -->
         <ImageButton
             android:id="@+id/close_btn"
