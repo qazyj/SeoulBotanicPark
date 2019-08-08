@@ -1,11 +1,5 @@
 package com.example.botanic_park.PlantSearch;
 
-import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import java.io.Serializable;
 

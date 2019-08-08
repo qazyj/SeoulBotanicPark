@@ -2,20 +2,14 @@ package com.example.botanic_park;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.*;
+import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
@@ -27,7 +21,6 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.util.ArrayList;
-import java.util.TimerTask;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
@@ -52,8 +45,8 @@ public class Fragment_Home extends Fragment {
         SliderAdapter sliderAdapter = new SliderAdapter(getContext());
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.startAutoCycle();
-        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setIndicatorAnimation(IndicatorAnimations.COLOR);
+        sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
 
         setPlantsToday();   // 오늘의 식물 선정
 
@@ -116,17 +109,20 @@ class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder>{
         switch (position) {
             case 0:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.home_resize_1)
+                        .load(R.drawable.home_2)
+                        .centerCrop()
                         .into(viewHolder.imageView);
                 break;
             case 1:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.home_resize_2)
+                        .load(R.drawable.home_4)
+                        .centerCrop()
                         .into(viewHolder.imageView);
                 break;
             case 2:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.home_resize_3)
+                        .load(R.drawable.home_5)
+                        .centerCrop()
                         .into(viewHolder.imageView);
                 break;
 

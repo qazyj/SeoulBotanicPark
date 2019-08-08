@@ -3,8 +3,8 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.Window;
+import androidx.annotation.Nullable;
 import com.example.botanic_park.R;
 
 

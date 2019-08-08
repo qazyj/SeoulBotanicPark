@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_clover" />
+            android:src="@drawable/ic_lotus" />
 
         <TextView
             android:id="@+id/name"
@@ -31,6 +31,6 @@
             android:layout_weight="0"
             android:gravity="center"
             android:singleLine="true"
-            android:text="금꿩의 다리" />
+            android:text="금꿩의 다리"/>
     </LinearLayout>
 </com.example.botanic_park.PlantSearch.PlantBookItemLayout>

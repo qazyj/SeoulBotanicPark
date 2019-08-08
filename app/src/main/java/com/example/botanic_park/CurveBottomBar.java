@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.util.AttributeSet;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CurveBottomBar extends BottomNavigationView {
 
