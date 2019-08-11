@@ -24,10 +24,6 @@ import java.util.ArrayList;
 
 /* 식물 검색 결과 액티비티 */
 public class SearchResultActivity extends AppCompatActivity {
-    public static final String RESULT_TYPE = "result type";
-    public static final int TEXT_SEARCH = 0;
-    public static final int IMAGE_SEARCH = 1;
-
     SearchWordAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<String> searchWordList;
@@ -36,11 +32,8 @@ public class SearchResultActivity extends AppCompatActivity {
     ArrayList<PlantBookItem> searchList;    // 검색결과 저장 리스트
     String searchword;
 
-    PlantExpandableListView resultListView;   // 텍스트 검색 시 결과 리스트뷰
     LinearLayout noResult;  // 결과 없음 메세지
     LinearLayout resultItem;    // 이미지 검색 시 결과 아이템
-
-    int resultType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,20 +41,15 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         Intent intent = getIntent();
-        resultType = intent.getIntExtra(RESULT_TYPE, 0);
         searchWordList = (ArrayList<String>) intent.getSerializableExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
-        if(searchWordList.size() > 0)
+        if (searchWordList.size() > 0)
             searchword = searchWordList.get(0);
-        else
-            searchword = new String();  // 빈 문자열
 
         list = AppManager.getInstance().getList();
 
-        resultListView = findViewById(R.id.listview);
         noResult = findViewById(R.id.no_result_message);
         resultItem = findViewById(R.id.content_search_result);
 
-        getSearchResult();
         showSearchResult();
 
         recyclerView = findViewById(R.id.searchword_recyclerView);
@@ -98,7 +86,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private void getSearchResult() {
         // 텍스트 검색 결과 리스트
         searchList = new ArrayList<PlantBookItem>();
-        if (searchword.isEmpty())
+        if (searchword == null)
             return;
 
         // 단어 분할
@@ -116,27 +104,19 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     private void showSearchResult() {
-        if (searchList.size() <= 0) {
-            // 검색 결과 없음 메시지 보여줌
+        getSearchResult();
+
+        if (searchList.size() <= 0) {   // 검색 결과 없음 메시지 보여줌
             noResult.setVisibility(View.VISIBLE);
-            resultListView.setVisibility(View.GONE);
             resultItem.setVisibility(View.GONE);
             return;
-        }
-
-        switch (resultType) {
-            case TEXT_SEARCH:
-                textSearchResult();
-                break;
-            case IMAGE_SEARCH:
-                imageSearchResult();
-                break;
+        } else {
+            imageSearchResult();
         }
     }
 
     private void imageSearchResult() {
         resultItem.setVisibility(View.VISIBLE);
-        resultListView.setVisibility(View.GONE);
         noResult.setVisibility(View.GONE);
 
         PlantBookItem item = searchList.get(0);
@@ -150,12 +130,12 @@ public class SearchResultActivity extends AppCompatActivity {
         ArrayList<PlantBookItem> plantsToday = AppManager.getInstance().getPlantsToday();
 
         for (PlantBookItem item : list) {
-            if (item.equals(plantBookItem)){
-                if(!item.isCollected()){
+            if (item.equals(plantBookItem)) {
+                if (!item.isCollected()) {
                     item.setCollected(true);
                     Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                if(plantsToday.contains(item)){
+                if (plantsToday.contains(item)) {
                     int index = plantsToday.indexOf(item);
                     plantsToday.get(index).setCollected(true);
                     Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
@@ -198,27 +178,6 @@ public class SearchResultActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
-
-    private void textSearchResult() {
-        // 텍스트 검색 시 결과 리스트로 보여줌
-        resultListView.setVisibility(View.VISIBLE);
-        noResult.setVisibility(View.GONE);
-        resultItem.setVisibility(View.GONE);
-
-        PlantBookAdapter adapter = new PlantBookAdapter(getApplicationContext(),
-                R.layout.item_plant, searchList);
-        resultListView.setAdapter(adapter);   // 어댑터 연결
-
-        resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // 아이템 클릭시 상세 페이지로 넘어감
-                Intent intent = new Intent(getApplicationContext(), DetailPopUpActivity.class);
-                intent.putExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY, searchList.get(i));
-                startActivity(intent);
-            }
-        });
     }
 
     class ItemDecoration extends RecyclerView.ItemDecoration {

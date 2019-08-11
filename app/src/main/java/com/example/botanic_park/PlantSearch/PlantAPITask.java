@@ -82,7 +82,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             // 검색 결과 창 띄우기
             Intent intent = new Intent(context, SearchResultActivity.class);
-            intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
             intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
 
             context.startActivity(intent);

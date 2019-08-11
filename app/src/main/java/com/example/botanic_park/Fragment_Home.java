@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,19 +50,31 @@ public class Fragment_Home extends Fragment {
         sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
 
         setPlantsToday();   // 오늘의 식물 선정
-
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
-        PlantTodayAdapter plantTodayAdapter = new PlantTodayAdapter(getContext(),
-                R.layout.item_plant_today, plantsToday);
-        gridView.setAdapter(plantTodayAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
-                intent.putExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY, plantsToday.get(i));
-                startActivity(intent);
-            }
-        });
+        TextView textView = view.findViewById(R.id.title_plants_today);
+        if(isPlantsTodayComplete()){
+            // 바코드 보여줌
+            gridView.setVisibility(View.INVISIBLE);
+            textView.setText("오늘의 쿠폰");
+            LinearLayout linearLayout = view.findViewById(R.id.barcode);
+            linearLayout.setVisibility(View.VISIBLE);
+
+        }else {
+            // 오늘의 식물 보여줌
+            gridView.setVisibility(View.VISIBLE);
+            textView.setText("오늘의 식물");
+            PlantTodayAdapter plantTodayAdapter = new PlantTodayAdapter(getContext(),
+                    R.layout.item_plant_today, plantsToday);
+            gridView.setAdapter(plantTodayAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+                    intent.putExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY, plantsToday.get(i));
+                    startActivity(intent);
+                }
+            });
+        }
         return view;
     }
 
@@ -72,6 +85,10 @@ public class Fragment_Home extends Fragment {
         plantsToday.add(getNewItem(list.get(1)));
         plantsToday.add(getNewItem(list.get(2)));
 
+        for(int i=0; i<2; i++){
+            plantsToday.get(i).setCollected(true);
+        }
+
         AppManager.getInstance().setPlantsToday(plantsToday);
         /*
         for(int i=0; i<3; i++){
@@ -80,7 +97,14 @@ public class Fragment_Home extends Fragment {
             Log.d("테스트", plantsToday.get(i).getName_ko());
         }
         */
+    }
 
+    private boolean isPlantsTodayComplete(){
+        for(PlantBookItem item: plantsToday){
+            if(!item.isCollected())
+                return false;
+        }
+        return true;
     }
 
     private PlantBookItem getNewItem(PlantBookItem item){

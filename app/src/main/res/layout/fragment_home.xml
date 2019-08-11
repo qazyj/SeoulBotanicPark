@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/imageSlider"
             android:layout_width="wrap_content"
@@ -42,43 +43,84 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="@dimen/margin_wide"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_weight="0">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_herb"
-            android:layout_margin="@dimen/margin_narrow"/>
-
-        <TextView
+        <ImageButton
+            android:id="@+id/help_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:text="오늘의 식물"
-            android:textColor="@color/colorBaseCyan"
-            android:textSize="20sp"/>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:background="@null"
+            android:src="@drawable/ic_help_outline" />
 
-        <GridView
-            android:id="@+id/gridview_plant_today"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/margin_wide"
-            android:layout_marginRight="@dimen/margin_wide"
-            android:horizontalSpacing="@dimen/margin_normal"
-            android:numColumns="3"
-            android:overScrollMode="never"
-            android:padding="10dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/margin_normal" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginBottom="100dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/margin_narrow"
+                android:src="@drawable/ic_herb" />
+
+            <TextView
+                android:id="@+id/title_plants_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:text="오늘의 식물"
+                android:textColor="@color/colorBaseCyan"
+                android:textSize="20sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_wide"
+                android:layout_marginRight="@dimen/margin_wide">
+
+                <GridView
+                    android:id="@+id/gridview_plant_today"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:horizontalSpacing="@dimen/margin_normal"
+                    android:numColumns="3"
+                    android:overScrollMode="never"
+                    android:padding="10dp"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/margin_normal" />
+
+                <LinearLayout
+                    android:id="@+id/barcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/barcode_sample" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="카페 1000원 할인 쿠폰" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
