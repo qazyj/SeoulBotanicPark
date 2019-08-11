@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Information;
 
 import android.app.Activity;
 
@@ -12,9 +12,10 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import com.example.botanic_park.R;
 
 
-public class ActivityInformationUse extends Activity {
+public class InformationUseActivity extends Activity {
 
     private ImageView imageView;
     private String imageURL;

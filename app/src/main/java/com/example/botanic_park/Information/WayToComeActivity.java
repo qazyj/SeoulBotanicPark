@@ -1,4 +1,4 @@
-package com.example.botanic_park;
+package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
+import com.example.botanic_park.R;
 
 public class WayToComeActivity extends Activity {
 

@@ -22,7 +22,9 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_Map;
+import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.*;
 
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
                 startActivity(intent1); // QR 액티비티 띄움
             }
         });
