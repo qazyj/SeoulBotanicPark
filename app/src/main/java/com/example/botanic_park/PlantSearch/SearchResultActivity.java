@@ -207,7 +207,7 @@ public class SearchResultActivity extends AppCompatActivity {
         resultItem.setVisibility(View.GONE);
 
         PlantBookAdapter adapter = new PlantBookAdapter(getApplicationContext(),
-                R.layout.item_plant, searchList, PlantBookAdapter.SHOW_ALL_NAME);
+                R.layout.item_plant, searchList);
         resultListView.setAdapter(adapter);   // 어댑터 연결
 
         resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

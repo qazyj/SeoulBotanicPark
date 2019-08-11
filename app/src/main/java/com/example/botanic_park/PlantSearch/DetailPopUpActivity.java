@@ -15,10 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.R;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 import java.lang.reflect.Field;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 public class DetailPopUpActivity extends Activity {
@@ -70,13 +75,21 @@ public class DetailPopUpActivity extends Activity {
         try {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);
-            Glide.with(imageView).load(drawableID).centerCrop().thumbnail(0.1f).into(imageView);
+            MultiTransformation multi = new MultiTransformation(
+                    new CenterCrop(),
+                    new RoundedCornersTransformation(45, 0,
+                            RoundedCornersTransformation.CornerType.TOP)
+            );
+            Glide.with(imageView)
+                    .load(drawableID)
+                    .apply(bitmapTransform(multi))
+                    .thumbnail(0.1f)
+                    .into(imageView);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        //Glide.with(getApplication()).load(selectedItem.getImg_url()).into(imageView);
     }
 
 

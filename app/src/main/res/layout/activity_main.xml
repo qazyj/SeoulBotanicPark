@@ -20,10 +20,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:src="@drawable/floating_qrcode_icon"
-        app:backgroundTint="@color/colorBaseLightGreen"
-        app:backgroundTintMode="@null"
-        app:elevation="20dp" />
+        android:src="@drawable/ic_qr_code"
+        android:elevation="5dp"
+        app:backgroundTint="#5F629C"
+        app:backgroundTintMode="@null" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

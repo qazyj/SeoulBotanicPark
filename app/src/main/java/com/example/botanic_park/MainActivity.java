@@ -1,6 +1,7 @@
 package com.example.botanic_park;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.graphics.Color;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -189,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
-
 
     @SuppressLint("RestrictedApi")
     public void setCurveBottomBarVisibility() {

@@ -24,39 +24,10 @@
 
         <TextView
             android:id="@+id/name_ko"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
+            style="@style/ItemTextTheme"
             android:text="오디에디아 비푸카타"
-            android:textSize="15sp"
-            android:singleLine="true"/>
-
-        <TextView
-            android:id="@+id/name_en"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Foxtail palm"
-            android:textSize="15sp"
-            android:visibility="gone"
-            android:singleLine="true"/>
-
-        <TextView
-            android:id="@+id/name_sc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Wodyetia bifurcata"
-            android:textSize="15sp"
-            android:textStyle="italic"
-            android:visibility="gone"
-            android:singleLine="true"/>
+            android:textColor="@color/colorBlack"/>
     </LinearLayout>
 
 </com.example.botanic_park.PlantSearch.PlantBookItemLayout>

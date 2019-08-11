@@ -6,28 +6,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.*;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.*;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
 import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -45,7 +42,11 @@ public class Fragment_Plant_Book extends Fragment {
     public static final String SEARCH_WORD_KEY = "search word";
 
     PlantBookExpandableGridView plantBookGridView;
-    ArrayList<PlantBookItem> list;
+    PlantBookAdapter plantBookAdapter;
+    ArrayList<PlantBookItem> list, searchList;
+
+    float startYPosition, endYPosition;
+    boolean isFirstDrag = true, isDrag = false;
 
     public Fragment_Plant_Book() {
     }
@@ -62,6 +63,8 @@ public class Fragment_Plant_Book extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list = AppManager.getInstance().getList();
+        searchList = new ArrayList<>();
+        searchList.addAll(list);
     }
 
     @Override
@@ -96,25 +99,44 @@ public class Fragment_Plant_Book extends Fragment {
             }
         });
 
+        plantBookGridView = view.findViewById(R.id.gridview_plant_book);
+        plantBookAdapter = new PlantBookAdapter(getContext(),
+                R.layout.item_plant, searchList);
+        plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
+        plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // 아이템 클릭시 상세 페이지로 넘어감
+                Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+                intent.putExtra(SELECTED_ITEM_KEY, searchList.get(i));
+                startActivity(intent);
+            }
+        });
+
         final EditText editText = view.findViewById(R.id.search_edit_text);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String searchword = editable.toString();
+                searchPlant(searchword);
+            }
+        });
+
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 switch (i) {
                     case EditorInfo.IME_ACTION_SEARCH:
-                        // 텍스트 검색 동작
-                        String searchword = String.valueOf(editText.getText());
-                        if(searchword.isEmpty()) {
-                            Toast.makeText(getContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                        } else{
-                            ArrayList<String> searchWordList = new ArrayList<>();
-                            searchWordList.add(searchword);
-
-                            Intent intent = new Intent(getContext(), SearchResultActivity.class);
-                            intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.TEXT_SEARCH);
-                            intent.putExtra(SEARCH_WORD_KEY, searchWordList);
-                            startActivityForResult(intent, START_ACTIVITY_CODE);  // 검색 결과 리스트 창 띄움
-                        }
+                        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                         break;
                     default:
                         return false;
@@ -123,22 +145,37 @@ public class Fragment_Plant_Book extends Fragment {
             }
         });
 
-        plantBookGridView = view.findViewById(R.id.gridview_plant_book);
-
-        PlantBookAdapter plantBookAdapter = new PlantBookAdapter(getContext(),
-                R.layout.item_plant,  list.subList(0,40), PlantBookAdapter.SHOW_ONLY_KOREAN_NAME);
-        plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
-        plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // 아이템 클릭시 상세 페이지로 넘어감
-                Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
-                intent.putExtra(SELECTED_ITEM_KEY, list.get(i));
-                startActivity(intent);
-            }
-        });
 
         return view;
+    }
+
+    private void searchPlant(String searchword){
+        if(searchword.isEmpty()){
+            searchList.clear();
+            searchList.addAll(list);
+        }else{
+            getSearchResult(searchword);
+        }
+        plantBookAdapter.updateAdpater(searchList);
+    }
+
+    private void getSearchResult(String searchword) {
+        // 텍스트 검색 결과 리스트
+        searchList.clear();
+        if (searchword.isEmpty())
+            return;
+
+        // 단어 분할
+        String[] words = searchword.split(" ");
+        for (PlantBookItem item : list) {
+            for (String word : words) {
+                if (item.getName_ko().contains(word)
+                        || item.getName_en().contains(word)
+                        || item.getName_sc().contains(word)) {
+                    searchList.add(item);
+                }
+            }
+        }
     }
 
     private void startCameraActivity() {
@@ -146,11 +183,12 @@ public class Fragment_Plant_Book extends Fragment {
         startActivityForResult(intent, START_ACTIVITY_CODE);   // 카메라 액티비티 띄움
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // 프래그먼트 화면 갱신
-        for(Fragment fragment: getFragmentManager().getFragments()){
-            if(fragment.isVisible()){
+        for (Fragment fragment : getFragmentManager().getFragments()) {
+            if (fragment.isVisible()) {
                 final FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.detach(fragment).attach(fragment);
                 transaction.commit();
@@ -177,26 +215,25 @@ public class Fragment_Plant_Book extends Fragment {
 }
 
 class PlantBookAdapter extends BaseAdapter {
-    public static final int SHOW_ONLY_KOREAN_NAME = 1;
-    public static final int SHOW_ALL_NAME = 2;
-
     Context context;
     int layout;
     List<PlantBookItem> list;  // item 목록
     LayoutInflater layoutInflater;
-    int showType;   // 아이템을 보여주는 방식
 
     PlantBookItem item;     // item 정보 객체
 
-    public PlantBookAdapter(Context context, int layout, List<PlantBookItem> list, int showType) {
+    public PlantBookAdapter(Context context, int layout, List<PlantBookItem> list) {
         this.context = context;
         this.layout = layout;
         this.list = list;
-        this.showType = showType;
-
         layoutInflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
 
+    }
+
+    public void updateAdpater(List<PlantBookItem> list){
+        this.list = list;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -221,31 +258,37 @@ class PlantBookAdapter extends BaseAdapter {
 
         item = list.get(i);
         ImageView imageView = view.findViewById(R.id.image_thumb);
+        TextView textView = view.findViewById(R.id.name_ko);
 
         try {
             Field field = R.drawable.class.getField("species_" + item.getId());
             int drawableID = field.getInt(null);
 
-            MultiTransformation multi  = new MultiTransformation(
-                    new CenterCrop(),
-                    new RoundedCornersTransformation(45, 0,
-                    RoundedCornersTransformation.CornerType.TOP)
-            );
-
-            if(item.isCollected()) {
+            if (item.isCollected()) {
+                textView.setTextColor(view.getResources().getColor(R.color.colorNormalText));
+                MultiTransformation multi = new MultiTransformation(
+                        new CenterCrop(),
+                        new RoundedCornersTransformation(40, 0,
+                                RoundedCornersTransformation.CornerType.TOP)
+                );
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));
                 Glide.with(view)
                         .load(drawableID)
                         .apply(bitmapTransform(multi))
                         .thumbnail(0.1f).into(imageView);
             } else {
+                textView.setTextColor(view.getResources().getColor(R.color.no));
+                MultiTransformation multi = new MultiTransformation(
+                        new CenterCrop(),
+                        new RoundedCornersTransformation(40, 0,
+                                RoundedCornersTransformation.CornerType.TOP),
+                        new ColorFilterTransformation(
+                        Color.argb(200, 210, 210, 210))
+                );
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_normal));
                 Glide.with(view)
                         .load(drawableID)
-                        .apply(bitmapTransform(new RoundedCornersTransformation(45, 0,
-                                RoundedCornersTransformation.CornerType.BOTTOM)))
-                        .apply(bitmapTransform(new ColorFilterTransformation(
-                                Color.argb(200, 210,210,210))))
+                        .apply(bitmapTransform(multi))
                         .thumbnail(0.1f).into(imageView);
             }
         } catch (NoSuchFieldException e) {
@@ -256,17 +299,6 @@ class PlantBookAdapter extends BaseAdapter {
 
         TextView koNameView = view.findViewById(R.id.name_ko);
         koNameView.setText(item.getName_ko());
-
-        // 모든 이름을 보여주는 경우
-        if (showType == SHOW_ALL_NAME) {
-            TextView enNameView = view.findViewById(R.id.name_en);
-            enNameView.setVisibility(View.VISIBLE);
-            enNameView.setText(item.getName_en());
-
-            TextView scNameView = view.findViewById(R.id.name_sc);
-            scNameView.setVisibility(View.VISIBLE);
-            scNameView.setText(item.getName_sc());
-        }
 
         return view;
     }

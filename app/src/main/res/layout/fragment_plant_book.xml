@@ -12,30 +12,46 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_plant_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBaseLightGreen"
+            android:layout_weight="0"
+            android:layout_gravity="center"
             android:orientation="vertical"
-            android:paddingStart="30dp"
-            android:paddingTop="40dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="40dp">
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_book"
+                android:layout_margin="@dimen/margin_narrow"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_wide"
                 android:gravity="center_horizontal"
-                android:text="식물 검색"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_size_title" />
+                android:text="식물 도감"
+                android:textSize="20sp"
+                android:textColor="@color/colorBaseCyan"
+                android:layout_marginBottom="@dimen/margin_normal"/>
 
+            <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="121"
+                android:progress="55" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:gravity="center_horizontal">
+                android:background="@drawable/round_square_background_white"
+                android:gravity="center_horizontal"
+                android:visibility="visible">
 
                 <EditText
                     android:id="@+id/search_edit_text"
@@ -44,10 +60,10 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="키워드 입력"
+                    android:hint="식물 검색"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:textSize="@dimen/text_size_normal" />
 
                 <ImageButton
@@ -61,11 +77,14 @@
 
             </LinearLayout>
 
+
         </LinearLayout>
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
             <!-- 식물 도감 -->
             <LinearLayout
@@ -74,15 +93,6 @@
                 android:layout_marginBottom="50dp"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_plant_book_item">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_wide"
-                    android:gravity="center_horizontal"
-                    android:text="식물 도감"
-                    android:textColor="@color/colorBase"
-                    android:textSize="@dimen/text_size_title" />
 
                 <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
                     android:id="@+id/gridview_plant_book"
@@ -94,7 +104,8 @@
                     android:overScrollMode="never"
                     android:padding="10dp"
                     android:stretchMode="columnWidth"
-                    android:verticalSpacing="@dimen/margin_normal" />
+                    android:verticalSpacing="@dimen/margin_normal"
+                    android:layout_marginBottom="70dp"/>
 
             </LinearLayout>
         </ScrollView>
