@@ -212,7 +212,7 @@
                     android:text="원하는 결과가 없나요?" />
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchword_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

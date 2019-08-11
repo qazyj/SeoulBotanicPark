@@ -3,8 +3,10 @@ package com.example.botanic_park.PlantSearch;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -41,7 +43,6 @@ public class DetailPopUpActivity extends Activity {
                 finish();   // 액티비티 닫음
             }
         });
-
     }
 
     private void setData() {
@@ -65,10 +66,11 @@ public class DetailPopUpActivity extends Activity {
         details.setText(selectedItem.getDetails());
 
         ImageView imageView = findViewById(R.id.image_detail);
+        Log.d("테스트", "setData");
         try {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);
-            Glide.with(imageView).load(drawableID).thumbnail(0.1f).into(imageView);
+            Glide.with(imageView).load(drawableID).centerCrop().thumbnail(0.1f).into(imageView);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

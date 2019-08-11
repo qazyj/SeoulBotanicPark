@@ -1,15 +1,12 @@
 package com.example.botanic_park.PaymentAndQR;
 
 import android.app.Activity;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import com.example.botanic_park.R;
 import kr.co.bootpay.*;
-import kr.co.bootpay.enums.Method;
 import kr.co.bootpay.enums.PG;
 
 

@@ -142,6 +142,8 @@ public class LoadingActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             finish();   // 파싱 끝나면 로딩 액티비티 종료
 
+            list.get(4).setCollected(true); // 임의로 결과보기 위해 넣어둠
+            list.get(0).setCollected(true);
             AppManager.getInstance().setList(list);   // 앱메니저에 저장
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra(PLANT_LIST_KEY, list);

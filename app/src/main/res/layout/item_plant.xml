@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/border_normal"
-    android:padding="2dp">
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/image_thumb"

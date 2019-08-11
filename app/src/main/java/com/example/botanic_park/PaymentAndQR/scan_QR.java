@@ -14,7 +14,7 @@ public class scan_QR extends CaptureActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan__qr);
+        setContentView(R.layout.activity_scan_qr);
 
         qrScan = new IntentIntegrator(this);
         this.finish();

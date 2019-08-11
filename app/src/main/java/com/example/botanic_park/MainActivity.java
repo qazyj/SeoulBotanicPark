@@ -8,30 +8,32 @@ import android.graphics.Color;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
-import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
-import com.example.botanic_park.PlantSearch.PlantBookItem;
+import com.example.botanic_park.PlantSearch.*;
 
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import kr.go.seoul.airquality.Common.BaseActivity;
 
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Timer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
-    //public static final String homeTag = "home";
-    //public static final String mapTag = "map";
-    public static final String plantBookTag = "plant book";
-    //public static final String informationTag = "information";
-
     private CurveBottomBar curveBottomBar;
-
-
     FloatingActionButton floatingActionButton;
-    public static boolean isFristCalled = true;
+
+    Timer timer;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -65,15 +61,13 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
 
-        // 프래그먼트 객체 생성
-        fragment_Home = new Fragment_Home();
-        fragment_Map = new Fragment_Map();
-        fragment_Plant_Book = Fragment_Plant_Book.newInstance();
-        fragment_Information = new Fragment_Information();
+        // 초기 프래그먼트 설정
+        fragment_Home = Fragment_Home.newInstance();
 
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_container, fragment_Home).commit();
+
 
         // 하단 메뉴 설정
         floatingActionButton = findViewById(R.id.floating_action_button);
@@ -88,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar = findViewById(R.id.customBottomBar);
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
     }
 
     @Override
@@ -110,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         // 프레그먼트에서 오버라이드된 메소드 사용
         // 프레그먼트에서 이 메소드를 override하면 동작하지 않음
 
@@ -132,21 +128,70 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.home:
-                    transaction.replace(R.id.frame_container, fragment_Home).commit();
+                    if (fragment_Home == null) {
+                        fragment_Home = Fragment_Home.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home).commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().show(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().hide(fragment_Map).commit();
+                    if (fragment_Plant_Book != null)
+                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                    if (fragment_Information != null)
+                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                    //transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
                 case R.id.map:
-                    transaction.replace(R.id.frame_container, fragment_Map).commit();
+                    if (fragment_Map == null) {
+                        fragment_Map = Fragment_Map.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map).commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().show(fragment_Map).commit();
+                    if (fragment_Plant_Book != null)
+                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                    if (fragment_Information != null)
+                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                    //transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
+                    if (fragment_Plant_Book == null) {
+                        fragment_Plant_Book = Fragment_Plant_Book.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book).commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().hide(fragment_Map).commit();
+                    if (fragment_Plant_Book != null)
+                        fragmentManager.beginTransaction().show(fragment_Plant_Book).commit();
+                    if (fragment_Information != null)
+                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                    //transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
                 case R.id.information:
-                    transaction.replace(R.id.frame_container, fragment_Information).commit();
+                    if (fragment_Information == null) {
+                        fragment_Information = Fragment_Information.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information).commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().hide(fragment_Map).commit();
+                    if (fragment_Plant_Book != null)
+                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                    if (fragment_Information != null)
+                        fragmentManager.beginTransaction().show(fragment_Information).commit();
+                    //transaction.replace(R.id.frame_container, fragment_Information).commit();
                     break;
             }
             return true;
         }
     }
+
 
     @SuppressLint("RestrictedApi")
     public void setCurveBottomBarVisibility() {

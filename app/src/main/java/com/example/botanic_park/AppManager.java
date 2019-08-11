@@ -18,6 +18,7 @@ public class AppManager {
 
 
     private ArrayList<PlantBookItem> list = null;
+    private ArrayList<PlantBookItem> plantsToday = null;
 
     public ArrayList<PlantBookItem> getList() {
         return list;
@@ -25,5 +26,13 @@ public class AppManager {
 
     public void setList(ArrayList<PlantBookItem> list) {
         this.list = list;
+    }
+
+    public ArrayList<PlantBookItem> getPlantsToday() {
+        return plantsToday;
+    }
+
+    public void setPlantsToday(ArrayList<PlantBookItem> plantsToday) {
+        this.plantsToday = plantsToday;
     }
 }

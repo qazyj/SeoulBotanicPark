@@ -27,6 +27,7 @@
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBanner">#CCFFFFFF</color>
     <color name="colorLightGray">#CDCDCD</color>
 
     <!-- 글자색 -->

@@ -3,15 +3,12 @@ package com.example.botanic_park.PlantSearch;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +22,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.*;
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class Fragment_Plant_Book extends Fragment {
     public static final int PERMISSION_REQUEST_CODE = 2000;
@@ -62,7 +65,7 @@ public class Fragment_Plant_Book extends Fragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plant_book, container, false);
 
@@ -102,7 +105,7 @@ public class Fragment_Plant_Book extends Fragment {
                         // 텍스트 검색 동작
                         String searchword = String.valueOf(editText.getText());
                         if(searchword.isEmpty()) {
-                            Toast.makeText(getContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
                         } else{
                             ArrayList<String> searchWordList = new ArrayList<>();
                             searchWordList.add(searchword);
@@ -145,14 +148,15 @@ public class Fragment_Plant_Book extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("테스트", "onActivityResult");
-
         // 프래그먼트 화면 갱신
-        Fragment frgment = null;
-        frgment = getFragmentManager().findFragmentByTag(MainActivity.plantBookTag);
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(frgment).attach(frgment);
-        ft.commit();
+        for(Fragment fragment: getFragmentManager().getFragments()){
+            if(fragment.isVisible()){
+                final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.detach(fragment).attach(fragment);
+                transaction.commit();
+                break;
+            }
+        }
     }
 
     @Override
@@ -182,10 +186,7 @@ class PlantBookAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
     int showType;   // 아이템을 보여주는 방식
 
-    View itemView;          // item이 뿌려질 뷰
     PlantBookItem item;     // item 정보 객체
-    Bitmap bitmap;          // item 안에 들어가는 이미지
-    Drawable drawable;
 
     public PlantBookAdapter(Context context, int layout, List<PlantBookItem> list, int showType) {
         this.context = context;
@@ -195,6 +196,7 @@ class PlantBookAdapter extends BaseAdapter {
 
         layoutInflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -217,18 +219,35 @@ class PlantBookAdapter extends BaseAdapter {
         if (view == null)
             view = layoutInflater.inflate(layout, null);
 
-        itemView = view;
         item = list.get(i);
-        if(item.isCollected())
-            itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));
-        else
-            itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.border_normal));
-
         ImageView imageView = view.findViewById(R.id.image_thumb);
+
         try {
             Field field = R.drawable.class.getField("species_" + item.getId());
             int drawableID = field.getInt(null);
-            Glide.with(itemView).load(drawableID).thumbnail(0.1f).into(imageView);
+
+            MultiTransformation multi  = new MultiTransformation(
+                    new CenterCrop(),
+                    new RoundedCornersTransformation(45, 0,
+                    RoundedCornersTransformation.CornerType.TOP)
+            );
+
+            if(item.isCollected()) {
+                view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));
+                Glide.with(view)
+                        .load(drawableID)
+                        .apply(bitmapTransform(multi))
+                        .thumbnail(0.1f).into(imageView);
+            } else {
+                view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_normal));
+                Glide.with(view)
+                        .load(drawableID)
+                        .apply(bitmapTransform(new RoundedCornersTransformation(45, 0,
+                                RoundedCornersTransformation.CornerType.BOTTOM)))
+                        .apply(bitmapTransform(new ColorFilterTransformation(
+                                Color.argb(200, 210,210,210))))
+                        .thumbnail(0.1f).into(imageView);
+            }
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
