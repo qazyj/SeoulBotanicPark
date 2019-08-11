@@ -1,5 +1,7 @@
 package com.example.botanic_park;
 
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,10 +43,18 @@ public class Fragment_Home extends Fragment {
         text2 = view.findViewById(R.id.text2);
         text3 = view.findViewById(R.id.text3);
 
+        setTodayPlant();
+
         return view;
     }
 
-    private void setTodaysPlant(int index, TextView textView){
+    private void setTodayPlant(){
+        ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
+
+        // 일단 오늘의 식물 임의로 넣어둠
+        text1.setText(list.get(0).getName_ko());
+        text2.setText(list.get(1).getName_ko());
+        text3.setText(list.get(2).getName_ko());
     }
 
     @Override
@@ -59,3 +69,4 @@ public class Fragment_Home extends Fragment {
         typeMini.setVisibility(View.GONE);
     }
 }
+

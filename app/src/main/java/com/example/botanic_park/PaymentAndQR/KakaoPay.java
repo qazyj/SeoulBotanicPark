@@ -2,6 +2,7 @@ package com.example.botanic_park.PaymentAndQR;
 
 import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import kr.co.bootpay.enums.PG;
 public class KakaoPay extends Activity {
 
     private String application_id = "5d43308c02f57e0037f7fdaa";
-
+    private KakaoPay kakaoPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,8 @@ public class KakaoPay extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kakao_pay);
         BootpayAnalytics.init(this, application_id);
-
+        this.finish();
+        kakaoPay = this;
         // 초기설정 - 해당 프로젝트(안드로이드)의 application id 값을 설정합니다. 결제와 통계를 위해 꼭 필요합니다.
 //        BootpayAnalytics.init(this, "5b14c0ffb6d49c40cda92c4e");
 
@@ -62,7 +64,7 @@ public class KakaoPay extends Activity {
                 .onCancel(new CancelListener() { // 결제 취소시 호출
                     @Override
                     public void onCancel(@Nullable String message) {
-                        finish();
+                        ActivityCompat.finishAffinity(kakaoPay);
                     }
                 })
                 .onError(new ErrorListener() { // 에러가 났을때 호출되는 부분
@@ -74,12 +76,11 @@ public class KakaoPay extends Activity {
                 .onClose(new CloseListener() { //결제창이 닫힐때 실행되는 부분
                     @Override
                     public void onClose(String message) {
-                       finish();
+
                     }
                 })
                 .show();
     }
-
 
 
 }

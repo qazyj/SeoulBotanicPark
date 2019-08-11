@@ -3,6 +3,7 @@ package com.example.botanic_park;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import android.os.Build;
@@ -19,17 +20,21 @@ import android.view.View;
 
 import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_Map;
+import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
@@ -38,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
-    private ArrayList<PlantBookItem> list = null;
+    //public static final String homeTag = "home";
+    //public static final String mapTag = "map";
+    public static final String plantBookTag = "plant book";
+    //public static final String informationTag = "information";
 
     private CurveBottomBar curveBottomBar;
 
@@ -51,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로딩 액티비티에서 식물 리스트 정보 받아옴
-        Intent intent = getIntent();
-        list = (ArrayList<PlantBookItem>) intent.getSerializableExtra(LoadingActivity.PLANT_LIST_KEY);
-
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // 프래그먼트 객체 생성
         fragment_Home = new Fragment_Home();
         fragment_Map = new Fragment_Map();
-        fragment_Plant_Book = Fragment_Plant_Book.newInstance(list);
+        fragment_Plant_Book = Fragment_Plant_Book.newInstance();
         fragment_Information = new Fragment_Information();
 
         fragmentManager = getSupportFragmentManager();
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
                 startActivity(intent1); // QR 액티비티 띄움
             }
         });
@@ -84,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar = findViewById(R.id.customBottomBar);
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+    }
+
+    @Override
+    protected void onDestroy() {
+        onSaveData(AppManager.getInstance().getList()); // 도감 저장
+        super.onDestroy();
+    }
+
+    // 식물 list 저장
+    private void onSaveData(ArrayList<PlantBookItem> list) {
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+        String json = gson.toJson(list, listType);  // arraylist -> json string
+
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
+        editor.commit(); // 완료한다.
     }
 
     @Override
@@ -115,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
-                    transaction.replace(R.id.frame_container, fragment_Plant_Book).commit();
+                    transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
                 case R.id.information:
                     transaction.replace(R.id.frame_container, fragment_Information).commit();

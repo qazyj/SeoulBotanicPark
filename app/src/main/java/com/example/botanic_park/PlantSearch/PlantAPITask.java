@@ -26,10 +26,10 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
-    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
+    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
     //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
-    private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
+    //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://api.plant.id/identify";
     private String API_SUGGESION_URL = "https://api.plant.id/check_identifications";
@@ -42,36 +42,42 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
     private ArrayList<ProbablePlant> probablePlants;
 
     private Context context;
-    private ProgressBar progressBar;
+    ProgressDialog dialog;
 
 
-    public PlantAPITask(Context context, String image, ProgressBar progressBar) {
+    public PlantAPITask(Context context, String image) {
         this.context = context;
-        this.progressBar = progressBar;
         this.image = image;
+
+        dialog = new ProgressDialog(context);
 
         // API에서 요구하는 이미지 형식에 맞춤
         imageArray = new JSONArray();
         imageArray.put(image);
         imageArray.put("data:image/jpg;base64," + image);
 
-        probablePlants = new ArrayList<ProbablePlant>();
+        probablePlants = new ArrayList<>();
     }
 
     @Override
     protected void onPreExecute() {
+        /*
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("로딩중입니다...");
+
+        dialog.show();
+        */
         super.onPreExecute();
-        progressBar.setVisibility(View.VISIBLE);    // progressbar 보여짐
     }
 
     @Override
-    protected void onPostExecute(ProbablePlant o) {
+    protected void onPostExecute(ArrayList<ProbablePlant> o) {
+        //dialog.dismiss();
         super.onPostExecute(o);
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    protected ProbablePlant doInBackground(Object... objects) {
+    protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
         // 첫번째 request
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
@@ -116,23 +122,12 @@ public class PlantAPITask extends AsyncTask<Object, Void, ProbablePlant> {
             e.printStackTrace();
         }
 
+        return probablePlants;
+        /*
         if(probablePlants.size() != 0)
             return probablePlants.get(0);   // 첫번째 결과를 전달
         return null;
-        //return getMostProbablePlant();
-    }
-
-    private ProbablePlant getMostProbablePlant() {
-        // 가장 유력한 식물 후보를 선택해 반환
-        ProbablePlant mostProbablePlant = probablePlants.get(0);
-
-        for (ProbablePlant plant : probablePlants) {
-            if (mostProbablePlant.probability < plant.probability) {
-                mostProbablePlant = plant;
-            }
-        }
-
-        return mostProbablePlant;
+        */
     }
 
     private String sendForIdentification() {

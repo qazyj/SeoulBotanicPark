@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/border_oval_active"
+            android:background="@drawable/border_oval"
             android:gravity="center"
             android:padding="10dp">
 
@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:src="@drawable/ic_clover_active"
+                    android:src="@drawable/ic_clover"
                     android:scaleType="fitCenter" />
                 <TextView
                     android:id="@+id/text1"
@@ -60,10 +60,8 @@
                     android:layout_weight="0"
                     android:singleLine="true"
                     android:text="금꿩의 다리"
-                    android:textColor="@color/colorBaseCyan"
                     android:gravity="center"
                     android:layout_marginTop="5dp"/>
-
             </LinearLayout>
         </com.example.botanic_park.PlantSearch.PlantBookItemLayout>
 
