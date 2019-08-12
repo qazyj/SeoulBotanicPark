@@ -16,6 +16,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

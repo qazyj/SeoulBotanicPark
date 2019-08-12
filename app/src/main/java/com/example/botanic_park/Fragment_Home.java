@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
@@ -149,7 +150,6 @@ class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder>{
                         .centerCrop()
                         .into(viewHolder.imageView);
                 break;
-
         }
 
     }
@@ -206,10 +206,20 @@ class PlantTodayAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null)
             view = layoutInflater.inflate(layout, null);
-        PlantBookItem item = itemList.get(i);
 
+        PlantBookItem item = itemList.get(i);
         TextView textView = view.findViewById(R.id.name);
         textView.setText(item.getName_ko());
+
+        if(item.isCollected()) {
+            view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_oval_active));
+            ImageView imageView = view.findViewById(R.id.icon);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+            layoutParams.setMargins(5,5,5,5);
+            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_lotus_active));
+            textView.setTextColor(view.getResources().getColor(R.color.colorBase));
+        }
+
         return view;
     }
 

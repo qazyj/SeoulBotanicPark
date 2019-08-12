@@ -1,20 +1,13 @@
 package com.example.botanic_park;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MenuItem;
@@ -27,19 +20,15 @@ import com.example.botanic_park.Map.Fragment_Map;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.*;
 
-import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import kr.go.seoul.airquality.Common.BaseActivity;
 
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Timer;
-
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
