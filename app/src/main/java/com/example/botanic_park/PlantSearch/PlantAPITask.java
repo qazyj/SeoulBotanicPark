@@ -2,14 +2,14 @@ package com.example.botanic_park.PlantSearch;
 
 /* Plant API에 대한 request/response를 다루는 클래스 */
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
+import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,29 +27,29 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
-    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://api.plant.id/identify";
     private String API_SUGGESION_URL = "https://api.plant.id/check_identifications";
 
-    private static final int MAX_READ_TIME = 10000;
-    private static final int MAX_CONNECT_TIME = 15000;
+    private static final int MAX_READ_TIME = 20000;
+    private static final int MAX_CONNECT_TIME = 20000;
 
     private String image;   // 64bit로 인코딩된 이미지 String
     private JSONArray imageArray;
     private ArrayList<ProbablePlant> probablePlants;
 
-    private Context context;
+    Context context;
     ProgressDialog dialog;
 
-
     public PlantAPITask(Context context, String image) {
-        this.context = context;
         this.image = image;
+        this.context = context;
 
         dialog = new ProgressDialog(context);
+        Log.d("테스트", (context instanceof CameraSearchActivity) + "");
 
         // API에서 요구하는 이미지 형식에 맞춤
         imageArray = new JSONArray();
@@ -61,19 +61,34 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
     @Override
     protected void onPreExecute() {
-        /*
+        super.onPreExecute();
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("로딩중입니다...");
+        dialog.setCancelable(false);    // 취소 못하게 막아놓음
 
         dialog.show();
-        */
-        super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(ArrayList<ProbablePlant> o) {
-        //dialog.dismiss();
+        dialog.dismiss();
         super.onPostExecute(o);
+
+        if(o.size() > 0) {
+            ArrayList<String> result = new ArrayList<>();
+            for (ProbablePlant plant : o) {
+                result.add(plant.name); // 이름만 빼내기
+            }
+
+            // 검색 결과 창 띄우기
+            Intent intent = new Intent(context, SearchResultActivity.class);
+            intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
+            intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
+
+            context.startActivity(intent);
+        } else{
+            Toast.makeText(context, "이미지를 인식할 수 없습니다. 정면을 크게 촬영해주세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -114,20 +129,20 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
                     probablePlants.add(plant);  // 결과 후보들을 리스트에 저장
                     Log.d("후보 리스트", probablePlants.toString());
                 }
-
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return probablePlants;
+
         /*
         if(probablePlants.size() != 0)
             return probablePlants.get(0);   // 첫번째 결과를 전달
         return null;
         */
+
     }
 
     private String sendForIdentification() {

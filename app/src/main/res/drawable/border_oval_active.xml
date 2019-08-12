@@ -3,7 +3,7 @@
     android:shape="oval">
     <!-- 바탕색 -->
     <solid
-        android:color="@color/colorTransparent"/>
+        android:color="#DD55A37C"/>
 
     <!-- 테두리 색 -->
     <stroke

@@ -3,10 +3,10 @@ package com.example.botanic_park.Map;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.*;
 
 import android.widget.*;
+import androidx.fragment.app.Fragment;
 import com.example.botanic_park.R;
 import com.github.clans.fab.FloatingActionMenu;
 import pl.polidea.view.ZoomView;

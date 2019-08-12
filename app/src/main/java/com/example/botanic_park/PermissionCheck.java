@@ -2,7 +2,7 @@ package com.example.botanic_park;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 
 // 권한 체크, 요청을 담당
 public class PermissionCheck {

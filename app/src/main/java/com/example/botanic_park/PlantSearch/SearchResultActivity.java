@@ -5,16 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
@@ -90,6 +90,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 // 설치된 웹브라우저가 없는 경우
+                Toast.makeText(getApplicationContext(), "설치된 웹 브라우저가 없습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -108,6 +109,7 @@ public class SearchResultActivity extends AppCompatActivity {
                         || item.getName_en().contains(word)
                         || item.getName_sc().contains(word)) {
                     searchList.add(item);
+                    searchWordList.add(item.getName_ko());  // 텍스트 검색은 검색 결과 넣어줌
                 }
             }
         }
@@ -119,7 +121,6 @@ public class SearchResultActivity extends AppCompatActivity {
             noResult.setVisibility(View.VISIBLE);
             resultListView.setVisibility(View.GONE);
             resultItem.setVisibility(View.GONE);
-
             return;
         }
 
@@ -146,13 +147,24 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private void addToPlantBook(PlantBookItem plantBookItem) {
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
+        ArrayList<PlantBookItem> plantsToday = AppManager.getInstance().getPlantsToday();
+
         for (PlantBookItem item : list) {
-            if (item.equals(plantBookItem) && !item.isCollected()) {
-                item.setCollected(true);
-                Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                break;
+            if (item.equals(plantBookItem)){
+                if(!item.isCollected()){
+                    item.setCollected(true);
+                    Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                if(plantsToday.contains(item)){
+                    int index = plantsToday.indexOf(item);
+                    plantsToday.get(index).setCollected(true);
+                    Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
+        // 앱메니저에 반영 (굳이 해야하나 잘 모르겠다)
+        AppManager.getInstance().setList(list);
+        AppManager.getInstance().setPlantsToday(plantsToday);
     }
 
     private void setData(PlantBookItem selectedItem) {
@@ -195,7 +207,7 @@ public class SearchResultActivity extends AppCompatActivity {
         resultItem.setVisibility(View.GONE);
 
         PlantBookAdapter adapter = new PlantBookAdapter(getApplicationContext(),
-                R.layout.item_plant, searchList, PlantBookAdapter.SHOW_ALL_NAME);
+                R.layout.item_plant, searchList);
         resultListView.setAdapter(adapter);   // 어댑터 연결
 
         resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

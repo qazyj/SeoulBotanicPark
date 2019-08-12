@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".Map.Fragment_main_map">
 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_map" />
+
     <Button
         android:id="@+id/change_map"
         android:layout_width="160dp"
@@ -14,10 +20,5 @@
         android:textColor="@color/bg_good"
         android:text="문화 센터 내부 지도 보기"
         android:layout_gravity="center_horizontal" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_map"
-        />
 
 </FrameLayout>

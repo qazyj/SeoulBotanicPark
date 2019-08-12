@@ -1,14 +1,12 @@
 package com.example.botanic_park.PlantSearch;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import androidx.annotation.Nullable;
 
 /* 식물 도감 아이템에 적용되는 레이아웃 */
 
@@ -47,6 +45,7 @@ class PlantBookExpandableGridView extends GridView{
 
     public PlantBookExpandableGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
     }
 
     @Override

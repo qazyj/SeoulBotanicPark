@@ -1,17 +1,11 @@
 package com.example.botanic_park.Map;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
 
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
+import androidx.fragment.app.Fragment;
 import com.example.botanic_park.MainActivity;
 import com.example.botanic_park.R;
 import com.github.clans.fab.FloatingActionMenu;
@@ -37,7 +34,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@SuppressLint("ValidFragment")
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     private Button parent_fragment_button;
@@ -72,21 +68,10 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (locationSource.onRequestPermissionsResult(
-                requestCode, permissions, grantResults)) {
-            return;
-        }
-        super.onRequestPermissionsResult(
-                requestCode, permissions, grantResults);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
-        Toast.makeText(getContext(), "지도를 탭하면 전체화면으로 볼 수 있습니다.", Toast.LENGTH_LONG).show();
 
         return view;
     }

@@ -2,7 +2,6 @@ package com.example.botanic_park.PaymentAndQR;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import androidx.annotation.Nullable;
 import com.example.botanic_park.R;
 
 public class PaymentPopUpActivity extends Activity {

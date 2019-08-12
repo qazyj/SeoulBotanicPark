@@ -2,19 +2,28 @@ package com.example.botanic_park.Information;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.botanic_park.Information.InformationUseActivity;
-import com.example.botanic_park.Information.NewsActivity;
-import com.example.botanic_park.Information.WayToComeActivity;
+import androidx.fragment.app.Fragment;
 import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener{
 
     private CardView information_information_use, information_way_to_come, information_news, information_community;
+
+    public Fragment_Information() {
+    }
+
+    public static Fragment_Information newInstance() {
+        Fragment_Information fragment = new Fragment_Information();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

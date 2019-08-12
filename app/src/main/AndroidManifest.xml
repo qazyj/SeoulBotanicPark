@@ -34,13 +34,13 @@
 
         <activity
             android:name=".PaymentAndQR.PaymentPopUpActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@style/PopUpTheme" />
         <activity
             android:name=".PlantSearch.DetailPopUpActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@style/PopUpTheme" />
         <activity
             android:name=".PaymentAndQR.QRPopUpActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@style/PopUpTheme" />
         <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -52,7 +52,8 @@
         </activity>
         <activity android:name=".PlantSearch.CameraSearchActivity" />
         <activity android:name=".PlantSearch.SearchResultActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Map.Facilities_information" />
         <activity android:name=".Information.InformationUseActivity" />
         <activity android:name=".Information.WayToComeActivity" />

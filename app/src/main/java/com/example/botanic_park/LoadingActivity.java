@@ -46,7 +46,7 @@ public class LoadingActivity extends Activity {
         // 로딩중 백버튼 종료 막음
     }
 
-    private void onClearData(){
+    private void onClearData() {
         SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
@@ -83,58 +83,60 @@ public class LoadingActivity extends Activity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {  if (list == null) {
-            // 저장된 정보가 없는 경우 파싱
-            list = new ArrayList<>();
-            for (int id = 121; id >= 1; id--) {
-                String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id;
+        protected Void doInBackground(Void... params) {
+            if (list == null) {
+                // 저장된 정보가 없는 경우 파싱
+                list = new ArrayList<>();
+                for (int id = 121; id >= 1; id--) {
+                    String DETAIL_PAGE_URL = PLANT_DETAIL_URL + ID + id;
 
-                // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
-                SSLConnect sslConnect = new SSLConnect();
-                sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
+                    // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
+                    SSLConnect sslConnect = new SSLConnect();
+                    sslConnect.postHttps(DETAIL_PAGE_URL, 1000, 1000);
 
-                // 웹에서 정보 읽어옴
-                Document document = null;
+                    // 웹에서 정보 읽어옴
+                    Document document = null;
+                    try {
+                        document = Jsoup.connect(DETAIL_PAGE_URL).get();
+                        Elements textElements = document.select("div[class=text_area]").select("span");
+                        //Log.d("debug textElements", textElements + "");
+
+                        String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
+
+                        String name_ko = textElements.get(0).text();
+                        name_ko = name_ko.replace("이 름:", "");
+
+                        String name_sc = textElements.get(1).text();
+                        name_sc = name_sc.replace("학 명:", "");
+
+                        String name_en = textElements.get(2).text();
+                        name_en = name_en.replace("영 명:", "");
+
+                        String type = textElements.get(3).text();
+                        type = type.replace("구 분:", "");
+
+                        String blossom = textElements.get(4).text();
+                        blossom = blossom.replace("개화기:", "");
+
+                        String details = document.select("div[class=text_editor]").text();
+
+                        // 리스트에 추가
+                        list.add(new PlantBookItem(id, IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
+                        Log.d("테스트", "id: " + id);
+                    } catch (IOException e) {
+                        //e.printStackTrace();
+                        continue;   // 7번만 invalid Mark로 안옴
+                    }
+                }
+            } else {
+                // 저장된 정보가 있는 경우
                 try {
-                    document = Jsoup.connect(DETAIL_PAGE_URL).get();
-                    Elements textElements = document.select("div[class=text_area]").select("span");
-                    //Log.d("debug textElements", textElements + "");
-
-                    String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
-
-                    String name_ko = textElements.get(0).text();
-                    name_ko = name_ko.replace("이 름:", "");
-
-                    String name_sc = textElements.get(1).text();
-                    name_sc = name_sc.replace("학 명:", "");
-
-                    String name_en = textElements.get(2).text();
-                    name_en = name_en.replace("영 명:", "");
-
-                    String type = textElements.get(3).text();
-                    type = type.replace("구 분:", "");
-
-                    String blossom = textElements.get(4).text();
-                    blossom = blossom.replace("개화기:", "");
-
-                    String details = document.select("div[class=text_editor]").text();
-
-                    // 리스트에 추가
-                    list.add(new PlantBookItem(id,IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
-                    Log.d("테스트", "id: " + id);
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    continue;   // 7번만 invalid Mark로 안옴
+                    Thread.sleep(2000);
+                    Log.d("테스트", list.size() + "");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-            // 저장된 정보가 있는 경우
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
             return null;
         }
 
@@ -142,10 +144,26 @@ public class LoadingActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             finish();   // 파싱 끝나면 로딩 액티비티 종료
 
+            //list.get(4).setCollected(true); // 임의로 결과보기 위해 넣어둠
+            //list.get(0).setCollected(true);
             AppManager.getInstance().setList(list);   // 앱메니저에 저장
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(PLANT_LIST_KEY, list);
             startActivity(intent);
+
+            onSaveData(list);
+        }
+
+        // 식물 list 저장
+        private void onSaveData(ArrayList<PlantBookItem> list) {
+            Gson gson = new GsonBuilder().create();
+            Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+            }.getType();
+            String json = gson.toJson(list, listType);  // arraylist -> json string
+
+            SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
+            editor.commit(); // 완료한다.
         }
     }
 }
