@@ -22,7 +22,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".PaymentAndQR.KakaoPay"></activity>
         <activity android:name=".PlantSearch.ImagePreviewActivity"></activity>
-        <activity android:name=".PaymentAndQR.KakaoPay" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"

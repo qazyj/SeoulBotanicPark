@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Map.Fragment_main_map">
+
+    <Button
+        android:id="@+id/change_map"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#EEEE"
+        android:textColor="@color/bg_good"
+        android:text="문화 센터 내부 지도 보기"
+        android:layout_gravity="center_horizontal" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_map"
+        />
+
+</FrameLayout>

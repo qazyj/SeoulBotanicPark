@@ -19,12 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.botanic_park.Information.Fragment_Information;
-import com.example.botanic_park.Map.Fragment_Map;
+import com.example.botanic_park.Map.Fragment_main_map;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
-import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     private Fragment_Home fragment_Home;
-    private Fragment_Map fragment_Map;
+    private Fragment_main_map fragment_Map;
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 프래그먼트 객체 생성
         fragment_Home = new Fragment_Home();
-        fragment_Map = new Fragment_Map();
+        fragment_Map = new Fragment_main_map();
         fragment_Plant_Book = Fragment_Plant_Book.newInstance();
         fragment_Information = new Fragment_Information();
 
@@ -158,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
             curveBottomBar.setVisibility(View.VISIBLE);
             floatingActionButton.setVisibility(View.VISIBLE);
         }
-
     }
 }
 
