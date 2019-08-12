@@ -39,9 +39,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private Button parent_fragment_button;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
-    private final String GREEN_HOUSE = "1";
-    private final String THEME_GARDEN = "2";
-    private final String BOTANIC_CULTURE_CENTER = "3";
+    private final String GREEN_HOUSE = "온실";
+    private final String THEME_GARDEN = "주제 젱원";
+    private final String BOTANIC_CULTURE_CENTER = "문화 센터";
 
     private MapView mapView;
     private FusedLocationSource locationSource;
@@ -216,7 +216,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         Marker marker = getImageMarker(latitude,longitude,caption,width,height,resources);
         marker.setTag(information);
         marker.setOnClickListener(new MarkerClick());
-
+        marker.setHideCollidedMarkers(false);
+        marker.setHideCollidedCaptions(true);
+        marker.setZIndex(300);
         return marker;
     }
 
@@ -456,6 +458,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         frame.setBackgroundColor(Color.parseColor( "#BB000000"));
     }
 
+    private void excuteWebBrowser(String url)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(url);
+        intent.setData(uri);
+        startActivity(intent);
+
+    }
+
     /*---- 네이버 지도 커스텀 ----*/
 
     private void changeObjectVisibility()
@@ -486,6 +497,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                 naverMap.setCameraPosition(new CameraPosition(marker.getPosition(), 16));
 
             } else {
+
                 infoWindow.close();
             }
 
@@ -499,16 +511,26 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         public boolean onClick(@NonNull Overlay overlay) {
             InfoWindow infoWindow = (InfoWindow) overlay;
             Marker marker = infoWindow.getMarker();
-            Toast.makeText(getContext(), marker.getCaptionText(), Toast.LENGTH_LONG).show();
+            String[] information = (String[])marker.getTag();
+            Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
+
+            if(information[0].equals(BOTANIC_CULTURE_CENTER)) {
+                parent_fragment_button.callOnClick();
+                return true;
+            }
+
+            if(information[0].equals(GREEN_HOUSE)){
+                excuteWebBrowser("https://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+                return  true;
+            }
 
             Intent intent = new Intent(getActivity(), Facilities_information.class);
+            intent.putExtra("information", information);
             startActivity(intent);
 
             return true;
         }
     }
-
-
 
     class TrackingModeListener extends FusedLocationSource { // 위치 정보 클래스 오버라이드
 

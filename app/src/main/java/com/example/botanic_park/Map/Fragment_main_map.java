@@ -30,6 +30,8 @@ public class Fragment_main_map extends Fragment {
 
 
     boolean isNaverMap = true;
+    Fragment naverMap;
+    Fragment centerMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,14 +42,22 @@ public class Fragment_main_map extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if(isNaverMap) {
-                    if(!button.isShown()) ((MainActivity) getActivity()).setCurveBottomBarVisibility();
-                    replaceFrgment(new Fragment_BotanicCenter());
+                    centerMap = new Fragment_BotanicCenter();
+
+                    if(!button.isShown()){
+                        ((MainActivity) getActivity()).setCurveBottomBarVisibility();
+                        button.setVisibility(View.VISIBLE); }
+
+                    replaceFrgment(centerMap);
+                    naverMap.onDestroy();
                     button.setText("외부 지도 보기");
                     isNaverMap = false;
                 }
 
                 else{
-                    replaceFrgment(new Fragment_Map(button));
+                    naverMap = new Fragment_Map(button);
+                    replaceFrgment(naverMap);
+                    centerMap.onDestroy();
                     button.setText("문화 센터 내부 지도 보기");
                     isNaverMap = true;
                 }
@@ -59,7 +69,8 @@ public class Fragment_main_map extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        replaceFrgment(new Fragment_Map((Button) view.findViewById(R.id.change_map)));
+        naverMap = new Fragment_Map((Button) view.findViewById(R.id.change_map));
+        replaceFrgment(naverMap);
     }
 
     private void replaceFrgment(Fragment map)

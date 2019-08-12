@@ -6,17 +6,17 @@
     <string name="title_notifications">Notifications</string>
 
     <string-array name="theme_garden">
-        <item>1</item>
+        <item>주제 정원</item>
         <item>정보</item>
     </string-array>
 
     <string-array name="green_house">
-        <item>2</item>
+        <item>온실</item>
         <item>온실 안내도 열람</item>
     </string-array>
 
     <string-array name="botnic_culture_center">
-        <item>3</item>
+        <item>문화 센터</item>
         <item>내부 지도 보기</item>
     </string-array>
 

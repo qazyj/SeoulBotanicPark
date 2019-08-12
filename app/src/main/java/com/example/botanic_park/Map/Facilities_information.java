@@ -20,8 +20,12 @@ public class Facilities_information extends AppCompatActivity implements View.On
         backButton.setOnClickListener(this);
 
         Intent intent = getIntent();
-        int tag = intent.getIntExtra("tag", 1);
-        setName(tag);
+        String[] information = intent.getStringArrayExtra("information");
+        try {
+            setName(information[0]);
+        } catch (Exception e) {
+            finish();
+        }
 
     }
 
@@ -33,48 +37,8 @@ public class Facilities_information extends AppCompatActivity implements View.On
 
     }
 
-    public void setName(int tag)
+    public void setName(String name)
     {
-        TextView spaceName = findViewById(R.id.space_name);
-
-        switch (tag)
-        {
-            case 1:
-                spaceName.setText("식물문화센터");
-                break;
-
-            case 2:
-                spaceName.setText("치유의 정원");
-                break;
-
-            case 3:
-                spaceName.setText("숲정원");
-                break;
-
-            case 4:
-                spaceName.setText("바람의 정원");
-                break;
-
-            case 5:
-                spaceName.setText("오늘의 정원");
-                break;
-
-            case 6:
-                spaceName.setText("추억의 정원");
-                break;
-
-            case 7:
-                spaceName.setText("정원사 정원");
-                break;
-
-            case 8:
-                spaceName.setText("사색 정원");
-                break;
-
-            case 9:
-                spaceName.setText("초대의 정원");
-                break;
-
-        }
+        ((TextView) findViewById(R.id.space_name)).setText(name);
     }
 }
