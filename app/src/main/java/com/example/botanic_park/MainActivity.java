@@ -13,10 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
-import com.example.botanic_park.Map.Fragment_Map;
+import com.example.botanic_park.Map.Fragment_main_map;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.*;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     private Fragment_Home fragment_Home;
-    private Fragment_Map fragment_Map;
+    private Fragment_main_map fragment_Map;
     private Fragment_Plant_Book fragment_Plant_Book;
     private Fragment_Information fragment_Information;
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.map:
                     if (fragment_Map == null) {
-                        fragment_Map = Fragment_Map.newInstance();
+                        fragment_Map = Fragment_main_map.newInstance();
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map).commit();
                     }
                     if (fragment_Home != null)

@@ -3,12 +3,14 @@ package com.example.botanic_park.Map;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -34,7 +36,13 @@ import java.util.List;
 
 public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
+    private Button parent_fragment_button;
+
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+    private final String GREEN_HOUSE = "온실";
+    private final String THEME_GARDEN = "주제 젱원";
+    private final String BOTANIC_CULTURE_CENTER = "문화 센터";
+
     private MapView mapView;
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
@@ -53,26 +61,10 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     FloatingActionMenu floatingMenu;
     com.github.clans.fab.FloatingActionButton all, tickebox, playground, bicycle, parking;
 
-    public Fragment_Map() {
-    }
 
-    public static Fragment_Map newInstance() {
-        Fragment_Map fragment = new Fragment_Map();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (locationSource.onRequestPermissionsResult(
-                requestCode, permissions, grantResults)) {
-            return;
-        }
-        super.onRequestPermissionsResult(
-                requestCode, permissions, grantResults);
+    public Fragment_Map(Button button)
+    {
+        parent_fragment_button = button;
     }
 
     @Override
@@ -80,7 +72,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mainActivity = (MainActivity) getActivity();
-        Toast.makeText(getContext(), "지도를 탭하면 전체화면으로 볼 수 있습니다.", Toast.LENGTH_LONG).show();
 
         return view;
     }
@@ -196,9 +187,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         naverMap.getUiSettings().setZoomControlEnabled(false);
 
-        getImageMarker(37.5694308, 126.8350116,"온실",80,80,R.drawable.greenhouse);
-        getImageMarker(37.5682113, 126.8337287,"주제정원",80,80,R.drawable.garden);
-        getImageMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information).setSubCaptionText("카페·화장실");
+        getInfowindowMarker(37.5694308, 126.8350116,"온실",80,80,R.drawable.greenhouse, getResources().getStringArray(R.array.green_house));
+        getInfowindowMarker(37.5682113, 126.8337287,"주제정원",80,80,R.drawable.garden ,getResources().getStringArray(R.array.theme_garden));
+        getInfowindowMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information,getResources().getStringArray(R.array.botnic_culture_center)).setSubCaptionText("카페·화장실");
 
         all.setOnClickListener(new floatingMenuClick());
         tickebox.setOnClickListener(new floatingMenuClick());
@@ -220,12 +211,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
     /*----오버레이 생성 메소드----*/
 
-    private Marker setInfowindowMarker(double latitude, double longitude, String caption)
+    private Marker getInfowindowMarker(double latitude, double longitude, String caption, int width, int height, int resources, String[] information)
     {
-        Marker marker = getNormalMarker(latitude,longitude,caption,Marker.SIZE_AUTO, Marker.SIZE_AUTO);
-        marker.setTag(R.array.tema_garden);
+        Marker marker = getImageMarker(latitude,longitude,caption,width,height,resources);
+        marker.setTag(information);
         marker.setOnClickListener(new MarkerClick());
-
+        marker.setHideCollidedMarkers(false);
+        marker.setHideCollidedCaptions(true);
+        marker.setZIndex(300);
         return marker;
     }
 
@@ -270,6 +263,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         marker.setOnClickListener(overlay -> {
             Marker mark = (Marker) overlay;
             naverMap.setCameraPosition(new CameraPosition(mark.getPosition(),16));
+            if(infoWindow.getMarker() != null) infoWindow.close();
             return true;
         });
 
@@ -300,6 +294,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
     private InfoWindow getInfoWindow(final String describe)  // infowindow
     {
         InfoWindow infoWindow = new InfoWindow();
+        renameInfoWindow(infoWindow,describe);
+        infoWindow.setOnClickListener(new InfowindowClick());
+
+        return infoWindow;
+    }
+
+    private void renameInfoWindow (InfoWindow infoWindow, String describe)
+    {
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(getContext()) {
             @NonNull
             @Override
@@ -308,11 +310,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             }
 
         });
-
-        infoWindow.setOnClickListener(new InfowindowClick());
-
-        return infoWindow;
     }
+
 
     private void setPolygone()
     {
@@ -459,6 +458,15 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         frame.setBackgroundColor(Color.parseColor( "#BB000000"));
     }
 
+    private void excuteWebBrowser(String url)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(url);
+        intent.setData(uri);
+        startActivity(intent);
+
+    }
+
     /*---- 네이버 지도 커스텀 ----*/
 
     private void changeObjectVisibility()
@@ -468,24 +476,28 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
            locationButtonView.setVisibility(View.GONE);
            zoomControlView.setVisibility(View.GONE);
            floatingMenu.setVisibility(View.GONE);
+           parent_fragment_button.setVisibility(View.GONE);
 
        }  else { locationButtonView.setVisibility(View.VISIBLE);
           zoomControlView.setVisibility(View.VISIBLE);
           floatingMenu.setVisibility(View.VISIBLE);
+          parent_fragment_button.setVisibility(View.VISIBLE);
        }
     }
 
-    class MarkerClick implements Overlay.OnClickListener{ // 마커 클릭을 위한 리스너
+    class MarkerClick implements Overlay.OnClickListener { // 마커 클릭을 위한 리스너
 
         @Override
         public boolean onClick(@NonNull Overlay overlay) {
-            Marker marker = (Marker)overlay;
+            Marker marker = (Marker) overlay;
 
-            if(marker.getInfoWindow() == null){
+            if (marker.getInfoWindow() == null) {
                 infoWindow.open(marker);
-                naverMap.setCameraPosition(new CameraPosition(marker.getPosition(),16));
+                renameInfoWindow(infoWindow, ((String[]) marker.getTag())[1]);
+                naverMap.setCameraPosition(new CameraPosition(marker.getPosition(), 16));
 
             } else {
+
                 infoWindow.close();
             }
 
@@ -499,9 +511,21 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
         public boolean onClick(@NonNull Overlay overlay) {
             InfoWindow infoWindow = (InfoWindow) overlay;
             Marker marker = infoWindow.getMarker();
-            Toast.makeText(getContext(), marker.getCaptionText(), Toast.LENGTH_LONG).show();
+            String[] information = (String[])marker.getTag();
+            Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
+
+            if(information[0].equals(BOTANIC_CULTURE_CENTER)) {
+                parent_fragment_button.callOnClick();
+                return true;
+            }
+
+            if(information[0].equals(GREEN_HOUSE)){
+                excuteWebBrowser("https://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+                return  true;
+            }
 
             Intent intent = new Intent(getActivity(), Facilities_information.class);
+            intent.putExtra("information", information);
             startActivity(intent);
 
             return true;
@@ -546,4 +570,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             closeFloatingMenu();
         }
     }
+
+
 }

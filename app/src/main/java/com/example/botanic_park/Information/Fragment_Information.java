@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener{

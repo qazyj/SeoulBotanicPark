@@ -1,42 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".Map.Fragment_BotanicCenter"
+    >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:fab="http://schemas.android.com/tools"
-    android:orientation = "horizontal">
-
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/map"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:name="com.naver.maps.map.MapFragment"
-              app:navermap_latitude="37.5702109"
-              app:navermap_longitude="126.8318991"
-              app:navermap_zoom="14.3"/>
-
-    <com.naver.maps.map.widget.LocationButtonView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="65dp"
-            android:layout_marginLeft="12dp"
-            android:layout_gravity="bottom" />
-
-    <com.naver.maps.map.widget.ZoomControlView
-            android:id="@+id/zoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
-            android:layout_marginRight="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/center_map_border"
+        android:id="@+id/contain"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:fab="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/background">
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background">
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/menu"
@@ -94,62 +78,38 @@
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/bicycle"
+                android:id="@+id/fourthfloor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_bicycle"
-                android:tag="@integer/bicycle"
+                android:src="@drawable/fourth_floor_icon"
+                android:tag="4"
                 fab:fab_colorNormal="#FCFCFC"
                 fab:fab_colorPressed="#D2F798"
-                fab:fab_label="자전거 보관대"
+                fab:fab_label="4층"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/parking"
+                android:id="@+id/secondfloor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_parking"
-                android:tag="@integer/parking"
+                android:src="@drawable/second_floor_icon"
+                android:tag="3"
                 fab:fab_colorNormal="#FCFCFC"
                 fab:fab_colorPressed="#D2F798"
-                fab:fab_label="주차장"
+                fab:fab_label="2층"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/playground"
+                android:id="@+id/firstfloor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_playground"
-                android:tag="@integer/playground"
+                android:src="@drawable/first_floor_icon"
+                android:tag="2"
                 fab:fab_colorNormal="#FCFCFC"
                 fab:fab_colorPressed="#D2F798"
-                fab:fab_label="놀이터"
-                fab:fab_size="mini" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/ticket_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_amusement_park"
-                android:tag="@integer/ticket_box"
-                fab:fab_colorNormal="#FCFCFC"
-                fab:fab_colorPressed="#D2F798"
-                fab:fab_label="매표소"
-                fab:fab_size="mini" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/all_pins"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_logo"
-                android:tag="@integer/all"
-                fab:fab_colorNormal="#FCFCFC"
-                fab:fab_colorPressed="#D2F798"
-                fab:fab_label="전체"
+                fab:fab_label="1층"
                 fab:fab_size="mini" />
 
         </com.github.clans.fab.FloatingActionMenu>
     </FrameLayout>
-
 </FrameLayout>
-
