@@ -3,6 +3,7 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import com.example.botanic_park.AppManager;
@@ -21,6 +22,7 @@ public class KakaoPay extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kakao_pay);
         BootpayAnalytics.init(this, application_id);
+        Toast.makeText(getApplicationContext(), "가상 결제이며, 실제 결제가 이루어지지 않습니다.", Toast.LENGTH_LONG).show();
         // 초기설정 - 해당 프로젝트(안드로이드)의 application id 값을 설정합니다. 결제와 통계를 위해 꼭 필요합니다.
 //        BootpayAnalytics.init(this, "5b14c0ffb6d49c40cda92c4e");
 
@@ -47,36 +49,30 @@ public class KakaoPay extends Activity {
                 .onDone(new DoneListener() { // 결제완료시 호출, 아이템 지급 등 데이터 동기화 로직을 수행합니다
                     @Override
                     public void onDone(@Nullable String message) {
-                        AppManager.getInstance().getMainActivity().setDateOfPayment();
-                        AppManager.getInstance().getPaymentPopUpActivity().finish();
-                        AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
-                        finish();
+                       doPay();
                     }
                 })
                 .onReady(new ReadyListener() { // 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
                     @Override
                     public void onReady(@Nullable String message) {
-                        Log.d("ready", message);
+                        doPay();
                     }
                 })
                 .onCancel(new CancelListener() { // 결제 취소시 호출
                     @Override
                     public void onCancel(@Nullable String message) {
-                        finish();
                         Log.d("cancel", message);
                     }
                 })
                 .onError(new ErrorListener() { // 에러가 났을때 호출되는 부분
                     @Override
                     public void onError(@Nullable String message) {
-                        finish();
                         Log.d("error", message);
                     }
                 })
                 .onClose(new CloseListener() { //결제창이 닫힐때 실행되는 부분
                     @Override
                     public void onClose(String message) {
-                        finish();
                         Log.d("close", message);
                     }
                 })
@@ -84,9 +80,13 @@ public class KakaoPay extends Activity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Bootpay.finish();
+
+    private void doPay()
+    {
+        Toast.makeText(getApplicationContext(), "결제가 완료 됐습니다", Toast.LENGTH_LONG).show();
+        AppManager.getInstance().getMainActivity().setDateOfPayment();
+        AppManager.getInstance().getPaymentPopUpActivity().finish();
+        AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
         finish();
     }
 }
