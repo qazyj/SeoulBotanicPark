@@ -26,6 +26,8 @@ public class Fragment_BotanicCenter extends Fragment
     com.github.clans.fab.FloatingActionButton firstFloor, secondFloor, fourthFloor;
     View zoomItem;
     ZoomView zoomView;
+    ImageView markerImage;
+    TextView floor_info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +35,9 @@ public class Fragment_BotanicCenter extends Fragment
 
         View view = inflater.inflate(R.layout.fragment_botanic_center, container, false);
         zoomItem = getLayoutInflater().inflate(R.layout.zoom_item, null);
+        floor_info = (TextView) view.findViewById(R.id.floor_info);
 
-        ImageView markerImage = zoomItem.findViewById(R.id.center_mark);
+        markerImage = zoomItem.findViewById(R.id.center_mark);
         markerImage.setDrawingCacheEnabled(true);
         markerImage.setOnTouchListener(changeColorListener);
 
@@ -110,6 +113,12 @@ public class Fragment_BotanicCenter extends Fragment
         }
     };
 
+    private final View.OnTouchListener noTouch = new View.OnTouchListener(){
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return false;
+        }
+    };
     private void setZoomItem(int where)
     {
         zoomView.smoothZoomTo(1f,zoomView.getWidth()/2f,zoomView.getHeight()/2f);
@@ -118,14 +127,20 @@ public class Fragment_BotanicCenter extends Fragment
         {
             case FIRST_FLOOR:
                 setZoomItemImage(R.drawable.center_1f,R.drawable.seed_library_mark);
+                markerImage.setOnTouchListener(changeColorListener);
+                floor_info.setText("1F");
                 break;
 
             case SECOND_FLOOR:
                 setZoomItemImage(R.drawable.center_2f, R.drawable.library_mark);
+                markerImage.setOnTouchListener(changeColorListener);
+                floor_info.setText("2F");
                 break;
 
             case FOURTH_FLOOR:
                 setZoomItemImage(R.drawable.center_4f, 0);
+                markerImage.setOnTouchListener(noTouch);
+                floor_info.setText("4F");
                 break;
         }
 

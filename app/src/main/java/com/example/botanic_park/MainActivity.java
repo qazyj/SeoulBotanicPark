@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_main_map;
+import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.*;
 

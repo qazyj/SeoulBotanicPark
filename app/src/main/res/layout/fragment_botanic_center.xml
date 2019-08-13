@@ -7,6 +7,19 @@
     tools:context=".Map.Fragment_BotanicCenter"
     >
 
+    <TextView
+        android:id="@+id/floor_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:textSize="50dp"
+        android:text="1F"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

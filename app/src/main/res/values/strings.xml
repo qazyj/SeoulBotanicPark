@@ -21,6 +21,11 @@
     </string-array>
 
 
+    <string-array name="visitor_info">
+        <item>방문자 정보</item>
+        <item>정보</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

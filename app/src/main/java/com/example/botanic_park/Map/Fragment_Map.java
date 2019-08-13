@@ -189,7 +189,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
 
         getInfowindowMarker(37.5694308, 126.8350116,"온실",80,80,R.drawable.greenhouse, getResources().getStringArray(R.array.green_house));
         getInfowindowMarker(37.5682113, 126.8337287,"주제정원",80,80,R.drawable.garden ,getResources().getStringArray(R.array.theme_garden));
-        getInfowindowMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information,getResources().getStringArray(R.array.botnic_culture_center)).setSubCaptionText("카페·화장실");
+        getInfowindowMarker(37.5696359, 126.8350098,"문화센터",80,80,R.drawable.botanic_center ,getResources().getStringArray(R.array.botnic_culture_center));
+        getInfowindowMarker(37.5662934, 126.8296977,"방문자센터",80,80, R.drawable.information,getResources().getStringArray(R.array.visitor_info)).setSubCaptionText("카페·화장실");
 
         all.setOnClickListener(new floatingMenuClick());
         tickebox.setOnClickListener(new floatingMenuClick());
