@@ -25,6 +25,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/guide_outside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -33,6 +34,7 @@
             android:background="@null" />
 
         <ImageButton
+            android:id="@+id/guide_inside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

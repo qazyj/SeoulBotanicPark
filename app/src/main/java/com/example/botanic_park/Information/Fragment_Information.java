@@ -1,7 +1,9 @@
 package com.example.botanic_park.Information;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
@@ -12,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
-
+    private ImageButton guideOutside, guideInside;
     private LinearLayout information_information_use, information_way_to_come, information_news, information_community;
 
     public Fragment_Information() {
@@ -31,6 +33,13 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information, container, false);
+
+        // 안내도 버튼
+        guideOutside = view.findViewById(R.id.guide_outside);
+        guideInside = view.findViewById(R.id.guide_inside);
+
+        guideOutside.setOnClickListener(this);
+        guideInside.setOnClickListener(this);
 
         //카드 정의
         information_information_use = view.findViewById(R.id.information_information_use);
@@ -52,6 +61,12 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.guide_inside:
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+                break;
+            case R.id.guide_outside:
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/%EC%95%88%EB%82%B4%EB%8F%84.pdf" );
+                break;
             case R.id.information_information_use:
                 intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
@@ -72,6 +87,13 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 break;
 
         }
+    }
+
+    public void excuteWebBrowser(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(url);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
 }
