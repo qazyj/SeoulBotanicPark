@@ -50,6 +50,7 @@ public class KakaoPay extends Activity {
                     @Override
                     public void onDone(@Nullable String message) {
                         AppManager.getInstance().getMainActivity().setDateOfPayment();
+                        AppManager.getInstance().getPaymentPopUpActivity().finish();
                         AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
 
                     }

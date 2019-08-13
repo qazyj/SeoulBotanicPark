@@ -13,7 +13,6 @@
     <application
         android:allowBackup="false"
         tools:replace="android:allowBackup"
-        android:fullBackupContent="false"
         android:hardwareAccelerated="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"

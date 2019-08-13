@@ -238,18 +238,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Boolean didPay = didPay();
             Intent intent;
-            if(didPay) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
+            if(didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
             else intent  = new Intent(MainActivity.this, PaymentPopUpActivity.class);
             startActivity(intent); // QR 액티비티 띄움
 
-            if(!didPay && didPay())
-            {
-                Intent new_Intent;
-                new_Intent = new Intent(MainActivity.this, QRPopUpActivity.class);
-                startActivity(new_Intent);
-            }
         }
     };
 }

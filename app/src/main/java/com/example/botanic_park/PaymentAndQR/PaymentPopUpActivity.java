@@ -22,6 +22,7 @@ public class PaymentPopUpActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);  // 타이틀바 없애기
         setContentView(R.layout.activity_payment_pop_up);
+        AppManager.getInstance().setPaymentPopUpActivity(this);
 
         Activity thisActivity = this;
 
@@ -48,7 +49,7 @@ public class PaymentPopUpActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(thisActivity, KakaoPay.class);
                 startActivity(intent);
-                if(AppManager.getInstance().getMainActivity().didPay()) finish();
+
             }
         });
 
@@ -57,7 +58,7 @@ public class PaymentPopUpActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(thisActivity, scan_QR.class);
                 startActivity(intent);
-                if(AppManager.getInstance().getMainActivity().didPay()) finish();
+
             }
         });
     }

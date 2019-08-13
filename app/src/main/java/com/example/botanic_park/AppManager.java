@@ -1,5 +1,6 @@
 package com.example.botanic_park;
 
+import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,4 +47,8 @@ public class AppManager {
     public void setMainActivity(MainActivity mainActivity) {this.mainActivity = mainActivity; }
     public MainActivity getMainActivity(){ return  mainActivity; }
 
-}
+    private PaymentPopUpActivity paymentPopUpActivity;
+    public void setPaymentPopUpActivity (PaymentPopUpActivity paymentPopUpActivity) {this.paymentPopUpActivity = paymentPopUpActivity; }
+    public PaymentPopUpActivity getPaymentPopUpActivity() { return  paymentPopUpActivity; }
+
+    }
