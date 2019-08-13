@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +23,9 @@ public class NewsActivity extends Activity {
 
     private ImageView imageView;
     private String obtainedString;
+    private String obtainedString1;
     private TextView inputTextView;
+    private TextView inputTextView1;
     private String connectURLString;
     private Intent intent;
 
@@ -36,8 +39,7 @@ public class NewsActivity extends Activity {
         // AsyncTask 작동시킴(파싱)
         new ParseInformationTask().execute();
 
-        findViewById(R.id.viewMore).setOnClickListener(
-                new Button.OnClickListener() {
+        findViewById(R.id.viewMore).setOnClickListener(new Button.OnClickListener() {
                     public void onClick(View v) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
                         startActivity(intent);
@@ -72,16 +74,23 @@ public class NewsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             try{
+
                 // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
                 SSLConnect sslConnect = new SSLConnect();
                 sslConnect.postHttps(NEWS_URL,1000,1000);
 
+                Log.d("tagman","치킨0");
+
                 // 웹에서 정보 읽어옴
                 Document document = Jsoup.connect(NEWS_URL).get();
+
+                Log.d("tagman","치킨1");
 
                 //해당 이미지 url 저장
                 Elements textElements = document.select("div[class=table_list]").select("td");
                 Elements URLElements = document.select("div[class=left]").select("a");
+
+                Log.d("tagman","치킨2");
 
                 //no1
                 obtainedString = textElements.get(0).text();
