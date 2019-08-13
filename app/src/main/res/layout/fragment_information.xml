@@ -57,8 +57,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!--이미지와 텍스트가 있는 카드뷰 추가-->
             <com.example.botanic_park.SquareLinearLayout
+                android:id="@+id/information_information_use"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,8 +69,8 @@
                 android:background="@drawable/background_button">
 
                 <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/information_information_use_icon" />
 
@@ -86,6 +86,7 @@
             </com.example.botanic_park.SquareLinearLayout>
 
             <com.example.botanic_park.SquareLinearLayout
+                android:id="@+id/information_way_to_come"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -96,8 +97,8 @@
                 android:background="@drawable/background_button">
 
                 <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:src="@drawable/information_way_to_come_icon" />
 
                 <TextView
@@ -117,6 +118,7 @@
             android:orientation="horizontal">
 
             <com.example.botanic_park.SquareLinearLayout
+                android:id="@+id/information_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -127,8 +129,8 @@
                 android:background="@drawable/background_button">
 
                 <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:src="@drawable/information_news_icon" />
 
                 <TextView
@@ -141,6 +143,7 @@
             </com.example.botanic_park.SquareLinearLayout>
 
             <com.example.botanic_park.SquareLinearLayout
+                android:id="@+id/information_community"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -151,8 +154,8 @@
                 android:background="@drawable/background_button">
 
                 <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:src="@drawable/information_community_icon" />
 
                 <TextView

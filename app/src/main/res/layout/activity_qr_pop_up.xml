@@ -4,8 +4,7 @@
     android:layout_width="300dp"
     android:layout_height="450dp"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/close"
@@ -18,30 +17,30 @@
         android:elevation="2dp"
         android:src="@drawable/ic_close_24dp" />
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:layout_marginTop="-30dp"
         android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/qrcode"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:src="@drawable/floating_qrcode_icon"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
-        />
+        <ImageView
+            android:id="@+id/qrcode"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:src="@drawable/floating_qrcode_icon"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="8월 2일 (금)"
-        android:textSize="40dp"
-        android:textColor="#000"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8월 2일 (금)"
+            android:textSize="40dp"
+            android:textColor="#000"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
 </LinearLayout>
