@@ -15,7 +15,7 @@ import com.example.botanic_park.R;
 public class WayToComeActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {w
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_way_to_come);
 
