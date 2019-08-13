@@ -35,6 +35,7 @@ public class scan_QR extends CaptureActivity {
                 AppManager.getInstance().getMainActivity().setDateOfPayment();
                 AppManager.getInstance().getPaymentPopUpActivity().finish();
                 AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
+                AppManager.getInstance().setPaymentPopUpActivity(null);
                 finish();
             }
         } else {

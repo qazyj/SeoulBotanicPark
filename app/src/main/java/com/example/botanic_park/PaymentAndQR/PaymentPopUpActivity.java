@@ -37,7 +37,8 @@ public class PaymentPopUpActivity extends Activity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();   // 액티비티 닫음
+                AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+                finish();
             }
         });
 
@@ -63,5 +64,9 @@ public class PaymentPopUpActivity extends Activity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+        finish();
+    }
 }
