@@ -27,7 +27,6 @@
             android:src="@drawable/ic_help_outline" />
 
         <LinearLayout
-            android:id="@+id/title_plant_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
