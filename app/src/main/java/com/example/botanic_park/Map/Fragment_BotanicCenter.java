@@ -60,7 +60,7 @@ public class Fragment_BotanicCenter extends Fragment
 
         });
 
-        frame.setOnTouchListener(new View.OnTouchListener(){
+        frame.setOnTouchListener( new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (floatingMenu.isOpened())
@@ -112,11 +112,11 @@ public class Fragment_BotanicCenter extends Fragment
 
     private void setZoomItem(int where)
     {
-        zoomView.smoothZoomTo(1f,zoomView.getWidth()/2,zoomView.getHeight()/2);
+        zoomView.smoothZoomTo(1f,zoomView.getWidth()/2f,zoomView.getHeight()/2f);
 
         switch (where)
-
-        { case FIRST_FLOOR:
+        {
+            case FIRST_FLOOR:
                 setZoomItemImage(R.drawable.center_1f,R.drawable.seed_library_mark);
                 break;
 

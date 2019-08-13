@@ -38,7 +38,7 @@ public class KakaoPay extends Activity {
         // 결제호출
         Bootpay.init(getFragmentManager())
                 .setApplicationId(application_id) // 해당 프로젝트(안드로이드)의 application id 값
-                .setPG(PG.KCP)
+                .setPG(PG.BOOTPAY)
                 .setName("서울식물원 대인 1명") // 결제할 상품명
                 .setOrderId("1") // 결제 고유번호
                 .setPrice(5000) // 결제할 금액

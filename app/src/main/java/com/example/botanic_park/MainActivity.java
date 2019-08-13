@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, QRPopUpActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
                 startActivity(intent1); // QR 액티비티 띄움
             }
         });
