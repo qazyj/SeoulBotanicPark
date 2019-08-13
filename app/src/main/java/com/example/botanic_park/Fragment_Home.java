@@ -2,6 +2,7 @@ package com.example.botanic_park;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -23,6 +24,8 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
@@ -76,6 +79,22 @@ public class Fragment_Home extends Fragment {
                 }
             });
         }
+
+
+        //결제 초기화
+        ((Button) view.findViewById(R.id.button)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sp = getContext().getSharedPreferences("Botanic Park", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("dateOfPayment", "000");
+                editor.commit();
+            }
+        });
+
+
+
+
         return view;
     }
 

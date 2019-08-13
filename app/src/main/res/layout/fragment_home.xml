@@ -120,7 +120,17 @@
                         android:layout_gravity="center_horizontal"
                         android:text="카페 1000원 할인 쿠폰" />
                 </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/button"
+                    android:text="Button"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>
