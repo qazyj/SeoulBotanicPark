@@ -25,6 +25,7 @@
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>
 
+    <color name="colorCardView">#AAE7FF91</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBanner">#CCFAFFFA</color>
 

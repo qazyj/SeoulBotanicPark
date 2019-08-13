@@ -19,9 +19,33 @@
             android:src="@drawable/seoul_botanical_garden_logo" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/guide_outside"
+            android:scaleType="fitXY"
+            android:background="@null" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/guide_inside"
+            android:scaleType="fitXY"
+            android:background="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="70dp"
         android:layout_weight="1"
@@ -29,180 +53,118 @@
         android:padding="20dp">
 
         <LinearLayout
-            android:id="@+id/guide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:orientation="horizontal">
 
-            <ImageButton
+            <!--이미지와 텍스트가 있는 카드뷰 추가-->
+            <com.example.botanic_park.SquareLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/guide_outside"
-                android:scaleType="centerInside"
-                android:background="@null" />
+                android:layout_margin="@dimen/margin_narrow"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="@drawable/background_button">
 
-            <ImageButton
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/information_information_use_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="이용안내"
+                    android:textColor="@color/colorBase"
+                    android:textSize="20sp" />
+
+
+            </com.example.botanic_park.SquareLinearLayout>
+
+            <com.example.botanic_park.SquareLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/guide_inside"
-                android:scaleType="centerInside"
-                android:background="@null" />
+                android:layout_margin="@dimen/margin_narrow"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="@drawable/background_button">
 
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/information_way_to_come_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="오시는 길"
+                    android:textColor="@color/colorBase"
+                    android:textSize="20sp" />
+
+            </com.example.botanic_park.SquareLinearLayout>
         </LinearLayout>
 
-        <GridLayout
-            android:layout_below="@+id/guide"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:rowCount="3">
+            android:orientation="horizontal">
 
-            <!--카드뷰-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/information_information_use"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="@dimen/margin_normal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
+            <com.example.botanic_park.SquareLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/margin_narrow"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="@drawable/background_button">
 
-                <!--이미지와 텍스트가 있는 카드뷰 추가-->
-                <com.example.botanic_park.SquareLinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/information_news_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_marginTop="12dp"
+                    android:text="새소식"
+                    android:textColor="@color/colorBase"
+                    android:textSize="20sp" />
+            </com.example.botanic_park.SquareLinearLayout>
 
-                    <ImageView
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/information_information_use_icon" />
+            <com.example.botanic_park.SquareLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/margin_narrow"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="@drawable/background_button">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="이용안내"
-                        android:textColor="@color/colorBase"
-                        android:textSize="20sp" />
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/information_community_icon" />
 
-
-                </com.example.botanic_park.SquareLinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!--밑에는 위와 동일-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/information_way_to_come"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="@dimen/margin_normal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
-
-                <com.example.botanic_park.SquareLinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:src="@drawable/information_way_to_come_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="오시는 길"
-                        android:textColor="@color/colorBase"
-                        android:textSize="20sp" />
-
-                </com.example.botanic_park.SquareLinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/information_news"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="@dimen/margin_normal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
-
-                <com.example.botanic_park.SquareLinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:src="@drawable/information_news_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="새소식"
-                        android:textColor="@color/colorBase"
-                        android:textSize="20sp" />
-                </com.example.botanic_park.SquareLinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/information_community"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="@dimen/margin_normal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
+                    android:layout_marginTop="12dp"
+                    android:text="커뮤니티"
+                    android:textColor="@color/colorBase"
+                    android:textSize="20sp" />
+            </com.example.botanic_park.SquareLinearLayout>
 
 
-                <com.example.botanic_park.SquareLinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:src="@drawable/information_community_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="커뮤니티"
-                        android:textColor="@color/colorBase"
-                        android:textSize="20sp" />
-                </com.example.botanic_park.SquareLinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-        </GridLayout>
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
