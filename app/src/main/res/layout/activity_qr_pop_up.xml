@@ -18,7 +18,8 @@
         android:elevation="2dp"
         android:src="@drawable/ic_close_24dp" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
@@ -34,14 +35,14 @@
         android:layout_gravity="center"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:text="8월 2일 (금)"
-        android:textSize="40dp"
-        android:textColor="#000"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8월 2일 (금)"
+            android:textSize="40dp"
+            android:textColor="#000"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center" />
 </LinearLayout>
 </LinearLayout>

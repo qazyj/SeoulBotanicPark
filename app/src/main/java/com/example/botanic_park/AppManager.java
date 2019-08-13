@@ -1,6 +1,8 @@
 package com.example.botanic_park;
 
 import com.example.botanic_park.PlantSearch.PlantBookItem;
+import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -35,4 +37,13 @@ public class AppManager {
     public void setPlantsToday(ArrayList<PlantBookItem> plantsToday) {
         this.plantsToday = plantsToday;
     }
+
+    private FloatingActionButton floatingActionButton;
+    public void setMenuFloatingActionButton (FloatingActionButton floatingActionButton) {this.floatingActionButton = floatingActionButton;}
+    public FloatingActionButton getMenuFloatingActionButton() { return floatingActionButton; }
+
+    private MainActivity mainActivity;
+    public void setMainActivity(MainActivity mainActivity) {this.mainActivity = mainActivity; }
+    public MainActivity getMainActivity(){ return  mainActivity; }
+
 }

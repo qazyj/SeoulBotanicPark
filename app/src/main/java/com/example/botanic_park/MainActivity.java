@@ -33,11 +33,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import kr.co.bootpay.Bootpay;
 import kr.go.seoul.airquality.Common.BaseActivity;
 
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 
 
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_main);
+        AppManager.getInstance().setMainActivity(this);
 
         // 초기 프래그먼트 설정
         fragment_Home = Fragment_Home.newInstance();
@@ -76,13 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 하단 메뉴 설정
         floatingActionButton = findViewById(R.id.floating_action_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, PaymentPopUpActivity.class);
-                startActivity(intent1); // QR 액티비티 띄움
-            }
-        });
+        floatingActionButton.setOnClickListener(floatingButtonClick);
+        AppManager.getInstance().setMenuFloatingActionButton(floatingActionButton);
 
         curveBottomBar = findViewById(R.id.customBottomBar);
         curveBottomBar.inflateMenu(R.menu.navigation);
@@ -208,5 +208,43 @@ public class MainActivity extends AppCompatActivity {
             floatingActionButton.setVisibility(View.VISIBLE);
         }
     }
+
+    public void setDateOfPayment()
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        Date date = new Date();
+        String currentDate = formatter.format(date);
+
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("dateOfPayment", currentDate);
+        editor.commit();
+
+    }
+
+    private Boolean didPay()
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        Date date = new Date();
+        String currentDate = formatter.format(date);
+
+        SharedPreferences pref =  getSharedPreferences("파일 이름", MODE_PRIVATE);
+        String dateOfPayment = pref.getString("dateOfPayment", "00000000");
+
+        return dateOfPayment.equals(currentDate);
+    }
+
+    private View.OnClickListener floatingButtonClick =  new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            Intent intent;
+            if(didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
+            else intent  = new Intent(MainActivity.this, PaymentPopUpActivity.class);
+            startActivity(intent); // QR 액티비티 띄움
+
+        }
+    };
 }
 

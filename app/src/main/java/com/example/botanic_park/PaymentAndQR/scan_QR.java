@@ -1,7 +1,9 @@
 package com.example.botanic_park.PaymentAndQR;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -33,6 +35,8 @@ public class scan_QR extends CaptureActivity {
             if(result.getContents() == null) {
 
             } else {
+                AppManager.getInstance().getMainActivity().setDateOfPayment();
+                AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
