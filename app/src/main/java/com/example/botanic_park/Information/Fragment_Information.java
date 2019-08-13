@@ -2,16 +2,18 @@ package com.example.botanic_park.Information;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
+import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.fragment.app.Fragment;
+
 import com.example.botanic_park.R;
 
-public class Fragment_Information extends Fragment implements View.OnClickListener{
+public class Fragment_Information extends Fragment implements View.OnClickListener {
 
-    private CardView information_information_use, information_way_to_come, information_news, information_community;
+    private LinearLayout information_information_use, information_way_to_come, information_news, information_community;
 
     public Fragment_Information() {
     }
@@ -31,10 +33,10 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_information, container, false);
 
         //카드 정의
-        information_information_use=(CardView)view.findViewById(R.id.information_information_use);
-        information_way_to_come=(CardView)view.findViewById(R.id.information_way_to_come);
-        information_news=(CardView)view.findViewById(R.id.information_news);
-        information_community=(CardView)view.findViewById(R.id.information_community);
+        information_information_use = view.findViewById(R.id.information_information_use);
+        information_way_to_come = view.findViewById(R.id.information_way_to_come);
+        information_news = view.findViewById(R.id.information_news);
+        information_community = view.findViewById(R.id.information_community);
 
         //카드 click listener 추가
         information_information_use.setOnClickListener(this);
@@ -49,20 +51,20 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         Intent intent;
-        switch(view.getId()){
-            case R.id.information_information_use :
+        switch (view.getId()) {
+            case R.id.information_information_use:
                 intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.information_way_to_come :
+            case R.id.information_way_to_come:
                 intent = new Intent(getActivity(), WayToComeActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.information_news :
+            case R.id.information_news:
                 intent = new Intent(getActivity(), NewsActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.information_community :
+            case R.id.information_community:
                 intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
                 break;

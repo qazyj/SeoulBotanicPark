@@ -29,7 +29,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
 
         bitmap = CameraSearchActivity.bitmap;
         ImageView imageView = findViewById(R.id.image_preview);
-        Glide.with(this).load(bitmap).override(500,500).into(imageView);
+        Glide.with(this).load(bitmap).into(imageView);
 
         Button backBtn = findViewById(R.id.back_btn);
         backBtn.setOnClickListener(new View.OnClickListener() {

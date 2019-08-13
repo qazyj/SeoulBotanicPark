@@ -12,10 +12,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,8 +56,8 @@ public class CameraSearchActivity extends AppCompatActivity {
         addContentView(LayoutInflater.from(CameraSearchActivity.this).inflate(R.layout.activity_camera_search, null),
                 new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
-        FrameLayout frameLayout = findViewById(R.id.camera_preview);
-        frameLayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout linearLayout = findViewById(R.id.camera_preview);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 surfaceView.autoFocus();    // 자동 초점 맞춤

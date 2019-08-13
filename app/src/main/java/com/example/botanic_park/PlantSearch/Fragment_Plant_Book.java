@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,8 +44,10 @@ public class Fragment_Plant_Book extends Fragment {
     public static final String SELECTED_ITEM_KEY = "selected item";
     public static final String SEARCH_WORD_KEY = "search word";
 
+    MainActivity mainActivity;
     PlantBookExpandableGridView plantBookGridView;
     PlantBookAdapter plantBookAdapter;
+    InputMethodManager inputMethodManager;
     ArrayList<PlantBookItem> list, searchList;
 
     float startYPosition, endYPosition;
@@ -65,95 +70,126 @@ public class Fragment_Plant_Book extends Fragment {
         list = AppManager.getInstance().getList();
         searchList = new ArrayList<>();
         searchList.addAll(list);
+        mainActivity = (MainActivity) getActivity();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plant_book, container, false);
 
         ImageButton cameraSearchBtn = view.findViewById(R.id.camera_search_btn);
-        cameraSearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String[] permissions = {
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                };
-                ArrayList<String> ungranted_permissions = new ArrayList<>();
-
-                for (String permission : permissions) {
-                    if (!PermissionCheck.isGrantedPermission(getActivity(), permission))
-                        ungranted_permissions.add(permission);
-                }
-
-
-                if (ungranted_permissions.size() > 0) {
-                    // 권한 요청
-                    PermissionCheck.requestPermissions(getActivity(),
-                            ungranted_permissions.toArray(new String[ungranted_permissions.size()]), PERMISSION_REQUEST_CODE);
-                } else {
-                    startCameraActivity();
-                }
-            }
-        });
+        cameraSearchBtn.setOnClickListener(cameraSearchClickListener);
 
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
         plantBookAdapter = new PlantBookAdapter(getContext(),
                 R.layout.item_plant, searchList);
         plantBookGridView.setAdapter(plantBookAdapter); // 어댑터를 그리드 뷰에 적용
-        plantBookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // 아이템 클릭시 상세 페이지로 넘어감
-                Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
-                intent.putExtra(SELECTED_ITEM_KEY, searchList.get(i));
-                startActivity(intent);
-            }
-        });
+        plantBookGridView.setOnItemClickListener(itemClickListener);
 
         final EditText editText = view.findViewById(R.id.search_edit_text);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+        editText.addTextChangedListener(textWatcher);
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String searchword = editable.toString();
-                searchPlant(searchword);
-            }
-        });
-
-        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                switch (i) {
-                    case EditorInfo.IME_ACTION_SEARCH:
-                        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
+                if (i == EditorInfo.IME_ACTION_SEARCH)
+                    inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                return false;
             }
         });
 
+        ImageButton helpButton = view.findViewById(R.id.help_btn);
+        helpButton.setOnClickListener(helpClickListener);
 
+        ScrollView scrollView = view.findViewById(R.id.scrollview);
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                // [Y축] i1: before i3: after
+                if (i1 <= 0 || i3 - i1 > 0) {
+                    // top & scroll up
+                    mainActivity.changeCurveBottomBarVisibility(true);
+                } else if (i3 - i1 < 0) {
+                    // scroll down
+                    mainActivity.changeCurveBottomBarVisibility(false);
+                }
+
+            }
+        });
         return view;
     }
 
-    private void searchPlant(String searchword){
-        if(searchword.isEmpty()){
+    private View.OnClickListener helpClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // 도움말 띄워줌
+            Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener cameraSearchClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String[] permissions = {
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            ArrayList<String> ungranted_permissions = new ArrayList<>();
+
+            for (String permission : permissions) {
+                if (!PermissionCheck.isGrantedPermission(getActivity(), permission))
+                    ungranted_permissions.add(permission);
+            }
+
+
+            if (ungranted_permissions.size() > 0) {
+                // 권한 요청
+                PermissionCheck.requestPermissions(getActivity(),
+                        ungranted_permissions.toArray(new String[ungranted_permissions.size()]), PERMISSION_REQUEST_CODE);
+            } else {
+                startCameraActivity();
+            }
+        }
+    };
+
+    private GridView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            // 아이템 클릭시 상세 페이지로 넘어감
+            Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+            intent.putExtra(SELECTED_ITEM_KEY, searchList.get(i));
+            startActivity(intent);
+        }
+    };
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String searchword = editable.toString();
+            searchPlant(searchword);
+        }
+    };
+
+    private void searchPlant(String searchword) {
+        if (searchword.isEmpty()) {
             searchList.clear();
             searchList.addAll(list);
-        }else{
+        } else {
             getSearchResult(searchword);
         }
         plantBookAdapter.updateAdpater(searchList);
@@ -231,7 +267,7 @@ class PlantBookAdapter extends BaseAdapter {
 
     }
 
-    public void updateAdpater(List<PlantBookItem> list){
+    public void updateAdpater(List<PlantBookItem> list) {
         this.list = list;
         this.notifyDataSetChanged();
     }
@@ -283,7 +319,7 @@ class PlantBookAdapter extends BaseAdapter {
                         new RoundedCornersTransformation(40, 0,
                                 RoundedCornersTransformation.CornerType.TOP),
                         new ColorFilterTransformation(
-                        Color.argb(200, 210, 210, 210))
+                                Color.argb(200, 210, 210, 210))
                 );
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_normal));
                 Glide.with(view)

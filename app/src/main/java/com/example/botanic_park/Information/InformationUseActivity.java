@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.botanic_park.R;
 
+
 public class InformationUseActivity extends Activity {
 
     private ImageView imageView;

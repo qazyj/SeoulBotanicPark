@@ -521,7 +521,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback{
             }
 
             if(information[0].equals(GREEN_HOUSE)){
-                excuteWebBrowser("https://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
                 return  true;
             }
 

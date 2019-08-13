@@ -9,7 +9,6 @@
 
     <!-- padding -->
     <dimen name="padding_plant_book">30dp</dimen>
-    <dimen name="padding_plant_book_item">20dp</dimen>
 
     <!-- text size -->
     <dimen name="text_size_title">30sp</dimen>

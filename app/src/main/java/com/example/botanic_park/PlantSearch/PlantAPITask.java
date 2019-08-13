@@ -64,7 +64,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         super.onPreExecute();
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("로딩중입니다...");
-        dialog.setCancelable(false);    // 취소 못하게 막아놓음
+        dialog.setCancelable(true);    // 취소 못하게 막아놓음
 
         dialog.show();
     }
@@ -82,7 +82,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             // 검색 결과 창 띄우기
             Intent intent = new Intent(context, SearchResultActivity.class);
-            intent.putExtra(SearchResultActivity.RESULT_TYPE, SearchResultActivity.IMAGE_SEARCH);
             intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
 
             context.startActivity(intent);
@@ -94,6 +93,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     @Override
     protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
         // 첫번째 request
+
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
         try {
@@ -109,6 +109,8 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             e.printStackTrace();
         }
 
+        if(!dialog.isShowing())
+            return null;
         // 두번째 request
         String secondResponse = getSuggestions(plantIDArray);
 
@@ -120,6 +122,9 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
                 JSONArray suggestionArray = (JSONArray) suggentions;
                 for (int j = 0; j < suggestionArray.length(); j++) {
+                    if(!dialog.isShowing())
+                        return null;
+
                     JSONObject object1 = (JSONObject) suggestionArray.get(j);
 
                     String name = (String) ((JSONObject) object1.get("plant")).get("name");
@@ -134,6 +139,8 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
         return probablePlants;
 

@@ -1,29 +1,27 @@
 package com.example.botanic_park;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MenuItem;
 import android.view.View;
 
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
 import com.example.botanic_park.Map.Fragment_main_map;
+import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PaymentAndQR.QRPopUpActivity;
 import com.example.botanic_park.PlantSearch.*;
 
-import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -35,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private CurveBottomBar curveBottomBar;
     FloatingActionButton floatingActionButton;
 
-    Timer timer;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,15 +184,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("RestrictedApi")
     public void setCurveBottomBarVisibility() {
-
         if (curveBottomBar.isShown()) {
             curveBottomBar.setVisibility(View.GONE);
-            floatingActionButton.setVisibility(View.GONE);
+            floatingActionButton.hide();
         } else {
             curveBottomBar.setVisibility(View.VISIBLE);
-            floatingActionButton.setVisibility(View.VISIBLE);
+            floatingActionButton.show();
+        }
+    }
+
+    public void changeCurveBottomBarVisibility(boolean show){
+        if (!show) {
+            curveBottomBar.setVisibility(View.GONE);
+            floatingActionButton.hide();
+        } else {
+            curveBottomBar.setVisibility(View.VISIBLE);
+            floatingActionButton.show();
         }
     }
 

@@ -25,10 +25,14 @@
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>
 
+    <color name="colorCardView">#E7FF91</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBanner">#CCFAFFFA</color>
 
     <!-- 글자색 -->
+    <color name="colorPurple">#5F629C</color>
+    <color name="colorPink">#f48472</color>
+    <color name="colorLightPink">#fcd3c2</color>
     <color name="colorBlack">#000000</color>
     <color name="colorNormalText">#303030</color>
 </resources>

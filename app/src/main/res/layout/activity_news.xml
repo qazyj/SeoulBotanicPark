@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -19,7 +20,8 @@
                 android:id="@+id/seoul_botanical_garden_logo"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:src="@drawable/seoul_botanical_garden_logo" />
+                android:src="@drawable/seoul_botanical_garden_logo"
+                android:layout_gravity="center"/>
 
             <View
                 android:id="@+id/line1"
@@ -45,7 +47,7 @@
                     android:layout_weight="4"
                     android:text="no"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@color/orange_color"/>
 
                 <TextView
@@ -62,7 +64,7 @@
                     android:layout_weight="2"
                     android:text="제목"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@color/orange_color"/>
 
                 <TextView
@@ -73,7 +75,7 @@
                     android:layout_weight="4"
                     android:text="등록일"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@color/orange_color"/>
 
                 <TextView
@@ -112,7 +114,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -132,10 +134,12 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"
+                    android:background="?attr/selectableItemBackground"/>
 
                 <TextView
                     android:id="@+id/registration_date1"
@@ -144,7 +148,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -155,7 +159,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -183,7 +187,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -202,9 +206,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="left"
+                    android:textColor="@color/text_selector"
+                    android:singleLine="true"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"/>
 
                 <TextView
                     android:id="@+id/registration_date2"
@@ -213,7 +218,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -224,7 +229,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -252,7 +257,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -270,10 +275,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date3"
@@ -282,7 +288,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -293,7 +299,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -321,7 +327,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -340,9 +346,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="left"
+                    android:singleLine="true"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date4"
@@ -351,7 +358,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -362,7 +369,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -390,7 +397,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -409,9 +416,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="left"
+                    android:singleLine="true"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date5"
@@ -420,7 +428,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -430,7 +438,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -458,7 +466,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -476,10 +484,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date6"
@@ -488,7 +497,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -499,7 +508,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -527,7 +536,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -545,10 +554,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date7"
@@ -557,7 +567,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -568,7 +578,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -596,7 +606,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -614,10 +624,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date8"
@@ -626,7 +637,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -637,7 +648,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -665,7 +676,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -683,10 +694,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date9"
@@ -695,7 +707,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -706,7 +718,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -734,7 +746,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -749,13 +761,14 @@
                     android:id="@+id/title10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date10"
@@ -764,7 +777,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -775,7 +788,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -803,7 +816,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <ImageView
@@ -821,10 +834,11 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:singleLine="true"
                     android:gravity="left"
                     android:layout_weight="2"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"/>
+                    android:textSize="13dp"
+                    android:textColor="@color/text_selector"/>
 
                 <TextView
                     android:id="@+id/registration_date11"
@@ -833,7 +847,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="4"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
@@ -844,7 +858,7 @@
                     android:gravity="center"
                     android:layout_weight="4"
                     android:text=""
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textColor="@android:color/black"/>
 
             </LinearLayout>
@@ -867,17 +881,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"/>
+                    android:layout_weight="3"/>
 
                 <Button
                     android:id="@+id/viewMore"
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
                     android:layout_gravity="right"
                     android:background="@color/orange_color"
                     android:text="더보기"
                     android:textSize="10dp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_weight="1"/>
 

@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!-- 식물 검색 -->
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_plant_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_weight="0">
+
+        <ImageButton
+            android:id="@+id/help_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_narrow"
+            android:background="@null"
+            android:src="@drawable/ic_help_outline" />
 
         <LinearLayout
-            android:id="@+id/layout_plant_search"
+            android:id="@+id/title_plant_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:layout_gravity="center"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal">
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_book"
+                android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/margin_narrow"
-                android:layout_gravity="center"/>
+                android:src="@drawable/ic_book" />
 
             <TextView
+                android:id="@+id/title_plant_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_normal"
                 android:gravity="center_horizontal"
                 android:text="식물 도감"
-                android:textSize="20sp"
                 android:textColor="@color/colorBaseCyan"
-                android:layout_marginBottom="@dimen/margin_normal"/>
+                android:textSize="20sp" />
 
-            <ProgressBar
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="121"
-                android:progress="55" />
 
             <LinearLayout
+                android:id="@+id/list_plant_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_square_background_white"
+                android:layout_below="@id/title_plant_book"
+                android:background="@drawable/border_normal"
                 android:gravity="center_horizontal"
+                android:padding="5dp"
                 android:visibility="visible">
 
                 <EditText
@@ -77,39 +88,48 @@
 
             </LinearLayout>
 
-
+            <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="121"
+                android:progress="2"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/scrollview"
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <!-- 식물 도감 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <!-- 식물 도감 -->
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
+                android:id="@+id/gridview_plant_book"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_plant_book_item">
+                android:layout_gravity="center"
+                android:layout_marginBottom="70dp"
+                android:horizontalSpacing="@dimen/margin_normal"
+                android:numColumns="auto_fit"
+                android:overScrollMode="never"
+                android:padding="5dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/margin_normal" />
 
-                <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
-                    android:id="@+id/gridview_plant_book"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:horizontalSpacing="@dimen/margin_normal"
-                    android:numColumns="auto_fit"
-                    android:overScrollMode="never"
-                    android:padding="10dp"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="@dimen/margin_normal"
-                    android:layout_marginBottom="70dp"/>
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
 

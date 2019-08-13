@@ -8,30 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 
-/* 식물 도감 아이템에 적용되는 레이아웃 */
-
-class PlantBookItemLayout extends LinearLayout {
-
-    public PlantBookItemLayout(Context context) {
-        super(context);
-    }
-
-    public PlantBookItemLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public PlantBookItemLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // 너비에 맞춰 정사각형으로 만듦
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-    }
-
-}
-
 /* 식물 도감을 보여주는 그리드뷰 */
 class PlantBookExpandableGridView extends GridView{
 

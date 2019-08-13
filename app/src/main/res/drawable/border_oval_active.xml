@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <!-- 바탕색 -->
-    <solid
-        android:color="#DD55A37C"/>
 
     <!-- 테두리 색 -->
     <stroke
@@ -11,6 +8,7 @@
         android:color="@color/colorBaseCyan"
         android:dashGap="2dp"
         android:dashWidth="1dp"/>
+
     <padding
         android:left="7dp"
         android:top="7dp"
