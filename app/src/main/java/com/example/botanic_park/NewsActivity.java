@@ -1,10 +1,9 @@
 package com.example.botanic_park;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,7 +11,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-public class NewsActivity extends Activity {
+public class NewsActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private String imageURL;

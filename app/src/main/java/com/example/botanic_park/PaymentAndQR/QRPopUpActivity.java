@@ -1,6 +1,5 @@
 package com.example.botanic_park.PaymentAndQR;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Random;
 
 
-public class QRPopUpActivity extends Activity {
+public class QRPopUpActivity extends AppCompatActivity {
 
     private ImageView iv;
     private WindowManager.LayoutParams params;

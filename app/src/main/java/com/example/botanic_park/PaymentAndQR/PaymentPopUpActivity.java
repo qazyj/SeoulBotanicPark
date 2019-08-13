@@ -11,9 +11,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.R;
 
-public class PaymentPopUpActivity extends Activity {
+public class PaymentPopUpActivity extends AppCompatActivity {
     Animation translateDown;
 
     @Override

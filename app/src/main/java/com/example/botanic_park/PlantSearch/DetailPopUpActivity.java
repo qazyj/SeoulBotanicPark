@@ -1,11 +1,7 @@
 package com.example.botanic_park.PlantSearch;
 
-import android.app.Activity;
 import android.content.Intent;
-
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,20 +9,19 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.R;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-
 import java.lang.reflect.Field;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
-public class DetailPopUpActivity extends Activity {
+public class DetailPopUpActivity extends AppCompatActivity {
     private PlantBookItem selectedItem;
 
     @Override

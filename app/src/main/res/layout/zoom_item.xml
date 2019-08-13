@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,13 +9,13 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:src="@drawable/center_1f"
+            app:srcCompat="@drawable/center_1f"
             android:id="@+id/floor"/>
 
         <ImageView
             android:id="@+id/center_mark"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:src="@drawable/seed_library_mark"/>
+            app:srcCompat="@drawable/seed_library_mark"/>
 
 </RelativeLayout>

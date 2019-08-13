@@ -1,16 +1,14 @@
 package com.example.botanic_park;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class LoadingActivity extends Activity {
+public class LoadingActivity extends AppCompatActivity {
     public static final String PLANT_LIST_KEY = "plant list";
     public static final int REQUEST_CODE = 4000;
     ArrayList<PlantBookItem> list = null;

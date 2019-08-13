@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
@@ -19,13 +20,13 @@
             android:id="@+id/seoul_botanical_garden_logo"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:src="@drawable/seoul_botanical_garden_logo" />
+            app:srcCompat="@drawable/seoul_botanical_garden_logo" />
 
             <!--이미지-->
             <ImageView
                 android:layout_marginTop="20dp"
                 android:id="@+id/seoul_botanical_garden_way_to_come_subway"
-                android:src="@drawable/seoul_botanic_garden_way_to_come_subway"
+                app:srcCompat="@drawable/seoul_botanic_garden_way_to_come_subway"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_below="@id/seoul_botanical_garden_logo" />
@@ -74,7 +75,7 @@
                 android:layout_margin="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="top"
-                android:src="@drawable/way_to_come_car_icon"
+                app:srcCompat="@drawable/way_to_come_car_icon"
                 android:layout_weight="6"/>
 
             <TextView
@@ -123,7 +124,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="top"
-                    android:src="@drawable/way_to_come_subway_icon"
+                    app:srcCompat="@drawable/way_to_come_subway_icon"
                     android:layout_weight="6"/>
 
                  <LinearLayout
@@ -144,7 +145,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_gravity="top"
-                                android:src="@drawable/subway_icon_nine_line" />
+                                app:srcCompat="@drawable/subway_icon_nine_line" />
 
                             <ImageView
                                 android:layout_width="15dp"
@@ -152,7 +153,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginLeft="3dp"
                                 android:layout_gravity="top"
-                                android:src="@drawable/subway_icon_airport_line" />
+                                app:srcCompat="@drawable/subway_icon_airport_line" />
 
                            <TextView
                                android:layout_width="match_parent"
@@ -178,7 +179,7 @@
                              android:layout_marginLeft="10dp"
                              android:layout_marginTop="5dp"
                              android:layout_gravity="top"
-                             android:src="@drawable/subway_icon_nine_line" />
+                             app:srcCompat="@drawable/subway_icon_nine_line" />
 
                          <TextView
                              android:layout_width="match_parent"
@@ -205,7 +206,7 @@
                              android:layout_marginLeft="10dp"
                              android:layout_marginTop="5dp"
                              android:layout_gravity="top"
-                             android:src="@drawable/subway_icon_five_line" />
+                             app:srcCompat="@drawable/subway_icon_five_line" />
 
                          <TextView
                              android:layout_width="match_parent"
@@ -253,7 +254,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="top"
-                    android:src="@drawable/way_to_come_bus_icon"
+                    app:srcCompat="@drawable/way_to_come_bus_icon"
                     android:layout_weight="6"/>
 
                 <LinearLayout
@@ -284,7 +285,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            app:srcCompat="@drawable/subway_icon_nine_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -311,7 +312,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            app:srcCompat="@drawable/subway_icon_five_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -348,7 +349,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            app:srcCompat="@drawable/subway_icon_nine_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -375,7 +376,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            app:srcCompat="@drawable/subway_icon_five_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -412,7 +413,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            app:srcCompat="@drawable/subway_icon_nine_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -439,7 +440,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            app:srcCompat="@drawable/subway_icon_five_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -466,7 +467,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            app:srcCompat="@drawable/subway_icon_five_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -514,7 +515,7 @@
                 android:layout_margin="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="top"
-                android:src="@drawable/way_to_come_parking_icon"
+                app:srcCompat="@drawable/way_to_come_parking_icon"
                 android:layout_weight="6"/>
 
             <LinearLayout

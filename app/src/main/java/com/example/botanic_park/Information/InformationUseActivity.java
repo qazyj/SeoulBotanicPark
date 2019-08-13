@@ -1,21 +1,17 @@
 package com.example.botanic_park.Information;
 
-import android.app.Activity;
-
 import android.graphics.Color;
-
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-
 import android.widget.ImageView;
-
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.R;
 
 
-public class InformationUseActivity extends Activity {
+public class InformationUseActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private String imageURL;

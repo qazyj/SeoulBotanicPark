@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_margin="@dimen/margin_normal"
-            android:src="@drawable/seoul_botanical_garden_logo" />
+            app:srcCompat="@drawable/seoul_botanical_garden_logo" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -37,7 +37,7 @@
             android:rowCount="3">
 
             <!--카드뷰-->
-            <androidx.cardview.widget.CardView
+            <com.example.botanic_park.Information.RectCardView
                 android:id="@+id/information_information_use"
                 android:layout_width="wrap_content"
                 android:layout_height="165dp"
@@ -59,7 +59,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/information_information_use_icon" />
+                        app:srcCompat="@drawable/information_information_use_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -72,10 +72,10 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.example.botanic_park.Information.RectCardView>
 
             <!--밑에는 위와 동일-->
-            <androidx.cardview.widget.CardView
+            <com.example.botanic_park.Information.RectCardView
                 android:id="@+id/information_way_to_come"
                 android:layout_width="wrap_content"
                 android:layout_height="165dp"
@@ -95,7 +95,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/information_way_to_come_icon" />
+                        app:srcCompat="@drawable/information_way_to_come_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,15 +107,15 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.example.botanic_park.Information.RectCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.example.botanic_park.Information.RectCardView
                 android:id="@+id/information_news"
                 android:layout_width="wrap_content"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_margin="12dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
 
@@ -129,7 +129,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/information_news_icon" />
+                        app:srcCompat="@drawable/information_news_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,15 +140,15 @@
                         android:textSize="20sp" />
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.example.botanic_park.Information.RectCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.example.botanic_park.Information.RectCardView
                 android:id="@+id/information_community"
                 android:layout_width="wrap_content"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_margin="12dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
 
@@ -157,16 +157,18 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/information_community_icon" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        app:srcCompat="@drawable/information_community_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginTop="12dp"
                         android:text="커뮤니티"
                         android:textColor="@color/colorBase"
@@ -175,7 +177,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.example.botanic_park.Information.RectCardView>
 
         </GridLayout>
     </RelativeLayout>

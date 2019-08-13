@@ -31,7 +31,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information, container, false);
 
-        //카드 정의
+        // 카드 정의
         information_information_use=(CardView)view.findViewById(R.id.information_information_use);
         information_way_to_come=(CardView)view.findViewById(R.id.information_way_to_come);
         information_news=(CardView)view.findViewById(R.id.information_news);
@@ -49,28 +49,26 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        Intent intent;
+        Intent intent = null;
         switch(view.getId()){
             case R.id.information_information_use :
                 intent = new Intent(getActivity(), InformationUseActivity.class);
-                startActivity(intent);
                 break;
             case R.id.information_way_to_come :
                 intent = new Intent(getActivity(), WayToComeActivity.class);
-                startActivity(intent);
                 break;
             case R.id.information_news :
                 intent = new Intent(getActivity(), NewsActivity.class);
-                startActivity(intent);
                 break;
             case R.id.information_community :
                 intent = new Intent(getActivity(), InformationUseActivity.class);
-                startActivity(intent);
                 break;
             default:
                 break;
-
         }
+
+        if(intent != null)
+            startActivity(intent);
     }
 
 }

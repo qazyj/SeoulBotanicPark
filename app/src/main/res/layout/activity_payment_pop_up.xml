@@ -21,7 +21,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/lightGray"
         android:elevation="2dp"
-        android:src="@drawable/ic_close_24dp" />
+        app:srcCompat="@drawable/ic_close_24dp" />
 
         <ImageView
             android:id="@+id/zero_pay"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:scaleType="center"
-            android:src="@drawable/zeropay" />
+            app:srcCompat="@drawable/zeropay" />
 
     </FrameLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/ticket_payment" />
+                app:srcCompat="@drawable/ticket_payment" />
 
             <ImageView
                 android:id="@+id/ticket_scanning"
@@ -70,7 +70,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/ticket_payment2"
+                app:srcCompat="@drawable/ticket_payment2"
                 android:layout_marginBottom="15dp" />
 
         </LinearLayout>

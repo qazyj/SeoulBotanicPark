@@ -14,10 +14,10 @@
 
         <!-- 글씨체 적용 -->
         <item name="android:textViewStyle">@style/TextViewStyle</item>
-        <item name="android:buttonStyle">@style/ButtonStyle</item>
-        <item name="android:editTextStyle">@style/EditTextStyle</item>
-        <item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
-        <item name="android:checkboxStyle">@style/CheckboxStyle</item>
+        <item name="buttonStyle">@style/ButtonStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="radioButtonStyle">@style/RadioButtonStyle</item>
+        <item name="checkboxStyle">@style/CheckboxStyle</item>
     </style>
 
     <style name="PopUpTheme" parent="Theme.AppCompat.DayNight.Dialog">
@@ -33,31 +33,31 @@
 
         <!-- 글씨체 적용 -->
         <item name="android:textViewStyle">@style/TextViewStyle</item>
-        <item name="android:buttonStyle">@style/ButtonStyle</item>
-        <item name="android:editTextStyle">@style/EditTextStyle</item>
-        <item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
-        <item name="android:checkboxStyle">@style/CheckboxStyle</item>
+        <item name="buttonStyle">@style/ButtonStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="radioButtonStyle">@style/RadioButtonStyle</item>
+        <item name="checkboxStyle">@style/CheckboxStyle</item>
     </style>
 
     <!-- Custom font style 일괄적용 -->
     <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
-        <item name="android:fontFamily">@font/kpm_font_family</item>
+        <item name="fontFamily">@font/kpm_font_family</item>
     </style>
 
     <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
-        <item name="android:fontFamily">@font/kpm_font_family</item>
+        <item name="fontFamily">@font/kpm_font_family</item>
     </style>
 
     <style name="EditTextStyle" parent="Widget.Design.TextInputLayout">
-        <item name="android:fontFamily">@font/kpm_font_family</item>
+        <item name="fontFamily">@font/kpm_font_family</item>
     </style>
 
     <style name="RadioButtonStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
-        <item name="android:fontFamily">@font/kpm_font_family</item>
+        <item name="fontFamily">@font/kpm_font_family</item>
     </style>
 
     <style name="CheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
-        <item name="android:fontFamily">@font/kpm_font_family</item>
+        <item name="fontFamily">@font/kpm_font_family</item>
     </style>
 
     <!-- 텍스트뷰 스타일 -->

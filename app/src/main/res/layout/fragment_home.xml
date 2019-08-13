@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="@dimen/margin_normal"
-                android:src="@drawable/seoul_botanical_garden_logo" />
+                app:srcCompat="@drawable/seoul_botanical_garden_logo" />
         </RelativeLayout>
     </FrameLayout>
 
@@ -57,7 +57,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
             android:background="@null"
-            android:src="@drawable/ic_help_outline" />
+            app:srcCompat="@drawable/ic_help_outline" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="@dimen/margin_narrow"
-                android:src="@drawable/ic_herb" />
+                app:srcCompat="@drawable/ic_herb" />
 
             <TextView
                 android:id="@+id/title_plants_today"
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/barcode_sample" />
+                        app:srcCompat="@drawable/barcode_sample" />
 
                     <TextView
                         android:layout_width="wrap_content"

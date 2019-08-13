@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
             android:background="@null"
-            android:src="@drawable/ic_close" />
+            app:srcCompat="@drawable/ic_close" />
 
         <ImageButton
             android:id="@+id/switch_camera_btn"
@@ -33,7 +33,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:background="@null"
-            android:src="@drawable/ic_switch_camera" />
+            app:srcCompat="@drawable/ic_switch_camera" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="10dp"
-            android:src="@drawable/flower" />
+            app:srcCompat="@drawable/flower" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,14 +67,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/top_left" />
+                app:srcCompat="@drawable/top_left" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/top_right" />
+                app:srcCompat="@drawable/top_right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,14 +87,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/bottom_left" />
+                app:srcCompat="@drawable/bottom_left" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/bottom_right" />
+                app:srcCompat="@drawable/bottom_right" />
         </RelativeLayout>
 
 
@@ -115,7 +115,7 @@
             android:background="@drawable/round_background_gradient"
             android:elevation="10dp"
             android:padding="1dp"
-            android:src="@drawable/ic_round" />
+            app:srcCompat="@drawable/ic_round" />
 
         <ImageButton
             android:id="@+id/gallery_btn"
@@ -126,7 +126,7 @@
             android:layout_marginStart="@dimen/margin_wide"
             android:background="@drawable/round_square_background"
             android:elevation="10dp"
-            android:src="@drawable/ic_gallery" />
+            app:srcCompat="@drawable/ic_gallery" />
     </RelativeLayout>
 </LinearLayout>
 

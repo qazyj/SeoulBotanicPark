@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="450dp"
     android:background="@color/colorWhite"
@@ -16,7 +17,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/lightGray"
         android:elevation="2dp"
-        android:src="@drawable/ic_close_24dp" />
+        app:srcCompat="@drawable/ic_close_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:id="@+id/qrcode"
-        android:src="@drawable/floating_qrcode_icon"
+        app:srcCompat="@drawable/floating_qrcode_icon"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
         />

@@ -2,6 +2,7 @@ package com.example.botanic_park;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 // 권한 체크, 요청을 담당
@@ -15,7 +16,7 @@ public class PermissionCheck {
         return false;
     }
 
-    public static void requestPermissions(Activity activity, String[] permissions, int permissionCode) {
+    public static void requestPermissions(AppCompatActivity activity, String[] permissions, int permissionCode) {
         ActivityCompat.requestPermissions(activity, permissions, permissionCode);
     }
 

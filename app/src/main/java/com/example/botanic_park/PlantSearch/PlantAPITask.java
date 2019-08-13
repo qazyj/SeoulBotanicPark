@@ -5,6 +5,7 @@ package com.example.botanic_park.PlantSearch;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -63,14 +64,23 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     protected void onPreExecute() {
         super.onPreExecute();
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("로딩중입니다...");
-        dialog.setCancelable(true);    // 취소 못하게 막아놓음
+        dialog.setMessage("인식중입니다...");
+        dialog.setCancelable(true);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                cancel(true);
+            }
+        });
 
         dialog.show();
     }
 
     @Override
     protected void onPostExecute(ArrayList<ProbablePlant> o) {
+        if(isCancelled())
+            return;
+
         dialog.dismiss();
         super.onPostExecute(o);
 
@@ -86,14 +96,14 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             context.startActivity(intent);
         } else{
-            Toast.makeText(context, "이미지를 인식할 수 없습니다. 정면을 크게 촬영해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "이미지를 인식할 수 없습니다. " +
+                    "인터넷 연결이 되었는지 확인한 후 다시 촬영해 주세요.", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
         // 첫번째 request
-
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
         try {
@@ -109,11 +119,8 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             e.printStackTrace();
         }
 
-        if(!dialog.isShowing())
-            return null;
         // 두번째 request
         String secondResponse = getSuggestions(plantIDArray);
-
         try {
             JSONArray responseArray = new JSONArray(secondResponse);
             for (int i = 0; i < responseArray.length(); i++) {
@@ -122,9 +129,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
                 JSONArray suggestionArray = (JSONArray) suggentions;
                 for (int j = 0; j < suggestionArray.length(); j++) {
-                    if(!dialog.isShowing())
-                        return null;
-
                     JSONObject object1 = (JSONObject) suggestionArray.get(j);
 
                     String name = (String) ((JSONObject) object1.get("plant")).get("name");

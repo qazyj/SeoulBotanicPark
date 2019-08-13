@@ -1,6 +1,5 @@
 package com.example.botanic_park.Information;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,9 +9,10 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.R;
 
-public class WayToComeActivity extends Activity {
+public class WayToComeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
