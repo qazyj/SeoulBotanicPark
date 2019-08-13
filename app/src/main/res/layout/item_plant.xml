@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.botanic_park.PlantSearch.PlantBookItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/border_normal"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/image_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/name_ko"
+            android:layout_weight="1"
+            style="@style/ItemTextTheme"
+            android:text="오디에디아 비푸카타"
+            android:textColor="@color/colorBlack"/>
+    </LinearLayout>
+
+</com.example.botanic_park.PlantSearch.PlantBookItemLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".Map.Fragment_BotanicCenter"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/center_map_border"
+        android:id="@+id/contain"/>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background">
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="11dp"
+
+            fab:menu_animationDelayPerItem="10"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_buttonSpacing="20dp"
+            fab:menu_buttonToggleAnimation="@anim/fab_scale_up"
+            fab:menu_colorNormal="#4C7F3A"
+            fab:menu_colorPressed="#C1D42D"
+            fab:menu_colorRipple="#90BC43"
+            fab:menu_fab_hide_animation="@anim/fab_scale_up"
+            fab:menu_fab_show_animation="@anim/fab_scale_up"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/icon_pin_white"
+
+            fab:menu_labels_colorNormal="@android:color/transparent"
+            fab:menu_labels_colorPressed="#444"
+            fab:menu_labels_colorRipple="#66efecec"
+            fab:menu_labels_cornerRadius="3dp"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_labels_hideAnimation="@anim/not_move_activity"
+            fab:menu_labels_margin="10dp"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_position="right"
+            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            fab:menu_labels_showShadow="false"
+            fab:menu_labels_singleLine="false"
+            fab:menu_labels_textColor="#FFFFFF"
+            fab:menu_labels_textSize="15sp"
+
+            fab:menu_openDirection="down"
+            fab:menu_shadowColor="#8a8888"
+            fab:menu_shadowRadius="1dp"
+            fab:menu_shadowXOffset="0dp"
+            fab:menu_shadowYOffset="0.5dp"
+            fab:menu_showShadow="true">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/blank"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="false"
+                fab:fab_colorNormal="@android:color/transparent"
+                fab:fab_colorPressed="@android:color/transparent"
+                fab:fab_shadowColor="@android:color/transparent"
+                fab:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fourthfloor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fourth_floor_icon"
+                android:tag="4"
+                fab:fab_colorNormal="#FCFCFC"
+                fab:fab_colorPressed="#D2F798"
+                fab:fab_label="4층"
+                fab:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/secondfloor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/second_floor_icon"
+                android:tag="3"
+                fab:fab_colorNormal="#FCFCFC"
+                fab:fab_colorPressed="#D2F798"
+                fab:fab_label="2층"
+                fab:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/firstfloor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/first_floor_icon"
+                android:tag="2"
+                fab:fab_colorNormal="#FCFCFC"
+                fab:fab_colorPressed="#D2F798"
+                fab:fab_label="1층"
+                fab:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+    </FrameLayout>
+</FrameLayout>

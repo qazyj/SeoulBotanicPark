@@ -7,31 +7,39 @@
     android:background="@android:color/white"
     tools:context=".MainActivity">
 
-
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottomBar"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:src="@drawable/ic_qr_code"
+        android:elevation="5dp"
+        app:backgroundTint="#5F629C"
+        app:backgroundTintMode="@null" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.botanic_park.CurveBottomBar
+            android:id="@+id/customBottomBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/navigation"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            app:bottomBarColor="@color/navigation_background_color"
+            app:curveRadius="25dp"
             app:itemIconTint="@color/bottom_bar_item_color"
             app:itemTextColor="@color/bottom_bar_item_color"
-            app:itemBackground="@color/navigation_background_color"
-            app:labelVisibilityMode="labeled">
+            app:labelVisibilityMode="labeled" />
 
-
-        </android.support.design.widget.BottomNavigationView>
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

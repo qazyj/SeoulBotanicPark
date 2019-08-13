@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border_active"
+            android:padding="10dp">
+
+            <!-- 검색 결과 없음 예외처리 -->
+            <LinearLayout
+                android:id="@+id/no_result_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_no_search_result" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="검색 결과가 없습니다"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <!-- 카메라 검색 시 -->
+            <LinearLayout
+                android:id="@+id/content_search_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <!-- 이미지 -->
+                <ImageView
+                    android:id="@+id/image_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3" />
+
+                <!-- 상세정보 -->
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp">
+
+                        <LinearLayout
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_name"
+                                style="@style/SubTitleTheme"
+                                android:text="이    름:" />
+
+                            <TextView
+                                android:id="@+id/content_name"
+                                style="@style/DetailTextTheme"
+                                android:text="이름을 넣어주세요" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/name_sc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_scientific_name"
+                                style="@style/SubTitleTheme"
+                                android:text="학    명:" />
+
+                            <TextView
+                                android:id="@+id/content_scientific_name"
+                                style="@style/DetailTextTheme"
+                                android:text="학명을 넣어주세요" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/name_en"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name_sc"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_name_en"
+                                style="@style/SubTitleTheme"
+                                android:layout_below="@+id/title_scientific_name"
+                                android:text="영    명:" />
+
+                            <TextView
+                                android:id="@+id/content_name_en"
+                                style="@style/DetailTextTheme"
+                                android:layout_below="@+id/title_scientific_name"
+                                android:layout_toEndOf="@+id/title_name_en"
+                                android:text="영명을 넣어주세요" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name_en"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_type"
+                                style="@style/SubTitleTheme"
+                                android:text="구    분:" />
+
+                            <TextView
+                                android:id="@+id/content_type"
+                                style="@style/DetailTextTheme"
+                                android:text="구분을 넣어주세요" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/blossom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/type"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_blossom"
+                                style="@style/SubTitleTheme"
+                                android:text="개화기:" />
+
+                            <TextView
+                                android:id="@+id/content_blossom"
+                                style="@style/DetailTextTheme"
+                                android:text="개화기를 넣어주세요" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/blossom"
+                            android:text="상세정보"
+                            android:textColor="@color/colorNormalText"
+                            android:textSize="15sp" />
+
+                    </RelativeLayout>
+                </ScrollView>
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_narrow"
+                    android:src="@drawable/ic_help_outline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="원하는 결과가 없나요?" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchword_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrow"
+                android:scrollbars="horizontal"
+                android:scrollbarStyle="outsideInset"
+                android:padding="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
