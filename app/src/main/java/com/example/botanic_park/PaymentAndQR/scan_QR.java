@@ -3,6 +3,7 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -19,7 +20,6 @@ public class scan_QR extends CaptureActivity {
         setContentView(R.layout.activity_scan_qr);
 
         qrScan = new IntentIntegrator(this);
-        this.finish();
 
         qrScan.setCaptureActivity(CaptureForm.class);
         qrScan.setOrientationLocked(true); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
@@ -33,10 +33,9 @@ public class scan_QR extends CaptureActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
-
             } else {
                 AppManager.getInstance().getMainActivity().setDateOfPayment();
-                AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
+                this.finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

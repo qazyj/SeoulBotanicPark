@@ -1,7 +1,6 @@
 package com.example.botanic_park;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -9,8 +8,7 @@ import android.graphics.Color;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
@@ -33,9 +29,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import kr.co.bootpay.Bootpay;
-import kr.go.seoul.airquality.Common.BaseActivity;
-
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -220,16 +213,21 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("dateOfPayment", currentDate);
         editor.commit();
 
+        Log.d("현재 날짜", currentDate);
+
+
     }
 
-    private Boolean didPay()
+    public Boolean didPay()
     {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         Date date = new Date();
         String currentDate = formatter.format(date);
 
-        SharedPreferences pref =  getSharedPreferences("파일 이름", MODE_PRIVATE);
+        SharedPreferences pref =  getSharedPreferences("Botanic Park", MODE_PRIVATE);
         String dateOfPayment = pref.getString("dateOfPayment", "00000000");
+        Log.d("현재 날짜", currentDate);
+        Log.d("저장 날짜", dateOfPayment);
 
         return dateOfPayment.equals(currentDate);
     }
@@ -238,12 +236,18 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-
+            Boolean didPay = didPay();
             Intent intent;
-            if(didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
+            if(didPay) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
             else intent  = new Intent(MainActivity.this, PaymentPopUpActivity.class);
             startActivity(intent); // QR 액티비티 띄움
 
+            if(!didPay && didPay())
+            {
+                Intent new_Intent;
+                new_Intent = new Intent(MainActivity.this, QRPopUpActivity.class);
+                startActivity(new_Intent);
+            }
         }
     };
 }

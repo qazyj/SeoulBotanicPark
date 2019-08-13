@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 public class PaymentPopUpActivity extends Activity {
@@ -47,7 +48,7 @@ public class PaymentPopUpActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(thisActivity, KakaoPay.class);
                 startActivity(intent);
-
+                if(AppManager.getInstance().getMainActivity().didPay()) finish();
             }
         });
 
@@ -56,8 +57,10 @@ public class PaymentPopUpActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(thisActivity, scan_QR.class);
                 startActivity(intent);
+                if(AppManager.getInstance().getMainActivity().didPay()) finish();
             }
         });
     }
+
 
 }
