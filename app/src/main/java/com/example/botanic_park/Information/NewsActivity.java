@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +30,7 @@ public class NewsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        
+
         intent = new Intent(getApplicationContext(), WebViewActivity.class);
 
         // AsyncTask 작동시킴(파싱)
@@ -84,11 +83,11 @@ public class NewsActivity extends Activity {
                 Elements textElements = document.select("div[class=table_list]").select("td");
                 Elements URLElements = document.select("div[class=left]").select("a");
 
-                GetTextNumber(textElements);
-                GetTextTitle(textElements);
-                GetTextViews(textElements);
-                GetTextRegistrationDate(textElements);
-                GetIcon(document);
+                GetTextNumber(textElements);        //게시판 숫자를 가져옴
+                GetTextTitle(textElements);         //게시판 제목을 가져옴
+                GetTextViews(textElements);         //게시판 게시글을 본 횟수를 가져옴
+                GetTextRegistrationDate(textElements);      //게시판 올린 날짜를 알려줌
+                GetIcon(document);          //공지인지 채용인지 새소식인지 알려주는 아이콘을 가져옴
 
             } catch (IOException e){
                 e.printStackTrace();
@@ -188,11 +187,11 @@ public class NewsActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            SetTextNumber();
-            SetTextTitle();
-            SetTextRegistrationDate();
-            SetTextViews();
-            SetIcon();
+            SetTextNumber();            //게시판 숫자를 넣음
+            SetTextTitle();             //게시판 제목을 넣음
+            SetTextRegistrationDate();  //게시판 게시글을 본 횟수를 넣음
+            SetTextViews();             //게시판 올린 날짜를 넣음
+            SetIcon();                  //공지인지 채용인지 새소식인지 알려주는 아이콘을 넣음\
         }
 
 
