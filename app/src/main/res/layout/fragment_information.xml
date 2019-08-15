@@ -145,7 +145,7 @@
             </com.example.botanic_park.SquareLinearLayout>
 
             <com.example.botanic_park.SquareLinearLayout
-                android:id="@+id/information_community"
+                android:id="@+id/inconvenience"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="커뮤니티"
+                    android:text="불편사항"
                     android:textColor="@color/colorBase"
                     android:textSize="20sp" />
             </com.example.botanic_park.SquareLinearLayout>

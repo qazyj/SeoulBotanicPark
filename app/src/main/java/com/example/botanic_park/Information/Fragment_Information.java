@@ -15,7 +15,7 @@ import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
     private ImageButton guideOutside, guideInside;
-    private LinearLayout information_information_use, information_way_to_come, information_news, information_community;
+    private LinearLayout information_information_use, information_way_to_come, information_news, inconvenience;
 
     public Fragment_Information() {
     }
@@ -45,13 +45,13 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         information_information_use = view.findViewById(R.id.information_information_use);
         information_way_to_come = view.findViewById(R.id.information_way_to_come);
         information_news = view.findViewById(R.id.information_news);
-        information_community = view.findViewById(R.id.information_community);
+        inconvenience = view.findViewById(R.id.inconvenience);
 
         //카드 click listener 추가
         information_information_use.setOnClickListener(this);
         information_way_to_come.setOnClickListener(this);
         information_news.setOnClickListener(this);
-        information_community.setOnClickListener(this);
+        inconvenience.setOnClickListener(this);
 
         return view;
     }
@@ -79,8 +79,8 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 intent = new Intent(getActivity(), NewsActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.information_community:
-                intent = new Intent(getActivity(), InformationUseActivity.class);
+            case R.id.inconvenience:
+                intent = new Intent(getActivity(), InconvenienceActivity.class);
                 startActivity(intent);
                 break;
             default:

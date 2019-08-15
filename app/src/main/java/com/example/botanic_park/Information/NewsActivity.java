@@ -186,7 +186,6 @@ public class NewsActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
             SetTextNumber();            //게시판 숫자를 넣음
             SetTextTitle();             //게시판 제목을 넣음
             SetTextRegistrationDate();  //게시판 게시글을 본 횟수를 넣음
