@@ -4,7 +4,7 @@ package com.example.botanic_park.PlantSearch;
 import java.io.Serializable;
 
 /* 식물 정보를 긁어 와서 담는 모델  */
-public class PlantBookItem implements Serializable {
+public class PlantBookItem implements Serializable, Comparable {
     private int id;
 
     private String img_url;
@@ -98,5 +98,11 @@ public class PlantBookItem implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PlantBookItem item  = (PlantBookItem) o;
+        return name_ko.compareTo(item.getName_ko());
     }
 }

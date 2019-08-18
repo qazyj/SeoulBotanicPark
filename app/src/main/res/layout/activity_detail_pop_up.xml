@@ -4,7 +4,6 @@
     android:layout_height="510dp"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,9 +19,9 @@
                 android:id="@+id/close_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/margin_narrow"
-                android:layout_marginRight="@dimen/margin_narrow"
+                android:layout_marginEnd="@dimen/margin_narrow"
                 android:background="@drawable/round_background_gray"
                 android:elevation="2dp"
                 android:src="@drawable/ic_close_24dp" />
@@ -44,14 +43,14 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="20dp">
 
                 <LinearLayout
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_narrow"
                     android:orientation="horizontal">
 
                     <TextView
@@ -70,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name"
-                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_narrow"
                     android:orientation="horizontal">
 
                     <TextView
@@ -89,20 +88,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name_sc"
-                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_narrow"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/title_name_en"
                         style="@style/SubTitleTheme"
-                        android:layout_below="@+id/title_scientific_name"
                         android:text="영    명:" />
 
                     <TextView
                         android:id="@+id/content_name_en"
                         style="@style/DetailTextTheme"
-                        android:layout_below="@+id/title_scientific_name"
-                        android:layout_toEndOf="@+id/title_name_en"
                         android:text="영명을 넣어주세요" />
                 </LinearLayout>
 
@@ -112,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name_en"
-                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_narrow"
                     android:orientation="horizontal">
 
                     <TextView
@@ -131,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/type"
-                    android:layout_marginBottom="@dimen/margin_wide"
+                    android:layout_marginBottom="@dimen/margin_normal"
                     android:orientation="horizontal">
 
                     <TextView
@@ -150,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/blossom"
-                    android:lineSpacingExtra="10dp"
+                    android:lineSpacingExtra="5dp"
                     android:text="상세정보"
                     android:textColor="@color/colorNormalText"
                     android:textSize="15sp" />

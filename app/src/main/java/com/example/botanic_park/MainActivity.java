@@ -1,5 +1,6 @@
 package com.example.botanic_park;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,10 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
     private CurveBottomBar curveBottomBar;
     FloatingActionButton floatingActionButton;
+    BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
@@ -75,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
     @Override
@@ -194,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeCurveBottomBarVisibility(boolean show){
+    public void changeCurveBottomBarVisibility(boolean show) {
         if (!show) {
             curveBottomBar.setVisibility(View.GONE);
             floatingActionButton.hide();
@@ -204,8 +214,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setDateOfPayment()
-    {
+    public void setDateOfPayment() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         Date date = new Date();
         String currentDate = formatter.format(date);
@@ -220,13 +229,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public Boolean didPay()
-    {
+    public Boolean didPay() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         Date date = new Date();
         String currentDate = formatter.format(date);
 
-        SharedPreferences pref =  getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("Botanic Park", MODE_PRIVATE);
         String dateOfPayment = pref.getString("dateOfPayment", "00000000");
         Log.d("현재 날짜", currentDate);
         Log.d("저장 날짜", dateOfPayment);
@@ -234,16 +242,45 @@ public class MainActivity extends AppCompatActivity {
         return dateOfPayment.equals(currentDate);
     }
 
-    private View.OnClickListener floatingButtonClick =  new View.OnClickListener() {
+    private View.OnClickListener floatingButtonClick = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
             Intent intent;
-            if(didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
-            else intent  = new Intent(MainActivity.this, PaymentPopUpActivity.class);
+            if (didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
+            else intent = new Intent(MainActivity.this, PaymentPopUpActivity.class);
             startActivity(intent); // QR 액티비티 띄움
 
         }
     };
 }
+
+class BackPressCloseHandler {
+    private long backKeyPressedTime = 0;
+    private Toast toast;
+    private Activity activity;
+
+    public BackPressCloseHandler(Activity context) {
+        this.activity = context;
+    }
+
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            showGuide();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            activity.finish();
+            toast.cancel();
+        }
+    }
+
+    public void showGuide() {
+        toast = Toast.makeText(activity, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+}
+
+
 

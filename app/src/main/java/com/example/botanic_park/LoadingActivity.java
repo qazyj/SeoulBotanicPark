@@ -1,8 +1,6 @@
 package com.example.botanic_park;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -11,9 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.example.botanic_park.PlantSearch.PlantAPITask;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
 import com.google.gson.Gson;
@@ -27,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoadingActivity extends Activity {
     public static final String PLANT_LIST_KEY = "plant list";
@@ -38,12 +33,14 @@ public class LoadingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loding);
+        setContentView(R.layout.activity_loading);
 
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
 
         list = onSearchData();  // 기존 저장 정보 가져옴
+        if(list == null)
+            list = getListFromFile();  // 초기 파일 가져옴
         parsePlantTask = new ParsePlantTask(list);
         parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)
     }
@@ -63,8 +60,20 @@ public class LoadingActivity extends Activity {
 
     // 식물 list 가져옴
     private ArrayList<PlantBookItem> onSearchData() {
-        //SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
-        //String strList = sp.getString("list", "");
+        SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
+        String strList = sp.getString("list", "");
+
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+
+        ArrayList<PlantBookItem> list = gson.fromJson(strList, listType);
+
+        return list;
+    }
+
+
+    private ArrayList<PlantBookItem> getListFromFile(){
         String strList = null;
         try {
             // list text file 읽어옴
@@ -85,7 +94,6 @@ public class LoadingActivity extends Activity {
 
         return list;
     }
-
 
     /* 웹에서 식물 정보 긁어오는 클래스 */
     public class ParsePlantTask extends AsyncTask<Void, Void, Void> {
