@@ -34,7 +34,6 @@ public class LoadingActivity extends Activity {
 
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
-
         list = onSearchData();  // 기존 저장 정보 가져옴
         new ParsePlantTask(list).execute(); // AsyncTask 작동시킴(파싱)
     }
