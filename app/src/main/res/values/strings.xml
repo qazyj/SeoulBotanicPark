@@ -28,4 +28,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sort_type">
+        <item>획득순</item>
+        <item>최신순</item>
+        <item>가나다순</item>
+    </string-array>
 </resources>

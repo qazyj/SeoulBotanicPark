@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/seoul_botanical_garden_section_place"
                 android:text="* 열린숲, 호수원, 습지원 : 연중무휴"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                 android:layout_below="@id/themeinformation"
                 android:layout_marginTop="5dp"
                 android:text="* 주제원(온실, 주제정원)"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="평시(3~10월)"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
                 <TextView
@@ -82,7 +82,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="동절기(11~2월)"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
             </LinearLayout>
@@ -109,11 +109,12 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="09:30~18:00(17:00 입장 마감)"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:bufferType="spannable"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/no"/>
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/no"
+                    android:lineSpacingExtra="5dp"/>
 
                 <TextView
                     android:id="@+id/spannable2"
@@ -122,11 +123,12 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="09:30~17:00(16:00 입장 마감)"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:bufferType="spannable"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/no"/>
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/no"
+                    android:lineSpacingExtra="5dp"/>
 
             </LinearLayout>
 
@@ -143,10 +145,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line5"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginTop="@dimen/margin_narrow"
+                android:layout_marginStart="8dp"
                 android:text="* 매주 월요일 휴관"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/no" />
 
 
@@ -156,9 +158,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/opendateinformation1"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="* 기타 휴관일 서울식물원 홈페이지 공지 참조"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/no" />
 
             <TextView
@@ -168,7 +170,7 @@
                 android:layout_below="@+id/opendateinformation2"
                 android:layout_marginTop="10dp"
                 android:text="* 이용요금안내"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
@@ -178,10 +180,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/informationuse1"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="※ 입장료 징수 구간 : 온실 및 주제정원 (열린숲, 호수원, 습지원은 상시 무료 개방)"
-                android:textSize="12dp"
-                android:textColor="@color/no" />
+                android:textSize="12sp"
+                android:textColor="@color/no"
+                android:lineSpacingExtra="5dp"/>
 
             <View
                 android:id="@+id/line6"
@@ -205,7 +208,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="구분"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
                 <TextView
@@ -214,7 +217,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="대인"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
                 <TextView
@@ -223,7 +226,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="청소년"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
                 <TextView
@@ -232,7 +235,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="소인"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorBaseLightGreen"/>
 
             </LinearLayout>
@@ -260,8 +263,8 @@
                     android:text="개인"
                     android:textStyle="bold"
                     android:textSize="17dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
                 <TextView
@@ -271,8 +274,8 @@
                     android:gravity="center"
                     android:text="5,000원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
                 <TextView
@@ -282,8 +285,8 @@
                     android:gravity="center"
                     android:text="3,000원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
                 <TextView
@@ -293,8 +296,8 @@
                     android:gravity="center"
                     android:text="2,000원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
             </LinearLayout>
@@ -322,9 +325,10 @@
                     android:text="단체(30인 이상)"
                     android:textStyle="bold"
                     android:textSize="17dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/no"/>
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/no"
+                    android:lineSpacingExtra="5dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -333,8 +337,8 @@
                     android:gravity="center"
                     android:text="3,500원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
                 <TextView
@@ -344,8 +348,8 @@
                     android:gravity="center"
                     android:text="2,100원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
                 <TextView
@@ -355,8 +359,8 @@
                     android:gravity="center"
                     android:text="1,400원"
                     android:textSize="16dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/no"/>
 
             </LinearLayout>
@@ -375,10 +379,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line12"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="5dp"
                 android:text="* (대인) 19세 이상 65세 미만, (청소년) 13세 이상 18세 이하, (소인) 6세 이상 12세 이하"
                 android:textSize="14dp"
-                android:textColor="@color/no" />
+                android:textColor="@color/no"
+                android:lineSpacingExtra="5dp"/>
 
             <TextView
                 android:id="@+id/age_classification2"
@@ -386,10 +392,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age_classification1"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="5dp"
                 android:text="* 무료입장   - 6세 미만, 65세 이상   - 1~3급 장애인(보호자1인 포함), 4급~6급 장애인 본인   - 국가유공자, 참전용사증소지자   - 서울특별시 명예시민증 소지자"
                 android:textSize="14dp"
-                android:textColor="@color/no" />
+                android:textColor="@color/no"
+                android:lineSpacingExtra="5dp"/>
 
             <TextView
                 android:id="@+id/age_classification3"
@@ -397,10 +405,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age_classification2"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="5dp"
                 android:text="* 30% 할인 적용 대상 : - 30인 이상으로 구성된 단체   - 서울시에서 발급하는 다자녀 가정 지원카드 소지자 또는 지원카드에 등재된 가족"
                 android:textSize="14dp"
-                android:textColor="@color/no" />
+                android:textColor="@color/no"
+                android:lineSpacingExtra="5dp"/>
 
             <TextView
                 android:id="@+id/age_classification4"
@@ -408,7 +418,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age_classification3"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="★ 할인 및 무료 입장객은 신분증 및 확인을 위한 증빙자료 필요"
                 android:textSize="14dp"
                 android:textColor="@color/orange_color" />

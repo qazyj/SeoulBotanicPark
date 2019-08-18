@@ -3,6 +3,7 @@ package com.example.botanic_park;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -26,22 +28,26 @@ public class LoadingActivity extends Activity {
     public static final String PLANT_LIST_KEY = "plant list";
     public static final int REQUEST_CODE = 4000;
     ArrayList<PlantBookItem> list = null;
+    ParsePlantTask parsePlantTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loding);
+        setContentView(R.layout.activity_loading);
 
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
         list = onSearchData();  // 기존 저장 정보 가져옴
-        new ParsePlantTask(list).execute(); // AsyncTask 작동시킴(파싱)
+        if(list == null)
+            list = getListFromFile();  // 초기 파일 가져옴
+        parsePlantTask = new ParsePlantTask(list);
+        parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        // 로딩중 백버튼 종료 막음
+        super.onBackPressed();
+        parsePlantTask.cancel(true);
     }
 
     private void onClearData() {
@@ -66,6 +72,28 @@ public class LoadingActivity extends Activity {
     }
 
 
+    private ArrayList<PlantBookItem> getListFromFile(){
+        String strList = null;
+        try {
+            // list text file 읽어옴
+            Resources resources = getResources();
+            InputStream inputStream = resources.openRawResource(R.raw.list);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+            strList = new String(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+
+        ArrayList<PlantBookItem> list = gson.fromJson(strList, listType);
+
+        return list;
+    }
+
     /* 웹에서 식물 정보 긁어오는 클래스 */
     public class ParsePlantTask extends AsyncTask<Void, Void, Void> {
         String PLANT_LIST_URL = "https://botanicpark.seoul.go.kr/front/plants/plantsIntro.do";
@@ -78,6 +106,11 @@ public class LoadingActivity extends Activity {
 
         public ParsePlantTask(ArrayList<PlantBookItem> list) {
             this.list = list;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
         @Override
