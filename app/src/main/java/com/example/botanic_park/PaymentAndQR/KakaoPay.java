@@ -86,6 +86,7 @@ public class KakaoPay extends Activity {
         Toast.makeText(getApplicationContext(), "결제가 완료 됐습니다", Toast.LENGTH_LONG).show();
         AppManager.getInstance().getMainActivity().setDateOfPayment();
         AppManager.getInstance().getPaymentPopUpActivity().finish();
+        AppManager.getInstance().setPaymentPopUpActivity(null);
         AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
         finish();
     }

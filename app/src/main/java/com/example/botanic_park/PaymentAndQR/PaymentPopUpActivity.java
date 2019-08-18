@@ -3,10 +3,12 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +18,7 @@ import com.example.botanic_park.R;
 
 public class PaymentPopUpActivity extends Activity {
     Animation translateDown;
+    ImageView zeroPay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,21 +31,21 @@ public class PaymentPopUpActivity extends Activity {
 
         translateDown = AnimationUtils.loadAnimation(this,R.anim.slide_down_layout);
 
-
         LinearLayout mainLayout =  (LinearLayout)findViewById(R.id.main_layout);
         mainLayout.startAnimation(translateDown);
         mainLayout.setVisibility(View.VISIBLE);
 
-        ImageButton closeBtn = findViewById(R.id.close);
+        ImageView closeBtn = findViewById(R.id.close);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();   // 액티비티 닫음
+                AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+                finish();
             }
         });
 
-        ImageView ticketPayment = findViewById(R.id.ticket_payment);
-        ImageView ticketScanning = findViewById(R.id.ticket_scanning);
+        FrameLayout ticketPayment = findViewById(R.id.ticket_payment);
+        FrameLayout ticketScanning = findViewById(R.id.ticket_scanning);
 
         ticketPayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +64,22 @@ public class PaymentPopUpActivity extends Activity {
 
             }
         });
+
+        zeroPay = (ImageView) findViewById(R.id.zero_pay);
     }
 
+    @Override
+    public void onBackPressed() {
+        AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+        finish();
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // 바깥레이어 클릭시 안닫히게
+        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
+    }
 }

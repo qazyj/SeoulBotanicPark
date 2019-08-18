@@ -27,6 +27,7 @@ public class CaptureForm extends CaptureActivity {
             @Override
             public void onClick(View v) {
                 AppManager.getInstance().getScan_qr().finish();
+                AppManager.getInstance().setScan_qr(null);
                 finish();
             }
         });
@@ -35,6 +36,7 @@ public class CaptureForm extends CaptureActivity {
     @Override
     public void onBackPressed() {
         AppManager.getInstance().getScan_qr().finish();
+        AppManager.getInstance().setScan_qr(null);
         finish();
     }
 }

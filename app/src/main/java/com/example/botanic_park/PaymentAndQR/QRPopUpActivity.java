@@ -3,6 +3,7 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,7 +39,7 @@ public class QRPopUpActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 
 
-        ImageButton closeBtn = findViewById(R.id.close);
+        ImageView closeBtn = findViewById(R.id.close);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +51,7 @@ public class QRPopUpActivity extends Activity {
             iv = (ImageView)findViewById(R.id.qrcode);
             Random rnd = new Random();
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(rnd.nextInt()), BarcodeFormat.QR_CODE,600,600);
+            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(rnd.nextInt()), BarcodeFormat.QR_CODE,300,300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             iv.setImageBitmap(bitmap);
@@ -80,6 +81,15 @@ public class QRPopUpActivity extends Activity {
         // 기존 밝기로 변경
         params.screenBrightness = brightness;
         getWindow().setAttributes(params);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // 바깥레이어 클릭시 안닫히게
+        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
     }
 
 

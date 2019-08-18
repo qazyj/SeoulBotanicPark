@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.inflateMenu(R.menu.navigation);
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
+
     }
 
     @Override
