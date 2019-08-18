@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
@@ -25,9 +26,17 @@ public class CaptureForm extends CaptureActivity {
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppManager.getInstance().getScan_qr().finish();
+                AppManager.getInstance().setScan_qr(null);
                 finish();
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        AppManager.getInstance().getScan_qr().finish();
+        AppManager.getInstance().setScan_qr(null);
+        finish();
     }
+}

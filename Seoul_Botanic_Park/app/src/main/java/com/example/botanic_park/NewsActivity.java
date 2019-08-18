@@ -40,7 +40,7 @@ public class NewsActivity extends Activity {
     /* 웹에서 정보 긁어오는 클래스 */
 
     public class ParseInformationTask extends AsyncTask<Void, Void, Void> {
-        String NEWS_URL = "https://botanicpark.seoul.go.kr/front/board/newsList.do";
+        String NEWS_URL = "http://botanicpark.seoul.go.kr/front/board/newsList.do";
 
         @Override
         protected Void doInBackground(Void... params) {

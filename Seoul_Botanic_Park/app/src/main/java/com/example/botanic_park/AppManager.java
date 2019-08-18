@@ -1,6 +1,7 @@
 package com.example.botanic_park;
 
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
+import com.example.botanic_park.PaymentAndQR.scan_QR;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,5 +51,9 @@ public class AppManager {
     private PaymentPopUpActivity paymentPopUpActivity;
     public void setPaymentPopUpActivity (PaymentPopUpActivity paymentPopUpActivity) {this.paymentPopUpActivity = paymentPopUpActivity; }
     public PaymentPopUpActivity getPaymentPopUpActivity() { return  paymentPopUpActivity; }
+
+    private scan_QR  scan_qr;
+    public void setScan_qr(scan_QR  scan_qr) {this.scan_qr = scan_qr; }
+    public scan_QR getScan_qr(){ return  scan_qr; }
 
     }

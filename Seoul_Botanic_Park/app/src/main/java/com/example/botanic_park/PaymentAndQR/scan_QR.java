@@ -18,14 +18,12 @@ public class scan_QR extends CaptureActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
-
+        AppManager.getInstance().setScan_qr(this);
         qrScan = new IntentIntegrator(this);
-
         qrScan.setCaptureActivity(CaptureForm.class);
         qrScan.setOrientationLocked(true); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
         qrScan.setPrompt("티켓에 있는 QR코드를 스캔하세요.");
         qrScan.initiateScan();
-
    }
 
     @Override
@@ -37,7 +35,8 @@ public class scan_QR extends CaptureActivity {
                 AppManager.getInstance().getMainActivity().setDateOfPayment();
                 AppManager.getInstance().getPaymentPopUpActivity().finish();
                 AppManager.getInstance().getMenuFloatingActionButton().callOnClick();
-                this.finish();
+                AppManager.getInstance().setPaymentPopUpActivity(null);
+                finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -46,8 +45,6 @@ public class scan_QR extends CaptureActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
     }
-
-
 }

@@ -366,7 +366,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
         setGardenMark("숲문화원", 37.5646662, 126.8324412);
         setGardenMark("둘레숲", 37.5649573, 126.8336954);
         setGardenMark("숲문화학교", 37.5653003, 126.8329903).setSubCaptionText("편의점·화장실");
-        ;
+        
         setGardenMark("재배온실2", 37.5658154, 126.8332292);
         setGardenMark("아이리스원", 37.5683496, 126.8322809);
         setGardenMark("물가 가로수길", 37.5691639, 126.8328341);
