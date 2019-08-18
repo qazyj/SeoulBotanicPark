@@ -51,7 +51,8 @@
                 android:bufferType="spannable"
                 android:text="승용차    내비게이션 : 서울특별시 강서구 마곡동로 161 서울식물원 식물문화센터 (지번주소: 강서구 마곡동 812)"
                 android:textSize="15dp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:lineSpacingExtra="5dp"/>
 
             <View
                 android:id="@+id/line1"
@@ -84,10 +85,10 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
-                android:lineSpacingExtra="7dp"
                 android:text="올림픽대로(잠실‧여의도) >> 서울식물원 ▪ 양천로 직진 → 마곡중앙8로1길 좌회전 → 마곡동로8길 우회전 → 200m 이동 → 식물문화센터\n서울외곽순환고속도로(인천‧의정부) >> 서울식물원 ▪ 고촌IC 올림픽대로 → 강서로 → (양천향교역사거리)양천로 → 마곡동로 → 식물문화센터"
                 android:textSize="12dp"
-                android:textColor="@color/no"/>
+                android:textColor="@color/no"
+                android:lineSpacingExtra="7dp"/>
 
             </LinearLayout>
 

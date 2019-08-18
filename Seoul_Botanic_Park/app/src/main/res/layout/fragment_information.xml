@@ -19,30 +19,6 @@
             android:src="@drawable/seoul_botanical_garden_logo" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/guide_outside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/guide_outside"
-            android:scaleType="fitXY"
-            android:background="@null" />
-
-        <ImageButton
-            android:id="@+id/guide_inside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/guide_inside"
-            android:scaleType="fitXY"
-            android:background="@null" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,13 +27,40 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="70dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:padding="20dp">
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp">
 
+            <ImageButton
+                android:id="@+id/guide_outside"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/guide_outside"
+                android:scaleType="fitXY"
+                android:background="@drawable/border"
+                android:padding="1dp"/>
+
+            <ImageButton
+                android:id="@+id/guide_inside"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/guide_inside"
+                android:scaleType="fitXY"
+                android:background="@drawable/border"
+                android:padding="1dp"/>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <com.example.botanic_park.SquareLinearLayout
                 android:id="@+id/information_information_use"
@@ -117,7 +120,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <com.example.botanic_park.SquareLinearLayout
                 android:id="@+id/information_news"

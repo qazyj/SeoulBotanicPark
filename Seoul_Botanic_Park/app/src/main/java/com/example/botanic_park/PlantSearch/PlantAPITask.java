@@ -3,13 +3,18 @@ package com.example.botanic_park.PlantSearch;
 /* Plant API에 대한 request/response를 다루는 클래스 */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import android.widget.Toast;
+import com.example.botanic_park.NetworkStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,15 +67,31 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        if(NetworkStatus.getConnectivityStatus(context)
+                == NetworkStatus.TYPE_NOT_CONNECTED){
+            Toast.makeText(context, "인터넷이 연결되어 있지 않아 사용이 제한됩니다. " +
+                    "인터넷을 연결한 후 사용해 주세요", Toast.LENGTH_LONG).show();
+            cancel(true);
+            return;
+        }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("로딩중입니다...");
-        dialog.setCancelable(true);    // 취소 못하게 막아놓음
+        dialog.setMessage("처리중입니다...");
+        dialog.setCancelable(true);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                cancel(true);
+            }
+        });
 
         dialog.show();
     }
 
     @Override
     protected void onPostExecute(ArrayList<ProbablePlant> o) {
+        if(isCancelled())
+            return;
+
         dialog.dismiss();
         super.onPostExecute(o);
 
@@ -86,14 +107,17 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             context.startActivity(intent);
         } else{
-            Toast.makeText(context, "이미지를 인식할 수 없습니다. 정면을 크게 촬영해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "이미지를 인식할 수 없습니다. " +
+                    "인터넷 환경이 원활한지 확인하고 정면을 크게 촬영해 주세요.", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
-        // 첫번째 request
+        if(isCancelled())
+            return null;
 
+        // 첫번째 request
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
         try {
@@ -109,11 +133,10 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             e.printStackTrace();
         }
 
-        if(!dialog.isShowing())
+        if(isCancelled())
             return null;
         // 두번째 request
         String secondResponse = getSuggestions(plantIDArray);
-
         try {
             JSONArray responseArray = new JSONArray(secondResponse);
             for (int i = 0; i < responseArray.length(); i++) {
@@ -122,7 +145,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
                 JSONArray suggestionArray = (JSONArray) suggentions;
                 for (int j = 0; j < suggestionArray.length(); j++) {
-                    if(!dialog.isShowing())
+                    if(isCancelled())
                         return null;
 
                     JSONObject object1 = (JSONObject) suggestionArray.get(j);
@@ -291,3 +314,4 @@ class ProbablePlant {
         return "name: " + name + "\nprobability: " + probability;
     }
 }
+
