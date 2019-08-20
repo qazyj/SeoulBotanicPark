@@ -35,6 +35,7 @@ public class Fragment_BotanicCenter extends Fragment
     ImageView markerImage;
     TextView floor_info;
     RelativeLayout contain;
+    
     int nowfloor = 1;
 
     @Override
