@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /* 식물 검색 결과 액티비티 */
 public class SearchResultActivity extends AppCompatActivity {
@@ -30,7 +36,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     ArrayList<PlantBookItem> list;          // 전체 식물 리스트
     ArrayList<PlantBookItem> searchList;    // 검색결과 저장 리스트
-    String searchword;
 
     LinearLayout noResult;  // 결과 없음 메세지
     LinearLayout resultItem;    // 이미지 검색 시 결과 아이템
@@ -42,14 +47,20 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         searchWordList = (ArrayList<String>) intent.getSerializableExtra(Fragment_Plant_Book.SEARCH_WORD_KEY);
-        if (searchWordList.size() > 0)
-            searchword = searchWordList.get(0);
 
         list = AppManager.getInstance().getList();
+        searchList = new ArrayList<PlantBookItem>();
+        //getSearchResult(searchWordList.get(0));
+
+        Log.d("테스트", searchWordList.size() + "");
+        for(int i=0; i<searchWordList.size(); i++){
+            Log.d("테스트", i + ": " + searchWordList.get(i));
+            getSearchResult(searchWordList.get(i));
+        }
+
 
         noResult = findViewById(R.id.no_result_message);
         resultItem = findViewById(R.id.content_search_result);
-
         showSearchResult();
 
         recyclerView = findViewById(R.id.searchword_recyclerView);
@@ -83,9 +94,8 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     };
 
-    private void getSearchResult() {
+    private void getSearchResult(String searchword) {
         // 텍스트 검색 결과 리스트
-        searchList = new ArrayList<PlantBookItem>();
         if (searchword == null)
             return;
 
@@ -97,15 +107,13 @@ public class SearchResultActivity extends AppCompatActivity {
                         || item.getName_en().contains(word)
                         || item.getName_sc().contains(word)) {
                     searchList.add(item);
-                    searchWordList.add(item.getName_ko());  // 텍스트 검색은 검색 결과 넣어줌
+                    //searchWordList.add(searchList.size()-1, item.getName_ko());  // 텍스트 검색은 검색 결과 넣어줌
                 }
             }
         }
     }
 
     private void showSearchResult() {
-        getSearchResult();
-
         if (searchList.size() <= 0) {   // 검색 결과 없음 메시지 보여줌
             noResult.setVisibility(View.VISIBLE);
             resultItem.setVisibility(View.GONE);
@@ -171,7 +179,17 @@ public class SearchResultActivity extends AppCompatActivity {
         try {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);
-            Glide.with(imageView).load(drawableID).thumbnail(0.1f).into(imageView);
+
+            MultiTransformation multi = new MultiTransformation(
+                    new CenterCrop(),
+                    new RoundedCornersTransformation(45, 0,
+                            RoundedCornersTransformation.CornerType.TOP)
+            );
+            Glide.with(imageView)
+                    .load(drawableID)
+                    .apply(bitmapTransform(multi))
+                    .thumbnail(0.1f)
+                    .into(imageView);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

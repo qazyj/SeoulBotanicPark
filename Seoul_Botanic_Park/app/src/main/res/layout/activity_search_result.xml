@@ -2,26 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp">
+    android:paddingBottom="20dp">
+
+    <ImageButton
+        android:id="@+id/close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_narrow"
+        android:background="@null"
+        android:src="@drawable/ic_close" />
 
     <LinearLayout
+        android:layout_below="@+id/close_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/border_active"
-            android:padding="10dp">
+            android:background="@drawable/background_round_square_gradient"
+            android:padding="2dp">
 
             <!-- 검색 결과 없음 예외처리 -->
             <LinearLayout
                 android:id="@+id/no_result_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_square_background_large"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -29,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_narrow"
                     android:src="@drawable/ic_no_search_result" />
 
                 <TextView
@@ -44,7 +61,7 @@
                 android:id="@+id/content_search_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
+                android:background="@drawable/round_square_background_large"
                 android:orientation="vertical"
                 android:visibility="visible">
                 <!-- 이미지 -->
@@ -69,7 +86,8 @@
                             android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/margin_narrow">
 
                             <TextView
                                 android:id="@+id/title_name"
@@ -87,7 +105,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/name"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/margin_narrow">
 
                             <TextView
                                 android:id="@+id/title_scientific_name"
@@ -105,7 +124,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/name_sc"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/margin_narrow">
 
                             <TextView
                                 android:id="@+id/title_name_en"
@@ -127,7 +147,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/name_en"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/margin_narrow">
 
                             <TextView
                                 android:id="@+id/title_type"
@@ -145,7 +166,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/type"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/margin_normal">
 
                             <TextView
                                 android:id="@+id/title_blossom"
@@ -163,6 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/blossom"
+                            android:lineSpacingExtra="5dp"
                             android:text="상세정보"
                             android:textColor="@color/colorNormalText"
                             android:textSize="15sp" />

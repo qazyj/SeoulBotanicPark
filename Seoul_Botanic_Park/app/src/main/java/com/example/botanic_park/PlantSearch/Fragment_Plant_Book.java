@@ -7,13 +7,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -24,20 +20,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.botanic_park.*;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import jp.wasabeef.glide.transformations.ColorFilterTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
-public class Fragment_Plant_Book extends Fragment {
+public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_CODE = 2000;
     public static final int START_ACTIVITY_CODE = 3000;
 
@@ -47,6 +44,7 @@ public class Fragment_Plant_Book extends Fragment {
     MainActivity mainActivity;
     PlantBookExpandableGridView plantBookGridView;
     PlantBookAdapter plantBookAdapter;
+    Spinner spinner;
     InputMethodManager inputMethodManager;
     ArrayList<PlantBookItem> list, searchList;
 
@@ -81,6 +79,13 @@ public class Fragment_Plant_Book extends Fragment {
 
         ImageButton cameraSearchBtn = view.findViewById(R.id.camera_search_btn);
         cameraSearchBtn.setOnClickListener(cameraSearchClickListener);
+
+        spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sort_type, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(this);
 
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
         plantBookAdapter = new PlantBookAdapter(getContext(),
@@ -189,6 +194,7 @@ public class Fragment_Plant_Book extends Fragment {
         if (searchword.isEmpty()) {
             searchList.clear();
             searchList.addAll(list);
+            sortList(spinner.getSelectedItemPosition());    // 재정렬
         } else {
             getSearchResult(searchword);
         }
@@ -248,6 +254,42 @@ public class Fragment_Plant_Book extends Fragment {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+    private void sortList(int position) {
+        final int SORT_COLLECTED = 0;
+        final int SORT_RECENT = 1;
+        final int SORT_NAME = 2;
+
+        switch (position) {
+            case SORT_COLLECTED:
+                Collections.sort(searchList, new Comparator<PlantBookItem>() {
+                    @Override
+                    public int compare(PlantBookItem item, PlantBookItem t1) {
+                        //Log.d("테스트", item.getId() + " " + t1.getId());
+                        return Boolean.compare(!item.isCollected(), !t1.isCollected());
+                    }
+                });
+                break;
+            case SORT_RECENT:
+                searchList.clear();
+                searchList.addAll(list);
+                break;
+            case SORT_NAME:
+                Collections.sort(searchList);
+                break;
+        }
+        plantBookAdapter.updateAdpater(searchList);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        sortList(i);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
 
 class PlantBookAdapter extends BaseAdapter {
@@ -303,9 +345,12 @@ class PlantBookAdapter extends BaseAdapter {
             if (item.isCollected()) {
                 textView.setTextColor(view.getResources().getColor(R.color.colorNormalText));
                 MultiTransformation multi = new MultiTransformation(
+                        /*
                         new CenterCrop(),
                         new RoundedCornersTransformation(40, 0,
                                 RoundedCornersTransformation.CornerType.TOP)
+                        */
+                        new CircleCrop()
                 );
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));
                 Glide.with(view)
@@ -315,9 +360,7 @@ class PlantBookAdapter extends BaseAdapter {
             } else {
                 textView.setTextColor(view.getResources().getColor(R.color.no));
                 MultiTransformation multi = new MultiTransformation(
-                        new CenterCrop(),
-                        new RoundedCornersTransformation(40, 0,
-                                RoundedCornersTransformation.CornerType.TOP),
+                        new CircleCrop(),
                         new ColorFilterTransformation(
                                 Color.argb(200, 210, 210, 210))
                 );

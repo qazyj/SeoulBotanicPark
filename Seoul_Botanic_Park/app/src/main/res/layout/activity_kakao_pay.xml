@@ -13,6 +13,8 @@
         android:layout_gravity="center"
         android:textSize="20dp"
         android:text="결제가 취소되었습니다. \n 뒤로가기 버튼 클릭"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:lineSpacingExtra="5dp"
+        />
 
 </FrameLayout>

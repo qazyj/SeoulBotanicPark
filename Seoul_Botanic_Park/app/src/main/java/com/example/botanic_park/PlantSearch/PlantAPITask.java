@@ -32,12 +32,12 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
-    private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
-    private String API_IDENTIFY_URL = "https://api.plant.id/identify";
-    private String API_SUGGESION_URL = "https://api.plant.id/check_identifications";
+    private String API_IDENTIFY_URL = "https://plant.id/api/identify";
+    private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";
 
     private static final int MAX_READ_TIME = 20000;
     private static final int MAX_CONNECT_TIME = 20000;
@@ -75,7 +75,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             return;
         }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("처리중입니다...");
+        dialog.setMessage("식물을 찾고 있어요...");
         dialog.setCancelable(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -193,7 +193,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             outputStream.close();
 
             response = getResponse(conn);
-            conn.disconnect();
             Log.d("첫번째 응답", response);
 
         } catch (MalformedURLException e) {

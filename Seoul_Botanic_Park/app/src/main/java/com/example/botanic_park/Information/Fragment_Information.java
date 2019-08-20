@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.botanic_park.R;
+import com.example.botanic_park.SSLConnect;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
     private ImageButton guideOutside, guideInside;
@@ -37,7 +39,16 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         // 안내도 버튼
         guideOutside = view.findViewById(R.id.guide_outside);
         guideInside = view.findViewById(R.id.guide_inside);
-
+        Glide.with(view)
+                .load(R.drawable.guide_outside)
+                .fitCenter()
+                .thumbnail(0.1f)
+                .into(guideOutside);
+        Glide.with(view)
+                .load(R.drawable.guide_inside)
+                .fitCenter()
+                .thumbnail(0.1f)
+                .into(guideInside);
         guideOutside.setOnClickListener(this);
         guideInside.setOnClickListener(this);
 

@@ -1,5 +1,6 @@
 package com.example.botanic_park.Map;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,10 +17,15 @@ import pl.polidea.view.ZoomView;
 public class Fragment_BotanicCenter extends Fragment
 {
 
+    private long lastTouch  = 0;
+
     private final int FIRST_FLOOR = 2;
     private final int SECOND_FLOOR = 3;
     private final int FOURTH_FLOOR = 4;
     private final int GREENHOUSE = 1;
+
+    public static final String LIBRARY = "식물전문도서관";
+    public static final String SEED_LIBRARY = "씨앗도서관";
 
     FrameLayout frame;
     FloatingActionMenu floatingMenu;
@@ -28,13 +34,15 @@ public class Fragment_BotanicCenter extends Fragment
     ZoomView zoomView;
     ImageView markerImage;
     TextView floor_info;
+    RelativeLayout contain;
+    int nowfloor = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_botanic_center, container, false);
-        zoomItem = getLayoutInflater().inflate(R.layout.zoom_item, null);
+        zoomItem = getLayoutInflater().inflate(R.layout.zoom_item_1f, null);
         floor_info = (TextView) view.findViewById(R.id.floor_info);
 
         markerImage = zoomItem.findViewById(R.id.center_mark);
@@ -80,10 +88,29 @@ public class Fragment_BotanicCenter extends Fragment
         secondFloor = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.secondfloor);
         fourthFloor = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.fourthfloor);
 
-        RelativeLayout contain = (RelativeLayout) view.findViewById(R.id.contain);
+        contain = (RelativeLayout) view.findViewById(R.id.contain);
         contain.addView(zoomView);
 
         return view;
+
+    }
+
+    public  void setNewZoomView(int zoomItemResource)
+    {
+        contain.removeView(zoomView);
+        zoomView=null;
+        zoomItem = getLayoutInflater().inflate(zoomItemResource, null);
+        markerImage = zoomItem.findViewById(R.id.center_mark);
+        markerImage.setDrawingCacheEnabled(true);
+        markerImage.setOnTouchListener(changeColorListener);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        zoomView = new ZoomView(getActivity());
+        zoomView.addView(zoomItem);
+        zoomView.setLayoutParams(layoutParams);
+        zoomView.setMiniMapEnabled(false);
+
+        contain.addView(zoomView);
 
     }
 
@@ -97,28 +124,43 @@ public class Fragment_BotanicCenter extends Fragment
 
     }
 
-    private final View.OnTouchListener changeColorListener = new View.OnTouchListener() {
+    private View.OnTouchListener changeColorListener = new View.OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+
             Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
             int color = bmp.getPixel((int) event.getX(), (int) event.getY());
             if (color == Color.TRANSPARENT)
                 return false;
             else {
-                //code to execute
-                Toast.makeText(getContext(), "헤헤", Toast.LENGTH_SHORT).show();
+
+                if(System.currentTimeMillis() < lastTouch + 500) return false;
+                lastTouch = System.currentTimeMillis();
+
+                    switch (nowfloor)
+                {
+                    case 1:
+                        showActivity(getResources().getStringArray(R.array.seed_library_info));
+                        break;
+                    case 2:
+                        showActivity(getResources().getStringArray(R.array.library_info));
+                        break;
+                    case 4:
+                        return false;
+                }
                 return true;
             }
         }
     };
 
-    private final View.OnTouchListener noTouch = new View.OnTouchListener(){
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return false;
-        }
-    };
+    private void showActivity(String[] information)
+    {
+        Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), Facilities_information.class);
+        intent.putExtra("information", information);
+        startActivity(intent);
+    }
     private void setZoomItem(int where)
     {
         zoomView.smoothZoomTo(1f,zoomView.getWidth()/2f,zoomView.getHeight()/2f);
@@ -126,36 +168,30 @@ public class Fragment_BotanicCenter extends Fragment
         switch (where)
         {
             case FIRST_FLOOR:
-                setZoomItemImage(R.drawable.center_1f,R.drawable.seed_library_mark);
-                markerImage.setOnTouchListener(changeColorListener);
+                setNewZoomView(R.layout.zoom_item_1f);
                 floor_info.setText("1F");
+                nowfloor = 1;
                 break;
 
             case SECOND_FLOOR:
-                setZoomItemImage(R.drawable.center_2f, R.drawable.library_mark);
-                markerImage.setOnTouchListener(changeColorListener);
+                setNewZoomView(R.layout.zoom_item_2f);
                 floor_info.setText("2F");
+                nowfloor = 2;
                 break;
 
             case FOURTH_FLOOR:
-                setZoomItemImage(R.drawable.center_4f, 0);
-                markerImage.setOnTouchListener(noTouch);
+                setNewZoomView(R.layout.zoom_item_4f);
                 floor_info.setText("4F");
+                nowfloor = 4;
                 break;
         }
 
     }
 
-    private void setZoomItemImage(int floorResource, int markerResource)
-    {
-        ((ImageView) zoomItem.findViewById(R.id.floor)).setImageResource(floorResource);
-        ((ImageView) zoomItem.findViewById(R.id.center_mark)).setImageResource(markerResource);
-    }
-
     private void closeFloatingMenu()
     {
         floatingMenu.close(true);
-        floatingMenu.getMenuIconView().setImageResource(R.drawable.icon_pin_white);
+        floatingMenu.getMenuIconView().setImageResource(R.mipmap.floor);
         frame.setBackgroundColor(Color.parseColor("#00FFFFFF"));
 
     }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Map.Fragment_main_map">
 
 
@@ -14,9 +15,9 @@
     <Button
         android:id="@+id/change_map"
         android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:background="#EEEE"
+        android:layout_height="35dp"
+        android:layout_marginTop="@dimen/margin_wide"
+        android:background="@drawable/round_square_background_light_gray"
         android:textColor="@color/bg_good"
         android:text="문화 센터 내부 지도 보기"
         android:layout_gravity="center_horizontal" />
