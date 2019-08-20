@@ -91,7 +91,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.information_community:
-                intent = new Intent(getActivity(), InformationUseActivity.class);
+                intent = new Intent(getActivity(), InconvenienceActivity.class);
                 startActivity(intent);
                 break;
             default:
