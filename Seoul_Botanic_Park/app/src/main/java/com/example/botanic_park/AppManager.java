@@ -23,6 +23,7 @@ public class AppManager {
 
     private ArrayList<PlantBookItem> list = null;
     private ArrayList<PlantBookItem> plantsToday = null;
+    public int collectionCount = 0;
 
     public ArrayList<PlantBookItem> getList() {
         return list;

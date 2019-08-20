@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="445dp"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/colorTransparent"
-        >
+        android:background="@color/colorTransparent">
 
         <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:id="@+id/close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_add_popup"
-            android:rotation="45"
-            android:id="@+id/close" />
+            android:src="@drawable/ic_close_24dp"
+            android:padding="10dp"
+            android:background="@drawable/round_background_black" />
 
     </FrameLayout>
 
@@ -39,10 +38,9 @@
     </FrameLayout>
 
     <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-        android:background="@color/colorLightPink"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorLightPink">
 
         <LinearLayout
             android:id="@+id/main_layout"
@@ -95,8 +93,7 @@
                     android:textSize="13dp"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/no"
-                    android:text="당일 예매권 온라인 결제입니다."
-                    />
+                    android:text="당일 예매권 온라인 결제입니다." />
 
             </FrameLayout>
 
@@ -135,9 +132,8 @@
                     android:textSize="13dp"
                     android:layout_marginLeft="15dp"
                     android:lineSpacingExtra="5dp"
-                    android:text= "오프라인에서 구매한 예매권의 \nQR코드를 스캔하는 방식입니다."
-                    android:textColor="@color/no"
-                    />
+                    android:text="오프라인에서 구매한 예매권의 \nQR코드를 스캔하는 방식입니다."
+                    android:textColor="@color/no" />
 
             </FrameLayout>
         </LinearLayout>
