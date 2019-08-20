@@ -21,9 +21,9 @@ import java.io.IOException;
 public class NewsActivity extends Activity {
 
     private ImageView imageView;
-    private String obtainedString;
+    private String[] obtainedString = new String[44];
     private TextView inputTextView;
-    private String connectURLString;
+    private String[] connectURLString = new String[11];
     private Intent intent;
 
     @Override
@@ -36,8 +36,7 @@ public class NewsActivity extends Activity {
         // AsyncTask 작동시킴(파싱)
         new ParseInformationTask().execute();
 
-        findViewById(R.id.viewMore).setOnClickListener(
-                new Button.OnClickListener() {
+        findViewById(R.id.viewMore).setOnClickListener(new Button.OnClickListener() {
                     public void onClick(View v) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
                         startActivity(intent);
@@ -72,6 +71,7 @@ public class NewsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             try{
+
                 // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
                 SSLConnect sslConnect = new SSLConnect();
                 sslConnect.postHttps(NEWS_URL,1000,1000);
@@ -83,370 +83,11 @@ public class NewsActivity extends Activity {
                 Elements textElements = document.select("div[class=table_list]").select("td");
                 Elements URLElements = document.select("div[class=left]").select("a");
 
-                //no1
-                obtainedString = textElements.get(0).text();
-                inputTextView = findViewById(R.id.no1);
-                inputTextView.setText(obtainedString);
-
-                //title1
-                obtainedString = textElements.get(2).text();
-                inputTextView = (TextView) findViewById(R.id.title1);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(2).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-
-                //registration_date1
-                obtainedString = textElements.get(3).text();
-                inputTextView = findViewById(R.id.registration_date1);
-                inputTextView.setText(obtainedString);
-
-                //views1
-                obtainedString = textElements.get(4).text();
-                inputTextView = findViewById(R.id.views1);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no2
-                obtainedString = textElements.get(5).text();
-                inputTextView = findViewById(R.id.no2);
-                inputTextView.setText(obtainedString);
-
-                //title2
-                obtainedString = textElements.get(7).text();
-                inputTextView = findViewById(R.id.title2);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(7).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date2
-                obtainedString = textElements.get(8).text();
-                inputTextView = findViewById(R.id.registration_date2);
-                inputTextView.setText(obtainedString);
-
-                //views2
-                obtainedString = textElements.get(9).text();
-                inputTextView = findViewById(R.id.views2);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no3
-                obtainedString = textElements.get(10).text();
-                inputTextView = findViewById(R.id.no3);
-                inputTextView.setText(obtainedString);
-
-                //title3
-                obtainedString = textElements.get(12).text();
-                inputTextView = findViewById(R.id.title3);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(12).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date3
-                obtainedString = textElements.get(13).text();
-                inputTextView = findViewById(R.id.registration_date3);
-                inputTextView.setText(obtainedString);
-
-                //views3
-                obtainedString = textElements.get(14).text();
-                inputTextView = findViewById(R.id.views3);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no4
-                obtainedString = textElements.get(15).text();
-                inputTextView = findViewById(R.id.no4);
-                inputTextView.setText(obtainedString);
-
-                //title4
-                obtainedString = textElements.get(17).text();
-                inputTextView = findViewById(R.id.title4);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(17).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date4
-                obtainedString = textElements.get(18).text();
-                inputTextView = findViewById(R.id.registration_date4);
-                inputTextView.setText(obtainedString);
-
-                //views4
-                obtainedString = textElements.get(19).text();
-                inputTextView = findViewById(R.id.views4);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no5
-                obtainedString = textElements.get(20).text();
-                inputTextView = findViewById(R.id.no5);
-                inputTextView.setText(obtainedString);
-
-                //title5
-                obtainedString = textElements.get(22).text();
-                inputTextView = findViewById(R.id.title5);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(22).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date5
-                obtainedString = textElements.get(23).text();
-                inputTextView = findViewById(R.id.registration_date5);
-                inputTextView.setText(obtainedString);
-
-                //views5
-                obtainedString = textElements.get(24).text();
-                inputTextView = findViewById(R.id.views5);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no6
-                obtainedString = textElements.get(25).text();
-                inputTextView = findViewById(R.id.no6);
-                inputTextView.setText(obtainedString);
-
-                //title6
-                obtainedString = textElements.get(27).text();
-                inputTextView = findViewById(R.id.title6);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(27).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date6
-                obtainedString = textElements.get(28).text();
-                inputTextView = findViewById(R.id.registration_date6);
-                inputTextView.setText(obtainedString);
-
-                //views6
-                obtainedString = textElements.get(29).text();
-                inputTextView = findViewById(R.id.views6);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no7
-                obtainedString = textElements.get(30).text();
-                inputTextView = findViewById(R.id.no7);
-                inputTextView.setText(obtainedString);
-
-                //title7
-                obtainedString = textElements.get(32).text();
-                inputTextView = findViewById(R.id.title7);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(32).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date7
-                obtainedString = textElements.get(33).text();
-                inputTextView = findViewById(R.id.registration_date7);
-                inputTextView.setText(obtainedString);
-
-                //views7
-                obtainedString = textElements.get(34).text();
-                inputTextView = findViewById(R.id.views7);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no8
-                obtainedString = textElements.get(35).text();
-                inputTextView = findViewById(R.id.no8);
-                inputTextView.setText(obtainedString);
-
-                //title8
-                obtainedString = textElements.get(37).text();
-                inputTextView = findViewById(R.id.title8);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(37).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date8
-                obtainedString = textElements.get(38).text();
-                inputTextView = findViewById(R.id.registration_date8);
-                inputTextView.setText(obtainedString);
-
-                //views8
-                obtainedString = textElements.get(39).text();
-                inputTextView = findViewById(R.id.views8);
-                inputTextView.setText(obtainedString);
-
-                //no9
-                obtainedString = textElements.get(40).text();
-                inputTextView = findViewById(R.id.no9);
-                inputTextView.setText(obtainedString);
-
-                //title9
-                obtainedString = textElements.get(42).text();
-                inputTextView = findViewById(R.id.title9);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(42).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date9
-                obtainedString = textElements.get(43).text();
-                inputTextView = findViewById(R.id.registration_date9);
-                inputTextView.setText(obtainedString);
-
-                //views9
-                obtainedString = textElements.get(44).text();
-                inputTextView = findViewById(R.id.views9);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no10
-                obtainedString = textElements.get(45).text();
-                inputTextView = findViewById(R.id.no10);
-                inputTextView.setText(obtainedString);
-
-                //title10
-                obtainedString = textElements.get(47).text();
-                inputTextView = findViewById(R.id.title10);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(47).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date10
-                obtainedString = textElements.get(48).text();
-                inputTextView = findViewById(R.id.registration_date10);
-                inputTextView.setText(obtainedString);
-
-                //views10
-                obtainedString = textElements.get(49).text();
-                inputTextView = findViewById(R.id.views10);
-                inputTextView.setText(obtainedString);
-
-
-
-                //no11
-                obtainedString = textElements.get(50).text();
-                inputTextView = findViewById(R.id.no11);
-                inputTextView.setText(obtainedString);
-
-                //title11
-                obtainedString = textElements.get(52).text();
-                inputTextView = findViewById(R.id.title11);
-                inputTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connectURLString = textElements.get(52).select("a").attr("href");
-                        if(connectURLString != null) {
-                            intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                inputTextView.setText(obtainedString);
-
-                //registration_date11
-                obtainedString = textElements.get(53).text();
-                inputTextView = findViewById(R.id.registration_date11);
-                inputTextView.setText(obtainedString);
-
-                //views11
-                obtainedString = textElements.get(54).text();
-                inputTextView = findViewById(R.id.views11);
-                inputTextView.setText(obtainedString);
-
-
-
-
-                //이미지 갖고오는 것 아이콘
-                imageURL1 = document.select("div[class=table_list]").select("img").get(0).attr("src");
-                imageURL2 = document.select("div[class=table_list]").select("img").get(1).attr("src");
-                imageURL3 = document.select("div[class=table_list]").select("img").get(2).attr("src");
-                imageURL4 = document.select("div[class=table_list]").select("img").get(3).attr("src");
-                imageURL5 = document.select("div[class=table_list]").select("img").get(4).attr("src");
-                imageURL6 = document.select("div[class=table_list]").select("img").get(5).attr("src");
-                imageURL7 = document.select("div[class=table_list]").select("img").get(6).attr("src");
-                imageURL8 = document.select("div[class=table_list]").select("img").get(7).attr("src");
-                imageURL9 = document.select("div[class=table_list]").select("img").get(8).attr("src");
-                imageURL10 = document.select("div[class=table_list]").select("img").get(9).attr("src");
-                imageURL11 = document.select("div[class=table_list]").select("img").get(10).attr("src");
+                GetTextNumber(textElements);        //게시판 숫자를 가져옴
+                GetTextTitle(textElements);         //게시판 제목을 가져옴
+                GetTextViews(textElements);         //게시판 게시글을 본 횟수를 가져옴
+                GetTextRegistrationDate(textElements);      //게시판 올린 날짜를 알려줌
+                GetIcon(document);          //공지인지 채용인지 새소식인지 알려주는 아이콘을 가져옴
 
             } catch (IOException e){
                 e.printStackTrace();
@@ -454,9 +95,363 @@ public class NewsActivity extends Activity {
             return null;
         }
 
+        protected void GetTextNumber(Elements elements)
+        {
+            obtainedString[0] = elements.get(0).text();     //no1
+            obtainedString[4] = elements.get(5).text();     //no2
+            obtainedString[8] = elements.get(10).text();    //no3
+            obtainedString[12] = elements.get(15).text();   //no4
+            obtainedString[16] = elements.get(20).text();   //no5
+            obtainedString[20] = elements.get(25).text();   //no6
+            obtainedString[24] = elements.get(30).text();   //no7
+            obtainedString[28] = elements.get(35).text();   //no8
+            obtainedString[32] = elements.get(40).text();   //no9
+            obtainedString[36] = elements.get(45).text();   //no10
+            obtainedString[40] = elements.get(50).text();   //no11
+        }
+
+        protected void GetTextTitle(Elements elements)
+        {
+            obtainedString[1] = elements.get(2).text();                 //title1
+            obtainedString[5] = elements.get(7).text();                 //title2
+            obtainedString[9] = elements.get(12).text();                //title3
+            obtainedString[13] = elements.get(17).text();                //title4
+            obtainedString[17] = elements.get(22).text();               //title5
+            obtainedString[21] = elements.get(27).text();               //title6
+            obtainedString[25] = elements.get(32).text();               //title7
+            obtainedString[29] = elements.get(37).text();               //title8
+            obtainedString[33] = elements.get(42).text();               //title9
+            obtainedString[37] = elements.get(47).text();               //title10
+            obtainedString[41] = elements.get(52).text();               //title11
+
+            //onclick url가져올 위치
+            connectURLString[0] = elements.get(2).select("a").attr("href");
+            connectURLString[1] = elements.get(7).select("a").attr("href");
+            connectURLString[2] = elements.get(12).select("a").attr("href");
+            connectURLString[3] = elements.get(17).select("a").attr("href");
+            connectURLString[4] = elements.get(22).select("a").attr("href");
+            connectURLString[5] = elements.get(27).select("a").attr("href");
+            connectURLString[6] = elements.get(32).select("a").attr("href");
+            connectURLString[7] = elements.get(37).select("a").attr("href");
+            connectURLString[8] = elements.get(42).select("a").attr("href");
+            connectURLString[9] = elements.get(47).select("a").attr("href");
+            connectURLString[10] = elements.get(52).select("a").attr("href");
+        }
+
+        protected void GetTextViews(Elements elements)
+        {
+            obtainedString[3] = elements.get(4).text();              //views1
+            obtainedString[7] = elements.get(9).text();              //views2
+            obtainedString[11] = elements.get(14).text();            //views3
+            obtainedString[15] = elements.get(19).text();            //views4
+            obtainedString[19] = elements.get(24).text();            //views5
+            obtainedString[23] = elements.get(29).text();            //views6
+            obtainedString[27] = elements.get(34).text();            //views7
+            obtainedString[31] = elements.get(39).text();            //views8
+            obtainedString[35] = elements.get(44).text();            //views9
+            obtainedString[39] = elements.get(49).text();            //views10
+            obtainedString[43] = elements.get(54).text();            //views11
+        }
+
+        protected void GetTextRegistrationDate(Elements elements)
+        {
+            obtainedString[2] = elements.get(3).text();            //registration_date1
+            obtainedString[6] = elements.get(8).text();            //registration_date2
+            obtainedString[10] = elements.get(13).text();            //registration_date3
+            obtainedString[14] = elements.get(18).text();            //registration_date4
+            obtainedString[18] = elements.get(23).text();            //registration_date5
+            obtainedString[22] = elements.get(28).text();            //registration_date6
+            obtainedString[26] = elements.get(33).text();            //registration_date7
+            obtainedString[30] = elements.get(38).text();            //registration_date8
+            obtainedString[34] = elements.get(43).text();            //registration_date9
+            obtainedString[38] = elements.get(48).text();            //registration_date10
+            obtainedString[42] = elements.get(53).text();            //registration_date11
+        }
+
+        protected void GetIcon(Document document)
+        {
+            //이미지 갖고오는 것 아이콘
+            imageURL1 = document.select("div[class=table_list]").select("img").get(0).attr("src");
+            imageURL2 = document.select("div[class=table_list]").select("img").get(1).attr("src");
+            imageURL3 = document.select("div[class=table_list]").select("img").get(2).attr("src");
+            imageURL4 = document.select("div[class=table_list]").select("img").get(3).attr("src");
+            imageURL5 = document.select("div[class=table_list]").select("img").get(4).attr("src");
+            imageURL6 = document.select("div[class=table_list]").select("img").get(5).attr("src");
+            imageURL7 = document.select("div[class=table_list]").select("img").get(6).attr("src");
+            imageURL8 = document.select("div[class=table_list]").select("img").get(7).attr("src");
+            imageURL9 = document.select("div[class=table_list]").select("img").get(8).attr("src");
+            imageURL10 = document.select("div[class=table_list]").select("img").get(9).attr("src");
+            imageURL11 = document.select("div[class=table_list]").select("img").get(10).attr("src");
+        }
+
         @Override
         protected void onPostExecute(Void aVoid) {
+            SetTextNumber();            //게시판 숫자를 넣음
+            SetTextTitle();             //게시판 제목을 넣음
+            SetTextRegistrationDate();  //게시판 게시글을 본 횟수를 넣음
+            SetTextViews();             //게시판 올린 날짜를 넣음
+            SetIcon();                  //공지인지 채용인지 새소식인지 알려주는 아이콘을 넣음\
+        }
 
+
+        protected void SetTextNumber()
+        {
+            inputTextView = findViewById(R.id.no1);         //no1
+            inputTextView.setText(obtainedString[0]);
+
+            inputTextView = findViewById(R.id.no2);         //no2
+            inputTextView.setText(obtainedString[4]);
+
+            inputTextView = findViewById(R.id.no3);         //no3
+            inputTextView.setText(obtainedString[8]);
+
+            inputTextView = findViewById(R.id.no4);         //no4
+            inputTextView.setText(obtainedString[12]);
+
+            inputTextView = findViewById(R.id.no5);         //no5
+            inputTextView.setText(obtainedString[16]);
+
+            inputTextView = findViewById(R.id.no6);         //no6
+            inputTextView.setText(obtainedString[20]);
+
+            inputTextView = findViewById(R.id.no7);         //no7
+            inputTextView.setText(obtainedString[24]);
+
+            inputTextView = findViewById(R.id.no8);         //no8
+            inputTextView.setText(obtainedString[28]);
+
+            inputTextView = findViewById(R.id.no9);         //no9
+            inputTextView.setText(obtainedString[32]);
+
+            inputTextView = findViewById(R.id.no10);        //no10
+            inputTextView.setText(obtainedString[36]);
+
+            inputTextView = findViewById(R.id.no11);        //no11
+            inputTextView.setText(obtainedString[40]);
+        }
+
+        protected void SetTextTitle()
+        {
+            //title1
+            inputTextView = (TextView) findViewById(R.id.title1);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[0] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[0]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[1]);
+
+            //title2
+            inputTextView = findViewById(R.id.title2);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[1] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[1]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[5]);
+
+            //title3
+            inputTextView = findViewById(R.id.title3);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[2] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[2]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[9]);
+
+            //title4
+            inputTextView = findViewById(R.id.title4);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[3] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[3]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[13]);
+
+            //title5
+            inputTextView = findViewById(R.id.title5);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[4] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[4]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[17]);
+
+            //title6
+            inputTextView = findViewById(R.id.title6);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[5] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[5]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[21]);
+
+            //title7
+            inputTextView = findViewById(R.id.title7);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[6] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[6]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[25]);
+
+            //title8
+            inputTextView = findViewById(R.id.title8);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[7] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[7]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[29]);
+
+            //title9
+            inputTextView = findViewById(R.id.title9);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[8] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[8]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[33]);
+
+            //title10
+            inputTextView = findViewById(R.id.title10);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[9] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[9]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[37]);
+
+            //title11
+            inputTextView = findViewById(R.id.title11);
+            inputTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(connectURLString[10] != null) {
+                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[10]);
+                        startActivity(intent);
+                    }
+                }
+            });
+            inputTextView.setText(obtainedString[41]);
+        }
+
+        protected void SetTextViews()
+        {
+            //views1
+            inputTextView = findViewById(R.id.views1);
+            inputTextView.setText(obtainedString[3]);
+            //views2
+            inputTextView = findViewById(R.id.views2);
+            inputTextView.setText(obtainedString[7]);
+            //views3
+            inputTextView = findViewById(R.id.views3);
+            inputTextView.setText(obtainedString[11]);
+            //views4
+            inputTextView = findViewById(R.id.views4);
+            inputTextView.setText(obtainedString[15]);
+            //views5
+            inputTextView = findViewById(R.id.views5);
+            inputTextView.setText(obtainedString[19]);
+            //views6
+            inputTextView = findViewById(R.id.views6);
+            inputTextView.setText(obtainedString[23]);
+            //views7
+            inputTextView = findViewById(R.id.views7);
+            inputTextView.setText(obtainedString[27]);
+            //views8
+            inputTextView = findViewById(R.id.views8);
+            inputTextView.setText(obtainedString[31]);
+            //views9
+            inputTextView = findViewById(R.id.views9);
+            inputTextView.setText(obtainedString[35]);
+            //views10
+            inputTextView = findViewById(R.id.views10);
+            inputTextView.setText(obtainedString[39]);
+            //views11
+            inputTextView = findViewById(R.id.views11);
+            inputTextView.setText(obtainedString[43]);
+        }
+
+        protected void SetTextRegistrationDate()
+        {
+            //registration_date1
+            inputTextView = findViewById(R.id.registration_date1);
+            inputTextView.setText(obtainedString[2]);
+            //registration_date2
+            inputTextView = findViewById(R.id.registration_date2);
+            inputTextView.setText(obtainedString[6]);
+            //registration_date3
+            inputTextView = findViewById(R.id.registration_date3);
+            inputTextView.setText(obtainedString[10]);
+            //registration_date4
+            inputTextView = findViewById(R.id.registration_date4);
+            inputTextView.setText(obtainedString[14]);
+            //registration_date5
+            inputTextView = findViewById(R.id.registration_date5);
+            inputTextView.setText(obtainedString[18]);
+            //registration_date6
+            inputTextView = findViewById(R.id.registration_date6);
+            inputTextView.setText(obtainedString[22]);
+            //registration_date7
+            inputTextView = findViewById(R.id.registration_date7);
+            inputTextView.setText(obtainedString[26]);
+            //registration_date8
+            inputTextView = findViewById(R.id.registration_date8);
+            inputTextView.setText(obtainedString[30]);
+            //registration_date9
+            inputTextView = findViewById(R.id.registration_date9);
+            inputTextView.setText(obtainedString[34]);
+            //registration_date10
+            inputTextView = findViewById(R.id.registration_date10);
+            inputTextView.setText(obtainedString[38]);
+            //registration_date11
+            inputTextView = findViewById(R.id.registration_date11);
+            inputTextView.setText(obtainedString[42]);
+        }
+
+        protected void SetIcon()
+        {
             //가져온 이미지 화면에 띄움
             imageView = findViewById(R.id.icon1);
             Glide.with(getApplication()).load("https://botanicpark.seoul.go.kr"+imageURL1).into(imageView);

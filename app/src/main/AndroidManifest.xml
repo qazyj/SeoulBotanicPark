@@ -61,6 +61,9 @@
         <activity android:name=".Information.NewsActivity" />
         <activity android:name=".PaymentAndQR.CaptureForm" />
         <activity android:name=".WebViewActivity"/>
+        <activity android:name=".Information.InconvenienceDetailPostActivity"/>
+        <activity android:name=".Information.RegistrationPostInInconvenienceActivity"/>
+        <activity android:name=".Information.InconvenienceActivity"/>
     </application>
 
 </manifest>
