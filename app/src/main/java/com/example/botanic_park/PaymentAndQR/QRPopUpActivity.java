@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.R;
 import com.google.zxing.BarcodeFormat;
@@ -61,6 +62,7 @@ public class QRPopUpActivity extends Activity {
         Date today = Calendar.getInstance().getTime();
         date.setText(new SimpleDateFormat("MM/dd (EE)", Locale.getDefault()).format(today));
 
+        Toast.makeText(getApplicationContext(), "QR화면은 캡처가 불가합니다.", Toast.LENGTH_SHORT).show();
         //getSharedPreferences("userData",Activity.MODE_PRIVATE);
     }
 

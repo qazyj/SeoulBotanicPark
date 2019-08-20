@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.google.zxing.integration.android.IntentIntegrator;

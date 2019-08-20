@@ -39,9 +39,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
     private Button parent_fragment_button;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
-    private final String GREEN_HOUSE = "온실";
-    private final String THEME_GARDEN = "주제 젱원";
-    private final String BOTANIC_CULTURE_CENTER = "문화 센터";
+    public final String GREEN_HOUSE = "온실";
+    public final String THEME_GARDEN = "주제 정원";
+    public final String BOTANIC_CULTURE_CENTER = "문화 센터";
 
     private MapView mapView;
     private FusedLocationSource locationSource;
