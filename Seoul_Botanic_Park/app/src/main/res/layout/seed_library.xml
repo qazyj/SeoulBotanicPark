@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="씨앗도서관에서 책처럼 씨앗을 대출받아 재배한 후, 수확한 씨앗을 기간 및 수량에 상관없이 자율적으로 반납하는 프로그램"
+        android:text=" 씨앗도서관에서 책처럼 씨앗을 대출받아 재배한 후, 수확한 씨앗을 기간 및 수량에 상관없이 자율적으로 반납하는 프로그램"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
@@ -54,14 +54,15 @@
     </HorizontalScrollView> //이미지 스크롤
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="싸앗도서관 사이트 바로가기 > "
+        android:text="씨앗도서관 사이트 바로가기 > "
         android:textSize="12sp"
-        android:textAlignment="viewEnd"
-        android:textColor="@color/orange_color"
+        android:layout_gravity="right"
         style="bold"
         android:id="@+id/url"
+        android:clickable="true"
+        android:textColor="@color/orange_color"
         />
 
     <ScrollView

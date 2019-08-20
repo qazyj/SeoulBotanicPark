@@ -11,10 +11,11 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class CaptureForm extends CaptureActivity {
 
+    Boolean isCliked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         View v  = getLayoutInflater().inflate(R.layout.layout_capture_form, null);
         addContentView(v,new LinearLayout.LayoutParams(
@@ -26,6 +27,8 @@ public class CaptureForm extends CaptureActivity {
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isCliked) return;
+                isCliked = true;
                 AppManager.getInstance().getScan_qr().finish();
                 AppManager.getInstance().setScan_qr(null);
                 finish();
