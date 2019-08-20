@@ -29,6 +29,7 @@ repositories {
         dirs 'libs'
     }
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -58,5 +59,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation files('libs/android-zoom-view.jar')
+    implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.github.paolorotolo:appintro:4.1.0'//줌뷰
 }
