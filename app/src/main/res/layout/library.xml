@@ -18,20 +18,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="식물·생태·정원·조경 등 국내외 식물 관련 전문서적과 자료를 소장하고 있습니다. \n도서 외에도 DVD·연속간행물과 같은 다양한 형태의 자료를 수집·보존하고 있어 식물과 식물문화에 관심이 있는 누구나 자유롭게 이용할 수 있습니다."
+        android:text=" 식물·생태·정원·조경 등 국내외 식물 관련 전문서적과 자료를 소장하고 있습니다. \n 도서 외에도 DVD·연속간행물과 같은 다양한 형태의 자료를 수집·보존하고 있어 식물과 식물문화에 관심이 있는 누구나 자유롭게 이용할 수 있습니다."
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:lineSpacingExtra="5dp"
         /> //설명
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="식물전문도서관 사이트 바로가기 > "
         android:textSize="12sp"
-        android:textAlignment="viewEnd"
+        android:layout_gravity="right"
         style="bold"
         android:id="@+id/url"
+        android:clickable="true"
+        android:textColor="@color/orange_color"
         />
 
     <ScrollView

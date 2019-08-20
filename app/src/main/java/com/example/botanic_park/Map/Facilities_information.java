@@ -36,12 +36,14 @@ public class Facilities_information extends AppCompatActivity implements View.On
             if(information[0].equals(Fragment_BotanicCenter.LIBRARY))
             {
                 informationView = getLayoutInflater().inflate(R.layout.library, null);
+                setTextViewToClick(informationView.findViewById(R.id.url),information[1]);
 
             }
 
             else  if(information[0].equals(Fragment_BotanicCenter.SEED_LIBRARY))
             {
                 informationView = getLayoutInflater().inflate(R.layout.seed_library, null);
+               setTextViewToClick(informationView.findViewById(R.id.url),information[1]);
 
             }
             informationView.setLayoutParams(layoutParams);
@@ -53,11 +55,23 @@ public class Facilities_information extends AppCompatActivity implements View.On
 
     }
 
+    public void setTextViewToClick(TextView textView, String url)
+    {
+        textView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                newUriIntent(url);
+            }
+        });
+    }
+
     public void newUriIntent(String url)
     {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addCategory(Intent.CATEGORY_APP_BROWSER);
+        intent.setData(uri);
+        startActivity(intent);
 
     }
 
