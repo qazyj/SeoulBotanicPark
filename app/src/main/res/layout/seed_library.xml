@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBanner"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="씨앗 대출이란?"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorBaseCyan" /> //제목
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="씨앗도서관에서 책처럼 씨앗을 대출받아 재배한 후, 수확한 씨앗을 기간 및 수량에 상관없이 자율적으로 반납하는 프로그램"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        /> //설명
+
+    <HorizontalScrollView
+        android:id="@+id/label_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:scrollbars="none"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:src="@drawable/seed_library_1" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:src="@drawable/seed_library_2" />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:src="@drawable/seed_library_3"
+                />
+        </LinearLayout>
+    </HorizontalScrollView> //이미지 스크롤
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="싸앗도서관 사이트 바로가기 > "
+        android:textSize="12sp"
+        android:textAlignment="viewEnd"
+        style="bold"
+        android:id="@+id/url"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:background="#FFF">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="씨앗을 공유하는 도서관"
+                android:layout_marginTop="20dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold" />//타이틀1
+
+            // 이용안내
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 이용안내"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/information_border"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="위치 : 식물문화센터 1층" />
+
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="이용시간 : 화요일~일요일 10:00~17:00" />
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="씨앗대출 : 화요일~금요일(법정공휴일은 제외)" />
+                </LinearLayout>
+                // 상세설명
+
+            </LinearLayout>
+
+            // 주의사항
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 주의사항"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/information_border"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="씨앗도서관은 전시공간으로 음료 및 음식물은 반입금지" />
+
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="도서관 관리 및 안전을 위해 영유아는 반드시 보호자와 동반입실" />
+                </LinearLayout>
+                // 상세설명
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="씨앗 대출 이용방법"
+                android:layout_marginTop="20dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold" />//타이틀2
+
+            //대출
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 대출"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/information_border"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="안내데스크에 비치된 씨앗 대출 대장 작성 후, 씨앗 대출 가능함" />
+
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="대출 씨앗은 1인 1개(종)의 씨앗봉투(약 1g, 씨앗 3~10립)가 제공됨" />
+
+                </LinearLayout>
+                // 상세설명
+
+            </LinearLayout>
+
+            //반납
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 반납"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/information_border"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="씨앗 반납은 의무사항이 아님" />
+
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="추가적인 씨앗 대출을 위해 번식, 채종, 고사 등 기록(사진)이 필요함" />
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="반납 실적에 따라 향후 대출씨앗 종류와 수량이 변동됨" />
+
+                </LinearLayout>
+                // 상세설명
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="대출씨앗으로 반납이 불가능한 경우 다른 종류의 씨앗으로 반납 가능" />
+                </LinearLayout>
+                // 상세설명
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="씨앗 기증"
+                android:layout_marginTop="20dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold" /> //타이틀3
+            /대
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 대출"
+                android:layout_marginTop="15dp"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/information_border"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="연중 시민들의 씨앗을 기증받음" />
+
+                </LinearLayout>// 상세설명
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="기증된 씨앗은 대출프로그램을 통해 시민들에게 다시 대출됨" />
+                </LinearLayout>// 상세설명
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-" />
+
+                    <TextView
+                        android:fontFamily="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="씨앗 기증은 씨앗도서관 직원에게 문의 바람" />
+
+                </LinearLayout>// 상세설명
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

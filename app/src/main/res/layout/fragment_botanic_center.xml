@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3355A37C"
+    android:background="#5F9EA0"
     tools:context=".Map.Fragment_BotanicCenter"
     >
 
@@ -32,9 +32,11 @@
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/background">
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/menu"
@@ -50,16 +52,16 @@
             fab:menu_backgroundColor="@android:color/transparent"
             fab:menu_buttonSpacing="20dp"
             fab:menu_buttonToggleAnimation="@anim/fab_scale_up"
-            fab:menu_colorNormal="#4C7F3A"
+            fab:menu_colorNormal="#7c7c7c"
             fab:menu_colorPressed="#C1D42D"
             fab:menu_colorRipple="#90BC43"
             fab:menu_fab_hide_animation="@anim/fab_scale_up"
             fab:menu_fab_show_animation="@anim/fab_scale_up"
             fab:menu_fab_size="normal"
-            fab:menu_icon="@drawable/icon_pin_white"
-
+            fab:menu_icon="@mipmap/floor"
             fab:menu_labels_colorNormal="@android:color/transparent"
             fab:menu_labels_colorPressed="#444"
+
             fab:menu_labels_colorRipple="#66efecec"
             fab:menu_labels_cornerRadius="3dp"
             fab:menu_labels_ellipsize="none"
@@ -67,6 +69,8 @@
             fab:menu_labels_margin="10dp"
             fab:menu_labels_maxLines="-1"
             fab:menu_labels_padding="8dp"
+            fab:menu_labels_paddingBottom="100dp"
+            fab:menu_labels_paddingTop="100dp"
             fab:menu_labels_position="right"
             fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
             fab:menu_labels_showShadow="false"
