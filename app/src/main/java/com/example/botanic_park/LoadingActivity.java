@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoadingActivity extends Activity {
     public static final String PLANT_LIST_KEY = "plant list";
@@ -40,6 +41,7 @@ public class LoadingActivity extends Activity {
         list = onSearchData();  // 기존 저장 정보 가져옴
         if(list == null)
             list = getListFromFile();  // 초기 파일 가져옴
+
         parsePlantTask = new ParsePlantTask(list);
         parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)
     }
@@ -175,9 +177,15 @@ public class LoadingActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             finish();   // 파싱 끝나면 로딩 액티비티 종료
 
-            //list.get(4).setCollected(true); // 임의로 결과보기 위해 넣어둠
-            //list.get(0).setCollected(true);
-            AppManager.getInstance().setList(list);   // 앱메니저에 저장
+            int count = 0;
+            for(PlantBookItem item: list){
+                if(item.isCollected())
+                    count++;
+            }
+            // 앱메니저에 저장
+            AppManager.getInstance().collectionCount = count;
+            AppManager.getInstance().setList(list);
+
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
 

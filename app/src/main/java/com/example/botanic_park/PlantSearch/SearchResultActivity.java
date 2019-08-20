@@ -73,6 +73,14 @@ public class SearchResultActivity extends AppCompatActivity {
 
         ItemDecoration decoration = new ItemDecoration();
         recyclerView.addItemDecoration(decoration);
+
+        ImageButton closeBtn = findViewById(R.id.close_btn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private View.OnClickListener itemClickListener = new View.OnClickListener() {

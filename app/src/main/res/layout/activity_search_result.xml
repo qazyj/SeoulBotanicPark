@@ -11,9 +11,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_normal"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_marginBottom="@dimen/margin_narrow"
         android:background="@null"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/ic_close_no" />
 
     <LinearLayout
         android:layout_below="@+id/close_btn"
@@ -130,14 +129,11 @@
                             <TextView
                                 android:id="@+id/title_name_en"
                                 style="@style/SubTitleTheme"
-                                android:layout_below="@+id/title_scientific_name"
                                 android:text="영    명:" />
 
                             <TextView
                                 android:id="@+id/content_name_en"
                                 style="@style/DetailTextTheme"
-                                android:layout_below="@+id/title_scientific_name"
-                                android:layout_toEndOf="@+id/title_name_en"
                                 android:text="영명을 넣어주세요" />
                         </LinearLayout>
 

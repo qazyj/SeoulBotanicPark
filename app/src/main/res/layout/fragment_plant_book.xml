@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0"
-        android:background="@color/colorWhite">
+        android:layout_weight="0">
 
         <ImageButton
             android:id="@+id/help_btn"
@@ -27,13 +26,13 @@
             android:src="@drawable/ic_help_outline" />
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="30dp"
             android:paddingTop="10dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="10dp">
+            android:paddingRight="30dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -57,6 +56,7 @@
                 android:id="@+id/list_plant_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/border_normal"
                 android:gravity="center_horizontal"
                 android:paddingTop="5dp"
@@ -88,23 +88,42 @@
 
             </LinearLayout>
 
-            <ProgressBar
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="121"
-                android:progress="2"
-                android:visibility="gone" />
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear"
+            android:max="121" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/margin_narrow"
+            android:layout_marginStart="@dimen/margin_narrow">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content" />
+        </RelativeLayout>
 
     </RelativeLayout>
+
 
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:scrollbarThumbVertical="@drawable/round_square_background_thumb"
+        android:scrollbarSize="10dp"
+        android:paddingEnd="5dp">
+
         <!-- 식물 도감 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,11 +134,6 @@
             android:paddingRight="20dp"
             android:paddingBottom="10dp">
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_narrow"/>
 
             <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
                 android:id="@+id/gridview_plant_book"

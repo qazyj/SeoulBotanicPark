@@ -56,14 +56,14 @@ public class Fragment_Home extends Fragment {
         setPlantsToday();   // 오늘의 식물 선정
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
         TextView textView = view.findViewById(R.id.title_plants_today);
-        if(isPlantsTodayComplete()){
+        if (isPlantsTodayComplete()) {
             // 바코드 보여줌
             gridView.setVisibility(View.INVISIBLE);
             textView.setText("오늘의 쿠폰");
             LinearLayout linearLayout = view.findViewById(R.id.barcode);
             linearLayout.setVisibility(View.VISIBLE);
 
-        }else {
+        } else {
             // 오늘의 식물 보여줌
             gridView.setVisibility(View.VISIBLE);
             textView.setText("오늘의 식물");
@@ -81,6 +81,7 @@ public class Fragment_Home extends Fragment {
         }
 
 
+        /*
         //결제 초기화
         ((Button) view.findViewById(R.id.button)).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -92,20 +93,20 @@ public class Fragment_Home extends Fragment {
             }
         });
 
-
+        */
 
 
         return view;
     }
 
-    private void setPlantsToday(){
+    private void setPlantsToday() {
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
         plantsToday = new ArrayList<>();
         plantsToday.add(getNewItem(list.get(0)));
         plantsToday.add(getNewItem(list.get(1)));
         plantsToday.add(getNewItem(list.get(2)));
 
-        for(int i=0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             plantsToday.get(i).setCollected(true);
         }
 
@@ -119,15 +120,15 @@ public class Fragment_Home extends Fragment {
         */
     }
 
-    private boolean isPlantsTodayComplete(){
-        for(PlantBookItem item: plantsToday){
-            if(!item.isCollected())
+    private boolean isPlantsTodayComplete() {
+        for (PlantBookItem item : plantsToday) {
+            if (!item.isCollected())
                 return false;
         }
         return true;
     }
 
-    private PlantBookItem getNewItem(PlantBookItem item){
+    private PlantBookItem getNewItem(PlantBookItem item) {
         return new PlantBookItem(item.getId(), item.getImg_url(),
                 item.getName_ko(), item.getName_sc(), item.getName_en(),
                 item.getType(), item.getBlossom(), item.getDetails());
@@ -135,7 +136,7 @@ public class Fragment_Home extends Fragment {
 
 }
 
-class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder>{
+class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder> {
     private Context context;
 
     public SliderAdapter(Context context) {
@@ -178,7 +179,7 @@ class SliderAdapter extends SliderViewAdapter<SliderAdapter.ViewHolder>{
         return 3;
     }
 
-    class ViewHolder extends SliderViewAdapter.ViewHolder{
+    class ViewHolder extends SliderViewAdapter.ViewHolder {
         View itemView;
         ImageView imageView;
 
@@ -223,18 +224,18 @@ class PlantTodayAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null)
+        if (view == null)
             view = layoutInflater.inflate(layout, null);
 
         PlantBookItem item = itemList.get(i);
         TextView textView = view.findViewById(R.id.name);
         textView.setText(item.getName_ko());
 
-        if(item.isCollected()) {
+        if (item.isCollected()) {
             view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_oval_active));
             ImageView imageView = view.findViewById(R.id.icon);
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-            layoutParams.setMargins(5,5,5,5);
+            layoutParams.setMargins(5, 5, 5, 5);
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_lotus_active));
             textView.setTextColor(view.getResources().getColor(R.color.colorBase));
         }

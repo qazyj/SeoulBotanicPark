@@ -11,7 +11,7 @@
         android:id="@+id/floor_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFF"
+        android:textColor="@color/colorBaseCyan"
         android:layout_gravity="top|right"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
@@ -28,6 +28,7 @@
         android:layout_gravity="center"
         android:background="@drawable/center_map_border"
         android:id="@+id/contain"/>
+
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
