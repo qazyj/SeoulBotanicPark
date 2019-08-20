@@ -187,7 +187,8 @@ public class InconvenienceDetailPostActivity  extends Activity {
             String recommendation = (String)params[2];
 
             String serverURL = (String)params[0];
-            String postParameters = "recommendation" + recommendation + "&number" + number;
+            String postParameters = "number" + number + "&recommendation" + recommendation;
+            Log.d("testttt",recommendation);
 
             try {
                 URL url = new URL(serverURL);
