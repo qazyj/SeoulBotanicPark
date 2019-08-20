@@ -99,6 +99,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
             android:layout_weight="6">
 
         <ListView
@@ -107,7 +108,7 @@
             android:layout_height="500dp"
             android:layout_below="@+id/line3"
             android:divider="@color/lightGray"
-            android:dividerHeight="0.5dp"/>
+            android:dividerHeight="1dp"/>
         </LinearLayout>
 
         <LinearLayout

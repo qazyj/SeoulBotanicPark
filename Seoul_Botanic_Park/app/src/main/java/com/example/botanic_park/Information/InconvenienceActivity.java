@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -81,6 +82,28 @@ public class InconvenienceActivity extends Activity {
             new String[]{TAG_NUMBER, TAG_TITLE, TAG_RECOMMENDATION, TAG_REGISTRATION_DATE},
             new int[]{R.id.item_number, R.id.item_title, R.id.item_recommended_number,R.id.item_registration_date});
 
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    // TODO Auto-generated method stub
+
+                    Intent intent = new Intent(getApplicationContext(),InconvenienceDetailPostActivity.class);
+
+                    //json형태인 문자열에서 primarykey인 number값을 보내는 작업
+                    String str1 = postList.get(position).toString();
+                    String[] arr = str1.split(",");
+                    int nIdx = arr[1].indexOf("number=");
+                    String str2 = arr[1].substring(nIdx+7);
+
+                    intent.putExtra("title", str2);
+
+                    startActivity(intent);
+
+                }
+            });
+
             list.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -127,7 +150,5 @@ public class InconvenienceActivity extends Activity {
         g.execute(url);
 
     }
-
-
 
 }
