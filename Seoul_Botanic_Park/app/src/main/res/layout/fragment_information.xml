@@ -183,15 +183,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-<<<<<<< HEAD:Seoul_Botanic_Park/app/src/main/res/layout/fragment_information.xml
-                    android:text="불편사항"
-                    android:textColor="@color/colorBase"
-                    android:textSize="20sp" />
-=======
                     android:text="커뮤니티"
                     android:textColor="@color/colorNormalText"
                     android:textSize="18sp" />
->>>>>>> origin/feature/map:app/src/main/res/layout/fragment_information.xml
             </com.example.botanic_park.SquareLinearLayout>
 
         </LinearLayout>

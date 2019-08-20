@@ -59,6 +59,7 @@
         android:text="싸앗도서관 사이트 바로가기 > "
         android:textSize="12sp"
         android:textAlignment="viewEnd"
+        android:textColor="@color/orange_color"
         style="bold"
         android:id="@+id/url"
         />
