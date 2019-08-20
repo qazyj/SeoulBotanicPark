@@ -5,6 +5,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="sort_get"><u>획득순</u></string>
+    <string name="sort_newest"><u>최신순</u></string>
+    <string name="sort_alphabet"><u>가나다순</u></string>
+
     <string-array name="theme_garden">
         <item>주제 정원</item>
         <item>정보</item>

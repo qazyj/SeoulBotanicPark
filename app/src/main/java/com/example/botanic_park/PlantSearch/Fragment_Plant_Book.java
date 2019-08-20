@@ -47,9 +47,7 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     Spinner spinner;
     InputMethodManager inputMethodManager;
     ArrayList<PlantBookItem> list, searchList;
-
-    float startYPosition, endYPosition;
-    boolean isFirstDrag = true, isDrag = false;
+    ProgressBar progressBar;
 
     public Fragment_Plant_Book() {
     }
@@ -124,6 +122,9 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
 
             }
         });
+
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setProgress(AppManager.getInstance().collectionCount);
         return view;
     }
 
@@ -150,7 +151,6 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 if (!PermissionCheck.isGrantedPermission(getActivity(), permission))
                     ungranted_permissions.add(permission);
             }
-
 
             if (ungranted_permissions.size() > 0) {
                 // 권한 요청
@@ -229,6 +229,15 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // 프래그먼트 화면 갱신
+        int count = 0;
+        for(PlantBookItem item : list){
+            if(item.isCollected())
+                count++;
+        }
+        if(AppManager.getInstance().collectionCount != count)
+            AppManager.getInstance().collectionCount = count;
+        progressBar.setProgress(count);
+
         for (Fragment fragment : getFragmentManager().getFragments()) {
             if (fragment.isVisible()) {
                 final FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -292,95 +301,4 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     }
 }
 
-class PlantBookAdapter extends BaseAdapter {
-    Context context;
-    int layout;
-    List<PlantBookItem> list;  // item 목록
-    LayoutInflater layoutInflater;
-
-    PlantBookItem item;     // item 정보 객체
-
-    public PlantBookAdapter(Context context, int layout, List<PlantBookItem> list) {
-        this.context = context;
-        this.layout = layout;
-        this.list = list;
-        layoutInflater = (LayoutInflater) context.getSystemService
-                (Context.LAYOUT_INFLATER_SERVICE);
-
-    }
-
-    public void updateAdpater(List<PlantBookItem> list) {
-        this.list = list;
-        this.notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return list.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null)
-            view = layoutInflater.inflate(layout, null);
-
-        item = list.get(i);
-        ImageView imageView = view.findViewById(R.id.image_thumb);
-        TextView textView = view.findViewById(R.id.name_ko);
-
-        try {
-            Field field = R.drawable.class.getField("species_" + item.getId());
-            int drawableID = field.getInt(null);
-
-            if (item.isCollected()) {
-                textView.setTextColor(view.getResources().getColor(R.color.colorNormalText));
-                MultiTransformation multi = new MultiTransformation(
-                        /*
-                        new CenterCrop(),
-                        new RoundedCornersTransformation(40, 0,
-                                RoundedCornersTransformation.CornerType.TOP)
-                        */
-                        new CircleCrop()
-                );
-                view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));
-                Glide.with(view)
-                        .load(drawableID)
-                        .apply(bitmapTransform(multi))
-                        .thumbnail(0.1f).into(imageView);
-            } else {
-                textView.setTextColor(view.getResources().getColor(R.color.no));
-                MultiTransformation multi = new MultiTransformation(
-                        new CircleCrop(),
-                        new ColorFilterTransformation(
-                                Color.argb(200, 210, 210, 210))
-                );
-                view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_normal));
-                Glide.with(view)
-                        .load(drawableID)
-                        .apply(bitmapTransform(multi))
-                        .thumbnail(0.1f).into(imageView);
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        TextView koNameView = view.findViewById(R.id.name_ko);
-        koNameView.setText(item.getName_ko());
-
-        return view;
-    }
-
-}
 

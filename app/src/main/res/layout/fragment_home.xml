@@ -53,9 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
             android:background="@null"
             android:src="@drawable/ic_help_outline" />
 
@@ -120,14 +120,6 @@
                         android:layout_gravity="center_horizontal"
                         android:text="카페 1000원 할인 쿠폰" />
                 </LinearLayout>
-
-
-                <Button
-                    android:id="@+id/button"
-                    android:text="Button"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
             </FrameLayout>
         </LinearLayout>
