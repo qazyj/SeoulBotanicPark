@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e4e4e4"
+    android:gravity="center"
+    android:weightSum="10">
+
+        <EditText
+            android:id="@+id/input_title"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="※제목을 적어주세요."
+            android:textStyle="normal"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_weight="0.03"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#bababa"/>
+
+        <EditText
+            android:id="@+id/input_content"
+            android:layout_weight="5"
+            android:hint="※내용을 적어주세요. \n\n욕설, 비방 등 법적 문제의 소지가 있는 경우 차단 및 신고, 처벌 받으실 수 있습니다."
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:maxLines="10"
+            android:inputType="textMultiLine"
+            android:textColor="@android:color/black"
+            android:privateImeOptions="defaultInputmode=korean"
+            android:scrollbars="vertical"
+            android:background="@android:color/white"/>
+
+        <View
+            android:layout_weight="0.03"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#bababa"/>
+
+            <Button
+                android:id="@+id/registration_post_button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/orange_color"
+                android:text="글            등            록"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="0.005"/>
+
+</LinearLayout>
