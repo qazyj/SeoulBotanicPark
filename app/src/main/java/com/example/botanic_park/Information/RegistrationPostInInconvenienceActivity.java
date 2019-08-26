@@ -21,8 +21,8 @@ import java.util.Date;
 
 public class RegistrationPostInInconvenienceActivity extends Activity {
 
-    private static String IP_ADDRESS = "106.10.37.13";
-    private static String TAG = "check";
+    private static final String IP_ADDRESS = "106.10.37.13";
+    private static final String TAG = "check";
 
     private EditText title;
     private EditText content;
@@ -39,7 +39,6 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String post_title = title.getText().toString();
                 String post_content = content.getText().toString();
 
@@ -76,19 +75,17 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
             String title = (String)params[1];
             String content = (String)params[2];
-            int recommendation = 0;
-            int notrecommendation = 0;
+            int views = 0;
             long now = System.currentTimeMillis();
             Date today = new Date(now);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];
-            String postParameters = "title=" + title + "&content=" + content + "&recommendation=" + recommendation + "&notrecommendation=" + notrecommendation + "&date=" + date ;
+            String postParameters = "title=" + title + "&content=" + content + "&views=" + views + "&date=" + date ;
 
 
             try {
-
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 

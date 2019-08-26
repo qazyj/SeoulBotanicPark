@@ -44,7 +44,7 @@
             android:textColor="@android:color/black"/>
 
         <TextView
-            android:id="@+id/item_recommended_number"
+            android:id="@+id/item_views"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

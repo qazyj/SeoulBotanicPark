@@ -24,7 +24,7 @@ public class InconvenienceActivity extends Activity {
 
     private static final String TAG_NUMBER = "number";
     private static final String TAG_TITLE = "title";
-    private static final String TAG_RECOMMENDATION = "recommendation";
+    private static final String TAG_VIEWS = "views";
     private static final String TAG_REGISTRATION_DATE = "date";
     private static final String TAG_AMOUNT = "result";
 
@@ -60,21 +60,21 @@ public class InconvenienceActivity extends Activity {
                 JSONObject c = posts.getJSONObject(i);
                 String number = c.getString(TAG_NUMBER);
                 String title = c.getString(TAG_TITLE);
-                String recommendation = c.getString(TAG_RECOMMENDATION);
+                String views = c.getString(TAG_VIEWS);
                 String date = c.getString(TAG_REGISTRATION_DATE);
 
                 HashMap<String, String> posts2 = new HashMap<String, String>();
 
                 posts2.put(TAG_NUMBER, number);
                 posts2.put(TAG_TITLE, title);
-                posts2.put(TAG_RECOMMENDATION, recommendation);
+                posts2.put(TAG_VIEWS, views);
                 posts2.put(TAG_REGISTRATION_DATE, date);
                 postList.add(posts2);
             }
             ListAdapter adapter = new SimpleAdapter(
                     InconvenienceActivity.this, postList, R.layout.item_inconvenience_listview,
-            new String[]{TAG_NUMBER, TAG_TITLE, TAG_RECOMMENDATION, TAG_REGISTRATION_DATE},
-            new int[]{R.id.item_number, R.id.item_title, R.id.item_recommended_number,R.id.item_registration_date});
+            new String[]{TAG_NUMBER, TAG_TITLE, TAG_VIEWS, TAG_REGISTRATION_DATE},
+            new int[]{R.id.item_number, R.id.item_title, R.id.item_views,R.id.item_registration_date});
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {

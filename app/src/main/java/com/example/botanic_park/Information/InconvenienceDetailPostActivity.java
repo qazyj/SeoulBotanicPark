@@ -7,35 +7,30 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.*;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InconvenienceDetailPostActivity extends Activity {
 
-    private static String IP_ADDRESS = "106.10.37.13";
+    private static final String IP_ADDRESS = "106.10.37.13";
+    private static final String TAG = "check";
 
     String myJSON;
 
     private static Intent intent;
     private static final String TAG_TITLE = "title";
     private static final String TAG_CONTENT = "content";
-    private static final String TAG_RECOMMENDATION = "recommendation";
-    private static final String TAG_NOTRECOMMENDATION = "notrecommendation";
+    private static final String TAG_VIEWS = "views";
     private static final String TAG_REGISTRATION_DATE = "date";
     private static final String TAG_AMOUNT = "result";
 
@@ -52,24 +47,13 @@ public class InconvenienceDetailPostActivity extends Activity {
 
         getData("http://" + IP_ADDRESS + "/inconvenienceselect.php"); //수정 필요
 
-        findViewById(R.id.recommend_button).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                TextView add_recommendation_number = findViewById(R.id.recommendation_number);
-                add_recommendation_number.setText(String.valueOf(Integer.parseInt(add_recommendation_number.getText().toString())+1));
+        TextView add_views = findViewById(R.id.views);
+        add_views.setText(String.valueOf(Integer.parseInt(add_views.getText().toString()+1)));
 
-                UpdateData task = new UpdateData();
-                task.execute("http://" + IP_ADDRESS + "/addpostrecommendation.php", intent.getStringExtra("title"), add_recommendation_number.getText().toString());
-            }
-        }
-        );
+        UpdateData updateTask = new UpdateData();
+        updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
-        findViewById(R.id.not_recommended_button).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                TextView add_not_recommendation_number = findViewById(R.id.not_recommendation_number);
-                add_not_recommendation_number.setText(String.valueOf(Integer.parseInt(add_not_recommendation_number.getText().toString())+1));
-            }
-        }
-        );
+        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php");
 
         content = (EditText)findViewById(R.id.input_commend_content);
 
@@ -84,6 +68,7 @@ public class InconvenienceDetailPostActivity extends Activity {
                 task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
             }
         });
+
     }
 
     protected void showList() {
@@ -101,11 +86,8 @@ public class InconvenienceDetailPostActivity extends Activity {
             TextView post_date = findViewById(R.id.date);
             post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            TextView post_recommendation = findViewById(R.id.recommendation_number);
-            post_recommendation.setText(c.getString(TAG_RECOMMENDATION));
-
-            TextView post_not_recommendation = findViewById(R.id.not_recommendation_number);
-            post_not_recommendation.setText(c.getString(TAG_NOTRECOMMENDATION));
+            TextView post_views = findViewById(R.id.views);
+            post_views.setText(c.getString(TAG_VIEWS));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -164,10 +146,11 @@ public class InconvenienceDetailPostActivity extends Activity {
                     "Please Wait", null, true, true);
         }
 
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
 
             progressDialog.dismiss();
         }
@@ -176,12 +159,12 @@ public class InconvenienceDetailPostActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
 
-            String number = (String) params[1];
-            String recommendation = (String)params[2];
+            String number = (String)params[1];
+            String views = (String)params[2];
 
             String serverURL = (String)params[0];
-            String postParameters = "number" + number + "&recommendation" + recommendation;
-            Log.d("testttt",recommendation);
+            String postParameters = "number=" + number + "&views=" + String.valueOf(Integer.parseInt(views)+1);
+            Log.d("testttt",views);
 
             try {
                 URL url = new URL(serverURL);
@@ -192,12 +175,10 @@ public class InconvenienceDetailPostActivity extends Activity {
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d("texttest", "POST response code - " + responseStatusCode);
@@ -254,6 +235,8 @@ public class InconvenienceDetailPostActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
+
             progressDialog.dismiss();
         }
 
@@ -269,7 +252,7 @@ public class InconvenienceDetailPostActivity extends Activity {
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];
-            String postParameters = "number" + number + "&content" + content + "&date" +date;
+            String postParameters = "number=" + number + "&content=" + content + "&date=" +date;
 
             try {
 
@@ -280,6 +263,7 @@ public class InconvenienceDetailPostActivity extends Activity {
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
 
@@ -290,7 +274,7 @@ public class InconvenienceDetailPostActivity extends Activity {
 
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("inserttext", "POST response code - " + responseStatusCode);
+                Log.d(TAG, "response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -305,7 +289,7 @@ public class InconvenienceDetailPostActivity extends Activity {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
 
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
@@ -315,19 +299,21 @@ public class InconvenienceDetailPostActivity extends Activity {
                 bufferedReader.close();
 
 
-                return sb.toString();
+                return sb.toString().trim();
 
 
             } catch (Exception e) {
 
-                Log.d("inserttext", "InsertData: Error ", e);
+                Log.d(TAG, "InsertData: Error ", e);
 
-                return new String("Error: " + e.getMessage());
+                return null;
             }
 
         }
     }
 
 }
+
+
 
 

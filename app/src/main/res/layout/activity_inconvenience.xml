@@ -80,7 +80,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_weight="4"
-            android:text="추천수"
+            android:text="조회수"
             android:textStyle="bold"
             android:textSize="12dp"
             android:textColor="@color/orange_color"/>
