@@ -3,23 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5F9EA0"
+    android:background="#E1FFE1"
     tools:context=".Map.Fragment_BotanicCenter"
     >
-
-    <TextView
-        android:id="@+id/floor_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorBaseCyan"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:textSize="50dp"
-        android:text="1F"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,13 +38,13 @@
             fab:menu_backgroundColor="@android:color/transparent"
             fab:menu_buttonSpacing="20dp"
             fab:menu_buttonToggleAnimation="@anim/fab_scale_up"
-            fab:menu_colorNormal="#7c7c7c"
+            fab:menu_colorNormal="@color/colorBase"
             fab:menu_colorPressed="#C1D42D"
             fab:menu_colorRipple="#90BC43"
             fab:menu_fab_hide_animation="@anim/fab_scale_up"
             fab:menu_fab_show_animation="@anim/fab_scale_up"
             fab:menu_fab_size="normal"
-            fab:menu_icon="@mipmap/floor"
+            fab:menu_icon="@mipmap/first_floor_icon"
             fab:menu_labels_colorNormal="@android:color/transparent"
             fab:menu_labels_colorPressed="#444"
 

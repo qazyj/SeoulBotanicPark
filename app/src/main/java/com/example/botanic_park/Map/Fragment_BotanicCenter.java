@@ -33,10 +33,10 @@ public class Fragment_BotanicCenter extends Fragment
     View zoomItem;
     ZoomView zoomView;
     ImageView markerImage;
-    TextView floor_info;
     RelativeLayout contain;
     
     int nowfloor = 1;
+    int floorResources = R.mipmap.first_floor_icon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +44,6 @@ public class Fragment_BotanicCenter extends Fragment
 
         View view = inflater.inflate(R.layout.fragment_botanic_center, container, false);
         zoomItem = getLayoutInflater().inflate(R.layout.zoom_item_1f, null);
-        floor_info = (TextView) view.findViewById(R.id.floor_info);
 
         markerImage = zoomItem.findViewById(R.id.center_mark);
         markerImage.setDrawingCacheEnabled(true);
@@ -170,29 +169,30 @@ public class Fragment_BotanicCenter extends Fragment
         {
             case FIRST_FLOOR:
                 setNewZoomView(R.layout.zoom_item_1f);
-                floor_info.setText("1F");
+                floorResources = R.mipmap.first_floor_icon;
                 nowfloor = 1;
                 break;
 
             case SECOND_FLOOR:
                 setNewZoomView(R.layout.zoom_item_2f);
-                floor_info.setText("2F");
                 nowfloor = 2;
+                floorResources = R.mipmap.second_floor_icon;
                 break;
 
             case FOURTH_FLOOR:
                 setNewZoomView(R.layout.zoom_item_4f);
-                floor_info.setText("4F");
                 nowfloor = 4;
+                floorResources = R.mipmap.fourth_floor_icon;
                 break;
         }
 
+        floatingMenu.getMenuIconView().setImageResource(floorResources);
     }
 
     private void closeFloatingMenu()
     {
         floatingMenu.close(true);
-        floatingMenu.getMenuIconView().setImageResource(R.mipmap.floor);
+        floatingMenu.getMenuIconView().setImageResource(floorResources);
         frame.setBackgroundColor(Color.parseColor("#00FFFFFF"));
 
     }
