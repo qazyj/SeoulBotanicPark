@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.R;
@@ -86,12 +87,17 @@ public class InconvenienceActivity extends Activity {
                     Intent intent = new Intent(getApplicationContext(),InconvenienceDetailPostActivity.class);
 
                     //json형태인 문자열에서 primarykey인 number값을 보내는 작업
+                    Log.d("checkcheck", postList.get(position).toString());
                     String str1 = postList.get(position).toString();
                     String[] arr = str1.split(",");
                     int nIdx = arr[1].indexOf("number=");
                     String str2 = arr[1].substring(nIdx+7);
+                    int getviews1 = arr[3].indexOf("views=");
+                    String str3 = arr[3].substring(getviews1+6);
+                    Log.d("checkcheck", arr[3].substring(getviews1+6));
 
                     intent.putExtra("title", str2);
+                    intent.putExtra("views", str3);
 
                     startActivity(intent);
 

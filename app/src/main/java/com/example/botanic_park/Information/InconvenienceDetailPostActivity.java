@@ -15,10 +15,11 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class InconvenienceDetailPostActivity extends Activity {
 
@@ -26,6 +27,7 @@ public class InconvenienceDetailPostActivity extends Activity {
     private static final String TAG = "check";
 
     String myJSON;
+    String myCommendJSON=null;
 
     private static Intent intent;
     private static final String TAG_TITLE = "title";
@@ -33,10 +35,17 @@ public class InconvenienceDetailPostActivity extends Activity {
     private static final String TAG_VIEWS = "views";
     private static final String TAG_REGISTRATION_DATE = "date";
     private static final String TAG_AMOUNT = "result";
+    private static final String TAG_NUMBER = "number";
 
     JSONArray posts = null;
+    JSONArray commendPosts = null;
 
     private EditText content;           //댓글 추가
+    int pard;               //삭제 해도됌 asynctask에서 views값 가져오고 싶은데 안됨;;ㅠ
+    TextView add_views;
+
+    ListView commendList;
+    ArrayList<HashMap<String, String>> postList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +53,19 @@ public class InconvenienceDetailPostActivity extends Activity {
         setContentView(R.layout.activity_inconvenience_detail_post);
 
         intent = getIntent();
+        add_views = findViewById(R.id.views);
 
-        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php"); //수정 필요
+        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php");   //글에 대한 정보 가져오기
 
-        TextView add_views = findViewById(R.id.views);
-        add_views.setText(String.valueOf(Integer.parseInt(add_views.getText().toString()+1)));
+        commendList = (ListView) findViewById(R.id.listviewcommend);
+        postList = new ArrayList<HashMap<String, String>>();
+
+        getCommendData("http://" + IP_ADDRESS + "/selectinconveniencecommend.php");         //글에 대한 댓글 가져오기
+
+        add_views.setText(String.valueOf(Integer.parseInt(intent.getStringExtra("title"))+1));
 
         UpdateData updateTask = new UpdateData();
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
-
-        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php");
 
         content = (EditText)findViewById(R.id.input_commend_content);
 
@@ -86,9 +98,9 @@ public class InconvenienceDetailPostActivity extends Activity {
             TextView post_date = findViewById(R.id.date);
             post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            TextView post_views = findViewById(R.id.views);
-            post_views.setText(c.getString(TAG_VIEWS));
-
+            //add_views = findViewById(R.id.views);
+            add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS))+1));
+            pard=Integer.parseInt(c.getString(TAG_VIEWS))+1;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -135,6 +147,75 @@ public class InconvenienceDetailPostActivity extends Activity {
 
     }
 
+    protected void showListCommend() {
+        try {
+            JSONObject jsonObj = new JSONObject(myCommendJSON);
+            commendPosts = jsonObj.getJSONArray(TAG_AMOUNT);
+            for (int i = 0; i < commendPosts.length(); i++) {
+                JSONObject c = commendPosts.getJSONObject(i);
+                if(c.getString(TAG_NUMBER).equals(intent.getStringExtra("title"))){
+
+                String content = c.getString(TAG_CONTENT);
+                String date = c.getString(TAG_REGISTRATION_DATE);
+
+                HashMap<String, String> posts2 = new HashMap<String, String>();
+
+                posts2.put(TAG_CONTENT, content);
+                posts2.put(TAG_REGISTRATION_DATE, date);
+                postList.add(posts2);
+                }
+            }
+                ListAdapter adapter = new SimpleAdapter(
+                        InconvenienceDetailPostActivity.this, postList, R.layout.item_inconvenience_commend,
+                        new String[]{TAG_CONTENT, TAG_REGISTRATION_DATE},
+                        new int[]{R.id.commend_content, R.id.commend_date});
+            commendList.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getCommendData(String url) {
+        class GetCommendDataJSON extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                String uri = params[0];
+
+                BufferedReader bufferedReader = null;
+                try {
+                    URL url = new URL(uri);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+
+                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    return sb.toString().trim();
+
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                myCommendJSON = result;
+                showListCommend();
+            }
+        }
+
+        GetCommendDataJSON ge = new GetCommendDataJSON();
+
+        ge.execute(url);
+
+    }
+
+
     class UpdateData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
@@ -162,9 +243,9 @@ public class InconvenienceDetailPostActivity extends Activity {
             String number = (String)params[1];
             String views = (String)params[2];
 
+            Log.d("testad", views);
             String serverURL = (String)params[0];
-            String postParameters = "number=" + number + "&views=" + String.valueOf(Integer.parseInt(views)+1);
-            Log.d("testttt",views);
+            String postParameters = "number=" + number + "&views=" + Integer.parseInt(views);
 
             try {
                 URL url = new URL(serverURL);

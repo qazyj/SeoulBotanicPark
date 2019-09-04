@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
@@ -20,7 +20,7 @@
             android:layout_weight="7.5">
 
             <TextView
-                android:id="@+id/comment_content"
+                android:id="@+id/commend_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -38,7 +38,7 @@
             android:paddingHorizontal="10dp">
 
             <TextView
-                android:id="@+id/comment_date"
+                android:id="@+id/commend_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
