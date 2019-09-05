@@ -7,8 +7,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:weightSum="10">
+        android:layout_height="50dp"
+        android:weightSum="5.2">
 
 
         <LinearLayout
@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:layout_weight="7.5">
+            android:paddingVertical="5dp"
+            android:layout_weight="5">
 
             <TextView
                 android:id="@+id/commend_content"
@@ -34,7 +34,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2.4"
+            android:layout_weight="0.2"
             android:paddingHorizontal="10dp">
 
             <TextView

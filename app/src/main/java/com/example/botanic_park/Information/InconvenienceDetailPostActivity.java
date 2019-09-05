@@ -62,7 +62,7 @@ public class InconvenienceDetailPostActivity extends Activity {
 
         getCommendData("http://" + IP_ADDRESS + "/selectinconveniencecommend.php");         //글에 대한 댓글 가져오기
 
-        add_views.setText(String.valueOf(Integer.parseInt(intent.getStringExtra("title"))+1));
+        add_views.setText(String.valueOf(Integer.parseInt(intent.getStringExtra("views"))+1));
 
         UpdateData updateTask = new UpdateData();
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());

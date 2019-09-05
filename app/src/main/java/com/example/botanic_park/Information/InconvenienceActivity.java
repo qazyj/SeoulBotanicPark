@@ -93,8 +93,8 @@ public class InconvenienceActivity extends Activity {
                     int nIdx = arr[1].indexOf("number=");
                     String str2 = arr[1].substring(nIdx+7);
                     int getviews1 = arr[3].indexOf("views=");
-                    String str3 = arr[3].substring(getviews1+6);
-                    Log.d("checkcheck", arr[3].substring(getviews1+6));
+                    String str3 = arr[3].substring(getviews1+6,arr[3].length()-1);
+                    //Log.d("checkcheck", str3);
 
                     intent.putExtra("title", str2);
                     intent.putExtra("views", str3);
