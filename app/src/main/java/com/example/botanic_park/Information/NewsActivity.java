@@ -2,13 +2,17 @@ package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.example.botanic_park.SSLConnect;
 import com.example.botanic_park.WebViewActivity;
@@ -29,8 +33,13 @@ public class NewsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
 
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
+        setContentView(R.layout.activity_news);
+        AppManager.getInstance().setNewsActivity(this);
     }
 
     @Override
@@ -56,6 +65,16 @@ public class NewsActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int height = displayMetrics.heightPixels;// 세로
+        LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
+        LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
+        frameLayout2.topMargin= -height;
+        frameLayout.setLayoutParams(frameLayout2);
     }
 
     /* 웹에서 정보 긁어오는 클래스 */

@@ -1,8 +1,6 @@
 package com.example.botanic_park;
 
-import com.example.botanic_park.Information.InconvenienceActivity;
-import com.example.botanic_park.Information.InconvenienceDetailPostActivity;
-import com.example.botanic_park.Information.RegistrationPostInInconvenienceActivity;
+import com.example.botanic_park.Information.*;
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PaymentAndQR.scan_QR;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
@@ -70,4 +68,17 @@ public class AppManager {
     private RegistrationPostInInconvenienceActivity registrationPostInInconvenienceActivity;
     public void setRegistrationPostInInconvenienceActivity(RegistrationPostInInconvenienceActivity  registrationPostInInconvenienceActivity) {this.registrationPostInInconvenienceActivity = registrationPostInInconvenienceActivity; }
     public RegistrationPostInInconvenienceActivity getRegistrationPostInInconvenienceActivity(){ return  registrationPostInInconvenienceActivity; }
+
+    private InformationUseActivity informationUseActivity;
+    public void setInformationUseActivity(InformationUseActivity  informationUseActivity) {this.informationUseActivity = informationUseActivity; }
+    public InformationUseActivity getInformationUseActivity(){ return  informationUseActivity; }
+
+    private WayToComeActivity wayToComeActivity;
+    public void setWayToComeActivity(WayToComeActivity  wayToComeActivity) {this.wayToComeActivity = wayToComeActivity; }
+    public WayToComeActivity getWayToComeActivity(){ return  wayToComeActivity; }
+
+    private com.example.botanic_park.Information.NewsActivity newsActivity;
+    public void setNewsActivity(com.example.botanic_park.Information.NewsActivity  newsActivity) {this.newsActivity = newsActivity; }
+    public com.example.botanic_park.Information.NewsActivity getNewsActivity(){ return  newsActivity; }
     }
+

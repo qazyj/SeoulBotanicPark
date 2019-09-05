@@ -9,9 +9,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 
@@ -25,7 +27,6 @@ public class InformationUseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information_use);
 /*
         BaseURL="http://botanicpark.seoul.go.kr";
 
@@ -38,6 +39,14 @@ public class InformationUseActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
+        setContentView(R.layout.activity_information_use);
+        AppManager.getInstance().setInformationUseActivity(this);
+
 
         TextView textView1 = findViewById(R.id.spannable1);
         TextView textView2 = findViewById(R.id.spannable2);

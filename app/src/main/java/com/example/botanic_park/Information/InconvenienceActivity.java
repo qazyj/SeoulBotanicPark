@@ -37,7 +37,7 @@ public class InconvenienceActivity extends Activity {
     ArrayList<HashMap<String, String>> postList;
     ListView list;
 
-    //logoframe
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,7 +130,6 @@ public class InconvenienceActivity extends Activity {
 
         int height = displayMetrics.heightPixels;// 세로
         LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
-        ImageView imageView = (ImageView) findViewById(R.id.seoul_botanical_garden_logo) ;
         LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
         frameLayout2.topMargin= -height;
         frameLayout.setLayoutParams(frameLayout2);

@@ -6,30 +6,29 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:padding="15dp">
 
-            <ImageView
-                android:id="@+id/seoul_botanical_garden_logo"
+            <TextView
+                android:id="@+id/title_plant_book"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:src="@drawable/seoul_botanical_garden_logo"
-                android:layout_gravity="center"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center_horizontal"
+                android:text="새 소식"
+                android:textColor="@color/colorBaseCyan"
+                android:textSize="20sp"/>
 
             <View
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/seoul_botanical_garden_logo"
+                android:layout_below="@id/title_plant_book"
                 android:background="@color/orange_color"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="30dp" />
 
             <LinearLayout
                 android:id="@+id/line2"
@@ -898,5 +897,17 @@
 
             </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
+    <LinearLayout
+        android:id="@+id/logoframe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBanner">
+
+        <ImageView
+            android:id="@+id/seoul_botanical_garden_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@drawable/seoul_botanical_garden_logo" />
+    </LinearLayout>
 </LinearLayout>
