@@ -141,6 +141,7 @@
             android:id="@+id/textview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="댓 글"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -167,6 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@color/lightGray"
+                    android:layout_marginTop="10dp"
                     android:dividerHeight="1dp"
                     android:layout_weight="7.95"/>
 
