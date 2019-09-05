@@ -3,6 +3,7 @@ package com.example.botanic_park.Information;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +55,13 @@ public class InconvenienceDetailPostActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_inconvenience_detail_post);
+        AppManager.getInstance().setInconvenienceDetailPostActivity(this);
     }
 
     @Override
@@ -370,7 +378,7 @@ public class InconvenienceDetailPostActivity extends Activity {
             String content = (String)params[2];
             long now = System.currentTimeMillis();
             Date today = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];

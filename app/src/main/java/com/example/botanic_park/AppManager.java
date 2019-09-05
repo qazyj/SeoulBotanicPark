@@ -1,9 +1,11 @@
 package com.example.botanic_park;
 
+import com.example.botanic_park.Information.InconvenienceActivity;
+import com.example.botanic_park.Information.InconvenienceDetailPostActivity;
+import com.example.botanic_park.Information.RegistrationPostInInconvenienceActivity;
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PaymentAndQR.scan_QR;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
-import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -57,4 +59,15 @@ public class AppManager {
     public void setScan_qr(scan_QR  scan_qr) {this.scan_qr = scan_qr; }
     public scan_QR getScan_qr(){ return  scan_qr; }
 
+    private InconvenienceActivity inconvenienceActivity;
+    public void setInconvenienceActivity(InconvenienceActivity  inconvenienceActivity) {this.inconvenienceActivity = inconvenienceActivity; }
+    public InconvenienceActivity getInconvenienceActivity(){ return  inconvenienceActivity; }
+
+    private InconvenienceDetailPostActivity inconvenienceDetailPostActivity;
+    public void setInconvenienceDetailPostActivity(InconvenienceDetailPostActivity  scan_qr) {this.inconvenienceDetailPostActivity = inconvenienceDetailPostActivity; }
+    public InconvenienceDetailPostActivity getInconvenienceDetailPostActivity(){ return  inconvenienceDetailPostActivity; }
+
+    private RegistrationPostInInconvenienceActivity registrationPostInInconvenienceActivity;
+    public void setRegistrationPostInInconvenienceActivity(RegistrationPostInInconvenienceActivity  registrationPostInInconvenienceActivity) {this.registrationPostInInconvenienceActivity = registrationPostInInconvenienceActivity; }
+    public RegistrationPostInInconvenienceActivity getRegistrationPostInInconvenienceActivity(){ return  registrationPostInInconvenienceActivity; }
     }

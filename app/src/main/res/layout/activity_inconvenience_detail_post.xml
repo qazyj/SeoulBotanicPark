@@ -39,62 +39,87 @@
                     android:src="@drawable/seoul_botanical_garden_logo"
                     android:layout_gravity="center"/>
 
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/line2"
+                    android:background="@color/colorBaseLightGreen"
+                    android:layout_marginTop="10dp" />
+
                 <TextView
                     android:id="@+id/title"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="17dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/colorBase"
+
+                    android:layout_marginTop="10dp"
                     android:text="온실에 편의점 생겼으면 좋겠어요"/>
 
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/line2"
+                    android:background="@color/lightGray"
+                    android:layout_marginTop="10dp" />
 
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_marginTop="10dp"
-                    android:textSize="10dp"
-                    android:textColor="@android:color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2018/08/24"
-                    android:layout_gravity="right"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="3dp">
                     <!--오른쪽 정렬을 위한 View-->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/view"
-                        android:layout_marginTop="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="조회수 : "
+                        android:text="작성일"
                         android:textColor="@android:color/black"
-                        android:textSize="10dp"/>
+                        android:textStyle="bold"
+                        android:textSize="13dp"/>
 
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13dp"
+                        android:textColor="@color/no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="2018/08/24"
+                        android:layout_gravity="right"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="조회수"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="13dp"/>
                     <TextView
                         android:id="@+id/views"
-                        android:layout_marginTop="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
                         android:text="0"
-                        android:textColor="@android:color/black"
-                        android:textSize="10dp"/>
+                        android:textColor="@color/no"
+                        android:textSize="13dp"/>
                 </LinearLayout>
                 <TextView
                     android:id="@+id/content"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     android:textColor="@android:color/black"
+                    android:padding="15dp"
                     android:text="공원과 떨어진 곳에 편의점이있는데 편의점 가려할 때 멀어서 불편합니다!!!!"/>
             </LinearLayout>
 
@@ -109,7 +134,23 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
+            android:layout_weight="0.01"
+            android:background="@color/lightGray" />
+
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="댓 글"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorBase"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
             android:background="@color/lightGray" />
 
         <LinearLayout
@@ -127,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:divider="@color/lightGray"
                     android:dividerHeight="1dp"
-                    android:layout_weight="8.95"/>
+                    android:layout_weight="7.95"/>
 
             <View
                 android:layout_width="match_parent"
@@ -135,12 +176,16 @@
                 android:layout_weight="0.05"
                 android:background="@color/lightGray" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/lightGray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:weightSum="10"
                 android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="9"

@@ -31,17 +31,23 @@ public class NewsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         intent = new Intent(getApplicationContext(), WebViewActivity.class);
 
         // AsyncTask 작동시킴(파싱)
         new ParseInformationTask().execute();
 
         findViewById(R.id.viewMore).setOnClickListener(new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
-                        startActivity(intent);
-                    }
-                }
+                                                           public void onClick(View v) {
+                                                               intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
+                                                               startActivity(intent);
+                                                           }
+                                                       }
         );
 
         //이용안내 창 들어간다음 사진이 늦게나오는걸 방지하기 위해 쓰레드 슬립줌

@@ -2,12 +2,14 @@ package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 import java.io.BufferedReader;
@@ -30,7 +32,13 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_registration_post_in_inconvenience);
+        AppManager.getInstance().setRegistrationPostInInconvenienceActivity(this);
 
         title = (EditText)findViewById(R.id.input_title);
         content = (EditText)findViewById(R.id.input_content);
@@ -78,7 +86,7 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
             int views = 0;
             long now = System.currentTimeMillis();
             Date today = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];

@@ -2,26 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/seoul_botanical_garden_logo"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/seoul_botanical_garden_logo"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="15dp">
+
+    <TextView
+        android:id="@+id/title_plant_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_horizontal"
+        android:text="건의 사항"
+        android:textColor="@color/colorBaseCyan"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:orientation="vertical"
         android:weightSum="10"
-        android:layout_below="@id/seoul_botanical_garden_logo">
+        android:layout_below="@id/title_plant_book">
 
         <LinearLayout
+            android:id="@+id/firstlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -30,8 +48,7 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/orange_color"
-        android:layout_marginTop="20dp" />
+        android:background="@color/orange_color"/>
 
     <LinearLayout
         android:id="@+id/line2"
@@ -97,33 +114,38 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/secondlayout"
+            android:layout_below="@id/firstlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
-            android:layout_weight="6">
+            android:layout_marginTop="-3dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
         <ListView
             android:id="@+id/listviewpost"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_below="@+id/line3"
+            android:layout_height="395dp"
             android:divider="@color/lightGray"
             android:dividerHeight="1dp"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/registration_post_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="0dp"
+            android:layout_below="@id/secondlayout"
+            android:layout_weight="8">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"/>
 
             <Button
                 android:id="@+id/registration_post_button2"
+                android:layout_marginTop="10dp"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:gravity="center"
@@ -143,5 +165,19 @@
             android:layout_weight="2"
             android:layout_marginRight="20dp"/>
     </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/logoframe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBanner">
 
+        <ImageView
+            android:id="@+id/seoul_botanical_garden_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@drawable/seoul_botanical_garden_logo" />
+    </LinearLayout>
 </LinearLayout>
