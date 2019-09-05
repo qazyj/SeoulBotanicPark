@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -51,6 +54,11 @@ public class InconvenienceDetailPostActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inconvenience_detail_post);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         intent = getIntent();
         add_views = findViewById(R.id.views);
@@ -68,6 +76,37 @@ public class InconvenienceDetailPostActivity extends Activity {
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
         content = (EditText)findViewById(R.id.input_commend_content);
+        //댓글 텍스트 글자수 제한 두려고 하는데 잘 안됌 일단 보류
+        content.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                String[] arr = content.getText().toString().split("(?<!^)");
+                Log.d("tagcheck", arr[content.length()-1]);
+
+                if(content.length()>=2 && arr[content.length() - 2].equals(" ")) {
+                    int maxLength = getResources().getInteger(R.integer.max_length);
+                    Log.d("tagcheck", ""+maxLength);
+                    InputFilter[] FilterArray = new InputFilter[1];
+
+                    FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
+                    content.setFilters(FilterArray);
+                    //content.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength+1)});
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
 
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +117,8 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                 InsertCommend task = new InsertCommend();
                 task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
+
+                onStart();      //댓글 추가하면 바로 달리게 onStart 사용
             }
         });
 

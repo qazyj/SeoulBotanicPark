@@ -151,8 +151,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
+                        android:maxLength="@integer/max_length"
                         android:background="@android:color/white"
-                        android:hint="댓글을 입력해 주세요."
+                        android:hint="댓글을 입력해 주세요.(60자 이내)"
                         android:textColor="#bababa"
                         android:textSize="10dp" />
                 </LinearLayout>

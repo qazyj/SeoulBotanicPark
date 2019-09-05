@@ -38,19 +38,24 @@ public class InconvenienceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inconvenience);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         list = (ListView) findViewById(R.id.listviewpost);
         postList = new ArrayList<HashMap<String, String>>();
 
         getData("http://106.10.37.13/inconvenienceselect.php"); //수정 필요
 
         findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
-                startActivity(intent);
-            }
-        }
+                                                                            public void onClick(View v) {
+                                                                                Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
+                                                                                startActivity(intent);
+                                                                            }
+                                                                        }
         );
-
     }
 
     protected void showList() {
