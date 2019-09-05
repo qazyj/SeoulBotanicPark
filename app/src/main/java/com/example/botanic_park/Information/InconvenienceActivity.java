@@ -72,7 +72,7 @@ public class InconvenienceActivity extends Activity {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             posts = jsonObj.getJSONArray(TAG_AMOUNT);
-            for (int i = 0; i < posts.length(); i++) {
+            for (int i = posts.length()-1; i >=0; i--) {
                 JSONObject c = posts.getJSONObject(i);
                 String number = c.getString(TAG_NUMBER);
                 String title = c.getString(TAG_TITLE);
