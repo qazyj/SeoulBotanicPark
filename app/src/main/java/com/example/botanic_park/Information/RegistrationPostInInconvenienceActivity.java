@@ -2,12 +2,14 @@ package com.example.botanic_park.Information;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 import java.io.BufferedReader;
@@ -21,8 +23,8 @@ import java.util.Date;
 
 public class RegistrationPostInInconvenienceActivity extends Activity {
 
-    private static String IP_ADDRESS = "106.10.37.13";
-    private static String TAG = "check";
+    private static final String IP_ADDRESS = "106.10.37.13";
+    private static final String TAG = "check";
 
     private EditText title;
     private EditText content;
@@ -30,7 +32,13 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_registration_post_in_inconvenience);
+        AppManager.getInstance().setRegistrationPostInInconvenienceActivity(this);
 
         title = (EditText)findViewById(R.id.input_title);
         content = (EditText)findViewById(R.id.input_content);
@@ -39,7 +47,6 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String post_title = title.getText().toString();
                 String post_content = content.getText().toString();
 
@@ -76,19 +83,17 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
             String title = (String)params[1];
             String content = (String)params[2];
-            int recommendation = 0;
-            int notrecommendation = 0;
+            int views = 0;
             long now = System.currentTimeMillis();
             Date today = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];
-            String postParameters = "title=" + title + "&content=" + content + "&recommendation=" + recommendation + "&notrecommendation=" + notrecommendation + "&date=" + date ;
+            String postParameters = "title=" + title + "&content=" + content + "&views=" + views + "&date=" + date ;
 
 
             try {
-
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 

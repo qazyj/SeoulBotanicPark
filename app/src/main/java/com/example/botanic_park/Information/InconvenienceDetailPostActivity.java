@@ -3,75 +3,118 @@ package com.example.botanic_park.Information;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.*;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class InconvenienceDetailPostActivity extends Activity {
 
-    private static String IP_ADDRESS = "106.10.37.13";
+    private static final String IP_ADDRESS = "106.10.37.13";
+    private static final String TAG = "check";
 
     String myJSON;
+    String myCommendJSON=null;
 
     private static Intent intent;
     private static final String TAG_TITLE = "title";
     private static final String TAG_CONTENT = "content";
-    private static final String TAG_RECOMMENDATION = "recommendation";
-    private static final String TAG_NOTRECOMMENDATION = "notrecommendation";
+    private static final String TAG_VIEWS = "views";
     private static final String TAG_REGISTRATION_DATE = "date";
     private static final String TAG_AMOUNT = "result";
+    private static final String TAG_NUMBER = "number";
 
     JSONArray posts = null;
+    JSONArray commendPosts = null;
 
     private EditText content;           //댓글 추가
+    int pard;               //삭제 해도됌 asynctask에서 views값 가져오고 싶은데 안됨;;ㅠ
+    TextView add_views;
+
+    ListView commendList;
+    ArrayList<HashMap<String, String>> postList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_inconvenience_detail_post);
+        AppManager.getInstance().setInconvenienceDetailPostActivity(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         intent = getIntent();
+        add_views = findViewById(R.id.views);
 
-        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php"); //수정 필요
+        getData("http://" + IP_ADDRESS + "/inconvenienceselect.php");   //글에 대한 정보 가져오기
 
-        findViewById(R.id.recommend_button).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                TextView add_recommendation_number = findViewById(R.id.recommendation_number);
-                add_recommendation_number.setText(String.valueOf(Integer.parseInt(add_recommendation_number.getText().toString())+1));
+        commendList = (ListView) findViewById(R.id.listviewcommend);
+        postList = new ArrayList<HashMap<String, String>>();
 
-                UpdateData task = new UpdateData();
-                task.execute("http://" + IP_ADDRESS + "/addpostrecommendation.php", intent.getStringExtra("title"), add_recommendation_number.getText().toString());
-            }
-        }
-        );
+        getCommendData("http://" + IP_ADDRESS + "/selectinconveniencecommend.php");         //글에 대한 댓글 가져오기
 
-        findViewById(R.id.not_recommended_button).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                TextView add_not_recommendation_number = findViewById(R.id.not_recommendation_number);
-                add_not_recommendation_number.setText(String.valueOf(Integer.parseInt(add_not_recommendation_number.getText().toString())+1));
-            }
-        }
-        );
+        add_views.setText(String.valueOf(Integer.parseInt(intent.getStringExtra("views"))+1));
+
+        UpdateData updateTask = new UpdateData();
+        updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
         content = (EditText)findViewById(R.id.input_commend_content);
+        //댓글 텍스트 글자수 제한 두려고 하는데 잘 안됌 일단 보류
+        content.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                String[] arr = content.getText().toString().split("(?<!^)");
+                Log.d("tagcheck", arr[content.length()-1]);
+
+                if(content.length()>=2 && arr[content.length() - 2].equals(" ")) {
+                    int maxLength = getResources().getInteger(R.integer.max_length);
+                    Log.d("tagcheck", ""+maxLength);
+                    InputFilter[] FilterArray = new InputFilter[1];
+
+                    FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
+                    content.setFilters(FilterArray);
+                    //content.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength+1)});
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
 
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +125,11 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                 InsertCommend task = new InsertCommend();
                 task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
+
+                onStart();      //댓글 추가하면 바로 달리게 onStart 사용
             }
         });
+
     }
 
     protected void showList() {
@@ -101,12 +147,9 @@ public class InconvenienceDetailPostActivity extends Activity {
             TextView post_date = findViewById(R.id.date);
             post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            TextView post_recommendation = findViewById(R.id.recommendation_number);
-            post_recommendation.setText(c.getString(TAG_RECOMMENDATION));
-
-            TextView post_not_recommendation = findViewById(R.id.not_recommendation_number);
-            post_not_recommendation.setText(c.getString(TAG_NOTRECOMMENDATION));
-
+            //add_views = findViewById(R.id.views);
+            add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS))+1));
+            pard=Integer.parseInt(c.getString(TAG_VIEWS))+1;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,6 +196,75 @@ public class InconvenienceDetailPostActivity extends Activity {
 
     }
 
+    protected void showListCommend() {
+        try {
+            JSONObject jsonObj = new JSONObject(myCommendJSON);
+            commendPosts = jsonObj.getJSONArray(TAG_AMOUNT);
+            for (int i = 0; i < commendPosts.length(); i++) {
+                JSONObject c = commendPosts.getJSONObject(i);
+                if(c.getString(TAG_NUMBER).equals(intent.getStringExtra("title"))){
+
+                String content = c.getString(TAG_CONTENT);
+                String date = c.getString(TAG_REGISTRATION_DATE);
+
+                HashMap<String, String> posts2 = new HashMap<String, String>();
+
+                posts2.put(TAG_CONTENT, content);
+                posts2.put(TAG_REGISTRATION_DATE, date);
+                postList.add(posts2);
+                }
+            }
+                ListAdapter adapter = new SimpleAdapter(
+                        InconvenienceDetailPostActivity.this, postList, R.layout.item_inconvenience_commend,
+                        new String[]{TAG_CONTENT, TAG_REGISTRATION_DATE},
+                        new int[]{R.id.commend_content, R.id.commend_date});
+            commendList.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getCommendData(String url) {
+        class GetCommendDataJSON extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                String uri = params[0];
+
+                BufferedReader bufferedReader = null;
+                try {
+                    URL url = new URL(uri);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+
+                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    return sb.toString().trim();
+
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                myCommendJSON = result;
+                showListCommend();
+            }
+        }
+
+        GetCommendDataJSON ge = new GetCommendDataJSON();
+
+        ge.execute(url);
+
+    }
+
+
     class UpdateData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
@@ -164,10 +276,11 @@ public class InconvenienceDetailPostActivity extends Activity {
                     "Please Wait", null, true, true);
         }
 
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
 
             progressDialog.dismiss();
         }
@@ -176,12 +289,12 @@ public class InconvenienceDetailPostActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
 
-            String number = (String) params[1];
-            String recommendation = (String)params[2];
+            String number = (String)params[1];
+            String views = (String)params[2];
 
+            Log.d("testad", views);
             String serverURL = (String)params[0];
-            String postParameters = "number" + number + "&recommendation" + recommendation;
-            Log.d("testttt",recommendation);
+            String postParameters = "number=" + number + "&views=" + Integer.parseInt(views);
 
             try {
                 URL url = new URL(serverURL);
@@ -192,12 +305,10 @@ public class InconvenienceDetailPostActivity extends Activity {
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d("texttest", "POST response code - " + responseStatusCode);
@@ -254,6 +365,8 @@ public class InconvenienceDetailPostActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
+
             progressDialog.dismiss();
         }
 
@@ -265,11 +378,11 @@ public class InconvenienceDetailPostActivity extends Activity {
             String content = (String)params[2];
             long now = System.currentTimeMillis();
             Date today = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
             String date = sdf.format(today);
 
             String serverURL = (String)params[0];
-            String postParameters = "number" + number + "&content" + content + "&date" +date;
+            String postParameters = "number=" + number + "&content=" + content + "&date=" +date;
 
             try {
 
@@ -280,6 +393,7 @@ public class InconvenienceDetailPostActivity extends Activity {
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
 
@@ -290,7 +404,7 @@ public class InconvenienceDetailPostActivity extends Activity {
 
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("inserttext", "POST response code - " + responseStatusCode);
+                Log.d(TAG, "response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -305,7 +419,7 @@ public class InconvenienceDetailPostActivity extends Activity {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
 
                 while((line = bufferedReader.readLine()) != null){
                     sb.append(line);
@@ -315,19 +429,21 @@ public class InconvenienceDetailPostActivity extends Activity {
                 bufferedReader.close();
 
 
-                return sb.toString();
+                return sb.toString().trim();
 
 
             } catch (Exception e) {
 
-                Log.d("inserttext", "InsertData: Error ", e);
+                Log.d(TAG, "InsertData: Error ", e);
 
-                return new String("Error: " + e.getMessage());
+                return null;
             }
 
         }
     }
 
 }
+
+
 
 

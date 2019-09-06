@@ -9,7 +9,9 @@ import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.widget.TextView;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 public class WayToComeActivity extends Activity {
@@ -17,7 +19,13 @@ public class WayToComeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_way_to_come);
+        AppManager.getInstance().setWayToComeActivity(this);
 
         TextView textView = findViewById(R.id.traffic_information2);
         TextView textView1 = findViewById(R.id.way_to_come_car);

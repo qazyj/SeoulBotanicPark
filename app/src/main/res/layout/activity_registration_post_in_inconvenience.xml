@@ -3,9 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#e4e4e4"
+    android:background="@android:color/white"
     android:gravity="center"
     android:weightSum="10">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="제 목"
+        android:textSize="20dp"
+        android:layout_weight="0.5"
+        android:textColor="@color/colorBase"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/information_border"
+        android:padding="15dp">
 
         <EditText
             android:id="@+id/input_title"
@@ -16,18 +34,32 @@
             android:textColor="@android:color/black"
             android:textStyle="normal"
             android:background="@android:color/white" />
+    </LinearLayout>
 
-        <View
-            android:layout_weight="0.03"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#bababa"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내 용"
+        android:textSize="20dp"
+        android:layout_weight="0.5"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorBase"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_weight="6"
+        android:background="@drawable/information_border"
+        android:padding="15dp">
 
         <EditText
             android:id="@+id/input_content"
             android:layout_weight="5"
             android:hint="※내용을 적어주세요. \n\n욕설, 비방 등 법적 문제의 소지가 있는 경우 차단 및 신고, 처벌 받으실 수 있습니다."
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_width="match_parent"
             android:maxLines="10"
             android:inputType="textMultiLine"
@@ -35,12 +67,7 @@
             android:privateImeOptions="defaultInputmode=korean"
             android:scrollbars="vertical"
             android:background="@android:color/white"/>
-
-        <View
-            android:layout_weight="0.03"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#bababa"/>
+    </LinearLayout>
 
             <Button
                 android:id="@+id/registration_post_button2"
