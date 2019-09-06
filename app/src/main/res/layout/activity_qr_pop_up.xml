@@ -5,26 +5,10 @@
     android:background="@color/colorTransparent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/colorTransparent"
-        >
-
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_add_popup"
-            android:rotation="45"
-            android:id="@+id/close" />
-    </FrameLayout>
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@drawable/qr_activity_border"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="410dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -90,4 +74,19 @@
             />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorTransparent">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_add_popup"
+            android:rotation="45"
+            android:id="@+id/close" />
+    </FrameLayout>
+
 </LinearLayout>

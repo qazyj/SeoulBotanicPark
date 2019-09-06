@@ -76,7 +76,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     // 서피스뷰에서 사진을 찍도록 하는 메서드
     public void capture(Camera.PictureCallback jpegCallback) {
         if(mCamera != null) {
-            mCamera.takePicture(null, rawCallback, jpegCallback);
+            mCamera.takePicture(shutterCallback, rawCallback, jpegCallback);
         }
     }
 

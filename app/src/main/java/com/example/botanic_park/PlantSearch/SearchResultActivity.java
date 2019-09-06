@@ -74,8 +74,8 @@ public class SearchResultActivity extends AppCompatActivity {
         ItemDecoration decoration = new ItemDecoration();
         recyclerView.addItemDecoration(decoration);
 
-        ImageButton closeBtn = findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        TextView yesBtn = findViewById(R.id.btn_yes);
+        yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -111,10 +111,12 @@ public class SearchResultActivity extends AppCompatActivity {
         String[] words = searchword.split(" ");
         for (PlantBookItem item : list) {
             for (String word : words) {
+                Log.d("test", word);
                 if (item.getName_ko().contains(word)
                         || item.getName_en().contains(word)
                         || item.getName_sc().contains(word)) {
                     searchList.add(item);
+                    Log.d("test add", item.getName_ko());
                     //searchWordList.add(searchList.size()-1, item.getName_ko());  // 텍스트 검색은 검색 결과 넣어줌
                 }
             }

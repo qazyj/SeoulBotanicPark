@@ -107,7 +107,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/margin_normal">
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -118,7 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="카페 1000원 할인 쿠폰" />
+                        android:text="카페 1000원 할인 쿠폰"
+                        android:layout_marginBottom="@dimen/margin_narrow"/>
                 </LinearLayout>
 
             </FrameLayout>

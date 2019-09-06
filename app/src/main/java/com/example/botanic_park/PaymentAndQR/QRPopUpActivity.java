@@ -3,14 +3,8 @@ package com.example.botanic_park.PaymentAndQR;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.R;
 import com.google.zxing.BarcodeFormat;
@@ -56,6 +50,7 @@ public class QRPopUpActivity extends Activity {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             iv.setImageBitmap(bitmap);
+
         }catch (Exception e){}
 
         TextView date = findViewById(R.id.date);
