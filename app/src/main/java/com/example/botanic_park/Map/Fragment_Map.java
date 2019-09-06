@@ -121,7 +121,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
-
+        
         all = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.all_pins);
         tickebox = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.ticket_box);
         playground = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.playground);
