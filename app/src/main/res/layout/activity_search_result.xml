@@ -2,17 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp">
-
-    <ImageButton
-        android:id="@+id/close_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:layout_marginEnd="@dimen/margin_normal"
-        android:background="@null"
-        android:src="@drawable/ic_close_no" />
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp">
 
     <LinearLayout
         android:layout_below="@+id/close_btn"
@@ -38,7 +29,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -51,7 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:text="검색 결과가 없습니다"
+                    android:gravity="center"
+                    android:text="서울 식물원 보유종이 아닙니다\n하단의 검색 결과를 확인해 주세요"
+                    android:lineSpacingExtra="10dp"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -62,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/round_square_background_large"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
                 <!-- 이미지 -->
                 <ImageView
                     android:id="@+id/image_detail"
@@ -207,13 +200,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_narrow"
-                    android:src="@drawable/ic_help_outline" />
+                    android:src="@drawable/ic_search" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="원하는 결과가 없나요?" />
+                    android:text="검색 결과" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -223,7 +216,21 @@
                 android:layout_marginTop="@dimen/margin_narrow"
                 android:scrollbars="horizontal"
                 android:scrollbarStyle="outsideInset"
-                android:padding="5dp"/>
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/btn_yes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_square_background_thumb"
+                android:gravity="center_horizontal"
+                android:text="확인"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
         </LinearLayout>
     </LinearLayout>
 

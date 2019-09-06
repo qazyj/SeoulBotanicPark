@@ -2,11 +2,8 @@ package com.example.botanic_park;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +11,7 @@ import android.widget.*;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.Help.HelpActivity;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
@@ -24,8 +22,6 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.util.ArrayList;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
@@ -81,6 +77,15 @@ public class Fragment_Home extends Fragment {
         }
 
 
+        ImageButton helpBtn = view.findViewById(R.id.help_btn);
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), HelpActivity.class);
+                intent.putExtra(HelpActivity.HELP_CODE, HelpActivity.HELP_TODAY_PLANT);
+                startActivity(intent);
+            }
+        });
         /*
         //결제 초기화
         ((Button) view.findViewById(R.id.button)).setOnClickListener(new View.OnClickListener(){
@@ -106,9 +111,11 @@ public class Fragment_Home extends Fragment {
         plantsToday.add(getNewItem(list.get(1)));
         plantsToday.add(getNewItem(list.get(2)));
 
-        for (int i = 0; i < 2; i++) {
+
+        for (int i = 0; i < 0; i++) {
             plantsToday.get(i).setCollected(true);
         }
+
 
         AppManager.getInstance().setPlantsToday(plantsToday);
         /*

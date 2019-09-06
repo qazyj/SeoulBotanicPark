@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/background"
     android:layout_width="match_parent"
@@ -14,16 +13,36 @@
         android:layout_gravity="center"
         android:layout_weight="0">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="121"/>
+
         <ImageButton
             android:id="@+id/help_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/margin_narrow"
+            android:layout_marginTop="@dimen/margin_wide"
             android:layout_marginEnd="@dimen/margin_normal"
             android:background="@null"
             android:src="@drawable/ic_help_outline" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginStart="@dimen/margin_narrow">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linear"
@@ -31,14 +50,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="30dp"
-            android:paddingTop="10dp"
-            android:paddingRight="30dp">
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/margin_narrow"
+                android:layout_margin="@dimen/margin_normal"
                 android:src="@drawable/ic_book" />
 
             <TextView
@@ -89,27 +109,7 @@
             </LinearLayout>
 
         </LinearLayout>
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linear"
-            android:max="121" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/margin_narrow"
-            android:layout_marginStart="@dimen/margin_narrow">
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:dropDownWidth="wrap_content" />
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -121,17 +121,18 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:scrollbarThumbVertical="@drawable/round_square_background_thumb"
-        android:scrollbarSize="10dp"
-        android:paddingEnd="5dp">
+        android:scrollbarSize="15dp"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/margin_narrow"
+        android:scrollbarStyle="outsideOverlay">
 
         <!-- 식물 도감 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:paddingBottom="10dp">
 
 
@@ -152,4 +153,3 @@
     </ScrollView>
 
 </LinearLayout>
-

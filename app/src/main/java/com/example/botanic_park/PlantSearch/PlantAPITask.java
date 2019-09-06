@@ -14,7 +14,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import android.widget.Toast;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.NetworkStatus;
+import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,12 +34,13 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
-    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
     private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";
+    private String API_USAGE_URL = "https://api.plant.id/usage_info";
 
     private static final int MAX_READ_TIME = 20000;
     private static final int MAX_CONNECT_TIME = 20000;
@@ -45,6 +48,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     private String image;   // 64bit로 인코딩된 이미지 String
     private JSONArray imageArray;
     private ArrayList<ProbablePlant> probablePlants;
+    private Boolean isOverUseage = false;
 
     Context context;
     ProgressDialog dialog;
@@ -67,15 +71,15 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(NetworkStatus.getConnectivityStatus(context)
-                == NetworkStatus.TYPE_NOT_CONNECTED){
+        if (NetworkStatus.getConnectivityStatus(context)
+                == NetworkStatus.TYPE_NOT_CONNECTED) {
             Toast.makeText(context, "인터넷이 연결되어 있지 않아 사용이 제한됩니다. " +
                     "인터넷을 연결한 후 사용해 주세요", Toast.LENGTH_LONG).show();
             cancel(true);
             return;
         }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("식물을 찾고 있어요...");
+        dialog.setMessage("식물을 찾고 있어요!\n\n잠시만 기다려 주세요...");
         dialog.setCancelable(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -89,13 +93,15 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
     @Override
     protected void onPostExecute(ArrayList<ProbablePlant> o) {
-        if(isCancelled())
+        if (isCancelled())
             return;
 
         dialog.dismiss();
         super.onPostExecute(o);
 
-        if(o.size() > 0) {
+        if (isOverUseage) {
+            Toast.makeText(context, "식물 검색 API의 사용량을 초과하여 검색할 수 없습니다.", Toast.LENGTH_SHORT).show();
+        } else if (o.size() > 0) {
             ArrayList<String> result = new ArrayList<>();
             for (ProbablePlant plant : o) {
                 result.add(plant.name); // 이름만 빼내기
@@ -106,18 +112,43 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
 
             context.startActivity(intent);
-        } else{
-            Toast.makeText(context, "이미지를 인식할 수 없습니다. " +
-                    "인터넷 환경이 원활한지 확인하고 정면을 크게 촬영해 주세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            /*
+            ArrayList<String> result = new ArrayList<>();
+            result.add(AppManager.getInstance().getList().get(1).getName_ko());
+            result.add(AppManager.getInstance().getList().get(1).getName_en());
+            result.add(AppManager.getInstance().getList().get(1).getName_sc());
+            // 검색 결과 창 띄우기
+            Intent intent = new Intent(context, SearchResultActivity.class);
+            intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
+
+            context.startActivity(intent);
+          */
+            Toast.makeText(context, "이미지를 인식할 수 없습니다.\n" +
+                    "다시 촬영해 주세요.", Toast.LENGTH_SHORT).show();
+
         }
     }
 
     @Override
     protected ArrayList<ProbablePlant> doInBackground(Object... objects) {
-        if(isCancelled())
-            return null;
+        // API 사용량 체크
+        String usageResponse = getUsageInfo();
+        try {
+            Object weeklyUsage = new JSONObject(usageResponse).get("used_week");
+            int usageCount = Integer.parseInt(weeklyUsage.toString());
+            if (usageCount >= 20) {
+                isOverUseage = true;
+                return null;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // 첫번째 request
+        if (isCancelled())
+            return null;
         String firstResponse = sendForIdentification();
         JSONArray plantIDArray = new JSONArray();
         try {
@@ -133,9 +164,9 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             e.printStackTrace();
         }
 
-        if(isCancelled())
-            return null;
         // 두번째 request
+        if (isCancelled())
+            return null;
         String secondResponse = getSuggestions(plantIDArray);
         try {
             JSONArray responseArray = new JSONArray(secondResponse);
@@ -145,7 +176,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
                 JSONArray suggestionArray = (JSONArray) suggentions;
                 for (int j = 0; j < suggestionArray.length(); j++) {
-                    if(isCancelled())
+                    if (isCancelled())
                         return null;
 
                     JSONObject object1 = (JSONObject) suggestionArray.get(j);
@@ -163,8 +194,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             e.printStackTrace();
         }
 
-
-
         return probablePlants;
 
         /*
@@ -174,7 +203,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         */
 
     }
-
     private String sendForIdentification() {
         // 첫번째 request 실행
         // 검색 결과의 고유 id를 받아옴
@@ -234,6 +262,35 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+    private String getUsageInfo() {
+        // API 사용량 체크
+        String response = new String();
+
+        try {
+            HttpsURLConnection conn = getHttpUrlConnection(new URL(API_USAGE_URL));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("key", PLANT_API_ACCESS_KEY);
+
+            // Request Body에 Data를 담기 위해 OutputStream 객체 생성
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(jsonObject.toString().getBytes());   // Request Body에 Data 세팅
+            outputStream.flush();   // Data 입력
+            outputStream.close();
+
+            response = getResponse(conn);
+            Log.d("API 사용량", response);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

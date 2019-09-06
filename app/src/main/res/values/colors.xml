@@ -21,6 +21,7 @@
     <color name="lightGray">#DEDEDE</color>
     <!--주황 색-->
     <color name="orange_color">#E46C21</color>
+    <color name="help_background">#fcd3c2</color>
 
     <!-- 투명색 -->
     <color name="colorTransparent">#00FF0000</color>

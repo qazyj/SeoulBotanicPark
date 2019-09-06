@@ -64,6 +64,9 @@
         <activity android:name=".Information.InconvenienceDetailPostActivity"/>
         <activity android:name=".Information.RegistrationPostInInconvenienceActivity"/>
         <activity android:name=".Information.InconvenienceActivity"/>
+        <activity
+            android:name=".Help.HelpActivity"
+            android:theme="@style/Theme.Transparent"/>
     </application>
 
 </manifest>
