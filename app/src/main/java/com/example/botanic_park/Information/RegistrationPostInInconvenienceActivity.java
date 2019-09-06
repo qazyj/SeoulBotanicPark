@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
@@ -98,6 +99,8 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            Toast.makeText(RegistrationPostInInconvenienceActivity.this, result, Toast.LENGTH_LONG).show();
 
             progressDialog.dismiss();
         }

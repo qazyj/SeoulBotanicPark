@@ -280,8 +280,6 @@ public class InconvenienceDetailPostActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
-
             progressDialog.dismiss();
         }
 
