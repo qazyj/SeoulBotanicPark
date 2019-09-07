@@ -8,27 +8,74 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.*;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class PaymentPopUpActivity extends Activity {
     Animation translateDown;
     ImageView zeroPay;
+    private int limitTime = 17;
+    Activity thisActivity = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);  // 타이틀바 없애기
         setContentView(R.layout.activity_payment_pop_up);
+        zeroPay = (ImageView) findViewById(R.id.zero_pay);
+
+        if(canBuyTicketNow()) doToBuyTicket();
+        else  ((TextView)findViewById(R.id.limit)).setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(limitTime) + ":00 입니다.");
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+        finish();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // 바깥레이어 클릭시 안닫히게
+        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean canBuyTicketNow()
+    {
+        int nMonth;
+
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar calendar = Calendar.getInstance(jst);
+
+        nMonth = calendar.get(Calendar.MONTH) + 1;
+
+        if(nMonth < 3 || nMonth > 10) limitTime --;
+
+        int hour = calendar.get ( Calendar.HOUR_OF_DAY );
+
+        if( hour  < limitTime )
+        {
+            if ((hour == limitTime - 1) && calendar.get ( Calendar.MINUTE ) >= 30) return false;
+            return  true;
+        }
+
+        return false;
+    }
+
+    private void doToBuyTicket()
+    {
+        Toast.makeText(getApplicationContext(), "오늘 마감 시간은 \n" + String.valueOf(limitTime) + ":00 입니다.", Toast.LENGTH_SHORT).show();
         AppManager.getInstance().setPaymentPopUpActivity(this);
-
-        Activity thisActivity = this;
-
         translateDown = AnimationUtils.loadAnimation(this,R.anim.slide_down_layout);
 
         LinearLayout mainLayout =  (LinearLayout)findViewById(R.id.main_layout);
@@ -65,21 +112,5 @@ public class PaymentPopUpActivity extends Activity {
             }
         });
 
-        zeroPay = (ImageView) findViewById(R.id.zero_pay);
-    }
-
-    @Override
-    public void onBackPressed() {
-        AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
-        finish();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // 바깥레이어 클릭시 안닫히게
-        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
-            return false;
-        }
-        return true;
     }
 }

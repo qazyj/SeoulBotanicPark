@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +44,29 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
         title = (EditText)findViewById(R.id.input_title);
         content = (EditText)findViewById(R.id.input_content);
+        content.addTextChangedListener(new TextWatcher() {
+            String previousString = "";
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+                previousString= s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (content.getLineCount() > 18)
+                {
+                    content.setText(previousString);
+                    content.setSelection(content.length());
+                }
+            }
+        });
 
         Button buttonInsert = (Button)findViewById(R.id.registration_post_button2);
         buttonInsert.setOnClickListener(new View.OnClickListener() {

@@ -40,8 +40,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     public final String GREEN_HOUSE = "온실";
-    public final String THEME_GARDEN = "주제 정원";
+    public static final String THEME_GARDEN = "주제 정원";
     public final String BOTANIC_CULTURE_CENTER = "문화 센터";
+    public final String VISITOR_INFO = "방문자 센터";
 
     private MapView mapView;
     private FusedLocationSource locationSource;
@@ -506,6 +507,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
                 return true;
             }
 
+            if (information[0].equals(VISITOR_INFO)) {
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/%EC%95%88%EB%82%B4%EB%8F%84.pdf");
+                return true;
+            }
+
             Intent intent = new Intent(getActivity(), Facilities_information.class);
             intent.putExtra("information", information);
             startActivity(intent);
@@ -522,7 +528,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void deactivate() {  // 현재 위치 해제 시에 피벗 위치로 카메라 이동
-            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582, 126.83245227349256), 15));
+            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.5702109, 126.8318991), 14.3));
         }
     }
 
