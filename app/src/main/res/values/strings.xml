@@ -25,8 +25,8 @@
     </string-array>
 
     <string-array name="visitor_info">
-        <item>방문자 정보</item>
-        <item>정보</item>
+        <item>방문자 센터</item>
+        <item>식물원 안내도 열람</item>
     </string-array>
 
     <string-array name="library_info">

@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
                     //transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
+
                 case R.id.information:
                     if (fragment_Information == null) {
                         fragment_Information = Fragment_Information.newInstance();

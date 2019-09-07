@@ -46,6 +46,11 @@ public class Facilities_information extends AppCompatActivity implements View.On
                setTextViewToClick(informationView.findViewById(R.id.url),information[1]);
 
             }
+            else  if(information[0].equals(Fragment_Map.THEME_GARDEN))
+            {
+                informationView = getLayoutInflater().inflate(R.layout.theme_garden, null);
+            }
+
             informationView.setLayoutParams(layoutParams);
             contain.addView(informationView);
 
