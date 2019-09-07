@@ -24,6 +24,16 @@
         android:layout_height="280dp"
         android:background="@color/colorLightPink">
 
+        <TextView
+            android:id="@+id/limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:lineSpacingExtra="5dp"
+            android:textAlignment="center" />
+
         <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
@@ -37,7 +47,7 @@
             android:elevation="10dp"
             android:padding="5dp"
             android:translationZ="10dp"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <FrameLayout
                 android:id="@+id/ticket_payment"
