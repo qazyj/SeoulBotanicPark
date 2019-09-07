@@ -65,7 +65,7 @@ public class NewsActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+/*
         //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -74,7 +74,7 @@ public class NewsActivity extends Activity {
         LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
         LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
         frameLayout2.topMargin= -height;
-        frameLayout.setLayoutParams(frameLayout2);
+        frameLayout.setLayoutParams(frameLayout2);*/
     }
 
     /* 웹에서 정보 긁어오는 클래스 */
