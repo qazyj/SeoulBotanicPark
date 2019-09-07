@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -62,6 +63,16 @@ public class InconvenienceDetailPostActivity extends Activity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_inconvenience_detail_post);
         AppManager.getInstance().setInconvenienceDetailPostActivity(this);
+
+        //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int height = displayMetrics.heightPixels;// 세로
+        LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
+        LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
+        frameLayout2.topMargin= -height;
+        frameLayout.setLayoutParams(frameLayout2);
     }
 
     @Override
@@ -279,8 +290,6 @@ public class InconvenienceDetailPostActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
 
             progressDialog.dismiss();
         }

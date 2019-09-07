@@ -48,6 +48,16 @@ public class InconvenienceActivity extends Activity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_inconvenience);
         AppManager.getInstance().setInconvenienceActivity(this);
+
+        //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int height = displayMetrics.heightPixels;// 세로
+        LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
+        LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
+        frameLayout2.topMargin= -height;
+        frameLayout.setLayoutParams(frameLayout2);
     }
 
     @Override
