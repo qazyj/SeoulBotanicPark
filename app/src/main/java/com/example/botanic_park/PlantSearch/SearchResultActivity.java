@@ -1,5 +1,6 @@
 package com.example.botanic_park.PlantSearch;
 
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -52,7 +54,7 @@ public class SearchResultActivity extends AppCompatActivity {
         searchList = new ArrayList<PlantBookItem>();
 
         Log.d("테스트", searchWordList.size() + "");
-        for(int i=0; i<searchWordList.size(); i++){
+        for (int i = 0; i < searchWordList.size(); i++) {
             Log.d("테스트", i + ": " + searchWordList.get(i));
             getSearchResult(searchWordList.get(i));
         }
@@ -148,15 +150,19 @@ public class SearchResultActivity extends AppCompatActivity {
 
         for (PlantBookItem item : list) {
             if (item.equals(plantBookItem)) {
+
                 if (!item.isCollected()) {
                     item.setCollected(true);
                     Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
+
+                // 오늘의 식물 추가 안됨 (수정 필요)
                 if (plantsToday.contains(item)) {
                     int index = plantsToday.indexOf(item);
                     plantsToday.get(index).setCollected(true);
                     Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
                 }
+
             }
         }
         // 앱메니저에 반영 (굳이 해야하나 잘 모르겠다)
@@ -189,10 +195,15 @@ public class SearchResultActivity extends AppCompatActivity {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);
 
+            /*
             MultiTransformation multi = new MultiTransformation(
                     new CenterCrop(),
                     new RoundedCornersTransformation(45, 0,
                             RoundedCornersTransformation.CornerType.TOP)
+            );
+            */
+            MultiTransformation multi = new MultiTransformation(
+                    new CenterCrop()
             );
             Glide.with(imageView)
                     .load(drawableID)

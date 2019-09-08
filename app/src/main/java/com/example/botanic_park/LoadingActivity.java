@@ -166,7 +166,7 @@ public class LoadingActivity extends Activity {
             } else {
                 // 저장된 정보가 있는 경우
                 try {
-                    Thread.sleep(2300);
+                    Thread.sleep(2100);
                     Log.d("테스트", list.size() + "");
                 } catch (InterruptedException e) {
                     e.printStackTrace();

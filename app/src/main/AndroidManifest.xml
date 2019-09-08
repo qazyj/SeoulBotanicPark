@@ -71,7 +71,7 @@
             android:name=".Help.HelpActivity"
             android:theme="@style/Theme.Transparent"/>
         <activity android:name=".PlantSearch.AchivementViewActivity"
-            android:theme="@style/PopUpTheme"/>
+            android:theme="@style/Theme.Transparent"/>
     </application>
 
 </manifest>

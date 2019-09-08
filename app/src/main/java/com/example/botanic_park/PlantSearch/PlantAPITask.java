@@ -72,7 +72,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             return;
         }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("식물을 찾고 있어요!\n\n잠시만 기다려 주세요...");
+        dialog.setMessage("식물을 찾고 있어요!!!");
         dialog.setCancelable(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override

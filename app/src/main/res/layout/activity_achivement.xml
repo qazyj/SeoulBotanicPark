@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="260dp"
-    android:layout_height="480dp"
-    android:background="@color/colorTransparent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BB000000">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="410dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/leveltext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lv1"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/orange_color"/>
-
-    <ImageView
-        android:id="@+id/achive_tree_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/tree6"/>
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/colorTransparent">
+            android:textColor="@color/orange_color" />
 
         <ImageView
+            android:id="@+id/achive_tree_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tree1"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:text="모은 식물: 10개  /  전체 식물: 121개"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/margin_normal"
+            android:textColor="@color/colorWhite" />
+
+        <Button
             android:id="@+id/close_button"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_add_popup"
-            android:rotation="45" />
-    </FrameLayout>
-</LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확 인"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"
+            android:background="@null"
+            android:layout_marginTop="30dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

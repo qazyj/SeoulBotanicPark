@@ -33,14 +33,15 @@ public class HelpActivity extends AppCompatActivity {
         switch (helpCode){
             case HELP_TODAY_PLANT:
                 title = "\"오늘의 식물\"";
+                adapter = new PagerAdapter(getSupportFragmentManager(), helpCode, 3);
                 break;
             case HELP_PLANT_BOOK:
                 title = "\"식물 도감\"";
+                adapter = new PagerAdapter(getSupportFragmentManager(), helpCode, 5);
                 break;
         }
 
         ViewPager viewPager = findViewById(R.id.viewPager);
-        adapter = new PagerAdapter(getSupportFragmentManager(), helpCode, 3);
         viewPager.setAdapter(adapter);
 
         CircleIndicator indicator = findViewById(R.id.indicator);
@@ -83,6 +84,10 @@ public class HelpActivity extends AppCompatActivity {
                     return HelpFragment.newInstance(helpCode, 2);
                 case 2:
                     return HelpFragment.newInstance(helpCode, 3);
+                case 3:
+                    return HelpFragment.newInstance(helpCode, 4);
+                case 4:
+                    return HelpFragment.newInstance(helpCode, 5);
             }
             return null;
         }

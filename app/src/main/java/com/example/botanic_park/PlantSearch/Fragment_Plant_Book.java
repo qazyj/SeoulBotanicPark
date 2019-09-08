@@ -116,9 +116,21 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
 
         ImageButton achievementsButton = view.findViewById(R.id.achievements_button);
         achievementsButton.setOnClickListener(achivementsClickListener);
+        if (AppManager.getInstance().collectionCount >= 0 && AppManager.getInstance().collectionCount <= 121 / 5) {
+            achievementsButton.setImageResource(R.drawable.award_icon_1);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 2) {
+            achievementsButton.setImageResource(R.drawable.award_icon_2);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 3) {
+            achievementsButton.setImageResource(R.drawable.award_icon_3);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 4) {
+            achievementsButton.setImageResource(R.drawable.award_icon_4);
+        } else if (AppManager.getInstance().collectionCount <= 121) {
+            achievementsButton.setImageResource(R.drawable.award_icon_5);
+        }
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setProgress(AppManager.getInstance().collectionCount);
+
         return view;
     }
 
@@ -160,7 +172,6 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     private View.OnClickListener achivementsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // 도움말 띄워줌
             Intent intent = new Intent(getContext(), AchivementViewActivity.class);
             startActivity(intent);
         }
