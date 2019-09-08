@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     BackPressCloseHandler backPressCloseHandler;
 
+    long lastTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            if(System.currentTimeMillis() <= lastTime + 500) return;
+            lastTime = System.currentTimeMillis();
             Intent intent;
             if (didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
             else intent = new Intent(MainActivity.this, PaymentPopUpActivity.class);
