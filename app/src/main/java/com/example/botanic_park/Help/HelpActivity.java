@@ -2,6 +2,7 @@ package com.example.botanic_park.Help;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,22 +21,15 @@ public class HelpActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapter;
     String title;
-    static int helpCode;
+    int helpCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_tabs);
 
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        adapter = new PagerAdapter(getSupportFragmentManager(), 3);
-        viewPager.setAdapter(adapter);
-
-        CircleIndicator indicator = findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-
         Intent intent = getIntent();
-        helpCode = intent.getIntExtra(HELP_CODE,HELP_TODAY_PLANT);
+        helpCode = intent.getIntExtra(HELP_CODE, HELP_TODAY_PLANT);
         switch (helpCode){
             case HELP_TODAY_PLANT:
                 title = "\"오늘의 식물\"";
@@ -44,6 +38,13 @@ public class HelpActivity extends AppCompatActivity {
                 title = "\"식물 도감\"";
                 break;
         }
+
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        adapter = new PagerAdapter(getSupportFragmentManager(), helpCode, 3);
+        viewPager.setAdapter(adapter);
+
+        CircleIndicator indicator = findViewById(R.id.indicator);
+        indicator.setViewPager(viewPager);
 
         TextView textView = findViewById(R.id.title);
         textView.setText(title);
@@ -59,37 +60,29 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     public static class PagerAdapter extends FragmentPagerAdapter {
+        int helpCode = 0;
         int count = 0;
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public PagerAdapter(FragmentManager fm, int count) {
+        public PagerAdapter(FragmentManager fm, int helpCode, int count) {
             super(fm);
+            this.helpCode = helpCode;
+            Log.d("helpActivity", helpCode + "");
             this.count = count;
         }
 
         @Override
         public Fragment getItem(int position) {
-            if(helpCode == HELP_TODAY_PLANT) {
-                switch (position) {
-                    case 0:
-                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 1);
-                    case 1:
-                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 2);
-                    case 2:
-                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 3);
-                }
-            } else if(helpCode == HELP_PLANT_BOOK){
-                switch (position) {
-                    case 0:
-                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 1);
-                    case 1:
-                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 2);
-                    case 2:
-                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 3);
-                }
+            switch (position) {
+                case 0:
+                    return HelpFragment.newInstance(helpCode, 1);
+                case 1:
+                    return HelpFragment.newInstance(helpCode, 2);
+                case 2:
+                    return HelpFragment.newInstance(helpCode, 3);
             }
             return null;
         }
