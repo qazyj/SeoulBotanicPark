@@ -14,7 +14,7 @@
         android:id="@+id/achive_tree_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/tree1"/>
+        android:src="@drawable/tree6"/>
 
     </LinearLayout>
 

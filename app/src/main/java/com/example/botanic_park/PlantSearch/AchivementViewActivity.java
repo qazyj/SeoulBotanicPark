@@ -29,10 +29,29 @@ public class AchivementViewActivity extends AppCompatActivity {
 
         ImageView achiveImage = (ImageView) findViewById(R.id.achive_tree_image);
 
-        if(AppManager.getInstance().collectionCount==121)
+        if(AppManager.getInstance().collectionCount==0)
         {
-
+            achiveImage.setImageResource(R.drawable.tree1);
         }
-
+        else if(AppManager.getInstance().collectionCount<121/5)
+        {
+            achiveImage.setImageResource(R.drawable.tree2);
+        }
+        else if(AppManager.getInstance().collectionCount<121/5*2)
+        {
+            achiveImage.setImageResource(R.drawable.tree3);
+        }
+        else if(AppManager.getInstance().collectionCount<121/5*3)
+        {
+            achiveImage.setImageResource(R.drawable.tree4);
+        }
+        else if(AppManager.getInstance().collectionCount<121/5*4)
+        {
+            achiveImage.setImageResource(R.drawable.tree5);
+        }
+        else if(AppManager.getInstance().collectionCount==121)
+        {
+            achiveImage.setImageResource(R.drawable.tree6);
+        }
     }
 }
