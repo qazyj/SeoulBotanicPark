@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 
 import java.util.Calendar;
@@ -90,6 +91,11 @@ public class PaymentPopUpActivity extends Activity {
         ticketPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(NetworkStatus.getConnectivityStatus(getApplicationContext())==NetworkStatus.TYPE_NOT_CONNECTED)
+                {
+                    Toast.makeText(getApplicationContext(),"인터넷에 연결해주세요.",Toast.LENGTH_SHORT);
+                    return;
+                }
                 Intent intent = new Intent(thisActivity, KakaoPay.class);
                 startActivity(intent);
 

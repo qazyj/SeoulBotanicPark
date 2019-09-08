@@ -48,6 +48,11 @@ public class QRPopUpActivity extends Activity {
 
         iv = (ImageView) findViewById(R.id.qrcode);
 
+        TextView date = findViewById(R.id.date);
+        Date today = Calendar.getInstance().getTime();
+        date.setText(new SimpleDateFormat("MM/dd (EE)", Locale.getDefault()).format(today));
+
+
         if(hour < limitTime) {
             try {
                 Random rnd = new Random();
@@ -59,10 +64,6 @@ public class QRPopUpActivity extends Activity {
 
             } catch (Exception e) {
             }
-
-            TextView date = findViewById(R.id.date);
-            Date today = Calendar.getInstance().getTime();
-            date.setText(new SimpleDateFormat("MM/dd (EE)", Locale.getDefault()).format(today));
 
             Toast.makeText(getApplicationContext(), "QR화면은 캡처가 불가합니다.", Toast.LENGTH_SHORT).show();
             //getSharedPreferences("userData",Activity.MODE_PRIVATE);
