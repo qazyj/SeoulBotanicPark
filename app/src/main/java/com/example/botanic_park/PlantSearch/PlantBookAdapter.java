@@ -73,11 +73,6 @@ public class PlantBookAdapter extends BaseAdapter {
             if (item.isCollected()) {
                 textView.setTextColor(view.getResources().getColor(R.color.colorNormalText));
                 MultiTransformation multi = new MultiTransformation(
-                        /*
-                        new CenterCrop(),
-                        new RoundedCornersTransformation(40, 0,
-                                RoundedCornersTransformation.CornerType.TOP)
-                        */
                         new CircleCrop()
                 );
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_active));

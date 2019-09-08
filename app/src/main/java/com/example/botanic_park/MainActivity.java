@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
     }
 
@@ -146,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
                 case R.id.map:
                     if (fragment_Map == null) {
@@ -161,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
                     if (fragment_Plant_Book == null) {
@@ -176,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().show(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
 
                 case R.id.information:
@@ -192,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().show(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Information).commit();
                     break;
             }
             return true;

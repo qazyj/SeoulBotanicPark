@@ -3,7 +3,6 @@ package com.example.botanic_park.PlantSearch;
 import android.app.Activity;
 import android.content.Intent;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -97,16 +96,5 @@ public class DetailPopUpActivity extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
     }
-/*
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        // 바깥레이어 클릭시 안닫히게
-        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
-            return false;
-        }
-        return true;
-    }
-    */
 
 }

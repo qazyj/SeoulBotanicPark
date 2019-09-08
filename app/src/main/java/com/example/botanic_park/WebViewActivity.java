@@ -1,16 +1,13 @@
 package com.example.botanic_park;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import com.example.botanic_park.R;
 
 public class WebViewActivity extends Activity {
 

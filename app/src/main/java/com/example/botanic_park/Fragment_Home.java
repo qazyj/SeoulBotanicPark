@@ -86,20 +86,6 @@ public class Fragment_Home extends Fragment {
                 startActivity(intent);
             }
         });
-        /*
-        //결제 초기화
-        ((Button) view.findViewById(R.id.button)).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sp = getContext().getSharedPreferences("Botanic Park", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("dateOfPayment", "000");
-                editor.commit();
-            }
-        });
-
-        */
-
 
         return view;
     }
@@ -118,13 +104,6 @@ public class Fragment_Home extends Fragment {
 
 
         AppManager.getInstance().setPlantsToday(plantsToday);
-        /*
-        for(int i=0; i<3; i++){
-            int random = (int) (Math.random() * list.size());
-            plantsToday.add(list.get(random));
-            Log.d("테스트", plantsToday.get(i).getName_ko());
-        }
-        */
     }
 
     private boolean isPlantsTodayComplete() {

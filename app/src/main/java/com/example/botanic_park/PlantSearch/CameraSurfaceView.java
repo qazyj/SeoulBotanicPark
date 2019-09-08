@@ -1,14 +1,8 @@
 package com.example.botanic_park.PlantSearch;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
-import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

@@ -85,7 +85,7 @@ public class InconvenienceDetailPostActivity extends Activity {
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
         content = (EditText)findViewById(R.id.input_commend_content);
-        //댓글 텍스트 글자수 제한 두려고 하는데 잘 안됌 일단 보류
+
         content.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -106,7 +106,6 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                     FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
                     content.setFilters(FilterArray);
-                    //content.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength+1)});
                 }
             }
 
@@ -152,7 +151,6 @@ public class InconvenienceDetailPostActivity extends Activity {
             TextView post_date = findViewById(R.id.date);
             post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            //add_views = findViewById(R.id.views);
             add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS))+1));
             pard=Integer.parseInt(c.getString(TAG_VIEWS))+1;
         } catch (JSONException e) {

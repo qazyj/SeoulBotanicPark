@@ -3,7 +3,6 @@ package com.example.botanic_park.PlantSearch;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,24 +14,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.botanic_park.*;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_CODE = 2000;
@@ -274,7 +264,6 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 Collections.sort(searchList, new Comparator<PlantBookItem>() {
                     @Override
                     public int compare(PlantBookItem item, PlantBookItem t1) {
-                        //Log.d("테스트", item.getId() + " " + t1.getId());
                         return Boolean.compare(!item.isCollected(), !t1.isCollected());
                     }
                 });

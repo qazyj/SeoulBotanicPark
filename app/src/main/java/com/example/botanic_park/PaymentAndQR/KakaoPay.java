@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import kr.co.bootpay.*;
@@ -24,9 +23,6 @@ public class KakaoPay extends Activity {
         BootpayAnalytics.init(this, application_id);
         Toast.makeText(getApplicationContext(), "가상 결제이며, 실제 결제가 이루어지지 않습니다.", Toast.LENGTH_LONG).show();
         // 초기설정 - 해당 프로젝트(안드로이드)의 application id 값을 설정합니다. 결제와 통계를 위해 꼭 필요합니다.
-//        BootpayAnalytics.init(this, "5b14c0ffb6d49c40cda92c4e");
-
-//        BootpayAnalytics.init(this, "59a7e647396fa64fcad4a8c2");
 
         onClick_request();
 
