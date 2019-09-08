@@ -193,6 +193,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:maxLength="@integer/max_length"
+                        android:inputType="text"
                         android:background="@android:color/white"
                         android:hint="댓글을 입력해 주세요.(60자 이내, 공백안됨)"
                         android:textColor="#bababa"
