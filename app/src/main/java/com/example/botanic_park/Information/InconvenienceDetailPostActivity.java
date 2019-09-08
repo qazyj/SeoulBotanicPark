@@ -123,8 +123,9 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                     InsertCommend task = new InsertCommend();
                     task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
-
-                   onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                    
+                    content.setText("");
+                    onStart();      //댓글 추가하면 바로 달리게 onStart 사용
                 }
                 else {
                     Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
