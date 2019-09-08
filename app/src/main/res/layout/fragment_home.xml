@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:sliderAnimationDuration="1000"
-            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleDirection="right"
             app:sliderAutoCycleEnabled="true"
             app:sliderCircularHandlerEnabled="true"
             app:sliderIndicatorAnimationDuration="600"
@@ -28,6 +28,7 @@
             app:sliderIndicatorUnselectedColor="#FFF"
             app:sliderScrollTimeInSec="5"
             app:sliderStartAutoCycle="true" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"

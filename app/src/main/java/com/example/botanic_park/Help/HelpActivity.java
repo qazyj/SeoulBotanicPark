@@ -17,8 +17,11 @@ import me.relex.circleindicator.CircleIndicator;
 public class HelpActivity extends AppCompatActivity {
     public static String HELP_CODE = "help code";
     public static final int HELP_TODAY_PLANT = 0;
+    public static final int HELP_PLANT_BOOK = 1;
+
     FragmentPagerAdapter adapter;
     String title;
+    static int helpCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,13 @@ public class HelpActivity extends AppCompatActivity {
         indicator.setViewPager(viewPager);
 
         Intent intent = getIntent();
-        int helpCode = intent.getIntExtra(HELP_CODE,0);
+        helpCode = intent.getIntExtra(HELP_CODE,HELP_TODAY_PLANT);
         switch (helpCode){
             case HELP_TODAY_PLANT:
                 title = "\"오늘의 식물\"";
+                break;
+            case HELP_PLANT_BOOK:
+                title = "\"식물 도감\"";
                 break;
         }
 
@@ -67,17 +73,28 @@ public class HelpActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return HelpFragment.newInstance(1);
-                case 1:
-                    return HelpFragment.newInstance(2);
-                case 2:
-                    return HelpFragment.newInstance(3);
-                default:
-                    return null;
+            if(helpCode == HELP_TODAY_PLANT) {
+                switch (position) {
+                    case 0:
+                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 1);
+                    case 1:
+                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 2);
+                    case 2:
+                        return HelpFragment.newInstance(HELP_TODAY_PLANT, 3);
+                }
+            } else if(helpCode == HELP_PLANT_BOOK){
+                switch (position) {
+                    case 0:
+                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 1);
+                    case 1:
+                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 2);
+                    case 2:
+                        return HelpFragment.newInstance(HELP_PLANT_BOOK, 3);
+                }
             }
+            return null;
         }
+
 
         @Override
         public int getCount() {

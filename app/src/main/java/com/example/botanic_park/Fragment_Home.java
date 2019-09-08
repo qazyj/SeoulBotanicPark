@@ -16,6 +16,7 @@ import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
@@ -45,9 +46,18 @@ public class Fragment_Home extends Fragment {
         SliderView sliderView = view.findViewById(R.id.imageSlider);
         SliderAdapter sliderAdapter = new SliderAdapter(getContext());
         sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.startAutoCycle();
+
         sliderView.setIndicatorAnimation(IndicatorAnimations.COLOR);
         sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+        sliderView.startAutoCycle();
+
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                sliderView.setCurrentPagePosition(position);
+            }
+        });
 
         setPlantsToday();   // 오늘의 식물 선정
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
@@ -111,11 +121,10 @@ public class Fragment_Home extends Fragment {
         plantsToday.add(getNewItem(list.get(1)));
         plantsToday.add(getNewItem(list.get(2)));
 
-
-        for (int i = 0; i < 0; i++) {
+        /*
+        for (int i = 0; i < 1; i++) {
             plantsToday.get(i).setCollected(true);
-        }
-
+        */
 
         AppManager.getInstance().setPlantsToday(plantsToday);
         /*
