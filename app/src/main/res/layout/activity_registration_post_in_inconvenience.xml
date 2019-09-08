@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="※제목을 적어주세요.(최대 24글자)"
+            android:hint="※제목을 적어주세요.(최대 24글자, 공백안됨)"
             android:textColor="@android:color/black"
             android:maxLength="24"
             android:textSize="15dp"
@@ -62,7 +62,7 @@
         <EditText
             android:id="@+id/input_content"
             android:layout_weight="5"
-            android:hint="※내용을 적어주세요. \n\n욕설, 비방 등 법적 문제의 소지가 있는 경우 차단 및 신고, 처벌 받으실 수 있습니다. \n\n최대 18줄로 작성해주세요."
+            android:hint="※내용을 적어주세요.(공백은 안됩니다.) \n\n욕설, 비방 등 법적 문제의 소지가 있는 경우 차단 및 신고, 처벌 받으실 수 있습니다. \n\n최대 18줄로 작성해주세요."
             android:layout_height="300dp"
             android:layout_width="match_parent"
             android:textSize="15dp"

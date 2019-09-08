@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Botanic_Park</string>
+    <string name="app_name">서울식물원</string>
     <string name="title_activity_test">test</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

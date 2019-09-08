@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -279,8 +280,6 @@ public class InconvenienceDetailPostActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
 
             progressDialog.dismiss();
         }

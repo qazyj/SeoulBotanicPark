@@ -12,14 +12,35 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="15dp">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/seoul_botanical_garden_logo"
+            <LinearLayout
+                android:id="@+id/logoframe"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:src="@drawable/seoul_botanical_garden_logo" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorBanner">
+
+                <ImageView
+                    android:id="@+id/seoul_botanical_garden_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:src="@drawable/seoul_botanical_garden_logo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logoframe"
+                android:orientation="vertical"
+                android:padding="15dp">
+            <TextView
+                android:id="@+id/title_plant_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="오시는 길"
+                android:textColor="@color/colorBaseCyan"
+                android:textSize="20sp"/>
 
             <!--이미지-->
             <ImageView
@@ -28,7 +49,7 @@
                 android:src="@drawable/seoul_botanic_garden_way_to_come_subway"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_below="@id/seoul_botanical_garden_logo" />
+                android:layout_below="@id/title_plant_book" />
 
 
             <TextView
@@ -551,6 +572,7 @@
                         android:textSize="12sp" />
 
                 </LinearLayout>
+            </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

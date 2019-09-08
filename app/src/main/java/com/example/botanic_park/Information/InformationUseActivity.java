@@ -27,18 +27,6 @@ public class InformationUseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
-        BaseURL="http://botanicpark.seoul.go.kr";
-
-        // AsyncTask 작동시킴(파싱)
-        new ParseInformationTask().execute();
-
-        //이용안내 창 들어간다음 사진이 늦게나오는걸 방지하기 위해 쓰레드 슬립줌
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
 
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
