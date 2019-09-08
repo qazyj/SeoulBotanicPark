@@ -7,8 +7,10 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -36,8 +38,11 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
+
         list = onSearchData();  // 기존 저장 정보 가져옴
         if(list == null)
             list = getListFromFile();  // 초기 파일 가져옴

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 import androidx.annotation.Nullable;
+import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -13,10 +14,7 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 public class QRPopUpActivity extends Activity {
 
@@ -32,7 +30,7 @@ public class QRPopUpActivity extends Activity {
         setContentView(R.layout.activity_qr_pop_up);
         params = getWindow().getAttributes();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-
+        ((TextView)findViewById(R.id.limitTimeTextView)).setText(String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입장마감");
 
         ImageView closeBtn = findViewById(R.id.close);
         closeBtn.setOnClickListener(new View.OnClickListener() {
@@ -42,23 +40,40 @@ public class QRPopUpActivity extends Activity {
             }
         });
 
-        try{
-            iv = (ImageView)findViewById(R.id.qrcode);
-            Random rnd = new Random();
-            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(rnd.nextInt()), BarcodeFormat.QR_CODE,300,300);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            iv.setImageBitmap(bitmap);
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar calendar = Calendar.getInstance(jst);
 
-        }catch (Exception e){}
+        int limitTime = AppManager.getInstance().getMainActivity().limitTime;
+        int hour = calendar.get ( Calendar.HOUR_OF_DAY );
+
+        iv = (ImageView) findViewById(R.id.qrcode);
 
         TextView date = findViewById(R.id.date);
         Date today = Calendar.getInstance().getTime();
         date.setText(new SimpleDateFormat("MM/dd (EE)", Locale.getDefault()).format(today));
 
-        Toast.makeText(getApplicationContext(), "QR화면은 캡처가 불가합니다.", Toast.LENGTH_SHORT).show();
-        //getSharedPreferences("userData",Activity.MODE_PRIVATE);
+
+        if(hour < limitTime) {
+            try {
+                Random rnd = new Random();
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(rnd.nextInt()), BarcodeFormat.QR_CODE, 300, 300);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                iv.setImageBitmap(bitmap);
+
+            } catch (Exception e) {
+            }
+
+            Toast.makeText(getApplicationContext(), "QR화면은 캡처가 불가합니다.", Toast.LENGTH_SHORT).show();
+            //getSharedPreferences("userData",Activity.MODE_PRIVATE);
+        }
+
+        else
+        {
+            iv.setVisibility(View.INVISIBLE);
+            ((LinearLayout)findViewById(R.id.close_announcement)).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -88,6 +103,5 @@ public class QRPopUpActivity extends Activity {
         }
         return true;
     }
-
 
 }

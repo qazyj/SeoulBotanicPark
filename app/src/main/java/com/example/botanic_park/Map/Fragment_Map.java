@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
 import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 import com.github.clans.fab.FloatingActionMenu;
 import com.naver.maps.geometry.LatLng;
@@ -40,8 +41,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     public final String GREEN_HOUSE = "온실";
-    public final String THEME_GARDEN = "주제 정원";
+    public static final String THEME_GARDEN = "주제 정원";
     public final String BOTANIC_CULTURE_CENTER = "문화 센터";
+    public final String VISITOR_INFO = "방문자 센터";
 
     private MapView mapView;
     private FusedLocationSource locationSource;
@@ -494,6 +496,29 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
             InfoWindow infoWindow = (InfoWindow) overlay;
             Marker marker = infoWindow.getMarker();
             String[] information = (String[]) marker.getTag();
+
+            if (information[0].equals(GREEN_HOUSE)) {
+                if(NetworkStatus.getConnectivityStatus(getContext()) == NetworkStatus.TYPE_NOT_CONNECTED) {
+                    Toast.makeText(getContext(), "인터넷 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+                return true;
+            }
+
+            if (information[0].equals(VISITOR_INFO)) {
+                if(NetworkStatus.getConnectivityStatus(getContext()) == NetworkStatus.TYPE_NOT_CONNECTED) {
+                    Toast.makeText(getContext(), "인터넷 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/%EC%95%88%EB%82%B4%EB%8F%84.pdf");
+                return true;
+            }
+
             Toast.makeText(getContext(), information[0], Toast.LENGTH_LONG).show();
 
             if (information[0].equals(BOTANIC_CULTURE_CENTER)) {
@@ -501,10 +526,6 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
                 return true;
             }
 
-            if (information[0].equals(GREEN_HOUSE)) {
-                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
-                return true;
-            }
 
             Intent intent = new Intent(getActivity(), Facilities_information.class);
             intent.putExtra("information", information);
@@ -522,7 +543,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void deactivate() {  // 현재 위치 해제 시에 피벗 위치로 카메라 이동
-            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.56801290446582, 126.83245227349256), 15));
+            naverMap.setCameraPosition(new CameraPosition(new LatLng(37.5702109, 126.8318991), 14.3));
         }
     }
 

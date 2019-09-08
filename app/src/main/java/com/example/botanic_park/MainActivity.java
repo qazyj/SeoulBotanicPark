@@ -32,9 +32,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private CurveBottomBar curveBottomBar;
     FloatingActionButton floatingActionButton;
     BackPressCloseHandler backPressCloseHandler;
+
+    long lastTime = 0;
+
+    public int limitTime = 17;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
 
+        setTodayLimitTime();
     }
 
     @Override
@@ -175,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
                     //transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
+
                 case R.id.information:
                     if (fragment_Information == null) {
                         fragment_Information = Fragment_Information.newInstance();
@@ -247,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            if(System.currentTimeMillis() <= lastTime + 500) return;
+            lastTime = System.currentTimeMillis();
             Intent intent;
             if (didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
             else intent = new Intent(MainActivity.this, PaymentPopUpActivity.class);
@@ -254,6 +260,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private void setTodayLimitTime()
+    {
+        int nMonth;
+
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar calendar = Calendar.getInstance(jst);
+
+        nMonth = calendar.get(Calendar.MONTH) + 1;
+
+        if(nMonth < 3 || nMonth > 10) limitTime --;
+    }
 }
 
 class BackPressCloseHandler {
@@ -281,6 +299,7 @@ class BackPressCloseHandler {
         toast = Toast.makeText(activity, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }
 
 

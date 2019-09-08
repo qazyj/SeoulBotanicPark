@@ -8,10 +8,28 @@
     tools:context=".LoadingActivity"
     android:background="@color/colorWhite">
 
-    <ImageView
-        android:id="@+id/loading"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        >
+
+    <ImageView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        />
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/korean_seoul_botanic_park"
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>

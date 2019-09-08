@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBanner"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:background="#FFF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주제 정원"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorBaseCyan" /> //제목
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="한국 자생식물로 전통정원을 재현한 야외 주제정원과 열대․지중해 12개 도시 식물을 전시한 온실로 구성됩니다. 어린이정원학교와 서울시 등록문화재로 지정된 마곡문화관(옛 배수펌프장)을 만나볼 수도 있습니다."
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="5dp"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="한국의 자연과 정원문화 여행"
+                android:layout_marginTop="20dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold" />//타이틀1
+
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="한국 정원문화의 과거와 현재를 경험할 수 있는 공간입니다. \n 각각의 식물이 품고 있는 이야기를 바탕으로 한국의 식물과 식물문화를 보여주는 ‘여덟 가지 주제정원’을 구성했다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="바람의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="참억새, 실새풀 등 그라스가 만들어내는 이국적 정취가 쉼과 여유를 선사하는 정원입니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="계절을 대표하는 식물이 전시되어 꽃이 피고 무르익고 흩어지는 과정의 아름다움을 감상할 수 있습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추억의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="한 때 흔했지만 이제는 잊혀져간 식물을 통해 과거로 시간여행을 떠나볼 수 있습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사색의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="경관을 정원으로 끌어들이는 차경, 풍광과 잘 어우러지는 곳에 정자를 세우는 한국정원의 철학을 엿볼 수 있습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="초대의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="봄, 여름, 가을, 겨울을 대표하는 식물을 심어 어느 정원보다도 계절감을 깊게 느낄 수 있습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="치유의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="동서양에서 널리 사용된 약용식물이 전시된 공간으로, 몸과 마음이 치유되는 경험을 선사합니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정원사의 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="새로운 정원모델을 제시하는 작가들의 실험공간으로 앞으로 유행할 정원 트랜드를 만나볼 수 있습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="숲 정원"
+                android:layout_marginTop="20dp"
+                android:textColor="#FF8200"
+                android:textSize="15sp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:fontFamily="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="우리에게 잘 알려지지 않은 한반도의 자생종과 특산식물로 한국의 전통 숲을 재현했습니다."
+                android:lineSpacingExtra="5dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
