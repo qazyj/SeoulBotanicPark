@@ -114,6 +114,9 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        ImageButton achievementsButton = view.findViewById(R.id.achievements_button);
+        achievementsButton.setOnClickListener(achivementsClickListener);
+
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setProgress(AppManager.getInstance().collectionCount);
         return view;
@@ -151,6 +154,15 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
             } else {
                 startCameraActivity();
             }
+        }
+    };
+
+    private View.OnClickListener achivementsClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // 도움말 띄워줌
+            Intent intent = new Intent(getContext(), AchivementViewActivity.class);
+            startActivity(intent);
         }
     };
 

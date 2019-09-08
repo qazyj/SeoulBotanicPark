@@ -21,6 +21,16 @@
             android:max="121"/>
 
         <ImageButton
+            android:id="@+id/achievements_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:background="@null"
+            android:src="@drawable/award_icon" />
+
+        <ImageButton
             android:id="@+id/help_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

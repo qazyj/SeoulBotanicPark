@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -68,7 +69,6 @@ public class HelpFragment extends Fragment {
         } else if(helpCode == HelpActivity.HELP_TODAY_PLANT){
 
         }
-        //Glide.with(view).load(R.drawable.today_plant).centerInside().into(imageView);
 
         return view;
     }

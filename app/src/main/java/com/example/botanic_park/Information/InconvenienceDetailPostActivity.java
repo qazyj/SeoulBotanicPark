@@ -123,7 +123,7 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                     InsertCommend task = new InsertCommend();
                     task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
-                    
+
                     content.setText("");
                     onStart();      //댓글 추가하면 바로 달리게 onStart 사용
                 }
