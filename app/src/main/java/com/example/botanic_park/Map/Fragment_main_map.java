@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 
 public class Fragment_main_map extends Fragment {
@@ -55,7 +56,8 @@ public class Fragment_main_map extends Fragment {
                 }
 
                 else{
-                    naverMap = new Fragment_Map(button);
+                    if(NetworkStatus.getConnectivityStatus(getContext()) == NetworkStatus.TYPE_NOT_CONNECTED) naverMap = new not_connect_internet();
+                    else naverMap = new Fragment_Map((Button) view.findViewById(R.id.change_map));
                     replaceFrgment(naverMap);
                     centerMap.onDestroy();
                     button.setText("문화 센터 내부 지도 보기");
@@ -69,7 +71,8 @@ public class Fragment_main_map extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        naverMap = new Fragment_Map((Button) view.findViewById(R.id.change_map));
+        if(NetworkStatus.getConnectivityStatus(getContext()) == NetworkStatus.TYPE_NOT_CONNECTED) naverMap = new not_connect_internet();
+        else naverMap = new Fragment_Map((Button) view.findViewById(R.id.change_map));
         replaceFrgment(naverMap);
     }
 
