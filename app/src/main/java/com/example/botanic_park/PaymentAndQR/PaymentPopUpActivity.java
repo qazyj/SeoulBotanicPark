@@ -91,11 +91,6 @@ public class PaymentPopUpActivity extends Activity {
         ticketPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkStatus.getConnectivityStatus(getApplicationContext())==NetworkStatus.TYPE_NOT_CONNECTED)
-                {
-                    Toast.makeText(getApplicationContext(),"인터넷에 연결해주세요.",Toast.LENGTH_SHORT);
-                    return;
-                }
                 Intent intent = new Intent(thisActivity, KakaoPay.class);
                 startActivity(intent);
 
