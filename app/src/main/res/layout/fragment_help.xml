@@ -12,8 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="10dp"
-        android:textSize="15sp"
-        android:text="매일 새롭게 생기는\n오늘의 식물을 찾아보세요!\n전부 획득하면 식물원 안에서 사용할 수 있는\n할인 쿠폰이 지급됩니다." />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/image_help"

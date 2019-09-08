@@ -28,6 +28,16 @@ public class PaymentPopUpActivity extends Activity {
         setContentView(R.layout.activity_payment_pop_up);
         zeroPay = (ImageView) findViewById(R.id.zero_pay);
 
+        ImageView closeBtn = findViewById(R.id.close);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
+                finish();
+            }
+        });
+
+
         if(canBuyTicketNow()) doToBuyTicket();
         else  ((TextView)findViewById(R.id.limit)).setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입니다.");
 
@@ -75,15 +85,6 @@ public class PaymentPopUpActivity extends Activity {
         LinearLayout mainLayout =  (LinearLayout)findViewById(R.id.main_layout);
         mainLayout.startAnimation(translateDown);
         mainLayout.setVisibility(View.VISIBLE);
-
-        ImageView closeBtn = findViewById(R.id.close);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
-                finish();
-            }
-        });
 
         FrameLayout ticketPayment = findViewById(R.id.ticket_payment);
         FrameLayout ticketScanning = findViewById(R.id.ticket_scanning);

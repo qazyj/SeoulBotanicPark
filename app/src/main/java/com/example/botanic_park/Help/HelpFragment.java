@@ -12,14 +12,16 @@ import com.bumptech.glide.Glide;
 import com.example.botanic_park.R;
 
 public class HelpFragment extends Fragment {
+    private int helpCode;
     private int page;
 
     public HelpFragment() {
     }
 
-    public static HelpFragment newInstance(int page) {
+    public static HelpFragment newInstance(int helpCode, int page) {
         HelpFragment fragment = new HelpFragment();
         Bundle args = new Bundle();
+        args.putInt("help code", helpCode);
         args.putInt("page", page);
         fragment.setArguments(args);
 
@@ -29,6 +31,8 @@ public class HelpFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        helpCode = getArguments().getInt("help type", HelpActivity.HELP_TODAY_PLANT);
         page = getArguments().getInt("page", 0);
     }
 
@@ -43,7 +47,28 @@ public class HelpFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_help, container, false);
 
         ImageView imageView = view.findViewById(R.id.image_help);
-        Glide.with(view).load(R.drawable.today_plant).centerInside().into(imageView);
+        TextView textView = view.findViewById(R.id.description);
+
+        if(helpCode == HelpActivity.HELP_TODAY_PLANT) {
+            switch (page) {
+                case 1:
+                    Glide.with(view).load(R.drawable.help_today_1).centerInside().into(imageView);
+                    textView.setText("매일 새롭게 생기는\n오늘의 식물을 찾아보세요!");
+                    break;
+                case 2:
+                    Glide.with(view).load(R.drawable.help_today_2).centerInside().into(imageView);
+                    textView.setText("전부 모으면 식물원 안에서 사용할 수 있는\n할인 쿠폰이 지급됩니다.");
+                    break;
+                case 3:
+                    Glide.with(view).load(R.drawable.help_today_3).centerInside().into(imageView);
+                    textView.setText("식물 획득은 '식물'탭의\n식물 이미지 검색을 통해 할 수 있어요.");
+                    break;
+
+            }
+        } else if(helpCode == HelpActivity.HELP_TODAY_PLANT){
+
+        }
+        //Glide.with(view).load(R.drawable.today_plant).centerInside().into(imageView);
 
         return view;
     }

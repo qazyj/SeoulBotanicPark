@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.*;
+import com.example.botanic_park.Help.HelpActivity;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 
@@ -122,7 +123,8 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         @Override
         public void onClick(View view) {
             // 도움말 띄워줌
-            Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+            Intent intent = new Intent(getContext(), HelpActivity.class);
+            intent.putExtra(HelpActivity.HELP_CODE, HelpActivity.HELP_PLANT_BOOK);
             startActivity(intent);
         }
     };
