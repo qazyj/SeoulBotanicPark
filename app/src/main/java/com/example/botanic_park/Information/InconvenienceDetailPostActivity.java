@@ -97,11 +97,9 @@ public class InconvenienceDetailPostActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 String[] arr = content.getText().toString().split("(?<!^)");
-                Log.d("tagcheck", arr[content.length()-1]);
 
                 if(content.length()>=2 && arr[content.length() - 2].equals(" ")) {
                     int maxLength = getResources().getInteger(R.integer.max_length);
-                    Log.d("tagcheck", ""+maxLength);
                     InputFilter[] FilterArray = new InputFilter[1];
 
                     FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);

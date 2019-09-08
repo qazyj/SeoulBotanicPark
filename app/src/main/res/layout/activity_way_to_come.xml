@@ -303,7 +303,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            android:src="@drawable/bus_branch_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -329,7 +329,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            android:src="@drawable/bus_town_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -365,7 +365,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            android:src="@drawable/bus_main_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -392,7 +392,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            android:src="@drawable/bus_branch_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -428,7 +428,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_nine_line" />
+                            android:src="@drawable/bus_main_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -454,7 +454,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            android:src="@drawable/bus_branch_line" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -481,7 +481,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="top"
-                            android:src="@drawable/subway_icon_five_line" />
+                            android:src="@drawable/bus_wide_line" />
 
                         <TextView
                             android:layout_width="match_parent"

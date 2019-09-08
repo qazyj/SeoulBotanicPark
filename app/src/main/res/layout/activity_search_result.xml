@@ -222,7 +222,7 @@
                 android:id="@+id/btn_yes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_square_background_thumb"
+                android:background="@drawable/round_swquare_background_thumb_orange_color"
                 android:gravity="center_horizontal"
                 android:text="확인"
                 android:textColor="@color/colorWhite"
