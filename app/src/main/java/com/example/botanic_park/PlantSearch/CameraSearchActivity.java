@@ -9,14 +9,12 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bumptech.glide.Glide;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
@@ -75,18 +73,12 @@ public class CameraSearchActivity extends AppCompatActivity {
                         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                         options.inSampleSize = 4;
                         Bitmap originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
-                        //Log.d("테스트", originalBitmap.getWidth() + " " + originalBitmap.getHeight());
 
                         Matrix matrix = new Matrix();
                         matrix.postRotate(90);  // 회전
 
                         bitmap = Bitmap.createBitmap(originalBitmap, 0, 0,
                                 originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
-                        /*
-                        int remainWidth = originalBitmap.getWidth() - originalBitmap.getHeight();
-                        bitmap = Bitmap.createBitmap(originalBitmap, remainWidth/2,0,
-                                originalBitmap.getHeight(), originalBitmap.getHeight(), matrix, true); // 정방형
-                        */
 
                         Intent intent = new Intent(CameraSearchActivity.this, ImagePreviewActivity.class);
                         startActivityForResult(intent, PICK_FROM_CAMERA);  //  카메라 미리보기 화면 보여주기

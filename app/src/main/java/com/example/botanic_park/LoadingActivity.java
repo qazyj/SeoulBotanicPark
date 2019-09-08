@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoadingActivity extends Activity {
     public static final String PLANT_LIST_KEY = "plant list";
@@ -137,7 +136,6 @@ public class LoadingActivity extends Activity {
                     try {
                         document = Jsoup.connect(DETAIL_PAGE_URL).get();
                         Elements textElements = document.select("div[class=text_area]").select("span");
-                        //Log.d("debug textElements", textElements + "");
 
                         String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
 
@@ -162,7 +160,6 @@ public class LoadingActivity extends Activity {
                         list.add(new PlantBookItem(id, IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
                         Log.d("테스트", "id: " + id);
                     } catch (IOException e) {
-                        //e.printStackTrace();
                         continue;   // 7번만 invalid Mark로 안옴
                     }
                 }

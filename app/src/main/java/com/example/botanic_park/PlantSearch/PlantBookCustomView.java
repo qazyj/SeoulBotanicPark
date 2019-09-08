@@ -4,9 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import androidx.annotation.Nullable;
 
 /* 식물 도감을 보여주는 그리드뷰 */
 class PlantBookExpandableGridView extends GridView{

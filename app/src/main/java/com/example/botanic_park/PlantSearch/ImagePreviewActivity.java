@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -109,7 +108,6 @@ public class ImagePreviewActivity extends AppCompatActivity {
 
         // 빈 파일 생성
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        //Log.d("테스트", "createImageFile : " + image.getAbsolutePath());
 
         return image;
     }

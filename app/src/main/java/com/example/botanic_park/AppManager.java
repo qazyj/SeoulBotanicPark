@@ -80,5 +80,9 @@ public class AppManager {
     private com.example.botanic_park.Information.NewsActivity newsActivity;
     public void setNewsActivity(com.example.botanic_park.Information.NewsActivity  newsActivity) {this.newsActivity = newsActivity; }
     public com.example.botanic_park.Information.NewsActivity getNewsActivity(){ return  newsActivity; }
+
+    private com.example.botanic_park.WebViewActivity webViewActivity;
+    public void setWebViewActivity(com.example.botanic_park.WebViewActivity  webViewActivity) {this.webViewActivity = webViewActivity; }
+    public com.example.botanic_park.WebViewActivity getWebViewActivity(){ return  webViewActivity; }
     }
 

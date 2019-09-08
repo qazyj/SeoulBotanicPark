@@ -50,7 +50,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
         list = AppManager.getInstance().getList();
         searchList = new ArrayList<PlantBookItem>();
-        //getSearchResult(searchWordList.get(0));
 
         Log.d("테스트", searchWordList.size() + "");
         for(int i=0; i<searchWordList.size(); i++){

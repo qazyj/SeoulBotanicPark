@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,7 +85,7 @@ public class InconvenienceDetailPostActivity extends Activity {
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
         content = (EditText)findViewById(R.id.input_commend_content);
-        //댓글 텍스트 글자수 제한 두려고 하는데 잘 안됌 일단 보류
+
         content.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -106,7 +106,6 @@ public class InconvenienceDetailPostActivity extends Activity {
 
                     FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
                     content.setFilters(FilterArray);
-                    //content.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength+1)});
                 }
             }
 
@@ -121,13 +120,17 @@ public class InconvenienceDetailPostActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
+                    String commend_content = content.getText().toString();
 
-                String commend_content = content.getText().toString();
+                    InsertCommend task = new InsertCommend();
+                    task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
 
-                InsertCommend task = new InsertCommend();
-                task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
-
-                onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                   onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                }
+                else {
+                    Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -148,7 +151,6 @@ public class InconvenienceDetailPostActivity extends Activity {
             TextView post_date = findViewById(R.id.date);
             post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            //add_views = findViewById(R.id.views);
             add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS))+1));
             pard=Integer.parseInt(c.getString(TAG_VIEWS))+1;
         } catch (JSONException e) {
