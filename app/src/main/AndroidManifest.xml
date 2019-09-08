@@ -64,7 +64,8 @@
         <activity android:name=".Information.InconvenienceDetailPostActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".Information.RegistrationPostInInconvenienceActivity"/>
+        <activity android:name=".Information.RegistrationPostInInconvenienceActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Information.InconvenienceActivity"/>
         <activity
             android:name=".Help.HelpActivity"
