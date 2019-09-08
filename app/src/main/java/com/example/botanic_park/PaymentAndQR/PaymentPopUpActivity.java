@@ -29,11 +29,8 @@ public class PaymentPopUpActivity extends Activity {
         zeroPay = (ImageView) findViewById(R.id.zero_pay);
 
         if(canBuyTicketNow()) doToBuyTicket();
-        else  {
-            TextView textView;
-            textView=(TextView)findViewById(R.id.limit);
-            textView.setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입니다.");
-        }
+        else  ((TextView)findViewById(R.id.limit)).setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입니다.");
+
     }
 
     @Override
