@@ -13,16 +13,25 @@
     android:gravity="center">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/seoul_botanical_garden_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="-80dp"
+            android:src="@drawable/seoul_botanical_garden_logo"
+            android:layout_marginBottom="@dimen/margin_normal" />
 
     <TextView
         android:id="@+id/title_plant_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="건의 사항"
         android:textColor="@color/colorBaseCyan"
@@ -168,17 +177,4 @@
     </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
-    <LinearLayout
-        android:id="@+id/logoframe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBanner">
-
-        <ImageView
-            android:id="@+id/seoul_botanical_garden_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/margin_normal"
-            android:src="@drawable/seoul_botanical_garden_logo" />
-    </LinearLayout>
 </LinearLayout>

@@ -87,39 +87,4 @@ public class InformationUseActivity extends Activity {
         textView8.setText(spannableString8);
 
     }
-
-
-    /* 웹에서 정보 긁어오는 클래스 */
-    /*
-    public class ParseInformationTask extends AsyncTask<Void, Void, Void> {
-        String INFORMATION_USE_URL = "https://botanicpark.seoul.go.kr/front/introduce/useInfo.do";
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try{
-                // 인증서 있는 홈페이지를 인증서 없이도 연결 가능하게 설정
-                SSLConnect sslConnect = new SSLConnect();
-                sslConnect.postHttps(INFORMATION_USE_URL,1000,1000);
-
-                // 웹에서 정보 읽어옴
-                Document document = Jsoup.connect(INFORMATION_USE_URL).get();
-
-                //해당 이미지 url 저장
-                imageURL = document.select("div[class=info]").select("img").attr("src");
-
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-
-            //가져온 이미지 화면에 띄움
-            imageView = findViewById(R.id.seoul_botanical_garden_section_place);
-            Glide.with(getApplication()).load(BaseURL+imageURL).into(imageView);
-        }
-    }
-    */
 }

@@ -5,15 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
-import com.example.botanic_park.SSLConnect;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
     private ImageButton guideOutside, guideInside;
@@ -88,11 +88,11 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 break;
             case R.id.information_news:
                 intent = new Intent(getActivity(), NewsActivity.class);
-                startActivity(intent);
+                checkNewworkBeforeNextActivity(intent);
                 break;
             case R.id.information_community:
                 intent = new Intent(getActivity(), InconvenienceActivity.class);
-                startActivity(intent);
+                checkNewworkBeforeNextActivity(intent);
                 break;
             default:
                 break;
@@ -105,6 +105,15 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         Uri uri = Uri.parse(url);
         intent.setData(uri);
         startActivity(intent);
+    }
+
+    private void checkNewworkBeforeNextActivity(Intent intent) {
+        if(NetworkStatus.getConnectivityStatus(getActivity())!=3) {
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(getActivity(), "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

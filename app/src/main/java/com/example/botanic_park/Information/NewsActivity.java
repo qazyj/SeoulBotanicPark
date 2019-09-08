@@ -7,15 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.bumptech.glide.Glide;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.R;
-import com.example.botanic_park.SSLConnect;
-import com.example.botanic_park.WebViewActivity;
+import com.example.botanic_park.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -54,7 +48,7 @@ public class NewsActivity extends Activity {
         findViewById(R.id.viewMore).setOnClickListener(new Button.OnClickListener() {
                                                            public void onClick(View v) {
                                                                intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
-                                                               startActivity(intent);
+                                                               checkNewworkBeforeNextActivity(intent);
                                                            }
                                                        }
         );
@@ -65,7 +59,7 @@ public class NewsActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+/*
         //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -74,7 +68,7 @@ public class NewsActivity extends Activity {
         LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
         LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
         frameLayout2.topMargin= -height;
-        frameLayout.setLayoutParams(frameLayout2);
+        frameLayout.setLayoutParams(frameLayout2);*/
     }
 
     /* 웹에서 정보 긁어오는 클래스 */
@@ -264,7 +258,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[0] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[0]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -277,7 +271,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[1] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[1]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -290,7 +284,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[2] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[2]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -303,7 +297,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[3] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[3]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -316,7 +310,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[4] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[4]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -329,7 +323,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[5] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[5]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -342,7 +336,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[6] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[6]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -355,7 +349,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[7] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[7]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -368,7 +362,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[8] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[8]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -381,7 +375,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[9] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[9]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -394,7 +388,7 @@ public class NewsActivity extends Activity {
                 public void onClick(View v) {
                     if(connectURLString[10] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[10]);
-                        startActivity(intent);
+                        checkNewworkBeforeNextActivity(intent);
                     }
                 }
             });
@@ -511,6 +505,15 @@ public class NewsActivity extends Activity {
             imageView = findViewById(R.id.icon11);
             Glide.with(getApplication()).load("https://botanicpark.seoul.go.kr"+imageURL11).into(imageView);
         }
+
     }
 
+    private void checkNewworkBeforeNextActivity(Intent intent) {
+        if(NetworkStatus.getConnectivityStatus(NewsActivity.this)!=3) {
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(NewsActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

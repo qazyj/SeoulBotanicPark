@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 
 import java.io.BufferedReader;
@@ -73,6 +74,8 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(NetworkStatus.getConnectivityStatus(RegistrationPostInInconvenienceActivity.this)!=3) {
+
                 String post_title = title.getText().toString();
                 String post_content = content.getText().toString();
 
@@ -80,6 +83,10 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
                 task.execute("http://" + IP_ADDRESS + "/inconvenienceinsert.php", post_title, post_content);
 
                 finish();
+                }
+                else {
+                    Toast.makeText(RegistrationPostInInconvenienceActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
