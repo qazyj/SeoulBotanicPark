@@ -14,8 +14,6 @@ import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class PaymentPopUpActivity extends Activity {

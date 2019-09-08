@@ -11,7 +11,7 @@
         android:layout_height="410dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_height="200dp"
             android:layout_width="200dp"
             android:layout_marginTop="40dp"
@@ -25,7 +25,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/floating_qrcode_icon"/>
-        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:id="@+id/close_announcement"
+                >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="15sp"
+                android:text="오늘 입장 마감"
+                android:textColor="#F00"
+                />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="서울식물원을 찾아주셔서 감사합니다."
+                    />
+            </LinearLayout>
+
+        </FrameLayout>
 
 
         <View
