@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.R;
@@ -28,30 +29,37 @@ public class AchivementViewActivity extends AppCompatActivity {
         });
 
         ImageView achiveImage = (ImageView) findViewById(R.id.achive_tree_image);
+        TextView leveltext = (TextView) findViewById(R.id.leveltext);
 
-        if(AppManager.getInstance().collectionCount==0)
+        if(AppManager.getInstance().collectionCount>=0 && AppManager.getInstance().collectionCount<=121/5)
         {
             achiveImage.setImageResource(R.drawable.tree1);
+            leveltext.setText("Lv1 (0~24개)");
         }
-        else if(AppManager.getInstance().collectionCount<121/5)
+        else if(AppManager.getInstance().collectionCount<=121/5*2)
         {
             achiveImage.setImageResource(R.drawable.tree2);
+            leveltext.setText("Lv2 (25~48개)");
         }
-        else if(AppManager.getInstance().collectionCount<121/5*2)
+        else if(AppManager.getInstance().collectionCount<=121/5*3)
         {
             achiveImage.setImageResource(R.drawable.tree3);
+            leveltext.setText("Lv3 (49~72개)");
         }
-        else if(AppManager.getInstance().collectionCount<121/5*3)
+        else if(AppManager.getInstance().collectionCount<=121/5*4)
         {
             achiveImage.setImageResource(R.drawable.tree4);
+            leveltext.setText("Lv4 (73~96개)");
         }
-        else if(AppManager.getInstance().collectionCount<121/5*4)
+        else if(AppManager.getInstance().collectionCount<121)
         {
             achiveImage.setImageResource(R.drawable.tree5);
+            leveltext.setText("Lv5 (97~120개)");
         }
         else if(AppManager.getInstance().collectionCount==121)
         {
             achiveImage.setImageResource(R.drawable.tree6);
+            leveltext.setText("Master");
         }
     }
 }
