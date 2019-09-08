@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.MainActivity;
-import com.example.botanic_park.NetworkConnectionCheck;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +63,7 @@ public class InconvenienceActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
+        if(NetworkStatus.getConnectivityStatus(InconvenienceActivity.this)!=3) {
             list = (ListView) findViewById(R.id.listviewpost);
             postList = new ArrayList<HashMap<String, String>>();
 
@@ -116,7 +114,7 @@ public class InconvenienceActivity extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     // TODO Auto-generated method stub
-                    if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
+                    if(NetworkStatus.getConnectivityStatus(InconvenienceActivity.this)!=3) {
                         Intent intent = new Intent(getApplicationContext(),InconvenienceDetailPostActivity.class);
 
                         //json형태인 문자열에서 primarykey인 number값을 보내는 작업
@@ -185,14 +183,5 @@ public class InconvenienceActivity extends Activity {
 
         g.execute(url);
 
-    }
-
-    private void checkNewworkBeforeNextActivity(Intent intent) {
-        if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
-        }
     }
 }

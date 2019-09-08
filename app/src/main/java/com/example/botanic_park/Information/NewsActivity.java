@@ -509,7 +509,7 @@ public class NewsActivity extends Activity {
     }
 
     private void checkNewworkBeforeNextActivity(Intent intent) {
-        if(NetworkConnectionCheck.isConnected(NewsActivity.this)) {
+        if(NetworkStatus.getConnectivityStatus(NewsActivity.this)!=3) {
             startActivity(intent);
         }
         else {

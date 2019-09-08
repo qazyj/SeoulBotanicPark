@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.botanic_park.AppManager;
-import com.example.botanic_park.NetworkConnectionCheck;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 
 import java.io.BufferedReader;
@@ -74,7 +74,7 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkConnectionCheck.isConnected(RegistrationPostInInconvenienceActivity.this)) {
+                if(NetworkStatus.getConnectivityStatus(RegistrationPostInInconvenienceActivity.this)!=3) {
 
                 String post_title = title.getText().toString();
                 String post_content = content.getText().toString();

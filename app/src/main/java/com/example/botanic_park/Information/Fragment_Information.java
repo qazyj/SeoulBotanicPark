@@ -1,28 +1,19 @@
 package com.example.botanic_park.Information;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.example.botanic_park.MainActivity;
-import com.example.botanic_park.NetworkConnectionCheck;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
-import com.example.botanic_park.SSLConnect;
-
-import java.lang.reflect.Method;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
     private ImageButton guideOutside, guideInside;
@@ -117,7 +108,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
     }
 
     private void checkNewworkBeforeNextActivity(Intent intent) {
-        if(NetworkConnectionCheck.isConnected(getActivity())) {
+        if(NetworkStatus.getConnectivityStatus(getActivity())!=3) {
             startActivity(intent);
         }
         else {

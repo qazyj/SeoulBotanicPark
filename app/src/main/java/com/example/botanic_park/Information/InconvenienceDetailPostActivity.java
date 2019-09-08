@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
-import com.example.botanic_park.NetworkConnectionCheck;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,7 +121,7 @@ public class InconvenienceDetailPostActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkConnectionCheck.isConnected(InconvenienceDetailPostActivity.this)) {
+                if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
                     String commend_content = content.getText().toString();
 
                     InsertCommend task = new InsertCommend();
