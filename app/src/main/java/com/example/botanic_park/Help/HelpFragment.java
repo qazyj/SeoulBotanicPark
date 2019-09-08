@@ -1,10 +1,12 @@
 package com.example.botanic_park.Help;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,7 +34,7 @@ public class HelpFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        helpCode = getArguments().getInt("help type", HelpActivity.HELP_TODAY_PLANT);
+        helpCode = getArguments().getInt("help code", HelpActivity.HELP_TODAY_PLANT);
         page = getArguments().getInt("page", 0);
     }
 
@@ -65,10 +67,28 @@ public class HelpFragment extends Fragment {
                     break;
 
             }
-        } else if(helpCode == HelpActivity.HELP_TODAY_PLANT){
+        } else if(helpCode == HelpActivity.HELP_PLANT_BOOK){
+            switch (page) {
+                case 1:
+                    Glide.with(view).load(R.drawable.help_plant_1).centerInside().into(imageView);
+                    textView.setText(Html.fromHtml("<b>*프로그래스바*</b>"
+                            + "<br>상단에 있는 프로그래스바로<br>얼마나 모았는지 확인할 수 있어요!"));
+                    break;
+                case 2:
+                    Glide.with(view).load(R.drawable.help_plant_2).centerInside().into(imageView);
+                    textView.setText(Html.fromHtml("<b>*도감 정렬*</b>"
+                            + "<br>상단에 있는 콤보박스를 누르면<br>식물도감을 획득순, 최신순, 가나다순으로<br>" +
+                            "정렬할 수 있어요."));
+                    break;
+                case 3:
+                    Glide.with(view).load(R.drawable.help_plant_3).centerInside().into(imageView);
+                    textView.setText(Html.fromHtml("<b>*식물 검색*</b>"
+                            + "<br>1) 검색창에 원하는 식물을<br>영문, 한글로 입력해 검색할 수 있어요.<br>" +
+                            "2) 카메라 버튼을 누르면<br>이미지를 통해 식물을 검색할 수 있어요.<br>"));
+                    break;
 
+            }
         }
-        //Glide.with(view).load(R.drawable.today_plant).centerInside().into(imageView);
 
         return view;
     }
