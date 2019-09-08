@@ -10,6 +10,15 @@
         android:layout_height="410dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/leveltext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lv1"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="@color/orange_color"/>
+
     <ImageView
         android:id="@+id/achive_tree_image"
         android:layout_width="match_parent"
