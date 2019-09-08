@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.NetworkConnectionCheck;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -121,13 +122,17 @@ public class InconvenienceDetailPostActivity extends Activity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(NetworkConnectionCheck.isConnected(InconvenienceDetailPostActivity.this)) {
+                    String commend_content = content.getText().toString();
 
-                String commend_content = content.getText().toString();
+                    InsertCommend task = new InsertCommend();
+                    task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
 
-                InsertCommend task = new InsertCommend();
-                task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
-
-                onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                   onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                }
+                else {
+                    Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.NetworkConnectionCheck;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,19 +65,25 @@ public class InconvenienceActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
+            list = (ListView) findViewById(R.id.listviewpost);
+            postList = new ArrayList<HashMap<String, String>>();
 
-        list = (ListView) findViewById(R.id.listviewpost);
-        postList = new ArrayList<HashMap<String, String>>();
+            getData("http://106.10.37.13/inconvenienceselect.php"); //수정 필요
 
-        getData("http://106.10.37.13/inconvenienceselect.php"); //수정 필요
-
-        findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
-                                                                            public void onClick(View v) {
-                                                                                Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
-                                                                                startActivity(intent);
+            findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
+                                                                                public void onClick(View v) {
+                                                                                    Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
+                                                                                    startActivity(intent);
+                                                                                }
                                                                             }
-                                                                        }
-        );
+            );
+        }
+        else {
+            Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(InconvenienceActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     protected void showList() {
@@ -108,24 +116,27 @@ public class InconvenienceActivity extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     // TODO Auto-generated method stub
+                    if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
+                        Intent intent = new Intent(getApplicationContext(),InconvenienceDetailPostActivity.class);
 
-                    Intent intent = new Intent(getApplicationContext(),InconvenienceDetailPostActivity.class);
+                        //json형태인 문자열에서 primarykey인 number값을 보내는 작업
+                        Log.d("checkcheck", postList.get(position).toString());
+                        String str1 = postList.get(position).toString();
+                        String[] arr = str1.split(",");
+                        int nIdx = arr[1].indexOf("number=");
+                        String str2 = arr[1].substring(nIdx+7);
+                        int getviews1 = arr[3].indexOf("views=");
+                        String str3 = arr[3].substring(getviews1+6,arr[3].length()-1);
+                        //Log.d("checkcheck", str3);
 
-                    //json형태인 문자열에서 primarykey인 number값을 보내는 작업
-                    Log.d("checkcheck", postList.get(position).toString());
-                    String str1 = postList.get(position).toString();
-                    String[] arr = str1.split(",");
-                    int nIdx = arr[1].indexOf("number=");
-                    String str2 = arr[1].substring(nIdx+7);
-                    int getviews1 = arr[3].indexOf("views=");
-                    String str3 = arr[3].substring(getviews1+6,arr[3].length()-1);
-                    //Log.d("checkcheck", str3);
+                        intent.putExtra("title", str2);
+                        intent.putExtra("views", str3);
 
-                    intent.putExtra("title", str2);
-                    intent.putExtra("views", str3);
-
-                    startActivity(intent);
-
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -176,4 +187,12 @@ public class InconvenienceActivity extends Activity {
 
     }
 
+    private void checkNewworkBeforeNextActivity(Intent intent) {
+        if(NetworkConnectionCheck.isConnected(InconvenienceActivity.this)) {
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
