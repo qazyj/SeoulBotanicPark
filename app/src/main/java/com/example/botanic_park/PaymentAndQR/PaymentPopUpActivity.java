@@ -74,7 +74,7 @@ public class PaymentPopUpActivity extends Activity {
 
     private void doToBuyTicket()
     {
-        Toast.makeText(getApplicationContext(), "오늘 마감 시간은 \n" + String.valueOf(limitTime) + ":00 입니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "오늘 마감 시간은 " + String.valueOf(limitTime) + ":00 입니다.", Toast.LENGTH_SHORT).show();
         AppManager.getInstance().setPaymentPopUpActivity(this);
         translateDown = AnimationUtils.loadAnimation(this,R.anim.slide_down_layout);
 
