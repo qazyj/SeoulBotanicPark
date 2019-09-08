@@ -32,9 +32,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     BackPressCloseHandler backPressCloseHandler;
 
     long lastTime = 0;
+
+    public int limitTime = 17;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         curveBottomBar.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
 
+        setTodayLimitTime();
     }
 
     @Override
@@ -259,6 +260,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private void setTodayLimitTime()
+    {
+        int nMonth;
+
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar calendar = Calendar.getInstance(jst);
+
+        nMonth = calendar.get(Calendar.MONTH) + 1;
+
+        if(nMonth < 3 || nMonth > 10) limitTime --;
+    }
 }
 
 class BackPressCloseHandler {
@@ -286,6 +299,7 @@ class BackPressCloseHandler {
         toast = Toast.makeText(activity, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }
 
 

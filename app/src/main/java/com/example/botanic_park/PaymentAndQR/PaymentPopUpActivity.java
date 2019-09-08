@@ -21,7 +21,6 @@ import java.util.TimeZone;
 public class PaymentPopUpActivity extends Activity {
     Animation translateDown;
     ImageView zeroPay;
-    private int limitTime = 17;
     Activity thisActivity = this;
 
     @Override
@@ -32,7 +31,7 @@ public class PaymentPopUpActivity extends Activity {
         zeroPay = (ImageView) findViewById(R.id.zero_pay);
 
         if(canBuyTicketNow()) doToBuyTicket();
-        else  ((TextView)findViewById(R.id.limit)).setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(limitTime) + ":00 입니다.");
+        else  ((TextView)findViewById(R.id.limit)).setText("현재 결제는 불가능합니다. \n 오늘 마감 시간은 \n" + String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입니다.");
     }
 
     @Override
@@ -52,15 +51,11 @@ public class PaymentPopUpActivity extends Activity {
 
     private boolean canBuyTicketNow()
     {
-        int nMonth;
 
         TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
         Calendar calendar = Calendar.getInstance(jst);
 
-        nMonth = calendar.get(Calendar.MONTH) + 1;
-
-        if(nMonth < 3 || nMonth > 10) limitTime --;
-
+        int limitTime = AppManager.getInstance().getMainActivity().limitTime;
         int hour = calendar.get ( Calendar.HOUR_OF_DAY );
 
         if( hour  < limitTime )
@@ -74,7 +69,7 @@ public class PaymentPopUpActivity extends Activity {
 
     private void doToBuyTicket()
     {
-        Toast.makeText(getApplicationContext(), "오늘 마감 시간은 " + String.valueOf(limitTime) + ":00 입니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "오늘 마감 시간은 " + String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입니다.", Toast.LENGTH_SHORT).show();
         AppManager.getInstance().setPaymentPopUpActivity(this);
         translateDown = AnimationUtils.loadAnimation(this,R.anim.slide_down_layout);
 
