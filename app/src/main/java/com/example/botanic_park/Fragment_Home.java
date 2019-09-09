@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
@@ -101,18 +104,29 @@ public class Fragment_Home extends Fragment {
     }
 
     private void setPlantsToday() {
+        // 오늘의 식물 구하는 공식
+        // 오늘 날짜에 * 240 곱해서 119로 나눈 나머지를 시작 인덱스로 3개 뽑음
+        int index = (240 * getDate()) % 119;
+
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
         plantsToday = new ArrayList<>();
-        plantsToday.add(getNewItem(list.get(0)));
-        plantsToday.add(getNewItem(list.get(1)));
-        plantsToday.add(getNewItem(list.get(2)));
-
-        /*
-        for (int i = 0; i < 1; i++) {
-            plantsToday.get(i).setCollected(true);
-        */
+        plantsToday.add(getNewItem(list.get(index + 1)));
+        plantsToday.add(getNewItem(list.get(index + 2)));
+        plantsToday.add(getNewItem(list.get(index + 3)));
 
         AppManager.getInstance().setPlantsToday(plantsToday);
+    }
+
+    private int getDate() {
+        // 오늘 날짜 정보를 숫자로 반환
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        Calendar calendar = Calendar.getInstance(jst);
+
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DATE);
+        Log.d("날짜", month + " " + day);
+
+        return 100 * month + day;
     }
 
     private boolean isPlantsTodayComplete() {

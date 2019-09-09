@@ -150,12 +150,12 @@ public class SearchResultActivity extends AppCompatActivity {
 
         for (PlantBookItem item : list) {
             if (item.equals(plantBookItem)) {
-
                 if (!item.isCollected()) {
                     item.setCollected(true);
                     Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
 
+                Log.d("오늘의 식물", plantsToday.contains(item) + "");
                 // 오늘의 식물 추가 안됨 (수정 필요)
                 if (plantsToday.contains(item)) {
                     int index = plantsToday.indexOf(item);

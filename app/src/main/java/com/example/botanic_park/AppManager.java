@@ -20,7 +20,6 @@ public class AppManager {
         return instance;
     }
 
-
     private ArrayList<PlantBookItem> list = null;
     private ArrayList<PlantBookItem> plantsToday = null;
     public int collectionCount = 0;
