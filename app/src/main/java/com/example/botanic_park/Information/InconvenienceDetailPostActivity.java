@@ -86,34 +86,6 @@ public class InconvenienceDetailPostActivity extends Activity {
 
         content = (EditText)findViewById(R.id.input_commend_content);
 
-        content.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-                String[] arr = content.getText().toString().split("(?<!^)");
-
-                if(content.length()>=2 && arr[content.length() - 2].equals(" ")) {
-                    int maxLength = getResources().getInteger(R.integer.max_length);
-                    InputFilter[] FilterArray = new InputFilter[1];
-
-                    FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
-                    content.setFilters(FilterArray);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-
-            }
-        });
-
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override

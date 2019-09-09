@@ -83,5 +83,9 @@ public class AppManager {
     private com.example.botanic_park.WebViewActivity webViewActivity;
     public void setWebViewActivity(com.example.botanic_park.WebViewActivity  webViewActivity) {this.webViewActivity = webViewActivity; }
     public com.example.botanic_park.WebViewActivity getWebViewActivity(){ return  webViewActivity; }
+
+    private com.example.botanic_park.LoadingActivity loadingActivity;
+    public void setLoadingActivity(com.example.botanic_park.LoadingActivity  loadingActivity) {this.loadingActivity = loadingActivity; }
+    public com.example.botanic_park.LoadingActivity getLoadingActivity(){ return  loadingActivity; }
     }
 
