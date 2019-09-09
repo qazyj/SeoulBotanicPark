@@ -34,6 +34,9 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /* 식물 검색 결과 액티비티 */
 public class SearchResultActivity extends AppCompatActivity {
+    CameraSearchActivity cameraSearchActivity
+            = (CameraSearchActivity) CameraSearchActivity.cameraSearchActivity;
+
     SearchWordAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<String> searchWordList;
@@ -82,6 +85,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                cameraSearchActivity.finish();
             }
         });
     }
@@ -201,13 +205,6 @@ public class SearchResultActivity extends AppCompatActivity {
             Field field = R.drawable.class.getField("species_" + selectedItem.getId());
             int drawableID = field.getInt(null);
 
-            /*
-            MultiTransformation multi = new MultiTransformation(
-                    new CenterCrop(),
-                    new RoundedCornersTransformation(45, 0,
-                            RoundedCornersTransformation.CornerType.TOP)
-            );
-            */
             MultiTransformation multi = new MultiTransformation(
                     new CenterCrop()
             );

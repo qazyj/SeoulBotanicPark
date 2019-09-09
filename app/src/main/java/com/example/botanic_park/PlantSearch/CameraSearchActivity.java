@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 /* 이미지 식물 검색 액티비티 */
 public class CameraSearchActivity extends AppCompatActivity {
+    public static AppCompatActivity cameraSearchActivity;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int PICK_FROM_CAMERA = 2;
 
@@ -39,8 +40,8 @@ public class CameraSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 전체 식물 리스트 받아옴
-        list = AppManager.getInstance().getList();
+        cameraSearchActivity = this;
+        list = AppManager.getInstance().getList();  // 전체 식물 리스트 받아옴
 
         bitmap = null;
         cameraFacing = Camera.CameraInfo.CAMERA_FACING_BACK;

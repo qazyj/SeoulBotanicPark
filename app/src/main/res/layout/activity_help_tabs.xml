@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_gravity="center_horizontal"
-        android:text="SKIP"
+        android:text="확 인"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:background="@null"
         android:layout_marginBottom="@dimen/margin_wide" />
