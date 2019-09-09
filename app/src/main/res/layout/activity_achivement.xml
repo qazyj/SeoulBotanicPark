@@ -44,7 +44,7 @@
             android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="확 인"
+            android:text="O K"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/colorWhite"

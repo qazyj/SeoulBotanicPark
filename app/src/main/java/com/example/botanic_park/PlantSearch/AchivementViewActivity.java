@@ -35,7 +35,7 @@ public class AchivementViewActivity extends AppCompatActivity {
             statusText.setText("축하합니다! 식물을 전부 획득하였습니다.\n" +
                     "\"서울식물원 화이팅!\" 이라는 이름으로\n서울식물원에 나무 한그루가 기증되었습니다.");
 
-            closeBtn.setText("초 기 화");
+            closeBtn.setText("R E S E T");
             closeBtn.setOnClickListener(new View.OnClickListener() {
 
                 @Override

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -26,7 +27,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class LoadingActivity extends Activity {
+public class LoadingActivity extends AppCompatActivity {
     public static final String PLANT_LIST_KEY = "plant list";
     public static final int REQUEST_CODE = 4000;
     ArrayList<PlantBookItem> list = null;

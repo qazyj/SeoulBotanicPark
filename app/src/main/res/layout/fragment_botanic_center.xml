@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E1FFE1"
+    android:background="#3355A37C"
     tools:context=".Map.Fragment_BotanicCenter">
 
     <RelativeLayout
