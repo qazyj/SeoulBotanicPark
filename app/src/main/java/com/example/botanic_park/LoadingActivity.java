@@ -46,7 +46,8 @@ public class LoadingActivity extends Activity {
         if(list == null)
             list = getListFromFile();  // 초기 파일 가져옴
 
-        AppManager.getInstance().setPlantsToday(onSearchData("plant today"));   // 오늘의 식물 가져옴
+        // 오늘의 식물 가져옴
+        AppManager.getInstance().setPlantsToday(onSearchData("plant today"));
 
         parsePlantTask = new ParsePlantTask(list);
         parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)

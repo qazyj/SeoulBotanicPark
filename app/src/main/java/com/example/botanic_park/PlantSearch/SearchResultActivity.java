@@ -1,10 +1,12 @@
 package com.example.botanic_park.PlantSearch;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +16,8 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -155,13 +157,15 @@ public class SearchResultActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
 
+                // 오늘의 식물 추가
+                Log.d("오늘의 식물", "." + item.getName_ko() + ".");
+                for(int index = 0;index <plantsToday.size();index ++){
 
-                // 오늘의 식물 추가 안됨 (수정 필요)
-                if (plantsToday.contains(item)) {
-                    int index = plantsToday.indexOf(item);
-                    plantsToday.get(index).setCollected(true);
-                    Log.d("오늘의 식물", plantsToday.contains(item) + "");
-                    Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("오늘의 식물", plantsToday.get(index).getName_ko().equals(item.getName_ko()) + "");
+                    if(plantsToday.get(index).getName_ko().equals(item.getName_ko())){
+                        plantsToday.get(index).setCollected(true);
+                        Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -170,6 +174,7 @@ public class SearchResultActivity extends AppCompatActivity {
         AppManager.getInstance().setList(list);
         AppManager.getInstance().setPlantsToday(plantsToday);
     }
+
 
     private void setData(PlantBookItem selectedItem) {
         // 이미지 결과 검색 보여줌

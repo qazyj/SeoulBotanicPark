@@ -261,6 +261,8 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 break;
             }
         }
+
+        AppManager.getInstance().getMainActivity().updateFragmentHome();    //홈 프래그먼트 갱신
     }
 
     @Override

@@ -79,6 +79,8 @@ public class Fragment_Home extends Fragment {
         super.onCreate(savedInstanceState);
         TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
         calendar = Calendar.getInstance(jst);
+
+        plantsToday = AppManager.getInstance().getPlantsToday();
     }
 
     @Override
@@ -143,7 +145,6 @@ public class Fragment_Home extends Fragment {
             });
         }
 
-
         ImageButton helpBtn = view.findViewById(R.id.help_btn);
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +161,7 @@ public class Fragment_Home extends Fragment {
     private void setPlantsToday() {
         // 오늘의 식물 구하는 공식
         // 오늘 날짜에 * 240 곱해서 119로 나눈 나머지를 시작 인덱스로 3개 뽑음
+        Log.d("오늘의 식물", "setPlantsToday");
         int index = (240 * getDate()) % 119;
 
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
@@ -192,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
+    }
+
+    public void updateFragmentHome(){
+        fragmentManager.beginTransaction()
+                .detach(fragment_Home).attach(fragment_Home).commit();
     }
 
     public void setCurveBottomBarVisibility() {
