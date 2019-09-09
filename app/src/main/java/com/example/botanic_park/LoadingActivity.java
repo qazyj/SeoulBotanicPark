@@ -42,9 +42,11 @@ public class LoadingActivity extends Activity {
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
 
-        list = onSearchData();  // 기존 저장 정보 가져옴
+        list = onSearchData("list");  // 기존 저장 정보 가져옴
         if(list == null)
             list = getListFromFile();  // 초기 파일 가져옴
+
+        AppManager.getInstance().setPlantsToday(onSearchData("plant today"));   // 오늘의 식물 가져옴
 
         parsePlantTask = new ParsePlantTask(list);
         parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)
@@ -64,9 +66,9 @@ public class LoadingActivity extends Activity {
     }
 
     // 식물 list 가져옴
-    private ArrayList<PlantBookItem> onSearchData() {
+    private ArrayList<PlantBookItem> onSearchData(String tag) {
         SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
-        String strList = sp.getString("list", "");
+        String strList = sp.getString(tag, "");
 
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<ArrayList<PlantBookItem>>() {

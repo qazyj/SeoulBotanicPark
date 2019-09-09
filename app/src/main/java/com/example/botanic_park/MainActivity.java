@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            if(System.currentTimeMillis() <= lastTime + 500) return;
+            if (System.currentTimeMillis() <= lastTime + 500) return;
             lastTime = System.currentTimeMillis();
             Intent intent;
             if (didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
@@ -256,8 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void setTodayLimitTime()
-    {
+    private void setTodayLimitTime() {
         int nMonth;
 
         TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
@@ -265,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
         nMonth = calendar.get(Calendar.MONTH) + 1;
 
-        if(nMonth < 3 || nMonth > 10) limitTime --;
+        if (nMonth < 3 || nMonth > 10) limitTime--;
     }
 }
 

@@ -28,8 +28,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
     //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
-    private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
-    //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
+    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
     private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";

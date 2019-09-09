@@ -2,6 +2,7 @@ package com.example.botanic_park;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
@@ -16,6 +18,9 @@ import com.example.botanic_park.Help.HelpActivity;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -23,12 +28,13 @@ import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
+    Calendar calendar;
 
     public Fragment_Home() {
     }
@@ -39,6 +45,47 @@ public class Fragment_Home extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    // 식물 list 저장
+    private void onSaveData(ArrayList<PlantBookItem> list) {
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+        String json = gson.toJson(list, listType);  // arraylist -> json string
+
+        SharedPreferences sp = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("plant today", json); // JSON으로 변환한 객체를 저장한다.
+        editor.commit(); // 완료한다.
+    }
+
+    private void saveDay(int day){
+        SharedPreferences sp = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("current day", day); // JSON으로 변환한 객체를 저장한다.
+        editor.commit(); // 완료한다.
+    }
+
+    private int getPreviousDay(){
+        SharedPreferences pref = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
+        int previousDay = pref.getInt("current day",0);
+
+        return previousDay;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        calendar = Calendar.getInstance(jst);
+    }
+
+    @Override
+    public void onDestroy() {
+        onSaveData(plantsToday); // 오늘의 식물 저장
+        saveDay(calendar.DATE); // 현재 날짜 저장
+        super.onDestroy();
     }
 
     @Override
@@ -62,7 +109,14 @@ public class Fragment_Home extends Fragment {
             }
         });
 
-        setPlantsToday();   // 오늘의 식물 선정
+        // 날짜가 바뀌면 오늘의 식물 초기화
+        if(calendar.DATE != getPreviousDay())
+            plantsToday = null;
+
+        // 오늘의 식물이 정해지지 않았다면 오늘의 식물 선정
+        if(plantsToday == null)
+            setPlantsToday();
+
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
         TextView textView = view.findViewById(R.id.title_plants_today);
         if (isPlantsTodayComplete()) {
@@ -119,9 +173,6 @@ public class Fragment_Home extends Fragment {
 
     private int getDate() {
         // 오늘 날짜 정보를 숫자로 반환
-        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
-        Calendar calendar = Calendar.getInstance(jst);
-
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DATE);
         Log.d("날짜", month + " " + day);
