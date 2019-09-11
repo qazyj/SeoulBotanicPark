@@ -117,15 +117,15 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         ImageButton achievementsButton = view.findViewById(R.id.achievements_button);
         achievementsButton.setOnClickListener(achivementsClickListener);
         if (AppManager.getInstance().collectionCount >= 0 && AppManager.getInstance().collectionCount <= 121 / 5) {
-            achievementsButton.setImageResource(R.drawable.award_icon_1);
+            achievementsButton.setImageResource(R.drawable.level_1);
         } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 2) {
-            achievementsButton.setImageResource(R.drawable.award_icon_2);
+            achievementsButton.setImageResource(R.drawable.level_2);
         } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 3) {
-            achievementsButton.setImageResource(R.drawable.award_icon_3);
+            achievementsButton.setImageResource(R.drawable.level_3);
         } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 4) {
-            achievementsButton.setImageResource(R.drawable.award_icon_4);
+            achievementsButton.setImageResource(R.drawable.level_4);
         } else if (AppManager.getInstance().collectionCount <= 121) {
-            achievementsButton.setImageResource(R.drawable.award_icon_5);
+            achievementsButton.setImageResource(R.drawable.level_5);
         }
 
         progressBar = view.findViewById(R.id.progressBar);
