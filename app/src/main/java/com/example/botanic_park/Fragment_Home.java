@@ -112,8 +112,10 @@ public class Fragment_Home extends Fragment {
         });
 
         // 날짜가 바뀌면 오늘의 식물 초기화
-        if(calendar.DATE != getPreviousDay())
+        if(calendar.DATE != getPreviousDay()) {
             plantsToday = null;
+            Toast.makeText(getActivity(), "오늘의 식물이 갱신되었습니다!", Toast.LENGTH_SHORT).show();
+        }
 
         // 오늘의 식물이 정해지지 않았다면 오늘의 식물 선정
         if(plantsToday == null)

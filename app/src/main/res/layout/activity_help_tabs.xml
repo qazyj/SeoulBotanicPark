@@ -40,7 +40,7 @@
         android:layout_weight="0"
         android:layout_gravity="center_horizontal"
         android:text="S K I P"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorCardView"
         android:textSize="20sp"
         android:textStyle="bold"
         android:background="@null"

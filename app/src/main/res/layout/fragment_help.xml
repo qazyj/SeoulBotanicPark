@@ -12,6 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="10dp"
+        android:textColor="@color/colorWhite"
         android:textSize="15sp" />
 
     <ImageView
