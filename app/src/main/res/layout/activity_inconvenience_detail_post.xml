@@ -72,7 +72,6 @@
                         android:orientation="horizontal"
                         android:layout_marginStart="@dimen/margin_narrow"
                         android:layout_marginTop="@dimen/margin_narrow">
-                        <!--오른쪽 정렬을 위한 View-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -110,6 +109,39 @@
                             android:text="0"
                             android:textColor="@color/no"
                             android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+                        
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="right">
+
+                        <ImageButton
+                            android:id="@+id/edit_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/post_edit"
+                            android:background="@color/colorTransparent"
+                            android:gravity="right"/>
+
+                        <ImageButton
+                            android:id="@+id/delete_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/post_delete"
+                            android:background="@color/colorTransparent"/>
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <TextView

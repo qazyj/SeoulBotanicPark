@@ -75,6 +75,39 @@
             android:background="@android:color/white"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비 밀 번 호"
+        android:textSize="20dp"
+        android:layout_weight="0.5"
+        android:textColor="@color/colorBase"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/information_border"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="※비밀번호(숫자만 최대 5글자)"
+            android:textColor="@android:color/black"
+            android:maxLength="5"
+            android:textSize="15dp"
+            android:maxLines="1"
+            android:textStyle="normal"
+            android:inputType="number"
+            android:background="@android:color/white" />
+    </LinearLayout>
+
             <Button
                 android:id="@+id/registration_post_button2"
                 android:layout_width="match_parent"

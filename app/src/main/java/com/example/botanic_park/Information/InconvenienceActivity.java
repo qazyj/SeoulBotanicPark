@@ -30,6 +30,7 @@ public class InconvenienceActivity extends Activity {
     private static final String TAG_NUMBER = "number";
     private static final String TAG_TITLE = "title";
     private static final String TAG_VIEWS = "views";
+    private static final String TAG_PASSWORD = "password";
     private static final String TAG_REGISTRATION_DATE = "date";
     private static final String TAG_AMOUNT = "result";
 
@@ -62,6 +63,7 @@ public class InconvenienceActivity extends Activity {
             findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
                                                                                 public void onClick(View v) {
                                                                                     Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
+                                                                                    intent.putExtra("Post", "Registration");
                                                                                     startActivity(intent);
                                                                                 }
                                                                             }
@@ -84,6 +86,7 @@ public class InconvenienceActivity extends Activity {
                 String title = c.getString(TAG_TITLE);
                 String views = c.getString(TAG_VIEWS);
                 String date = c.getString(TAG_REGISTRATION_DATE);
+                String password = c.getString(TAG_PASSWORD);
 
                 HashMap<String, String> posts2 = new HashMap<String, String>();
 
@@ -91,12 +94,13 @@ public class InconvenienceActivity extends Activity {
                 posts2.put(TAG_TITLE, title);
                 posts2.put(TAG_VIEWS, views);
                 posts2.put(TAG_REGISTRATION_DATE, date);
+                posts2.put(TAG_PASSWORD, password);
                 postList.add(posts2);
             }
             ListAdapter adapter = new SimpleAdapter(
                     InconvenienceActivity.this, postList, R.layout.item_inconvenience_listview,
-            new String[]{TAG_NUMBER, TAG_TITLE, TAG_VIEWS, TAG_REGISTRATION_DATE},
-            new int[]{R.id.item_number, R.id.item_title, R.id.item_views,R.id.item_registration_date});
+            new String[]{TAG_NUMBER, TAG_TITLE, TAG_VIEWS, TAG_REGISTRATION_DATE, TAG_PASSWORD},
+            new int[]{R.id.item_number, R.id.item_title, R.id.item_views,R.id.item_registration_date, R.id.item_password});
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
@@ -111,12 +115,17 @@ public class InconvenienceActivity extends Activity {
                         Log.d("checkcheck", postList.get(position).toString());
                         String str1 = postList.get(position).toString();
                         String[] arr = str1.split(",");
-                        int nIdx = arr[1].indexOf("number=");
-                        String str2 = arr[1].substring(nIdx+7);
-                        int getviews1 = arr[3].indexOf("views=");
-                        String str3 = arr[3].substring(getviews1+6,arr[3].length()-1);
+                        int getnumber = arr[1].indexOf("number=");
+                        String str2 = arr[1].substring(getnumber+7);
+                        int getpassword = arr[2].indexOf("number=");
+                        String str4 = arr[2].substring(getpassword+11);
+                        int getviews1 = arr[4].indexOf("views=");
+                        String str3 = arr[4].substring(getviews1+6,arr[4].length()-1);
+
+                        Log.d("checkcheck", str4);
 
                         intent.putExtra("title", str2);
+                        intent.putExtra("password",str4);
                         intent.putExtra("views", str3);
 
                         startActivity(intent);

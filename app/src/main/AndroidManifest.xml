@@ -70,6 +70,9 @@
         <activity
             android:name=".Help.HelpActivity"
             android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".Information.ConfirmPasswordActivity"
+            android:theme="@style/Theme.Transparent"/>
         <activity android:name=".PlantSearch.AchivementViewActivity"
             android:theme="@style/Theme.Transparent"/>
     </application>
