@@ -119,27 +119,27 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_weight="1"/>
-                        
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:gravity="right">
 
-                        <ImageButton
-                            android:id="@+id/edit_post"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/post_edit"
-                            android:background="@color/colorTransparent"
-                            android:gravity="right"/>
+                            <ImageButton
+                                android:id="@+id/edit_post"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/post_edit"
+                                android:background="@color/colorTransparent"
+                                android:gravity="right"/>
 
-                        <ImageButton
-                            android:id="@+id/delete_post"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/post_delete"
-                            android:background="@color/colorTransparent"/>
+                            <ImageButton
+                                android:id="@+id/delete_post"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/post_delete"
+                                android:background="@color/colorTransparent"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -150,6 +150,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
                         android:textColor="@android:color/black"
+                        android:lineSpacingExtra="6dp"
                         android:layout_margin="@dimen/margin_normal"
                         android:text="공원과 떨어진 곳에 편의점이있는데 편의점 가려할 때 멀어서 불편합니다!!!!" />
                 </LinearLayout>

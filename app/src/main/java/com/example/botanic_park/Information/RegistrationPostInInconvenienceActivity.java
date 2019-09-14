@@ -86,7 +86,7 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (content.getLineCount() > 14) {
+                    if (content.getLineCount() > 10) {
                         content.setText(previousString);
                         content.setSelection(content.length());
                     }

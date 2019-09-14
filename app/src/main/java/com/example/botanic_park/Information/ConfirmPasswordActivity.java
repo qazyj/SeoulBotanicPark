@@ -1,12 +1,7 @@
 package com.example.botanic_park.Information;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,21 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class ConfirmPasswordActivity extends AppCompatActivity {
-
-    private static final String IP_ADDRESS = "106.10.37.13";
-    private static final String TAG = "check";
 
     private EditText input_password;
     private Button delete;
