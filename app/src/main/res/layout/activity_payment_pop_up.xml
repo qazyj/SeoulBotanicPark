@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="445dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000">
+
+        <ImageView
+            android:id="@+id/zero_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:scaleType="center"
+            android:src="@drawable/zeropay" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@color/colorLightPink">
+
+        <TextView
+            android:id="@+id/limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:lineSpacingExtra="5dp"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/payment_rounded"
+            android:orientation="vertical"
+            android:elevation="10dp"
+            android:padding="5dp"
+            android:translationZ="10dp"
+            android:visibility="invisible">
+
+            <FrameLayout
+                android:id="@+id/ticket_payment"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="top|center"
+                android:layout_width="200dp"
+                android:layout_height="170dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/payment_button_border">
+
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ticket"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="14dp" />
+
+                <TextView
+                    style="@style/SubTitleTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20dp"
+                    android:text="결제"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="58dp"
+                    android:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="65dp"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/no"
+                    android:text="당일 예매권 온라인 결제입니다." />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/ticket_scanning"
+                android:layout_width="200dp"
+                android:layout_gravity="bottom|center"
+                android:layout_height="170dp"
+                android:layout_weight="1"
+                android:background="@drawable/payment_button_border"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/qr_code"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="14dp" />
+
+                <TextView
+                    style="@style/SubTitleTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="20dp"
+                    android:text="QR 스캔"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="58dp"
+                    android:fontFamily="sans-serif-smallcaps" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="오프라인에서 구매한 예매권의 \nQR코드를 스캔하는 방식입니다."
+                    android:textColor="@color/no" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorTransparent">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_close_24dp"
+            android:padding="10dp"
+            android:background="@drawable/round_background_black" />
+
+    </FrameLayout>
+
+</LinearLayout>

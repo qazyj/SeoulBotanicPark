@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7">
+
+                    <ImageView
+                        android:id="@+id/seoul_botanical_garden_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_margin="@dimen/margin_wide"
+                        android:src="@drawable/seoul_botanical_garden_logo"
+                        android:layout_gravity="center" />
+
+                    <View
+                        android:id="@+id/line3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBaseLightGreen" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="@dimen/margin_narrow"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:textColor="@color/colorBase"
+                        android:text="온실에 편의점 생겼으면 좋겠어요" />
+
+                    <View
+                        android:id="@+id/line4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/line2"
+                        android:background="@color/lightGray"
+                        android:layout_marginTop="10dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/margin_narrow"
+                        android:layout_marginTop="@dimen/margin_narrow">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="작성일"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_marginTop="10dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_narrow"
+                            android:text="2018/08/24"
+                            android:layout_gravity="end" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="조회수"
+                            android:layout_marginStart="15dp"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/views"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_narrow"
+                            android:text="0"
+                            android:textColor="@color/no"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="right">
+
+                            <ImageButton
+                                android:id="@+id/edit_post"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/post_edit"
+                                android:background="@color/colorTransparent"
+                                android:gravity="right"/>
+
+                            <ImageButton
+                                android:id="@+id/delete_post"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/post_delete"
+                                android:background="@color/colorTransparent"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@android:color/black"
+                        android:lineSpacingExtra="6dp"
+                        android:layout_margin="@dimen/margin_normal"
+                        android:text="공원과 떨어진 곳에 편의점이있는데 편의점 가려할 때 멀어서 불편합니다!!!!" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.01"
+                android:background="@color/colorBase" />
+
+            <TextView
+                android:id="@+id/textview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrow"
+                android:text="댓 글"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:textColor="@color/colorBase" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/no" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:background="@android:color/white"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ListView
+                    android:id="@+id/listviewcommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/lightGray"
+                    android:layout_marginTop="10dp"
+                    android:dividerHeight="1dp"
+                    android:layout_weight="7.95" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.05"
+                    android:background="@color/lightGray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/lightGray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="9"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:id="@+id/input_commend_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:maxLength="@integer/max_length"
+                            android:background="@android:color/white"
+                            android:hint="댓글을 입력해 주세요.(공백포함 60자 이내)"
+                            android:textColor="@color/no"
+                            android:textSize="12sp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="end"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:id="@+id/add_comment_button"
+                            android:padding="5dp"
+                            android:background="@android:color/transparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="onClick"
+                            android:src="@drawable/add_comment_icon"
+                            android:scaleType="centerInside" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

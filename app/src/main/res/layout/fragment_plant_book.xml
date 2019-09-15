@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <!-- 식물 검색 -->
+    <RelativeLayout
+        android:id="@+id/layout_plant_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="121" />
+
+
+        <ImageButton
+            android:id="@+id/achievements_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginEnd="40dp"
+            android:background="@null"
+            android:src="@drawable/level_1"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/help_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:background="@null"
+            android:src="@drawable/ic_help_outline" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginStart="@dimen/margin_narrow">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/margin_normal"
+                android:src="@drawable/ic_book" />
+
+            <TextView
+                android:id="@+id/title_plant_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:gravity="center_horizontal"
+                android:text="식물 도감"
+                android:textColor="@color/colorBaseCyan"
+                android:textSize="20sp" />
+
+
+            <LinearLayout
+                android:id="@+id/list_plant_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_normal"
+                android:gravity="center_horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="식물 검색"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <ImageButton
+                    android:id="@+id/camera_search_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/colorTransparent"
+                    android:src="@drawable/ic_camera_search" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="식물 도감"
-        android:gravity="center"
-        android:textSize="30dp"/>
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:scrollbarThumbVertical="@drawable/round_square_background_thumb"
+        android:scrollbarSize="15dp"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/margin_narrow"
+        android:scrollbarStyle="outsideOverlay">
+
+        <!-- 식물 도감 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp">
+
+
+            <com.example.botanic_park.PlantSearch.PlantBookExpandableGridView
+                android:id="@+id/gridview_plant_book"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="70dp"
+                android:horizontalSpacing="@dimen/margin_normal"
+                android:numColumns="auto_fit"
+                android:overScrollMode="never"
+                android:padding="5dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/margin_normal" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -1,4 +1,50 @@
 <resources>
-    <string name="app_name">Botanic_Park</string>
-    <string name="title_activity_web_view">WebView</string>
+    <string name="app_name">서울식물원</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="sort_get"><u>획득순</u></string>
+    <string name="sort_newest"><u>최신순</u></string>
+    <string name="sort_alphabet"><u>가나다순</u></string>
+
+    <string-array name="theme_garden">
+        <item>주제 정원</item>
+        <item>정보</item>
+    </string-array>
+
+    <string-array name="green_house">
+        <item>온실</item>
+        <item>온실 안내도 열람</item>
+    </string-array>
+
+    <string-array name="botnic_culture_center">
+        <item>문화 센터</item>
+        <item>내부 지도 보기</item>
+    </string-array>
+
+    <string-array name="visitor_info">
+        <item>방문자 센터</item>
+        <item>식물원 안내도 열람</item>
+    </string-array>
+
+    <string-array name="library_info">
+        <item>식물전문도서관</item>
+        <item>http://botanicpark.seoul.go.kr/lib/#/</item>
+    </string-array>
+
+    <string-array name="seed_library_info">
+        <item>씨앗도서관</item>
+        <item>https://botanicpark.seoul.go.kr/front/use/seedlibrary.do</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sort_type">
+        <item>획득순</item>
+        <item>최신순</item>
+        <item>가나다순</item>
+    </string-array>
 </resources>

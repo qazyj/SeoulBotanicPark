@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBanner"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFF"
+            android:paddingBottom="20dp"
+            >
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식물전문도서관은"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorBaseCyan" /> //제목
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text=" 식물·생태·정원·조경 등 국내외 식물 관련 전문서적과 자료를 소장하고 있습니다. \n 도서 외에도 DVD·연속간행물과 같은 다양한 형태의 자료를 수집·보존하고 있어 식물과 식물문화에 관심이 있는 누구나 자유롭게 이용할 수 있습니다."
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        /> //설명
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식물전문도서관 사이트 바로가기 > "
+        android:textSize="12sp"
+        android:layout_gravity="right"
+        style="bold"
+        android:id="@+id/url"
+        android:clickable="true"
+        android:textColor="@color/orange_color"
+        />
+
+            /*--자료 현황--*/
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자료 현황"
+                android:layout_marginTop="30dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:text="(2018.10.11 기준)"
+                    android:textSize="10sp"
+                    />
+            </LinearLayout> //타이틀
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/colorBase"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="전체"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="6,841권"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //전체
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="국내도서"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="5,039권"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //국내도서
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="국외도서"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="1,700권"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //국외도서
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="비도서"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="86종"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //비도서
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="연속간행물"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="16종"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //연속간행물
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/no"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+
+            /*--시설 현황--*/
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시설 현황"
+                    android:layout_marginTop="30dp"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@string/app_name"
+                    android:textStyle="bold"
+                    /> //타이틀
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/colorBase"
+                    android:layout_marginTop="10dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="열람\n좌석"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="40석"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //열람좌석
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="검색용\nPC"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="1대"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //검색용
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="이용자 \n PC"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="2대"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //이용자
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="스캐너\n"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="1대"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+                    </LinearLayout> //스캐너
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="프린터\n"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="1대"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //프린터
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="복사기\n"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBase"
+                            android:layout_gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/traffic_information2"
+                            android:background="@color/colorBase"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@string/app_name"
+                            android:text="1대"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            />
+
+
+                    </LinearLayout> //복사기
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/no"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+
+            /*--도서관 운영 안내--*/
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도서관 운영 안내"
+                android:layout_marginTop="30dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@string/app_name"
+                android:textStyle="bold"
+                /> //타이틀
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/colorBase"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/app_name"
+                    android:text="위치"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/app_name"
+                        android:text="운영시간"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout> //분류
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/colorBase"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@string/app_name"
+                        android:text="식물문화센터2"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@string/app_name"
+                        android:text="화 ~ 일\n09:30~18:00"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/traffic_information2"
+                    android:background="@color/no"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout> //설명
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

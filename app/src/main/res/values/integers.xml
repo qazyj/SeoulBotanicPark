@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- mapmarker code -->
+    <integer name="all">1</integer>
+    <integer name="ticket_box">3</integer>
+    <integer name="playground">5</integer>
+    <integer name="parking">7</integer>
+    <integer name="bicycle">11</integer>
+</resources>

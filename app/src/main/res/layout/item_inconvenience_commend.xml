@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:weightSum="5.2">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            android:layout_weight="5">
+
+            <TextView
+                android:id="@+id/commend_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:textColor="@android:color/black"
+                android:text="content"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/commend_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="10sp"
+                android:textColor="#8f8f8f"
+                android:text="2019/08/19"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
