@@ -1,6 +1,8 @@
 package com.example.botanic_park;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     if (fragment_Home == null) {
                         fragment_Home = Fragment_Home.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home, "home").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().show(fragment_Home).commit();
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.map:
                     if (fragment_Map == null) {
                         fragment_Map = Fragment_main_map.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map, "map").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.plant_book:
                     if (fragment_Plant_Book == null) {
                         fragment_Plant_Book = Fragment_Plant_Book.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book, "plant book").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -179,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.information:
                     if (fragment_Information == null) {
                         fragment_Information = Fragment_Information.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information, "information").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -272,7 +274,23 @@ public class MainActivity extends AppCompatActivity {
 
         if (nMonth < 3 || nMonth > 10) limitTime--;
     }
+
+    class DeviceEventReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if(Intent.ACTION_DATE_CHANGED.equals(action)){
+                // 날짜가 변경된 경우 오늘의 식물을 초기화해줌
+                AppManager.getInstance().setPlantsToday(null);
+                Fragment home = getSupportFragmentManager().findFragmentByTag("home");
+                getSupportFragmentManager().beginTransaction().detach(home).attach(home).commit();
+            }
+        }
+    }
 }
+
+
 
 class BackPressCloseHandler {
     private long backKeyPressedTime = 0;

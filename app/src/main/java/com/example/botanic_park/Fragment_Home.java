@@ -1,5 +1,6 @@
 package com.example.botanic_park;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -60,20 +61,6 @@ public class Fragment_Home extends Fragment {
         editor.commit(); // 완료한다.
     }
 
-    private void saveDay(int day){
-        SharedPreferences sp = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("current day", day); // JSON으로 변환한 객체를 저장한다.
-        editor.commit(); // 완료한다.
-    }
-
-    private int getPreviousDay(){
-        SharedPreferences pref = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
-        int previousDay = pref.getInt("current day",0);
-
-        return previousDay;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +73,6 @@ public class Fragment_Home extends Fragment {
     @Override
     public void onDestroy() {
         onSaveData(plantsToday); // 오늘의 식물 저장
-        saveDay(calendar.DATE); // 현재 날짜 저장
         super.onDestroy();
     }
 
@@ -111,11 +97,6 @@ public class Fragment_Home extends Fragment {
             }
         });
 
-        // 날짜가 바뀌면 오늘의 식물 초기화
-        if(calendar.DATE != getPreviousDay()) {
-            plantsToday = null;
-            Toast.makeText(getActivity(), "오늘의 식물이 갱신되었습니다!", Toast.LENGTH_SHORT).show();
-        }
 
         // 오늘의 식물이 정해지지 않았다면 오늘의 식물 선정
         if(plantsToday == null)
@@ -173,6 +154,9 @@ public class Fragment_Home extends Fragment {
         plantsToday.add(getNewItem(list.get(index + 3)));
 
         AppManager.getInstance().setPlantsToday(plantsToday);
+
+        Toast.makeText(getActivity(),
+                "오늘의 식물이 갱신되었습니다!", Toast.LENGTH_SHORT).show();
     }
 
     private int getDate() {
