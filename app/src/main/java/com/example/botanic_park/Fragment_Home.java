@@ -97,10 +97,8 @@ public class Fragment_Home extends Fragment {
             }
         });
 
-
-        // 오늘의 식물이 정해지지 않았다면 오늘의 식물 선정
-        if(plantsToday == null)
-            setPlantsToday();
+        // 오늘의 식물 선정
+        setPlantsToday();
 
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
         TextView textView = view.findViewById(R.id.title_plants_today);
