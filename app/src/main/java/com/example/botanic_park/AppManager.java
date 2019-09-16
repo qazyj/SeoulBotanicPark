@@ -20,7 +20,6 @@ public class AppManager {
         return instance;
     }
 
-
     private ArrayList<PlantBookItem> list = null;
     private ArrayList<PlantBookItem> plantsToday = null;
     public int collectionCount = 0;
@@ -80,5 +79,13 @@ public class AppManager {
     private com.example.botanic_park.Information.NewsActivity newsActivity;
     public void setNewsActivity(com.example.botanic_park.Information.NewsActivity  newsActivity) {this.newsActivity = newsActivity; }
     public com.example.botanic_park.Information.NewsActivity getNewsActivity(){ return  newsActivity; }
+
+    private com.example.botanic_park.WebViewActivity webViewActivity;
+    public void setWebViewActivity(com.example.botanic_park.WebViewActivity  webViewActivity) {this.webViewActivity = webViewActivity; }
+    public com.example.botanic_park.WebViewActivity getWebViewActivity(){ return  webViewActivity; }
+
+    private com.example.botanic_park.LoadingActivity loadingActivity;
+    public void setLoadingActivity(com.example.botanic_park.LoadingActivity  loadingActivity) {this.loadingActivity = loadingActivity; }
+    public com.example.botanic_park.LoadingActivity getLoadingActivity(){ return  loadingActivity; }
     }
 

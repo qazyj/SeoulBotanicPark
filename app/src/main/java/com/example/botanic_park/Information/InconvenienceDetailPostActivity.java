@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -85,49 +82,22 @@ public class InconvenienceDetailPostActivity extends Activity {
         updateTask.execute("http://" + IP_ADDRESS + "/updatepostviews.php", intent.getStringExtra("title"), add_views.getText().toString());
 
         content = (EditText)findViewById(R.id.input_commend_content);
-        //댓글 텍스트 글자수 제한 두려고 하는데 잘 안됌 일단 보류
-        content.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-                String[] arr = content.getText().toString().split("(?<!^)");
-                Log.d("tagcheck", arr[content.length()-1]);
-
-                if(content.length()>=2 && arr[content.length() - 2].equals(" ")) {
-                    int maxLength = getResources().getInteger(R.integer.max_length);
-                    Log.d("tagcheck", ""+maxLength);
-                    InputFilter[] FilterArray = new InputFilter[1];
-
-                    FilterArray[0] = new InputFilter.LengthFilter(maxLength+1);
-                    content.setFilters(FilterArray);
-                    //content.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength+1)});
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-
-            }
-        });
 
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
-                    String commend_content = content.getText().toString();
+                String commend_content = content.getText().toString();
+                if(commend_content.matches(" ")) {
+                    Toast.makeText(InconvenienceDetailPostActivity.this, "내용이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
+                }
+                else if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
 
                     InsertCommend task = new InsertCommend();
                     task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
 
-                   onStart();      //댓글 추가하면 바로 달리게 onStart 사용
+                    content.setText("");
+                    onStart();      //댓글 추가하면 바로 달리게 onStart 사용
                 }
                 else {
                     Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -135,26 +105,78 @@ public class InconvenienceDetailPostActivity extends Activity {
             }
         });
 
+        ImageButton edit_post = (ImageButton) findViewById(R.id.edit_post);
+        edit_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent activityRevise = new Intent(getApplicationContext(),RegistrationPostInInconvenienceActivity.class);
+                activityRevise.putExtra("Post", "Revise");
+                activityRevise.putExtra("number", intent.getStringExtra("title"));
+                activityRevise.putExtra("password", intent.getStringExtra("password"));
+
+                startActivity(activityRevise);
+            }
+        });
+
+        ImageButton delete_post = (ImageButton) findViewById(R.id.delete_post);
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent activityDelete = new Intent(getApplicationContext(),ConfirmPasswordActivity.class);
+                activityDelete.putExtra("password", intent.getStringExtra("password"));
+
+                startActivityForResult(activityDelete, 3000);
+            }
+        });
+
+    }
+
+    //ConfirmPasswordActivity를 통해서 받아오는 값을 통해 작업
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data.getStringExtra("result").equals("delete")) {
+            if (NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this) != 3) {
+
+                DeletePost deletePost = new DeletePost();
+                deletePost.execute("http://" + IP_ADDRESS + "/deleteinconveniencepost.php", intent.getStringExtra("title"));
+
+                DeleteCommend deleteCommend = new DeleteCommend();
+                deleteCommend.execute("http://" + IP_ADDRESS + "/deleteinconveniencecommend.php", intent.getStringExtra("title"));
+
+                finish();      //글삭제하면 바로 글 목록으로감
+            } else {
+                Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            onStart();
+        }
     }
 
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             posts = jsonObj.getJSONArray(TAG_AMOUNT);
-            JSONObject c = posts.getJSONObject(Integer.parseInt(intent.getStringExtra("title"))-1);
+            for (int i = 0; i < posts.length(); i++) {
+                JSONObject c = posts.getJSONObject(i);
+                if (c.getString(TAG_NUMBER).equals(intent.getStringExtra("title"))){
 
-            TextView post_title = findViewById(R.id.title);
-            post_title.setText(c.getString(TAG_TITLE));
+                    TextView post_title = findViewById(R.id.title);
+                    post_title.setText(c.getString(TAG_TITLE));
 
-            TextView post_content = findViewById(R.id.content);
-            post_content.setText(c.getString(TAG_CONTENT));
+                    TextView post_content = findViewById(R.id.content);
+                    post_content.setText(c.getString(TAG_CONTENT));
 
-            TextView post_date = findViewById(R.id.date);
-            post_date.setText(c.getString(TAG_REGISTRATION_DATE));
+                    TextView post_date = findViewById(R.id.date);
+                    post_date.setText(c.getString(TAG_REGISTRATION_DATE));
 
-            //add_views = findViewById(R.id.views);
-            add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS))+1));
-            pard=Integer.parseInt(c.getString(TAG_VIEWS))+1;
+                    add_views.setText(String.valueOf(Integer.parseInt(c.getString(TAG_VIEWS)) + 1));
+                    pard = Integer.parseInt(c.getString(TAG_VIEWS)) + 1;
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -445,6 +467,180 @@ public class InconvenienceDetailPostActivity extends Activity {
         }
     }
 
+    class DeletePost extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(InconvenienceDetailPostActivity.this,
+                    "Please Wait", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
+
+            progressDialog.dismiss();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String number = (String)params[1];
+
+            String serverURL = (String)params[0];
+            String postParameters = "number=" + number;
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return null;
+            }
+
+        }
+    }
+
+    class DeleteCommend extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(InconvenienceDetailPostActivity.this,
+                    "Please Wait", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Toast.makeText(InconvenienceDetailPostActivity.this, result, Toast.LENGTH_LONG).show();
+
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String number = (String)params[1];
+
+            String serverURL = (String)params[0];
+            String postParameters = "number=" + number;
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return null;
+            }
+
+        }
+    }
 }
 
 

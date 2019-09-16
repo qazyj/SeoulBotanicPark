@@ -54,4 +54,15 @@
             android:textSize="11dp"
             android:textColor="@android:color/black"/>
 
+        <TextView
+            android:id="@+id/item_password"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="0"
+            android:text="dd"
+            android:textSize="11dp"
+            android:textColor="@android:color/black"/>
+
 </LinearLayout>

@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/background_round_square_gradient"
             android:padding="2dp">
 
             <!-- 검색 결과 없음 예외처리 -->
@@ -25,7 +24,6 @@
                 android:id="@+id/no_result_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/round_square_background_large"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -53,7 +51,6 @@
                 android:id="@+id/content_search_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/round_square_background_large"
                 android:orientation="vertical"
                 android:visibility="gone">
                 <!-- 이미지 -->
@@ -61,7 +58,7 @@
                     android:id="@+id/image_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3" />
+                    android:layout_weight="3"/>
 
                 <!-- 상세정보 -->
                 <ScrollView
@@ -72,7 +69,10 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="20dp">
+                        android:layout_marginTop="@dimen/margin_wide"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:paddingStart="@dimen/margin_narrow"
+                        android:paddingEnd="@dimen/margin_narrow">
 
                         <LinearLayout
                             android:id="@+id/name"
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="검색 결과" />
+                    android:text="검색 결과 (클릭 시 인터넷에 검색)" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -222,9 +222,9 @@
                 android:id="@+id/btn_yes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_square_background_thumb"
+                android:background="@drawable/round_swquare_background_thumb_orange_color"
                 android:gravity="center_horizontal"
-                android:text="확인"
+                android:text="확  인"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
                 android:paddingStart="20dp"

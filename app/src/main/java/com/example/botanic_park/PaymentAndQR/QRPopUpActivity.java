@@ -66,7 +66,6 @@ public class QRPopUpActivity extends Activity {
             }
 
             Toast.makeText(getApplicationContext(), "QR화면은 캡처가 불가합니다.", Toast.LENGTH_SHORT).show();
-            //getSharedPreferences("userData",Activity.MODE_PRIVATE);
         }
 
         else

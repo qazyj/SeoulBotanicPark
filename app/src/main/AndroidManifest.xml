@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+
     <application
         android:allowBackup="false"
         tools:replace="android:allowBackup"
@@ -21,6 +22,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:enabled="true" android:exported="false" android:label="Device Event Receiver" android:name="com.example.DeviceEventReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED">
+                </action>
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".PaymentAndQR.KakaoPay"></activity>
         <activity android:name=".PlantSearch.ImagePreviewActivity"></activity>
         <activity
@@ -44,7 +52,7 @@
             android:theme="@style/PopUpTheme" />
         <activity
             android:name=".LoadingActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@style/LoadingTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,10 +72,16 @@
         <activity android:name=".Information.InconvenienceDetailPostActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".Information.RegistrationPostInInconvenienceActivity"/>
+        <activity android:name=".Information.RegistrationPostInInconvenienceActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Information.InconvenienceActivity"/>
         <activity
             android:name=".Help.HelpActivity"
+            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".Information.ConfirmPasswordActivity"
+            android:theme="@style/Theme.Transparent"/>
+        <activity android:name=".PlantSearch.AchivementViewActivity"
             android:theme="@style/Theme.Transparent"/>
     </application>
 

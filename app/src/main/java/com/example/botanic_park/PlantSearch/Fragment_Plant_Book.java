@@ -3,7 +3,6 @@ package com.example.botanic_park.PlantSearch;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,24 +14,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.botanic_park.*;
+import com.example.botanic_park.Help.HelpActivity;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_CODE = 2000;
@@ -123,8 +114,23 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        ImageButton achievementsButton = view.findViewById(R.id.achievements_button);
+        achievementsButton.setOnClickListener(achivementsClickListener);
+        if (AppManager.getInstance().collectionCount >= 0 && AppManager.getInstance().collectionCount <= 121 / 5) {
+            achievementsButton.setImageResource(R.drawable.level_1);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 2) {
+            achievementsButton.setImageResource(R.drawable.level_2);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 3) {
+            achievementsButton.setImageResource(R.drawable.level_3);
+        } else if (AppManager.getInstance().collectionCount <= 121 / 5 * 4) {
+            achievementsButton.setImageResource(R.drawable.level_4);
+        } else if (AppManager.getInstance().collectionCount <= 121) {
+            achievementsButton.setImageResource(R.drawable.level_5);
+        }
+
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setProgress(AppManager.getInstance().collectionCount);
+
         return view;
     }
 
@@ -132,7 +138,8 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         @Override
         public void onClick(View view) {
             // 도움말 띄워줌
-            Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
+            Intent intent = new Intent(getContext(), HelpActivity.class);
+            intent.putExtra(HelpActivity.HELP_CODE, HelpActivity.HELP_PLANT_BOOK);
             startActivity(intent);
         }
     };
@@ -159,6 +166,14 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
             } else {
                 startCameraActivity();
             }
+        }
+    };
+
+    private View.OnClickListener achivementsClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getContext(), AchivementViewActivity.class);
+            startActivity(intent);
         }
     };
 
@@ -246,6 +261,8 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 break;
             }
         }
+
+        AppManager.getInstance().getMainActivity().updateFragmentHome();    //홈 프래그먼트 갱신
     }
 
     @Override
@@ -274,7 +291,6 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 Collections.sort(searchList, new Comparator<PlantBookItem>() {
                     @Override
                     public int compare(PlantBookItem item, PlantBookItem t1) {
-                        //Log.d("테스트", item.getId() + " " + t1.getId());
                         return Boolean.compare(!item.isCollected(), !t1.isCollected());
                     }
                 });

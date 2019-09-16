@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
 
@@ -25,9 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
-public class LoadingActivity extends Activity {
+public class LoadingActivity extends AppCompatActivity {
     public static final String PLANT_LIST_KEY = "plant list";
     public static final int REQUEST_CODE = 4000;
     ArrayList<PlantBookItem> list = null;
@@ -36,16 +38,25 @@ public class LoadingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_loading);
+        AppManager.getInstance().setLoadingActivity(this);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ImageView loading = findViewById(R.id.loading);
         Glide.with(this).load(R.drawable.loading).into(loading);
 
-        list = onSearchData();  // 기존 저장 정보 가져옴
+        list = onSearchData("list");  // 기존 저장 정보 가져옴
         if(list == null)
             list = getListFromFile();  // 초기 파일 가져옴
+
+        // 오늘의 식물 가져옴
+        AppManager.getInstance().setPlantsToday(onSearchData("plant today"));
 
         parsePlantTask = new ParsePlantTask(list);
         parsePlantTask.execute(); // AsyncTask 작동시킴(파싱)
@@ -65,9 +76,9 @@ public class LoadingActivity extends Activity {
     }
 
     // 식물 list 가져옴
-    private ArrayList<PlantBookItem> onSearchData() {
+    private ArrayList<PlantBookItem> onSearchData(String tag) {
         SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
-        String strList = sp.getString("list", "");
+        String strList = sp.getString(tag, "");
 
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
@@ -137,7 +148,6 @@ public class LoadingActivity extends Activity {
                     try {
                         document = Jsoup.connect(DETAIL_PAGE_URL).get();
                         Elements textElements = document.select("div[class=text_area]").select("span");
-                        //Log.d("debug textElements", textElements + "");
 
                         String imgUrl = document.select("div[class=img_area]").select("img").attr("src");
 
@@ -162,14 +172,13 @@ public class LoadingActivity extends Activity {
                         list.add(new PlantBookItem(id, IMAGE_START_URL + imgUrl, name_ko, name_sc, name_en, type, blossom, details));
                         Log.d("테스트", "id: " + id);
                     } catch (IOException e) {
-                        //e.printStackTrace();
                         continue;   // 7번만 invalid Mark로 안옴
                     }
                 }
             } else {
                 // 저장된 정보가 있는 경우
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(2100);
                     Log.d("테스트", list.size() + "");
                 } catch (InterruptedException e) {
                     e.printStackTrace();

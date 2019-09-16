@@ -105,4 +105,14 @@ public class PlantBookItem implements Serializable, Comparable {
         PlantBookItem item  = (PlantBookItem) o;
         return name_ko.compareTo(item.getName_ko());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEqual = false;
+
+        if(obj != null && obj instanceof PlantBookItem){
+            isEqual = (this.name_ko == ((PlantBookItem) obj).getName_ko());
+        }
+        return isEqual;
+    }
 }

@@ -1,13 +1,17 @@
 package com.example.botanic_park;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
@@ -15,16 +19,23 @@ import com.example.botanic_park.Help.HelpActivity;
 import com.example.botanic_park.PlantSearch.DetailPopUpActivity;
 import com.example.botanic_park.PlantSearch.Fragment_Plant_Book;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
+    Calendar calendar;
 
     public Fragment_Home() {
     }
@@ -37,6 +48,34 @@ public class Fragment_Home extends Fragment {
         return fragment;
     }
 
+    // 식물 list 저장
+    private void onSaveData(ArrayList<PlantBookItem> list) {
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
+        }.getType();
+        String json = gson.toJson(list, listType);  // arraylist -> json string
+
+        SharedPreferences sp = getActivity().getSharedPreferences("Botanic Park", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("plant today", json); // JSON으로 변환한 객체를 저장한다.
+        editor.commit(); // 완료한다.
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
+        calendar = Calendar.getInstance(jst);
+
+        plantsToday = AppManager.getInstance().getPlantsToday();
+    }
+
+    @Override
+    public void onDestroy() {
+        onSaveData(plantsToday); // 오늘의 식물 저장
+        super.onDestroy();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,11 +84,22 @@ public class Fragment_Home extends Fragment {
         SliderView sliderView = view.findViewById(R.id.imageSlider);
         SliderAdapter sliderAdapter = new SliderAdapter(getContext());
         sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.startAutoCycle();
+
         sliderView.setIndicatorAnimation(IndicatorAnimations.COLOR);
         sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+        sliderView.startAutoCycle();
 
-        setPlantsToday();   // 오늘의 식물 선정
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                sliderView.setCurrentPagePosition(position);
+            }
+        });
+
+        // 오늘의 식물 선정
+        setPlantsToday();
+
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
         TextView textView = view.findViewById(R.id.title_plants_today);
         if (isPlantsTodayComplete()) {
@@ -76,7 +126,6 @@ public class Fragment_Home extends Fragment {
             });
         }
 
-
         ImageButton helpBtn = view.findViewById(R.id.help_btn);
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,45 +135,35 @@ public class Fragment_Home extends Fragment {
                 startActivity(intent);
             }
         });
-        /*
-        //결제 초기화
-        ((Button) view.findViewById(R.id.button)).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sp = getContext().getSharedPreferences("Botanic Park", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("dateOfPayment", "000");
-                editor.commit();
-            }
-        });
-
-        */
-
 
         return view;
     }
 
     private void setPlantsToday() {
+        // 오늘의 식물 구하는 공식
+        // 오늘 날짜에 * 240 곱해서 119로 나눈 나머지를 시작 인덱스로 3개 뽑음
+        Log.d("오늘의 식물", "setPlantsToday");
+        int index = (240 * getDate()) % 119;
+
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
         plantsToday = new ArrayList<>();
-        plantsToday.add(getNewItem(list.get(0)));
-        plantsToday.add(getNewItem(list.get(1)));
-        plantsToday.add(getNewItem(list.get(2)));
-
-
-        for (int i = 0; i < 0; i++) {
-            plantsToday.get(i).setCollected(true);
-        }
-
+        plantsToday.add(getNewItem(list.get(index + 1)));
+        plantsToday.add(getNewItem(list.get(index + 2)));
+        plantsToday.add(getNewItem(list.get(index + 3)));
 
         AppManager.getInstance().setPlantsToday(plantsToday);
-        /*
-        for(int i=0; i<3; i++){
-            int random = (int) (Math.random() * list.size());
-            plantsToday.add(list.get(random));
-            Log.d("테스트", plantsToday.get(i).getName_ko());
-        }
-        */
+
+        Toast.makeText(getActivity(),
+                "오늘의 식물이 갱신되었습니다!", Toast.LENGTH_SHORT).show();
+    }
+
+    private int getDate() {
+        // 오늘 날짜 정보를 숫자로 반환
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DATE);
+        Log.d("날짜", month + " " + day);
+
+        return 100 * month + day;
     }
 
     private boolean isPlantsTodayComplete() {

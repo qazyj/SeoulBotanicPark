@@ -1,9 +1,12 @@
 package com.example.botanic_park.PlantSearch;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +34,9 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /* 식물 검색 결과 액티비티 */
 public class SearchResultActivity extends AppCompatActivity {
+    CameraSearchActivity cameraSearchActivity
+            = (CameraSearchActivity) CameraSearchActivity.cameraSearchActivity;
+
     SearchWordAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<String> searchWordList;
@@ -50,10 +57,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
         list = AppManager.getInstance().getList();
         searchList = new ArrayList<PlantBookItem>();
-        //getSearchResult(searchWordList.get(0));
 
         Log.d("테스트", searchWordList.size() + "");
-        for(int i=0; i<searchWordList.size(); i++){
+        for (int i = 0; i < searchWordList.size(); i++) {
             Log.d("테스트", i + ": " + searchWordList.get(i));
             getSearchResult(searchWordList.get(i));
         }
@@ -79,6 +85,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                cameraSearchActivity.finish();
             }
         });
     }
@@ -153,17 +160,25 @@ public class SearchResultActivity extends AppCompatActivity {
                     item.setCollected(true);
                     Toast.makeText(getApplicationContext(), "도감에 등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                if (plantsToday.contains(item)) {
-                    int index = plantsToday.indexOf(item);
-                    plantsToday.get(index).setCollected(true);
-                    Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+
+                // 오늘의 식물 추가
+                Log.d("오늘의 식물", "." + item.getName_ko() + ".");
+                for(int index = 0;index <plantsToday.size();index ++){
+
+                    Log.d("오늘의 식물", plantsToday.get(index).getName_ko().equals(item.getName_ko()) + "");
+                    if(plantsToday.get(index).getName_ko().equals(item.getName_ko())){
+                        plantsToday.get(index).setCollected(true);
+                        Toast.makeText(getApplicationContext(), "오늘의 식물을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         }
         // 앱메니저에 반영 (굳이 해야하나 잘 모르겠다)
         AppManager.getInstance().setList(list);
         AppManager.getInstance().setPlantsToday(plantsToday);
     }
+
 
     private void setData(PlantBookItem selectedItem) {
         // 이미지 결과 검색 보여줌
@@ -191,9 +206,7 @@ public class SearchResultActivity extends AppCompatActivity {
             int drawableID = field.getInt(null);
 
             MultiTransformation multi = new MultiTransformation(
-                    new CenterCrop(),
-                    new RoundedCornersTransformation(45, 0,
-                            RoundedCornersTransformation.CornerType.TOP)
+                    new CenterCrop()
             );
             Glide.with(imageView)
                     .load(drawableID)

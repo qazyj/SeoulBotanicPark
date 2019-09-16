@@ -2,21 +2,15 @@ package com.example.botanic_park.PlantSearch;
 
 /* Plant API에 대한 request/response를 다루는 클래스 */
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import android.widget.Toast;
-import com.example.botanic_park.AppManager;
 import com.example.botanic_park.NetworkStatus;
-import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +19,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -34,8 +27,8 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
-    private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
+    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
@@ -79,7 +72,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             return;
         }
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("식물을 찾고 있어요!\n\n잠시만 기다려 주세요...");
+        dialog.setMessage("식물을 찾고 있어요!!!");
         dialog.setCancelable(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -113,17 +106,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             context.startActivity(intent);
         } else {
-            /*
-            ArrayList<String> result = new ArrayList<>();
-            result.add(AppManager.getInstance().getList().get(1).getName_ko());
-            result.add(AppManager.getInstance().getList().get(1).getName_en());
-            result.add(AppManager.getInstance().getList().get(1).getName_sc());
-            // 검색 결과 창 띄우기
-            Intent intent = new Intent(context, SearchResultActivity.class);
-            intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
-
-            context.startActivity(intent);
-          */
             Toast.makeText(context, "이미지를 인식할 수 없습니다.\n" +
                     "다시 촬영해 주세요.", Toast.LENGTH_SHORT).show();
 
@@ -153,12 +135,10 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         JSONArray plantIDArray = new JSONArray();
         try {
             Object plantID = new JSONObject(firstResponse).get("id");
-            //Log.d("식물 아이디 코드", plantID.toString());
 
             // API에서 요구하는 형식에 맞춰줌
             plantIDArray.put(plantID);
             plantIDArray.put(67);
-            //Log.d("식물 배열", plantIDArray.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -195,13 +175,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         }
 
         return probablePlants;
-
-        /*
-        if(probablePlants.size() != 0)
-            return probablePlants.get(0);   // 첫번째 결과를 전달
-        return null;
-        */
-
     }
     private String sendForIdentification() {
         // 첫번째 request 실행

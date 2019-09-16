@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#BB000000">
+
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         app:ci_drawable="@drawable/radius"
         app:ci_height="7dp"
         app:ci_width="7dp"
-        app:ci_margin="4dp"/>
+        app:ci_margin="4dp" />
 
     <TextView
         android:id="@+id/title"
@@ -38,9 +39,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_gravity="center_horizontal"
-        android:text="SKIP"
+        android:text="S K I P"
+        android:textColor="@color/colorCardView"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:background="@null"
-        android:layout_marginBottom="@dimen/margin_wide" />
+        android:layout_marginBottom="30dp" />
 
 </LinearLayout>

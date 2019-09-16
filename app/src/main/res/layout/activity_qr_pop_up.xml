@@ -27,12 +27,12 @@
             android:src="@drawable/floating_qrcode_icon"/>
 
             <LinearLayout
+                android:id="@+id/close_announcement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:visibility="invisible"
-                android:id="@+id/close_announcement"
                 >
 
             <TextView

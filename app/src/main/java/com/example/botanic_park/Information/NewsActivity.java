@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.*;
 import com.bumptech.glide.Glide;
@@ -59,16 +58,6 @@ public class NewsActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-/*
-        //서울시 로고 핸드폰에 맞춰서 맨위에 뜨게함
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int height = displayMetrics.heightPixels;// 세로
-        LinearLayout frameLayout = (LinearLayout) findViewById(R.id.logoframe);
-        LinearLayout.LayoutParams frameLayout2 = (LinearLayout.LayoutParams) frameLayout.getLayoutParams();
-        frameLayout2.topMargin= -height;
-        frameLayout.setLayoutParams(frameLayout2);*/
     }
 
     /* 웹에서 정보 긁어오는 클래스 */

@@ -1,6 +1,8 @@
 package com.example.botanic_park;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.botanic_park.Information.Fragment_Information;
@@ -87,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
     }
 
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     if (fragment_Home == null) {
                         fragment_Home = Fragment_Home.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home, "home").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().show(fragment_Home).commit();
@@ -146,12 +148,11 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Home).commit();
                     break;
                 case R.id.map:
                     if (fragment_Map == null) {
                         fragment_Map = Fragment_main_map.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map, "map").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -161,12 +162,11 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Map).commit();
                     break;
                 case R.id.plant_book:
                     if (fragment_Plant_Book == null) {
                         fragment_Plant_Book = Fragment_Plant_Book.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book, "plant book").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -176,13 +176,12 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().show(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().hide(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Plant_Book, plantBookTag).commit();
                     break;
 
                 case R.id.information:
                     if (fragment_Information == null) {
                         fragment_Information = Fragment_Information.newInstance();
-                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information).commit();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information, "information").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().hide(fragment_Home).commit();
@@ -192,11 +191,15 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
                         fragmentManager.beginTransaction().show(fragment_Information).commit();
-                    //transaction.replace(R.id.frame_container, fragment_Information).commit();
                     break;
             }
             return true;
         }
+    }
+
+    public void updateFragmentHome(){
+        fragmentManager.beginTransaction()
+                .detach(fragment_Home).attach(fragment_Home).commit();
     }
 
     public void setCurveBottomBarVisibility() {
@@ -251,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            if(System.currentTimeMillis() <= lastTime + 500) return;
+            if (System.currentTimeMillis() <= lastTime + 500) return;
             lastTime = System.currentTimeMillis();
             Intent intent;
             if (didPay()) intent = new Intent(MainActivity.this, QRPopUpActivity.class);
@@ -261,8 +264,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void setTodayLimitTime()
-    {
+    private void setTodayLimitTime() {
         int nMonth;
 
         TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
@@ -270,9 +272,25 @@ public class MainActivity extends AppCompatActivity {
 
         nMonth = calendar.get(Calendar.MONTH) + 1;
 
-        if(nMonth < 3 || nMonth > 10) limitTime --;
+        if (nMonth < 3 || nMonth > 10) limitTime--;
+    }
+
+    class DeviceEventReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if(Intent.ACTION_DATE_CHANGED.equals(action)){
+                // 날짜가 변경된 경우 오늘의 식물을 초기화해줌
+                AppManager.getInstance().setPlantsToday(null);
+                Fragment home = getSupportFragmentManager().findFragmentByTag("home");
+                getSupportFragmentManager().beginTransaction().detach(home).attach(home).commit();
+            }
+        }
     }
 }
+
+
 
 class BackPressCloseHandler {
     private long backKeyPressedTime = 0;
