@@ -101,6 +101,7 @@
         <activity
             android:name=".Information.ConfirmPasswordActivity"
             android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
         <activity android:name=".PlantSearch.AchivementViewActivity"
             android:theme="@style/Theme.Transparent"
