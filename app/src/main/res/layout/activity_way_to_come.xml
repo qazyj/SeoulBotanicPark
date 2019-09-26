@@ -31,7 +31,7 @@
                         android:id="@+id/title_plant_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="오시는 길"
+                        android:text="오시는길"
                         android:textColor="@color/colorBaseCyan"
                         android:textSize="25sp" />
 

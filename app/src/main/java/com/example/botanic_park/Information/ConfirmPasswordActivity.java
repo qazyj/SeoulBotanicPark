@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.NetworkStatus;
 import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
@@ -45,10 +47,16 @@ public class ConfirmPasswordActivity extends AppCompatActivity {
                 if(getEdit.getBytes().length <= 0){
                     Toast.makeText(ConfirmPasswordActivity.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
-                else if(String.valueOf(Integer.parseInt(input_password.getText().toString())).equals(intent.getStringExtra("password"))) {
+                else if(NetworkStatus.getConnectivityStatus(ConfirmPasswordActivity.this) != 3 &&
+                        String.valueOf(Integer.parseInt(input_password.getText().toString())).equals(intent.getStringExtra("password"))) {
                     saveData.putExtra("result", "delete");
                     setResult(RESULT_OK, saveData);
                     finish();
+                }
+                else if(NetworkStatus.getConnectivityStatus(ConfirmPasswordActivity.this) == 3) {
+                    Toast.makeText(ConfirmPasswordActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ConfirmPasswordActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(ConfirmPasswordActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
@@ -61,7 +69,13 @@ public class ConfirmPasswordActivity extends AppCompatActivity {
             public void onSingleClick(View v) {
                 saveData.putExtra("result", "cancel");
                 setResult(RESULT_OK, saveData);
-                finish();
+                if (NetworkStatus.getConnectivityStatus(ConfirmPasswordActivity.this) == 3) {
+                    Toast.makeText(ConfirmPasswordActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ConfirmPasswordActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
             }
         });
     }

@@ -16,10 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.NetworkStatus;
-import com.example.botanic_park.OnSingleClickListener;
-import com.example.botanic_park.R;
+import com.example.botanic_park.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,23 +95,17 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
             buttonInsert.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    String post_title = title.getText().toString();
-                    String post_content = content.getText().toString();
-                    String post_password = password.getText().toString();
-                    post_title = post_title.trim();             //공백 안들어가게 하기 위함
-                    post_content = post_content.trim();
-                    post_password = post_password.trim();
 
-                    if (post_title.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
-                    } else if (post_content.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "내용이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
-                    } else if (post_password.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "비밀번호가 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
+                    if (title.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 글 추가가 안됩니다.", Toast.LENGTH_SHORT).show();
+                    } else if (content.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "내용이 공백입니다. 글 추가가 안됩니다.", Toast.LENGTH_SHORT).show();
+                    } else if (password.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "비밀번호가 공백입니다. 글 추가가 안됩니다.", Toast.LENGTH_SHORT).show();
                     } else if (NetworkStatus.getConnectivityStatus(RegistrationPostInInconvenienceActivity.this) != 3) {
 
                         InsertData task = new InsertData();
-                        task.execute("http://" + IP_ADDRESS + "/inconvenienceinsert.php", post_title, post_content, post_password);
+                        task.execute("http://" + IP_ADDRESS + "/inconvenienceinsert.php", title.getText().toString(), content.getText().toString(), password.getText().toString());
 
                         finish();
                     } else {
@@ -132,23 +123,17 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
             buttonInsert.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    String post_title = title.getText().toString();
-                    String post_content = content.getText().toString();
-                    String post_password = password.getText().toString();
-                    post_title = post_title.trim();             //공백 안들어가게 하기 위함
-                    post_content = post_content.trim();
-                    post_password = post_password.trim();
 
-                    if (post_title.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 글 변경이 안됩니다.", Toast.LENGTH_SHORT).show();
-                    } else if (post_content.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "내용이 공백입니다. 글 변경이 안됩니다.", Toast.LENGTH_SHORT).show();
-                    } else if (post_password.matches(" ")) {
-                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "비밀번호가 공백입니다. 글 변경이 안됩니다.", Toast.LENGTH_SHORT).show();
+                    if (title.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 글 수정이 안됩니다.", Toast.LENGTH_SHORT).show();
+                    } else if (content.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "내용이 공백입니다. 글 수정이 안됩니다.", Toast.LENGTH_SHORT).show();
+                    } else if (password.getText().toString().replace(" ", "").equals("")) {
+                        Toast.makeText(RegistrationPostInInconvenienceActivity.this, "비밀번호가 공백입니다. 글 수정이 안됩니다.", Toast.LENGTH_SHORT).show();
                     } else if (NetworkStatus.getConnectivityStatus(RegistrationPostInInconvenienceActivity.this) != 3) {
-                        if(post_password.equals(intent.getStringExtra("password"))) {
+                        if(password.getText().toString().equals(intent.getStringExtra("password"))) {
                             UpdateData revisePost = new UpdateData();
-                            revisePost.execute("http://" + IP_ADDRESS + "/updaterevisedpost.php", intent.getStringExtra("number"), post_title, post_content);
+                            revisePost.execute("http://" + IP_ADDRESS + "/updaterevisedpost.php", intent.getStringExtra("number"),title.getText().toString(), content.getText().toString());
 
                             finish();
                         }
@@ -404,4 +389,13 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(NetworkStatus.getConnectivityStatus(RegistrationPostInInconvenienceActivity.this)==3) {
+            Toast.makeText(RegistrationPostInInconvenienceActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegistrationPostInInconvenienceActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 }
