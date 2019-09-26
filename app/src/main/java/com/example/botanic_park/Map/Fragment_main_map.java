@@ -38,7 +38,7 @@ public class Fragment_main_map extends Fragment {
         Toast.makeText(getContext(), "지도를 탭하면 전체화면으로 볼 수 있습니다.", Toast.LENGTH_LONG).show();
         Button button =(Button) view.findViewById(R.id.change_map);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {s
+            public void onClick(View view) {
                 if(isNaverMap) {
                     centerMap = new Fragment_BotanicCenter();
 
