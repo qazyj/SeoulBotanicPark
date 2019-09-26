@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -41,10 +42,9 @@ public class DetailPopUpActivity extends Activity {
         setData();  // 화면에 데이터 세팅
 
         ImageButton closeBtn = findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();   // 액티비티 닫음
+            public void onSingleClick(View v) { finish();   // 액티비티 닫음
             }
         });
     }

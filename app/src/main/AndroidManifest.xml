@@ -29,13 +29,16 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".PaymentAndQR.KakaoPay"></activity>
-        <activity android:name=".PlantSearch.ImagePreviewActivity"></activity>
+        <activity android:name=".PaymentAndQR.KakaoPay"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".PlantSearch.ImagePreviewActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-        <activity android:name=".PaymentAndQR.scan_QR" />
+        <activity android:name=".PaymentAndQR.scan_QR"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -43,46 +46,65 @@
 
         <activity
             android:name=".PaymentAndQR.PaymentPopUpActivity"
-            android:theme="@style/PopUpTheme" />
+            android:theme="@style/PopUpTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PlantSearch.DetailPopUpActivity"
-            android:theme="@style/PopUpTheme" />
+            android:theme="@style/PopUpTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PaymentAndQR.QRPopUpActivity"
-            android:theme="@style/PopUpTheme" />
+            android:theme="@style/PopUpTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoadingActivity"
-            android:theme="@style/LoadingTheme">
+            android:theme="@style/LoadingTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlantSearch.CameraSearchActivity" />
-        <activity android:name=".PlantSearch.SearchResultActivity" />
+        <activity android:name=".PlantSearch.CameraSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PlantSearch.SearchResultActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".Map.Facilities_information" />
-        <activity android:name=".Information.InformationUseActivity" />
-        <activity android:name=".Information.WayToComeActivity" />
-        <activity android:name=".Information.NewsActivity" />
-        <activity android:name=".PaymentAndQR.CaptureForm" />
-        <activity android:name=".WebViewActivity"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Map.Facilities_information"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.InformationUseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.WayToComeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.NewsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PaymentAndQR.CaptureForm"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WebViewActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Information.InconvenienceDetailPostActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Information.RegistrationPostInInconvenienceActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".Information.InconvenienceActivity"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.InconvenienceActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Help.HelpActivity"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Information.ConfirmPasswordActivity"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
         <activity android:name=".PlantSearch.AchivementViewActivity"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

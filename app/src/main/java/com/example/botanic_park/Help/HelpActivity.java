@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -51,9 +52,9 @@ public class HelpActivity extends AppCompatActivity {
         textView.setText(title);
 
         Button skipBtn = findViewById(R.id.skip_btn);
-        skipBtn.setOnClickListener(new View.OnClickListener() {
+        skipBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 finish();
             }
         });

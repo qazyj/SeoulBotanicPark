@@ -127,9 +127,9 @@ public class Fragment_Home extends Fragment {
         }
 
         ImageButton helpBtn = view.findViewById(R.id.help_btn);
-        helpBtn.setOnClickListener(new View.OnClickListener() {
+        helpBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getContext(), HelpActivity.class);
                 intent.putExtra(HelpActivity.HELP_CODE, HelpActivity.HELP_TODAY_PLANT);
                 startActivity(intent);

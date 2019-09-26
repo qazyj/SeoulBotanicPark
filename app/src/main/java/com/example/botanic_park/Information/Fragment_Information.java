@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.botanic_park.NetworkStatus;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
 public class Fragment_Information extends Fragment implements View.OnClickListener {
     private ImageButton guideOutside, guideInside;
     private LinearLayout information_information_use, information_way_to_come, information_news, information_community;
+    private Intent intent;
 
     public Fragment_Information() {
     }
@@ -49,8 +51,18 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
                 .fitCenter()
                 .thumbnail(0.1f)
                 .into(guideInside);
-        guideOutside.setOnClickListener(this);
-        guideInside.setOnClickListener(this);
+        guideOutside.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/%EC%95%88%EB%82%B4%EB%8F%84.pdf" );
+            }
+        });
+        guideInside.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
+            }
+        });
 
         //카드 정의
         information_information_use = view.findViewById(R.id.information_information_use);
@@ -59,45 +71,35 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         information_community = view.findViewById(R.id.information_community);
 
         //카드 click listener 추가
-        information_information_use.setOnClickListener(this);
-        information_way_to_come.setOnClickListener(this);
-        information_news.setOnClickListener(this);
-        information_community.setOnClickListener(this);
-
-        return view;
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        Intent intent;
-        switch (view.getId()) {
-            case R.id.guide_inside:
-                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/greenhouse_ripplet_02.pdf");
-                break;
-            case R.id.guide_outside:
-                excuteWebBrowser("http://botanicpark.seoul.go.kr/front/img/%EC%95%88%EB%82%B4%EB%8F%84.pdf" );
-                break;
-            case R.id.information_information_use:
+        information_information_use.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
                 intent = new Intent(getActivity(), InformationUseActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.information_way_to_come:
+            }
+        });
+        information_way_to_come.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
                 intent = new Intent(getActivity(), WayToComeActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.information_news:
-                intent = new Intent(getActivity(), NewsActivity.class);
-                checkNewworkBeforeNextActivity(intent);
-                break;
-            case R.id.information_community:
+            }
+        });
+        information_news.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                intent = new Intent(getActivity(), WayToComeActivity.class);
+                startActivity(intent);
+            }
+        });
+        information_community.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
                 intent = new Intent(getActivity(), InconvenienceActivity.class);
                 checkNewworkBeforeNextActivity(intent);
-                break;
-            default:
-                break;
-
-        }
+            }
+        });
+        return view;
     }
 
     public void excuteWebBrowser(String url) {
@@ -116,4 +118,8 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onClick(View view) {
+
+    }
 }

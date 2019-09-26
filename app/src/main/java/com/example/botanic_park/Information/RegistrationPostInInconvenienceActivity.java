@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.NetworkStatus;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,12 +95,15 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
             });
         if(intent.getStringExtra("Post").equals("Registration")) {
             Button buttonInsert = (Button) findViewById(R.id.registration_post_button2);
-            buttonInsert.setOnClickListener(new View.OnClickListener() {
+            buttonInsert.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     String post_title = title.getText().toString();
                     String post_content = content.getText().toString();
                     String post_password = password.getText().toString();
+                    post_title = post_title.trim();             //공백 안들어가게 하기 위함
+                    post_content = post_content.trim();
+                    post_password = post_password.trim();
 
                     if (post_title.matches(" ")) {
                         Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
@@ -125,12 +129,15 @@ public class RegistrationPostInInconvenienceActivity extends Activity {
 
             Button buttonInsert = (Button) findViewById(R.id.registration_post_button2);
             buttonInsert.setText("글            변            경");
-            buttonInsert.setOnClickListener(new View.OnClickListener() {
+            buttonInsert.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     String post_title = title.getText().toString();
                     String post_content = content.getText().toString();
                     String post_password = password.getText().toString();
+                    post_title = post_title.trim();             //공백 안들어가게 하기 위함
+                    post_content = post_content.trim();
+                    post_password = post_password.trim();
 
                     if (post_title.matches(" ")) {
                         Toast.makeText(RegistrationPostInInconvenienceActivity.this, "제목이 공백입니다. 글 변경이 안됩니다.", Toast.LENGTH_SHORT).show();

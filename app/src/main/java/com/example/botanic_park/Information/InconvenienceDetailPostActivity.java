@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.*;
 import com.example.botanic_park.AppManager;
 import com.example.botanic_park.NetworkStatus;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,10 +85,11 @@ public class InconvenienceDetailPostActivity extends Activity {
         content = (EditText)findViewById(R.id.input_commend_content);
 
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
-        buttonInsert.setOnClickListener(new View.OnClickListener() {
+        buttonInsert.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 String commend_content = content.getText().toString();
+                commend_content = commend_content.trim();
                 if(commend_content.matches(" ")) {
                     Toast.makeText(InconvenienceDetailPostActivity.this, "내용이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -106,9 +108,9 @@ public class InconvenienceDetailPostActivity extends Activity {
         });
 
         ImageButton edit_post = (ImageButton) findViewById(R.id.edit_post);
-        edit_post.setOnClickListener(new View.OnClickListener() {
+        edit_post.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 Intent activityRevise = new Intent(getApplicationContext(),RegistrationPostInInconvenienceActivity.class);
                 activityRevise.putExtra("Post", "Revise");
@@ -120,9 +122,9 @@ public class InconvenienceDetailPostActivity extends Activity {
         });
 
         ImageButton delete_post = (ImageButton) findViewById(R.id.delete_post);
-        delete_post.setOnClickListener(new View.OnClickListener() {
+        delete_post.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 Intent activityDelete = new Intent(getApplicationContext(),ConfirmPasswordActivity.class);
                 activityDelete.putExtra("password", intent.getStringExtra("password"));

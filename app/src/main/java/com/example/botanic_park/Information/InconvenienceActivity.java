@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.MainActivity;
-import com.example.botanic_park.NetworkStatus;
-import com.example.botanic_park.R;
+import com.example.botanic_park.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +38,9 @@ public class InconvenienceActivity extends Activity {
     ArrayList<HashMap<String, String>> postList;
     ListView list;
 
+    private static final long MIN_CLICK_INTERVAL=600;
+
+    private long mLastClickTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +64,14 @@ public class InconvenienceActivity extends Activity {
 
             updateData("http://106.10.37.13/inconvenienceselect.php");
 
-            findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
-                                                                                public void onClick(View v) {
-                                                                                    Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
-                                                                                    intent.putExtra("Post", "Registration");
-                                                                                    startActivity(intent);
-                                                                                }
-                                                                            }
+            findViewById(R.id.registration_post_button2).setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
+                    intent.putExtra("Post", "Registration");
+                    startActivity(intent);
+                }
+            }
             );
         }
         else {
@@ -230,6 +232,15 @@ public class InconvenienceActivity extends Activity {
             {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    long currentClickTime= SystemClock.uptimeMillis();
+                    long elapsedTime=currentClickTime-mLastClickTime;
+                    mLastClickTime=currentClickTime;
+
+                    // 중복 클릭인 경우
+                    if(elapsedTime<=MIN_CLICK_INTERVAL){
+                        return;
+                    }
 
                     // TODO Auto-generated method stub
                     if(NetworkStatus.getConnectivityStatus(InconvenienceActivity.this)!=3) {

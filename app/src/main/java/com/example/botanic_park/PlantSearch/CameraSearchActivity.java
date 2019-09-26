@@ -16,6 +16,7 @@ import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
 import java.io.*;
@@ -56,17 +57,16 @@ public class CameraSearchActivity extends AppCompatActivity {
                 new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
         LinearLayout linearLayout = findViewById(R.id.camera_preview);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                surfaceView.autoFocus();    // 자동 초점 맞춤
+            public void onSingleClick(View v) {surfaceView.autoFocus();    // 자동 초점 맞춤
             }
         });
 
         ImageButton captureBtn = findViewById(R.id.capture_btn);
-        captureBtn.setOnClickListener(new View.OnClickListener() {
+        captureBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 surfaceView.capture(new Camera.PictureCallback() {
                     @Override
                     public void onPictureTaken(byte[] bytes, Camera camera) {
@@ -89,17 +89,16 @@ public class CameraSearchActivity extends AppCompatActivity {
         });
 
         ImageButton closeBtn = findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();   // 액티비티 닫음
+            public void onSingleClick(View v) { finish();   // 액티비티 닫음
             }
         });
 
         ImageButton switchCameraBtn = findViewById(R.id.switch_camera_btn);
-        switchCameraBtn.setOnClickListener(new View.OnClickListener() {
+        switchCameraBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 // 카메라 화면 전환
                 cameraFacing = (cameraFacing == Camera.CameraInfo.CAMERA_FACING_BACK) ?
                         Camera.CameraInfo.CAMERA_FACING_FRONT : Camera.CameraInfo.CAMERA_FACING_BACK;
@@ -109,10 +108,9 @@ public class CameraSearchActivity extends AppCompatActivity {
         });
 
         galleryBtn = findViewById(R.id.gallery_btn);
-        galleryBtn.setOnClickListener(new View.OnClickListener() {
+        galleryBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                goToAlbum();
+            public void onSingleClick(View v) { goToAlbum();
             }
         });
     }

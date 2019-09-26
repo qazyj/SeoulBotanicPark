@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
@@ -24,9 +25,9 @@ public class CaptureForm extends CaptureActivity {
 
         ImageView close_btn = v.findViewById(R.id.close);
 
-        close_btn.setOnClickListener(new View.OnClickListener() {
+        close_btn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 if(isCliked) return;
                 isCliked = true;
                 AppManager.getInstance().getScan_qr().finish();
