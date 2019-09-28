@@ -67,7 +67,6 @@ public class Fragment_Home extends Fragment {
         TimeZone jst = TimeZone.getTimeZone("Asia/Seoul");
         calendar = Calendar.getInstance(jst);
 
-        plantsToday = AppManager.getInstance().getPlantsToday();
     }
 
     @Override
@@ -98,7 +97,9 @@ public class Fragment_Home extends Fragment {
         });
 
         // 오늘의 식물 선정
+        plantsToday = AppManager.getInstance().getPlantsToday();
         setPlantsToday();
+        Log.d("onCreateView", "홈화면 갱신");
 
         GridView gridView = view.findViewById(R.id.gridview_plant_today);
         TextView textView = view.findViewById(R.id.title_plants_today);
@@ -146,15 +147,28 @@ public class Fragment_Home extends Fragment {
         int index = (240 * getDate()) % 119;
 
         ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
-        plantsToday = new ArrayList<>();
-        plantsToday.add(getNewItem(list.get(index + 1)));
-        plantsToday.add(getNewItem(list.get(index + 2)));
-        plantsToday.add(getNewItem(list.get(index + 3)));
+        ArrayList<PlantBookItem>  nowPlantsToday = new ArrayList<>();
+        nowPlantsToday.add(getNewItem(list.get(index + 1)));
+        nowPlantsToday.add(getNewItem(list.get(index + 2)));
+        nowPlantsToday.add(getNewItem(list.get(index + 3)));
 
-        AppManager.getInstance().setPlantsToday(plantsToday);
+        if(plantsToday == null ||
+                (plantsToday != null && !isSamePlantList(plantsToday, nowPlantsToday))){
+            // 오늘의 식물이 갱신됨
+            plantsToday = nowPlantsToday;
+            AppManager.getInstance().setPlantsToday(plantsToday);
+            Toast.makeText(getActivity(), "오늘의 식물이 갱신되었습니다.", Toast.LENGTH_LONG).show();
+        }
+    }
 
-        Toast.makeText(getActivity(),
-                "오늘의 식물이 갱신되었습니다!", Toast.LENGTH_SHORT).show();
+    private boolean isSamePlantList(ArrayList<PlantBookItem> list1, ArrayList<PlantBookItem> list2){
+        for(int i=0; i<list1.size(); i++){
+            String name1 = list1.get(i).getName_ko();
+            String name2 =list2.get(i).getName_ko();
+            if(!name1.equals(name2))
+                return false;   // 하나라도 다르면 다른 날짜
+        }
+        return true;
     }
 
     private int getDate() {

@@ -27,9 +27,12 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    private final String PLANT_API_ACCESS_KEY = "pcDKWtdEaPuDikRwZCNd4OzayYb25wVTP8ye75AZIn6s5gxiYh";
+    //private final String PLANT_API_ACCESS_KEY = "pcDKWtdEaPuDikRwZCNd4OzayYb25wVTP8ye75AZIn6s5gxiYh"; // 유료 키
     //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
+    //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    private final String PLANT_API_ACCESS_KEY = "tMYVgRhGwcyOfxPqiYhRfZe5sjub9ru9mrgyVPEiE7n79MXYeT";
+    //private final String PLANT_API_ACCESS_KEY = "wAUVieDY3jKeDzH48jVlnqvicYvz8cbN0fsIDMJEPRc29TxRmf";
 
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
     private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";
@@ -105,6 +108,13 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             intent.putExtra(Fragment_Plant_Book.SEARCH_WORD_KEY, result);
 
             context.startActivity(intent);
+
+            // 이전 창 닫기
+            if(context instanceof CameraSearchActivity){
+                ((CameraSearchActivity) context).finish();
+            }else if(context instanceof ImagePreviewActivity){
+                ((ImagePreviewActivity) context).finish();
+            }
         } else {
             Toast.makeText(context, "이미지를 인식할 수 없습니다.\n" +
                     "다시 촬영해 주세요.", Toast.LENGTH_SHORT).show();
@@ -257,7 +267,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             outputStream.close();
 
             response = getResponse(conn);
-            Log.d("API 사용량", response);
+            Log.d("api 사용량", response);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

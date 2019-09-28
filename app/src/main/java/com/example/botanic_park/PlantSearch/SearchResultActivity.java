@@ -24,6 +24,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.MainActivity;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -46,6 +48,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
     LinearLayout noResult;  // 결과 없음 메세지
     LinearLayout resultItem;    // 이미지 검색 시 결과 아이템
+
+    @Override
+    protected void onStop() {
+        Log.d("테스트", "onStop");
+        MainActivity mainActivity = AppManager.getInstance().getMainActivity();
+        mainActivity.onSaveData(AppManager.getInstance().getList(), "list"); // 도감 저장
+        mainActivity.onSaveData(AppManager.getInstance().getPlantsToday(), "plant today");
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,20 +92,20 @@ public class SearchResultActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(decoration);
 
         TextView yesBtn = findViewById(R.id.btn_yes);
-        yesBtn.setOnClickListener(new View.OnClickListener() {
+        yesBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 finish();
                 cameraSearchActivity.finish();
             }
         });
     }
 
-    private View.OnClickListener itemClickListener = new View.OnClickListener() {
+    private View.OnClickListener itemClickListener = new OnSingleClickListener() {
         // 검색어 해시태그 클릭 리스너
         @Override
-        public void onClick(View view) {
-            String name = (String) view.getTag();
+        public void onSingleClick(View v) {
+            String name = (String) v.getTag();
 
             // 웹에 검색창 띄움
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -119,12 +130,10 @@ public class SearchResultActivity extends AppCompatActivity {
         for (PlantBookItem item : list) {
             for (String word : words) {
                 Log.d("test", word);
-                if (item.getName_ko().contains(word)
-                        || item.getName_en().contains(word)
+                if (item.getName_en().contains(word)
                         || item.getName_sc().contains(word)) {
                     searchList.add(item);
                     Log.d("test add", item.getName_ko());
-                    //searchWordList.add(searchList.size()-1, item.getName_ko());  // 텍스트 검색은 검색 결과 넣어줌
                 }
             }
         }

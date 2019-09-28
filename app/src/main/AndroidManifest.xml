@@ -46,16 +46,13 @@
 
         <activity
             android:name=".PaymentAndQR.PaymentPopUpActivity"
-            android:theme="@style/PopUpTheme"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/PopUpTheme"/>
         <activity
             android:name=".PlantSearch.DetailPopUpActivity"
-            android:theme="@style/PopUpTheme"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/PopUpTheme"/>
         <activity
             android:name=".PaymentAndQR.QRPopUpActivity"
-            android:theme="@style/PopUpTheme"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/PopUpTheme"/>
         <activity
             android:name=".LoadingActivity"
             android:theme="@style/LoadingTheme"
@@ -96,16 +93,13 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Help.HelpActivity"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".Information.ConfirmPasswordActivity"
             android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".PlantSearch.AchivementViewActivity"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/Theme.Transparent" />
     </application>
 
 </manifest>
