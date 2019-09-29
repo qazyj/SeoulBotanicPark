@@ -62,6 +62,12 @@ public class InconvenienceActivity extends Activity {
             list = (ListView) findViewById(R.id.listviewpost);
             postList = new ArrayList<HashMap<String, String>>();
 
+            if(NetworkStatus.getConnectivityStatus(InconvenienceActivity.this)==3) {
+                Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(InconvenienceActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
             updateData("http://106.10.37.13/inconvenienceselect.php");
 
             findViewById(R.id.registration_post_button2).setOnClickListener(new OnSingleClickListener() {

@@ -64,6 +64,12 @@ public class InconvenienceDetailPostActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
+        if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)==3) {
+            Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(InconvenienceDetailPostActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         intent = getIntent();
         add_views = findViewById(R.id.views);
 
@@ -113,7 +119,13 @@ public class InconvenienceDetailPostActivity extends Activity {
                 activityRevise.putExtra("number", intent.getStringExtra("title"));
                 activityRevise.putExtra("password", intent.getStringExtra("password"));
 
-                startActivity(activityRevise);
+                if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
+                    startActivity(activityRevise);
+                }
+                else {
+                    Toast.makeText(InconvenienceDetailPostActivity.this, "네트워크가 연결되어야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
