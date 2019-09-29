@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="새 소식"
+                android:text="새소식"
                 android:textColor="@color/colorBaseCyan"
                 android:textSize="25sp" />
 

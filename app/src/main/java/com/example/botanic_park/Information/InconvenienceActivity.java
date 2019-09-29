@@ -5,19 +5,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.MainActivity;
-import com.example.botanic_park.NetworkStatus;
-import com.example.botanic_park.R;
+import com.example.botanic_park.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,6 +38,9 @@ public class InconvenienceActivity extends Activity {
     ArrayList<HashMap<String, String>> postList;
     ListView list;
 
+    private static final long MIN_CLICK_INTERVAL=600;
+
+    private long mLastClickTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class InconvenienceActivity extends Activity {
         getWindow().setStatusBarColor(Color.parseColor("#FAFAFA"));
         setContentView(R.layout.activity_inconvenience);
         AppManager.getInstance().setInconvenienceActivity(this);
+
     }
 
     @Override
@@ -58,21 +62,143 @@ public class InconvenienceActivity extends Activity {
             list = (ListView) findViewById(R.id.listviewpost);
             postList = new ArrayList<HashMap<String, String>>();
 
-            getData("http://106.10.37.13/inconvenienceselect.php"); //수정 필요
+            updateData("http://106.10.37.13/inconvenienceselect.php");
 
-            findViewById(R.id.registration_post_button2).setOnClickListener(new Button.OnClickListener() {
-                                                                                public void onClick(View v) {
-                                                                                    Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
-                                                                                    intent.putExtra("Post", "Registration");
-                                                                                    startActivity(intent);
-                                                                                }
-                                                                            }
+            findViewById(R.id.registration_post_button2).setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(InconvenienceActivity.this, RegistrationPostInInconvenienceActivity.class);
+                    intent.putExtra("Post", "Registration");
+                    startActivity(intent);
+                }
+            }
             );
         }
         else {
             Toast.makeText(InconvenienceActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(InconvenienceActivity.this, MainActivity.class);
             startActivity(intent);
+        }
+    }
+
+    public void updateData(String url) {
+        class GetDataJSON extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                String uri = params[0];
+
+                BufferedReader bufferedReader = null;
+                try {
+                    URL url = new URL(uri);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+
+                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    return sb.toString().trim();
+
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                myJSON = result;
+                updateList();
+                getData("http://106.10.37.13/inconvenienceselect.php");
+            }
+
+        }
+
+        GetDataJSON g = new GetDataJSON();
+
+        g.execute(url);
+
+    }
+
+    protected void updateList() {
+        try {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            posts = jsonObj.getJSONArray(TAG_AMOUNT);
+            for (int i = 0; i <=posts.length()-1; i++) {
+                JSONObject c = posts.getJSONObject(i);
+                String number = c.getString(TAG_NUMBER);
+
+                UpdateData updateTask = new UpdateData();
+                updateTask.execute("http://106.10.37.13/updatepostnumber.php", number, String.valueOf(i+1));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class UpdateData extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String number1 = (String)params[1];
+            String number2 = (String)params[2];
+
+            String serverURL = (String)params[0];
+            String postParameters = "number1=" + number1 + "&number2=" + number2;
+
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d("texttest", "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                Log.d("texttest", "InsertData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
         }
     }
 
@@ -99,13 +225,22 @@ public class InconvenienceActivity extends Activity {
             }
             ListAdapter adapter = new SimpleAdapter(
                     InconvenienceActivity.this, postList, R.layout.item_inconvenience_listview,
-            new String[]{TAG_NUMBER, TAG_TITLE, TAG_VIEWS, TAG_REGISTRATION_DATE, TAG_PASSWORD},
-            new int[]{R.id.item_number, R.id.item_title, R.id.item_views,R.id.item_registration_date, R.id.item_password});
+                    new String[]{TAG_NUMBER, TAG_TITLE, TAG_VIEWS, TAG_REGISTRATION_DATE, TAG_PASSWORD},
+                    new int[]{R.id.item_number, R.id.item_title, R.id.item_views,R.id.item_registration_date, R.id.item_password});
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    long currentClickTime= SystemClock.uptimeMillis();
+                    long elapsedTime=currentClickTime-mLastClickTime;
+                    mLastClickTime=currentClickTime;
+
+                    // 중복 클릭인 경우
+                    if(elapsedTime<=MIN_CLICK_INTERVAL){
+                        return;
+                    }
 
                     // TODO Auto-generated method stub
                     if(NetworkStatus.getConnectivityStatus(InconvenienceActivity.this)!=3) {

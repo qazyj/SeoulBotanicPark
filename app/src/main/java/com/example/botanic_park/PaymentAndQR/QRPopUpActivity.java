@@ -7,6 +7,7 @@ import android.view.*;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -33,10 +34,9 @@ public class QRPopUpActivity extends Activity {
         ((TextView)findViewById(R.id.limitTimeTextView)).setText(String.valueOf(AppManager.getInstance().getMainActivity().limitTime) + ":00 입장마감");
 
         ImageView closeBtn = findViewById(R.id.close);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();   // 액티비티 닫음
+            public void onSingleClick(View v) { finish();   // 액티비티 닫음
             }
         });
 

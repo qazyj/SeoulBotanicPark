@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
 import java.util.Calendar;
@@ -29,9 +30,9 @@ public class PaymentPopUpActivity extends Activity {
         zeroPay = (ImageView) findViewById(R.id.zero_pay);
 
         ImageView closeBtn = findViewById(R.id.close);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 AppManager.getInstance().setPaymentPopUpActivity(null);  // 액티비티 닫음
                 finish();
             }
@@ -87,18 +88,18 @@ public class PaymentPopUpActivity extends Activity {
         FrameLayout ticketPayment = findViewById(R.id.ticket_payment);
         FrameLayout ticketScanning = findViewById(R.id.ticket_scanning);
 
-        ticketPayment.setOnClickListener(new View.OnClickListener() {
+        ticketPayment.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(thisActivity, KakaoPay.class);
                 startActivity(intent);
 
             }
         });
 
-        ticketScanning.setOnClickListener(new View.OnClickListener() {
+        ticketScanning.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(thisActivity, scan_QR.class);
                 startActivity(intent);
 

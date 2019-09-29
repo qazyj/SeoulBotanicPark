@@ -94,13 +94,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        onSaveData(AppManager.getInstance().getList()); // 도감 저장
-        super.onDestroy();
+    protected void onStop() {
+        // 강제 종료시 onDestroy() 호출이 안됨
+        onSaveData(AppManager.getInstance().getList(), "list"); // 도감 저장
+        onSaveData(AppManager.getInstance().getPlantsToday(), "plant today");
+        Log.d("테스트", "mainActivity onStop");
+        super.onStop();
     }
 
     // 식물 list 저장
-    private void onSaveData(ArrayList<PlantBookItem> list) {
+    public void onSaveData(ArrayList<PlantBookItem> list, String tag) {
         Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<ArrayList<PlantBookItem>>() {
         }.getType();
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences("Botanic Park", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("list", json); // JSON으로 변환한 객체를 저장한다.
+        editor.putString(tag, json); // JSON으로 변환한 객체를 저장한다.
         editor.commit(); // 완료한다.
     }
 
@@ -141,13 +144,13 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home, "home").commit();
                     }
                     if (fragment_Home != null)
-                        fragmentManager.beginTransaction().show(fragment_Home).commit();
+                        fragmentManager.beginTransaction().attach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().hide(fragment_Map).commit();
                     if (fragment_Plant_Book != null)
-                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
-                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Information).commit();
                     break;
                 case R.id.map:
                     if (fragment_Map == null) {
@@ -155,13 +158,13 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map, "map").commit();
                     }
                     if (fragment_Home != null)
-                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().show(fragment_Map).commit();
                     if (fragment_Plant_Book != null)
-                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
-                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Information).commit();
                     break;
                 case R.id.plant_book:
                     if (fragment_Plant_Book == null) {
@@ -169,13 +172,13 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Plant_Book, "plant book").commit();
                     }
                     if (fragment_Home != null)
-                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().hide(fragment_Map).commit();
                     if (fragment_Plant_Book != null)
-                        fragmentManager.beginTransaction().show(fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().attach(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
-                        fragmentManager.beginTransaction().hide(fragment_Information).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Information).commit();
                     break;
 
                 case R.id.information:
@@ -184,22 +187,17 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Information, "information").commit();
                     }
                     if (fragment_Home != null)
-                        fragmentManager.beginTransaction().hide(fragment_Home).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().hide(fragment_Map).commit();
                     if (fragment_Plant_Book != null)
-                        fragmentManager.beginTransaction().hide(fragment_Plant_Book).commit();
+                        fragmentManager.beginTransaction().detach(fragment_Plant_Book).commit();
                     if (fragment_Information != null)
-                        fragmentManager.beginTransaction().show(fragment_Information).commit();
+                        fragmentManager.beginTransaction().attach(fragment_Information).commit();
                     break;
             }
             return true;
         }
-    }
-
-    public void updateFragmentHome(){
-        fragmentManager.beginTransaction()
-                .detach(fragment_Home).attach(fragment_Home).commit();
     }
 
     public void setCurveBottomBarVisibility() {

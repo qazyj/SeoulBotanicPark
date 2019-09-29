@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.botanic_park.AppManager;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
 import java.util.ArrayList;
@@ -36,10 +37,9 @@ public class AchivementViewActivity extends AppCompatActivity {
                     "\"서울식물원 화이팅!\" 이라는 이름으로\n서울식물원에 나무 한그루가 기증되었습니다.");
 
             closeBtn.setText("[ 초 기 화 ]");
-            closeBtn.setOnClickListener(new View.OnClickListener() {
-
+            closeBtn.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     finish();
                     AppManager.getInstance().collectionCount = 0;
                     ArrayList<PlantBookItem> list = AppManager.getInstance().getList();
@@ -51,11 +51,9 @@ public class AchivementViewActivity extends AppCompatActivity {
             });
         } else {
             statusText.setText(statusFront + AppManager.getInstance().collectionCount + statusBack);
-            closeBtn.setOnClickListener(new View.OnClickListener() {
-
+            closeBtn.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
-                    finish();
+                public void onSingleClick(View v) { finish();
                 }
             });
 

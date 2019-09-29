@@ -44,12 +44,13 @@ public class NewsActivity extends Activity {
         // AsyncTask 작동시킴(파싱)
         new ParseInformationTask().execute();
 
-        findViewById(R.id.viewMore).setOnClickListener(new Button.OnClickListener() {
-                                                           public void onClick(View v) {
-                                                               intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
-                                                               checkNewworkBeforeNextActivity(intent);
-                                                           }
-                                                       }
+        findViewById(R.id.viewMore).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                intent.putExtra("URLString", "http://botanicpark.seoul.go.kr/front/board/newsList.do");
+                checkNewworkBeforeNextActivity(intent);
+            }
+        }
         );
 
         //이용안내 창 들어간다음 사진이 늦게나오는걸 방지하기 위해 쓰레드 슬립줌
@@ -242,9 +243,9 @@ public class NewsActivity extends Activity {
         {
             //title1
             inputTextView = (TextView) findViewById(R.id.title1);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[0] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[0]);
                         checkNewworkBeforeNextActivity(intent);
@@ -255,9 +256,9 @@ public class NewsActivity extends Activity {
 
             //title2
             inputTextView = findViewById(R.id.title2);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[1] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[1]);
                         checkNewworkBeforeNextActivity(intent);
@@ -268,9 +269,9 @@ public class NewsActivity extends Activity {
 
             //title3
             inputTextView = findViewById(R.id.title3);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[2] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[2]);
                         checkNewworkBeforeNextActivity(intent);
@@ -281,9 +282,9 @@ public class NewsActivity extends Activity {
 
             //title4
             inputTextView = findViewById(R.id.title4);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[3] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[3]);
                         checkNewworkBeforeNextActivity(intent);
@@ -294,9 +295,9 @@ public class NewsActivity extends Activity {
 
             //title5
             inputTextView = findViewById(R.id.title5);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[4] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[4]);
                         checkNewworkBeforeNextActivity(intent);
@@ -307,9 +308,9 @@ public class NewsActivity extends Activity {
 
             //title6
             inputTextView = findViewById(R.id.title6);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[5] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[5]);
                         checkNewworkBeforeNextActivity(intent);
@@ -320,9 +321,9 @@ public class NewsActivity extends Activity {
 
             //title7
             inputTextView = findViewById(R.id.title7);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[6] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[6]);
                         checkNewworkBeforeNextActivity(intent);
@@ -333,9 +334,9 @@ public class NewsActivity extends Activity {
 
             //title8
             inputTextView = findViewById(R.id.title8);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[7] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[7]);
                         checkNewworkBeforeNextActivity(intent);
@@ -346,9 +347,9 @@ public class NewsActivity extends Activity {
 
             //title9
             inputTextView = findViewById(R.id.title9);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[8] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[8]);
                         checkNewworkBeforeNextActivity(intent);
@@ -359,9 +360,9 @@ public class NewsActivity extends Activity {
 
             //title10
             inputTextView = findViewById(R.id.title10);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[9] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[9]);
                         checkNewworkBeforeNextActivity(intent);
@@ -372,9 +373,9 @@ public class NewsActivity extends Activity {
 
             //title11
             inputTextView = findViewById(R.id.title11);
-            inputTextView.setOnClickListener(new View.OnClickListener() {
+            inputTextView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(connectURLString[10] != null) {
                         intent.putExtra("URLString", "http://botanicpark.seoul.go.kr" + connectURLString[10]);
                         checkNewworkBeforeNextActivity(intent);

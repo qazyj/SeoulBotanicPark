@@ -1,6 +1,7 @@
 package com.example.botanic_park;
 
 import com.example.botanic_park.Information.*;
+import com.example.botanic_park.Map.Facilities_information;
 import com.example.botanic_park.PaymentAndQR.PaymentPopUpActivity;
 import com.example.botanic_park.PaymentAndQR.scan_QR;
 import com.example.botanic_park.PlantSearch.PlantBookItem;
@@ -87,5 +88,9 @@ public class AppManager {
     private com.example.botanic_park.LoadingActivity loadingActivity;
     public void setLoadingActivity(com.example.botanic_park.LoadingActivity  loadingActivity) {this.loadingActivity = loadingActivity; }
     public com.example.botanic_park.LoadingActivity getLoadingActivity(){ return  loadingActivity; }
+
+    private Facilities_information facilities_information;
+    public void setFacilitiesinformation(Facilities_information  facilities_information) {this.facilities_information = facilities_information; }
+    public Facilities_information getFacilitiesinformation(){ return  facilities_information; }
     }
 

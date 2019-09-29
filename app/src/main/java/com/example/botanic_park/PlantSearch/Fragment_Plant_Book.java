@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +25,7 @@ import io.reactivex.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
 public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_CODE = 2000;
@@ -39,6 +41,8 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     InputMethodManager inputMethodManager;
     ArrayList<PlantBookItem> list, searchList;
     ProgressBar progressBar;
+
+    String searchword;
 
     public Fragment_Plant_Book() {
     }
@@ -58,6 +62,7 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         searchList = new ArrayList<>();
         searchList.addAll(list);
         mainActivity = (MainActivity) getActivity();
+        searchword = "";
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -75,7 +80,7 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
-
+        Log.d("onCreateView", "plantbook 갱신");
         plantBookGridView = view.findViewById(R.id.gridview_plant_book);
         plantBookAdapter = new PlantBookAdapter(getContext(),
                 R.layout.item_plant, searchList);
@@ -144,9 +149,9 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         }
     };
 
-    private View.OnClickListener cameraSearchClickListener = new View.OnClickListener() {
+    private View.OnClickListener cameraSearchClickListener = new OnSingleClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onSingleClick(View v) {
             String[] permissions = {
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -169,9 +174,9 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         }
     };
 
-    private View.OnClickListener achivementsClickListener = new View.OnClickListener() {
+    private View.OnClickListener achivementsClickListener = new OnSingleClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onSingleClick(View v) {
             Intent intent = new Intent(getContext(), AchivementViewActivity.class);
             startActivity(intent);
         }
@@ -200,7 +205,7 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
 
         @Override
         public void afterTextChanged(Editable editable) {
-            String searchword = editable.toString();
+            searchword = editable.toString();
             searchPlant(searchword);
         }
     };
@@ -209,10 +214,13 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         if (searchword.isEmpty()) {
             searchList.clear();
             searchList.addAll(list);
-            sortList(spinner.getSelectedItemPosition());    // 재정렬
         } else {
             getSearchResult(searchword);
         }
+
+        // 검색 후 정렬
+        sortList(spinner.getSelectedItemPosition());
+        // 그리드뷰 갱신
         plantBookAdapter.updateAdpater(searchList);
     }
 
@@ -223,12 +231,12 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
             return;
 
         // 단어 분할
-        String[] words = searchword.split(" ");
+        String[] words = searchword.split("\\s+");
         for (PlantBookItem item : list) {
             for (String word : words) {
-                if (item.getName_ko().contains(word)
-                        || item.getName_en().contains(word)
-                        || item.getName_sc().contains(word)) {
+                if (word.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")
+                        && item.getName_ko().contains(word)) {
+                    // 일단 한글 검색만 가능하게 해놓음
                     searchList.add(item);
                 }
             }
@@ -254,15 +262,14 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         progressBar.setProgress(count);
 
         for (Fragment fragment : getFragmentManager().getFragments()) {
-            if (fragment.isVisible()) {
+            if(fragment.getTag() == "plant book"){
+                // plantBook 프래그먼트 갱신
                 final FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.detach(fragment).attach(fragment);
                 transaction.commit();
                 break;
             }
         }
-
-        AppManager.getInstance().getMainActivity().updateFragmentHome();    //홈 프래그먼트 갱신
     }
 
     @Override
@@ -286,6 +293,7 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         final int SORT_RECENT = 1;
         final int SORT_NAME = 2;
 
+        // 정렬
         switch (position) {
             case SORT_COLLECTED:
                 Collections.sort(searchList, new Comparator<PlantBookItem>() {
@@ -296,19 +304,21 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
                 });
                 break;
             case SORT_RECENT:
-                searchList.clear();
-                searchList.addAll(list);
+                // 기본적으로 최신순으로 저장
                 break;
             case SORT_NAME:
                 Collections.sort(searchList);
                 break;
         }
+
+
+
         plantBookAdapter.updateAdpater(searchList);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        sortList(i);
+        searchPlant(searchword);    // 정렬방식이 바뀌면 다시 검색
     }
 
     @Override

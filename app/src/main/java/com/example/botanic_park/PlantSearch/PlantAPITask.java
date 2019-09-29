@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlant>> {
-    private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
+    private final String PLANT_API_ACCESS_KEY = "pcDKWtdEaPuDikRwZCNd4OzayYb25wVTP8ye75AZIn6s5gxiYh";
     //private final String PLANT_API_ACCESS_KEY = "WdkH6FsQc3qKvYGpCBMko1AKvUuDOrmB3tBQD6mWBsvsdsIaYW";
     //private final String PLANT_API_ACCESS_KEY = "OGRsrYYylRyFCwJjYCxXIBZ56eYP0WFxevtOwUwDHzvzTj89Ma";
 
@@ -257,7 +257,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             outputStream.close();
 
             response = getResponse(conn);
-            Log.d("API 사용량", response);
+            Log.d("API 사용량", response);//;;'/;['9000
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

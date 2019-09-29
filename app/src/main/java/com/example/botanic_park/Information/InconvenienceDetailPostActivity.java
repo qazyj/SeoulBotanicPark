@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.NetworkStatus;
-import com.example.botanic_park.R;
+import com.example.botanic_park.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,17 +82,17 @@ public class InconvenienceDetailPostActivity extends Activity {
         content = (EditText)findViewById(R.id.input_commend_content);
 
         ImageButton buttonInsert = (ImageButton)findViewById(R.id.add_comment_button);
-        buttonInsert.setOnClickListener(new View.OnClickListener() {
+        buttonInsert.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
-                String commend_content = content.getText().toString();
-                if(commend_content.matches(" ")) {
+            public void onSingleClick(View v) {
+
+                if(content.getText().toString().replace(" ", "").equals("")) {
                     Toast.makeText(InconvenienceDetailPostActivity.this, "내용이 공백입니다. 댓글추가가 안됩니다.", Toast.LENGTH_SHORT).show();
                 }
                 else if(NetworkStatus.getConnectivityStatus(InconvenienceDetailPostActivity.this)!=3) {
 
                     InsertCommend task = new InsertCommend();
-                    task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), commend_content);
+                    task.execute("http://" + IP_ADDRESS + "/insertinconveniencecommend.php", intent.getStringExtra("title"), content.getText().toString());
 
                     content.setText("");
                     onStart();      //댓글 추가하면 바로 달리게 onStart 사용
@@ -106,9 +104,9 @@ public class InconvenienceDetailPostActivity extends Activity {
         });
 
         ImageButton edit_post = (ImageButton) findViewById(R.id.edit_post);
-        edit_post.setOnClickListener(new View.OnClickListener() {
+        edit_post.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 Intent activityRevise = new Intent(getApplicationContext(),RegistrationPostInInconvenienceActivity.class);
                 activityRevise.putExtra("Post", "Revise");
@@ -120,9 +118,9 @@ public class InconvenienceDetailPostActivity extends Activity {
         });
 
         ImageButton delete_post = (ImageButton) findViewById(R.id.delete_post);
-        delete_post.setOnClickListener(new View.OnClickListener() {
+        delete_post.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 Intent activityDelete = new Intent(getApplicationContext(),ConfirmPasswordActivity.class);
                 activityDelete.putExtra("password", intent.getStringExtra("password"));
@@ -231,20 +229,20 @@ public class InconvenienceDetailPostActivity extends Activity {
                 JSONObject c = commendPosts.getJSONObject(i);
                 if(c.getString(TAG_NUMBER).equals(intent.getStringExtra("title"))){
 
-                String content = c.getString(TAG_CONTENT);
-                String date = c.getString(TAG_REGISTRATION_DATE);
+                    String content = c.getString(TAG_CONTENT);
+                    String date = c.getString(TAG_REGISTRATION_DATE);
 
-                HashMap<String, String> posts2 = new HashMap<String, String>();
+                    HashMap<String, String> posts2 = new HashMap<String, String>();
 
-                posts2.put(TAG_CONTENT, content);
-                posts2.put(TAG_REGISTRATION_DATE, date);
-                postList.add(posts2);
+                    posts2.put(TAG_CONTENT, content);
+                    posts2.put(TAG_REGISTRATION_DATE, date);
+                    postList.add(posts2);
                 }
             }
-                ListAdapter adapter = new SimpleAdapter(
-                        InconvenienceDetailPostActivity.this, postList, R.layout.item_inconvenience_commend,
-                        new String[]{TAG_CONTENT, TAG_REGISTRATION_DATE},
-                        new int[]{R.id.commend_content, R.id.commend_date});
+            ListAdapter adapter = new SimpleAdapter(
+                    InconvenienceDetailPostActivity.this, postList, R.layout.item_inconvenience_commend,
+                    new String[]{TAG_CONTENT, TAG_REGISTRATION_DATE},
+                    new int[]{R.id.commend_content, R.id.commend_date});
             commendList.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();

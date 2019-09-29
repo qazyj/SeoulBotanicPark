@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
 
 import java.io.*;
@@ -31,18 +32,18 @@ public class ImagePreviewActivity extends AppCompatActivity {
         Glide.with(this).load(bitmap).into(imageView);
 
         Button backBtn = findViewById(R.id.back_btn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 CameraSearchActivity.bitmap = null; // 이미지 초기화
                 finish();
             }
         });
 
         Button sendBtn = findViewById(R.id.send_btn);
-        sendBtn.setOnClickListener(new View.OnClickListener() {
+        sendBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 PlantAPITask task =
                         new PlantAPITask(ImagePreviewActivity.this, getBase64EncodedImage(bitmap));
                 task.execute();
@@ -50,10 +51,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
         });
 
         Button saveBtn = findViewById(R.id.save_btn);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
-                saveImage();
+            public void onSingleClick(View v) { saveImage();
             }
         });
     }
