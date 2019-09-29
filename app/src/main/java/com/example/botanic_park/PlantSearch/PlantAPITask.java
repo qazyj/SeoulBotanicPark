@@ -33,6 +33,10 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     //private final String PLANT_API_ACCESS_KEY = "QKTJfvdijU5NdNqRLxXm5Kavj0buGcgS98FRvLC8pJ89WaePLG";
     //private final String PLANT_API_ACCESS_KEY = "tMYVgRhGwcyOfxPqiYhRfZe5sjub9ru9mrgyVPEiE7n79MXYeT";
     //private final String PLANT_API_ACCESS_KEY = "wAUVieDY3jKeDzH48jVlnqvicYvz8cbN0fsIDMJEPRc29TxRmf";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
     private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";
@@ -44,7 +48,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     private String image;   // 64bit로 인코딩된 이미지 String
     private JSONArray imageArray;
     private ArrayList<ProbablePlant> probablePlants;
-    private Boolean isOverUseage = false;
+    private Boolean isOverUsage = false;
 
     Context context;
     ProgressDialog dialog;
@@ -95,7 +99,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         dialog.dismiss();
         super.onPostExecute(o);
 
-        if (isOverUseage) {
+        if (isOverUsage) {
             Toast.makeText(context, "식물 검색 API의 사용량을 초과하여 검색할 수 없습니다.", Toast.LENGTH_SHORT).show();
         } else if (o.size() > 0) {
             ArrayList<String> result = new ArrayList<>();
@@ -120,11 +124,27 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
         // API 사용량 체크
         String usageResponse = getUsageInfo();
         try {
-            Object weeklyUsage = new JSONObject(usageResponse).get("used_week");
-            int usageCount = Integer.parseInt(weeklyUsage.toString());
-            if (usageCount >= 20) {
-                isOverUseage = true;
-                return null;
+            Object remainWeek = new JSONObject(usageResponse).get("remaining_week");
+            Object remainTotal = new JSONObject(usageResponse).get("remaining_total");
+
+            // test 키 사용량 초과
+            if(!remainWeek.equals(null)){
+                Log.d("테스트", "테스트키 사용량 체크" );
+                int remainWeekCount = Integer.parseInt(remainWeek.toString());
+                if(remainWeekCount == 0){
+                    isOverUsage = true;
+                    return null;
+                }
+            }
+
+            // 유료 키 사용량 초과
+            if(!remainTotal.equals(null)){
+                Log.d("테스트", "유료키 사용량 체크" );
+                int remainTotalCount = Integer.parseInt(remainTotal.toString());
+                if(remainTotalCount == 0){
+                    isOverUsage = true;
+                    return null;
+                }
             }
 
         } catch (JSONException e) {
