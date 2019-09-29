@@ -110,12 +110,17 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
 
             context.startActivity(intent);
 
+            if(context instanceof ImagePreviewActivity){
+                ((ImagePreviewActivity) context).finish();
+            }
+            /*
             // 이전 창 닫기
             if(context instanceof CameraSearchActivity){
                 ((CameraSearchActivity) context).finish();
             }else if(context instanceof ImagePreviewActivity){
                 ((ImagePreviewActivity) context).finish();
             }
+            */
 
         } else {
             Toast.makeText(context, "이미지를 인식할 수 없습니다.\n" +
