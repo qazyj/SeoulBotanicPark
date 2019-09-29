@@ -96,7 +96,6 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onSingleClick(View v) {
                 finish();
-                cameraSearchActivity.finish();
             }
         });
     }
