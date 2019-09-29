@@ -89,6 +89,11 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
             @Override
             public void onSingleClick(View v) {
                 intent = new Intent(getActivity(), NewsActivity.class);
+                try {           //데이터 껏다 키고 바로누르면 터지는 현상 방지
+                    Thread.sleep(500) ;
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                }
                 checkNewworkBeforeNextActivity(intent);
             }
         });
@@ -96,6 +101,11 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
             @Override
             public void onSingleClick(View v) {
                 intent = new Intent(getActivity(), InconvenienceActivity.class);
+                try {
+                    Thread.sleep(500) ;
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                }
                 checkNewworkBeforeNextActivity(intent);
             }
         });
