@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,6 +34,10 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
 
     public static final String SELECTED_ITEM_KEY = "selected item";
     public static final String SEARCH_WORD_KEY = "search word";
+
+    private static final long MIN_CLICK_INTERVAL=600;
+
+    private long mLastClickTime;
 
     MainActivity mainActivity;
     PlantBookExpandableGridView plantBookGridView;
@@ -139,9 +144,9 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
         return view;
     }
 
-    private View.OnClickListener helpClickListener = new View.OnClickListener() {
+    private View.OnClickListener helpClickListener = new OnSingleClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onSingleClick(View v) {
             // 도움말 띄워줌
             Intent intent = new Intent(getContext(), HelpActivity.class);
             intent.putExtra(HelpActivity.HELP_CODE, HelpActivity.HELP_PLANT_BOOK);
@@ -185,6 +190,16 @@ public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemS
     private GridView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            long currentClickTime= SystemClock.uptimeMillis();
+            long elapsedTime=currentClickTime-mLastClickTime;
+            mLastClickTime=currentClickTime;
+
+            // 중복 클릭인 경우
+            if(elapsedTime<=MIN_CLICK_INTERVAL){
+                return;
+            }
+
             // 아이템 클릭시 상세 페이지로 넘어감
             Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
             intent.putExtra(SELECTED_ITEM_KEY, searchList.get(i));

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,10 @@ import java.util.*;
 public class Fragment_Home extends Fragment {
     private ArrayList<PlantBookItem> plantsToday;
     Calendar calendar;
+
+    private static final long MIN_CLICK_INTERVAL=600;
+
+    private long mLastClickTime;
 
     public Fragment_Home() {
     }
@@ -120,6 +125,16 @@ public class Fragment_Home extends Fragment {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    long currentClickTime= SystemClock.uptimeMillis();
+                    long elapsedTime=currentClickTime-mLastClickTime;
+                    mLastClickTime=currentClickTime;
+
+                    // 중복 클릭인 경우
+                    if(elapsedTime<=MIN_CLICK_INTERVAL){
+                        return;
+                    }
+
                     Intent intent = new Intent(getContext(), DetailPopUpActivity.class);
                     intent.putExtra(Fragment_Plant_Book.SELECTED_ITEM_KEY, plantsToday.get(i));
                     startActivity(intent);

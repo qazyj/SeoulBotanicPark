@@ -20,7 +20,8 @@ import java.util.List;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
-public class PlantBookAdapter extends BaseAdapter {
+public class
+PlantBookAdapter extends BaseAdapter {
     Context context;
     int layout;
     List<PlantBookItem> list;  // item 목록
