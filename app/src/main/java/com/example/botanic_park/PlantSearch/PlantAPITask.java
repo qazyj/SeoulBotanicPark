@@ -34,7 +34,6 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
     //private final String PLANT_API_ACCESS_KEY = "tMYVgRhGwcyOfxPqiYhRfZe5sjub9ru9mrgyVPEiE7n79MXYeT";
     //private final String PLANT_API_ACCESS_KEY = "wAUVieDY3jKeDzH48jVlnqvicYvz8cbN0fsIDMJEPRc29TxRmf";
 
-
     private String API_IDENTIFY_URL = "https://plant.id/api/identify";
     private String API_SUGGESION_URL = "https://plant.id/api/check_identifications";
     private String API_USAGE_URL = "https://api.plant.id/usage_info";
