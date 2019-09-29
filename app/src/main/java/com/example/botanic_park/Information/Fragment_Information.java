@@ -88,7 +88,7 @@ public class Fragment_Information extends Fragment implements View.OnClickListen
         information_news.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                intent = new Intent(getActivity(), WayToComeActivity.class);
+                intent = new Intent(getActivity(), NewsActivity.class);
                 startActivity(intent);
             }
         });
