@@ -267,7 +267,7 @@ public class PlantAPITask extends AsyncTask<Object, Void, ArrayList<ProbablePlan
             outputStream.close();
 
             response = getResponse(conn);
-            Log.d("api 사용량", response);
+            Log.d("api사용량", response);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
