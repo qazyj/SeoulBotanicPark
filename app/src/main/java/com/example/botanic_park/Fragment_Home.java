@@ -1,6 +1,5 @@
 package com.example.botanic_park;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +30,6 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Fragment_Home extends Fragment {

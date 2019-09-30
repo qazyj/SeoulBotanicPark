@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
 import android.view.View;
-import android.widget.ImageView;
 
 import android.widget.TextView;
 import com.example.botanic_park.AppManager;
@@ -18,11 +17,6 @@ import com.example.botanic_park.R;
 
 
 public class InformationUseActivity extends Activity {
-
-    private ImageView imageView;
-    private String imageURL;
-    private String BaseURL;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

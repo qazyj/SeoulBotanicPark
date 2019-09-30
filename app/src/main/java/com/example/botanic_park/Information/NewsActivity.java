@@ -39,6 +39,12 @@ public class NewsActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
+        if(NetworkStatus.getConnectivityStatus(NewsActivity.this)==3) {
+            Toast.makeText(NewsActivity.this, "네트워크가 연결되지 않아 초기화면으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(NewsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         intent = new Intent(getApplicationContext(), WebViewActivity.class);
 
         // AsyncTask 작동시킴(파싱)
