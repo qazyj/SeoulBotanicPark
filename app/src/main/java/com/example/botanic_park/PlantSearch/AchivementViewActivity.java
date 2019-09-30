@@ -1,6 +1,5 @@
 package com.example.botanic_park.PlantSearch;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;

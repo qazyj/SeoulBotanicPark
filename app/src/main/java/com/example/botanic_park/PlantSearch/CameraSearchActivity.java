@@ -15,9 +15,7 @@ import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.botanic_park.AppManager;
-import com.example.botanic_park.OnSingleClickListener;
-import com.example.botanic_park.R;
+import com.example.botanic_park.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -31,7 +29,6 @@ public class CameraSearchActivity extends AppCompatActivity {
 
     private CameraSurfaceView surfaceView;
     private ImageView galleryBtn;
-    private ProgressBar progressBar;
 
     public static Bitmap bitmap;
     private int cameraFacing;  // 카메라 전면,후면 구분
@@ -118,6 +115,7 @@ public class CameraSearchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if(bitmap != null){     // request API
             PlantAPITask task =
                     new PlantAPITask(CameraSearchActivity.this, getBase64EncodedImage(bitmap));

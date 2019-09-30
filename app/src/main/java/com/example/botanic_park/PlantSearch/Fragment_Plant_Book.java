@@ -26,7 +26,6 @@ import io.reactivex.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.regex.Pattern;
 
 public class Fragment_Plant_Book extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_CODE = 2000;

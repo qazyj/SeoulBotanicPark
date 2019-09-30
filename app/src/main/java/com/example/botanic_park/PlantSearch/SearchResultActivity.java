@@ -1,12 +1,9 @@
 package com.example.botanic_park.PlantSearch;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +23,6 @@ import com.example.botanic_park.AppManager;
 import com.example.botanic_park.MainActivity;
 import com.example.botanic_park.OnSingleClickListener;
 import com.example.botanic_park.R;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
