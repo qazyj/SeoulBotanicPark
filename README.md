@@ -1,9 +1,9 @@
 # SeoulBotanicPark
 2019년 서울시 앱 공모전 출품작( 서울식물원 )
-
-<div>
-<img width="match" src="https://user-images.githubusercontent.com/48886941/75045722-2dd09d80-5507-11ea-96f0-c41ac2edfc0f.png">
-</div>
+ 
+ 
+ 
+<img width="match" alt="01" src="https://user-images.githubusercontent.com/48886941/75045722-2dd09d80-5507-11ea-96f0-c41ac2edfc0f.png">
 
 ## 개발환경
 
@@ -52,11 +52,11 @@
 
 ## 화면 및 기능설명
 
-<div style="text-align:center">
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045824-548ed400-5507-11ea-94a0-822d2f9fe1c6.PNG">  
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045830-56589780-5507-11ea-96be-b8a85078b995.PNG">  
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045831-56589780-5507-11ea-956a-7c7823a48e12.PNG">  
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045834-56f12e00-5507-11ea-9608-2685efb22c7e.PNG">  
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045835-5789c480-5507-11ea-9192-e8e566b23978.PNG">  
-<img width="800" src="https://user-images.githubusercontent.com/48886941/75045837-5789c480-5507-11ea-9279-7c5b6d9de60e.PNG">  
-</div>
+
+<img width="777" alt="02" src="https://user-images.githubusercontent.com/48886941/75045824-548ed400-5507-11ea-94a0-822d2f9fe1c6.PNG">
+<img width="777" alt="03" src="https://user-images.githubusercontent.com/48886941/75045830-56589780-5507-11ea-96be-b8a85078b995.PNG">  
+<img width="777" alt="04" src="https://user-images.githubusercontent.com/48886941/75045831-56589780-5507-11ea-956a-7c7823a48e12.PNG">  
+<img width="777" alt="05" src="https://user-images.githubusercontent.com/48886941/75045834-56f12e00-5507-11ea-9608-2685efb22c7e.PNG">  
+<img width="777" alt="06" src="https://user-images.githubusercontent.com/48886941/75045835-5789c480-5507-11ea-9192-e8e566b23978.PNG">  
+<img width="777" alt="07" src="https://user-images.githubusercontent.com/48886941/75045837-5789c480-5507-11ea-9279-7c5b6d9de60e.PNG">  
+
