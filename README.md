@@ -1,6 +1,6 @@
 # SeoulBotanicPark
-![Team](https://img.shields.io/badge/ProjectType-TeamProject-Blue) ![Java](https://img.shields.io/badge/Language-Java-green?logo=java)
-![Android](https://img.shields.io/badge/Tools-AndroidStudio-Red)
+![Team](https://img.shields.io/badge/ProjectType-TeamProject-Blue) ![Java](https://img.shields.io/badge/Language-Java-red?logo=java)
+![Android](https://img.shields.io/badge/Tools-AndroidStudio-green?logo=android)
 
 2019년 서울시 앱 공모전 출품작( 서울식물원 )
  
