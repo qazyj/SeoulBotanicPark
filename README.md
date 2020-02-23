@@ -1,11 +1,10 @@
 # SeoulBotanicPark
-
 2019년 서울시 앱 공모전 출품작( 서울식물원 )
  
 <img width="match" alt="01" src="https://user-images.githubusercontent.com/48886941/75045722-2dd09d80-5507-11ea-96f0-c41ac2edfc0f.png">
 
 ## 개발환경
-![Java](https://img.shields.io/badge/Language-Java-brown?logo=java) ![Android](https://img.shields.io/badge/Tools-AndroidStudio-blown?logo=android)
+![Java](https://img.shields.io/badge/Language-Java-brown?logo=java) ![Android](https://img.shields.io/badge/Tools-AndroidStudio-blown?logo=android) ![Apache](https://img.shields.io/github/license/alibaba/dubbo.svg)
 
 ## Dependencies
 
