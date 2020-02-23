@@ -5,7 +5,9 @@
  
 <img width="match" alt="01" src="https://user-images.githubusercontent.com/48886941/75045722-2dd09d80-5507-11ea-96f0-c41ac2edfc0f.png">
 
+
 ## 개발환경
+
 
 ## Dependencies
 
@@ -46,8 +48,9 @@
     implementation 'androidx.viewpager:viewpager:1.0.0'
     
     implementation files('libs/android-zoom-view.jar')//줌뷰
-    implementation 'me.relex:circleindicator:1.2.2' 
-   
+    implementation 'me.relex:circleindicator:1.2.2'
+
+
 
 
 ## 화면 및 기능설명
