@@ -1,12 +1,12 @@
 # SeoulBotanicPark
-![Team](https://img.shields.io/badge/ProjectType-TeamProject-Blue) ![Java](https://img.shields.io/badge/Language-Java-red?logo=java)
-![Android](https://img.shields.io/badge/Tools-AndroidStudio-green?logo=android)
 
 2019년 서울시 앱 공모전 출품작( 서울식물원 )
  
 <img width="match" alt="01" src="https://user-images.githubusercontent.com/48886941/75045722-2dd09d80-5507-11ea-96f0-c41ac2edfc0f.png">
 
 ## 개발환경
+![Team](https://img.shields.io/badge/ProjectType-TeamProject-Blue) ![Java](https://img.shields.io/badge/Language-Java-red?logo=java)
+![Android](https://img.shields.io/badge/Tools-AndroidStudio-green?logo=android)
 
 ## Dependencies
 
